@@ -1,0 +1,34 @@
+Team Name:
+Commit-ment Issues
+
+GitHub URL:
+https://github.com/CSE370HCI/commitment
+
+ZenHub URL:
+https://app.zenhub.com/workspaces/commit-ment-issues-62055460adb10e00133a24ef/board
+
+Alternate Dispute Resolution Approach:
+Roll a dice and whoever has the highest number wins.
+
+Project Description:
+StudySeeker is a web app that allows students to find the best match for a potential
+study partner. Instead of only being able to see a name and email like a
+typical Piazza post, StudySeeker allows you to view all the relevant info about
+a potential study partner at a glance. Students can customize their profile to have
+details like their major, classes taken, interests, and more in order to find
+the most compatible match for a study buddy. After their study session, students
+can also leave a detailed review to let others know how great or not-so-great
+they were as a study buddy. On the homepage, students can also see featured users
+that have the top rating across the site. 
+
+Typical User:
+Our target user for StudySeeker are college students taking any course from any school.
+These college students will be looking for another student to study with, usually one
+that is taking the same class. The student would create an account, fill out their
+profile, and begin browsing for a study buddy. The student can utilize the search
+and filter feature to narrow down users with the desired traits. The student can
+filter for users taking the same classes, users who have previously taken certain
+classes, a minimum rating, and more. When the student has found their desired
+study partner, they can then connect with a two-way handshake to automatically
+exchange contact information. When they have completed their study session, they
+have the option to rate each other and leave a detailed review for others to see.
