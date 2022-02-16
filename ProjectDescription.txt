@@ -7,6 +7,9 @@ https://github.com/CSE370HCI/commitment
 ZenHub URL:
 https://app.zenhub.com/workspaces/commit-ment-issues-62055460adb10e00133a24ef/board
 
+Figma URL:
+https://www.figma.com/file/QVP0FV2JZDv4nsMHetIabX/StudySeeker?node-id=0%3A1
+
 Alternate Dispute Resolution Approach:
 Roll a dice and whoever has the highest number wins.
 
