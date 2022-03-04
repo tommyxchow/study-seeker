@@ -3,6 +3,7 @@ import "./App.css";
 
 import personIcon from "./assets/Ibn_Khaldun.png";
 import starIcon from "./assets/star1.png";
+import litStarIcon from "./assets/star.png";
 import personIcon2 from "./assets/group.png";
 import Navigationbar from "./Component/Navigationbar.jsx";
 
@@ -65,7 +66,7 @@ export default class ConnectionRequest extends React.Component{
                                     <ul className="table">
                                     <li><img src={name[2]} alt={name[1]} title={name[1]} className="person-image"/></li> 
                                     <div className="text-center"><li> {name[1]}</li>
-                                    <li><img src={starIcon} className="star"/><img src={starIcon} className="star"/><img src={starIcon} className="star"/><img src={starIcon} className="star"/><img src={starIcon} className="star"/></li></div>
+                                    <li><img src={litStarIcon} className="star"/><img src={litStarIcon} className="star"/><img src={litStarIcon} className="star"/><img src={litStarIcon} className="star"/><img src={starIcon} className="star"/></li></div>
                                     </ul>
                                     </td></tr>
 
@@ -85,6 +86,13 @@ export default class ConnectionRequest extends React.Component{
                      </div>
 
                  </header>
+
+                 <div className="connections">
+                 <h4 className="text-font"> My Connections</h4>
+
+
+
+                 </div>
             </div>
         );
     }
