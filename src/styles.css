@@ -95,22 +95,6 @@
   width: 108px;
 }
 
-.lisa-moan {
-  height: 100px;
-  left: 0px;
-  position: absolute;
-  top: 0px;
-  width: 100px;
-}
-
-.ellipse-10 {
-  height: 100px;
-  width: 100px;
-  position: absolute;
-  left: 100px;
-  top: 0px;
-}
-
 .ibn-khaldun {
   left: 20px;
   letter-spacing: 0;
@@ -326,6 +310,13 @@
   position: relative;
 }
 
+.ellipse-10 {
+  height: 105px;
+  margin-left: 63px;
+  object-fit: cover;
+  width: 100px;
+}
+
 .overlap-group-container-1 {
   align-items: center;
   display: flex;
@@ -505,7 +496,7 @@
 }
 
 .ellipse-11 {
-  height: 100px;
+  height: 105px;
   object-fit: cover;
   width: 100px;
 }
