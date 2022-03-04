@@ -1,4 +1,6 @@
 /* For gods sake, please replace this with styles that are less horrifying than these */
+@import url('https://fonts.googleapis.com/css2?family=Exo:ital@0;1&display=swap');
+
 .App {
   text-align:start;
 }
@@ -188,6 +190,7 @@
   top:0px;
   height:100%;
   width:300px;
+  font-family: 'Exo', sans-serif;
 
   /* internally to this container, we want to use flex positioning of the menu elements */
   display:flex;
@@ -294,8 +297,11 @@
 /*my code*/
 
 .text-font{
-  font-family:cursive;
-  font-style: italic;
+  font-family: 'Exo', sans-serif;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 36px;
+  line-height: 48px;
 }
 
 .reject-button{
@@ -369,4 +375,19 @@
 
 .center{
   align-self: center;
+}
+
+.connections{
+  position: absolute;
+  width: 263px;
+  height: 48px;
+  left: 373px;
+  top: 514px;
+
+  font-family: Exo;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 36px;
+  line-height: 48px;
+
 }
