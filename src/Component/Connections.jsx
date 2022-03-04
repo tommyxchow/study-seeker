@@ -1,17 +1,17 @@
 import React from "react";
-import "./App.css";
-import "./styles.css";
-import line9 from "./assets/line-9-16@2x.svg";
-import line13 from "./assets/line-13-1@2x.svg";
-import line14 from "./assets/line-14-1@2x.svg";
-import ellipse10 from "./assets/ellipse-10-1@2x.png";
-import ellipse9 from "./assets/ellipse-9-3@1x.png";
-import ellipse11 from "./assets/ellipse-11-1@2x.png";
-import maskgroup3 from "./assets/mask-group-3@2x.svg";
-import maskgroup1 from "./assets/mask-group-4@2x.svg";
-import litstar from "./assets/star-38-1@2x.svg";
-import unlitstar from "./assets/star-48-3@2x.svg";
-import LisaMoan from "./assets/person-viewing-3@2x.png";
+import "../App.css";
+import "../styles.css";
+import line9 from "../assets/line-9-16@2x.svg";
+import line13 from "../assets/line-13-1@2x.svg";
+import line14 from "../assets/line-14-1@2x.svg";
+import ellipse10 from "../assets/ellipse-10-1@2x.png";
+import ellipse9 from "../assets/ellipse-9-3@1x.png";
+import ellipse11 from "../assets/ellipse-11-1@2x.png";
+import maskgroup3 from "../assets/mask-group-3@2x.svg";
+import maskgroup1 from "../assets/mask-group-4@2x.svg";
+import litstar from "../assets/star-38-1@2x.svg";
+import unlitstar from "../assets/star-48-3@2x.svg";
+import LisaMoan from "../assets/person-viewing-3@2x.png";
 
 
 function App() {
@@ -91,8 +91,8 @@ function MobileConnections(props) {
               <img className="line-14" src={line14} alt="line" />
             </div>
             <div className="flex-row-1">
-              <img className="lisa-moan" src={LisaMoan} alt="img of Lisa Moan"/>
-              <img className="ellipse-10" src={ellipse10} alt="img of Jay Hou"/>
+              <img className="LisaMoan" src={LisaMoan} alt="img of Lisa Moan" width="100" height="100"/>
+              <img className="ellipse-10" src={ellipse10} alt="img of Jay Hou" width="500" height="600"/>
             </div>
             <div className="overlap-group-container-1">
               <div className="overlap-group4">
