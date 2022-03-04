@@ -13,11 +13,11 @@ class Navigationbar extends React.Component {
     return (
         <div className="sidenav">                      
         <ul id="side-menu-items">
-            <li><h3>Home</h3></li>
-            <li><h3>Search</h3></li>
-            <li><h3>My Profile</h3></li>
-            <li><h3>My Groups</h3></li>
-            <li><h3>My Connections</h3></li>
+            <li><h className="home">Home</h></li>
+            <li><h className="search">Search</h></li>
+            <li><h className="profile">Profile</h></li>
+            <li><h className="groups">Groups</h></li>
+            <li><h className="navconnections">Connections</h></li>
         </ul>
      </div>
   );
