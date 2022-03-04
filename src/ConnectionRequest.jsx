@@ -6,6 +6,10 @@ import starIcon from "./assets/star1.png";
 import litStarIcon from "./assets/star.png";
 import personIcon2 from "./assets/group.png";
 import Navigationbar from "./Component/Navigationbar.jsx";
+import lisaMoan from "./assets/lisamoan.png";
+import monaLia from "./assets/monalia.png";
+import jayHou from "./assets/jayhou.png";
+import tommy from "./assets/tommy.png";
 
 export default class ConnectionRequest extends React.Component{
     constructor(props) {
@@ -54,9 +58,9 @@ export default class ConnectionRequest extends React.Component{
                     <Navigationbar/>                            {/*Navigation bar*/} 
 
                     <div className="fixed">
-                    <h3 className="text-font">Connection Requests</h3>
+                    <h className="requests">Connection Requests</h>
+                    <div className="line1"></div>
 
-                     
                      {this.state.names.map((name) => {                //Connection Requests
                          return(<p key={name}>
                              <div>
@@ -82,17 +86,20 @@ export default class ConnectionRequest extends React.Component{
                          </p>)
                      })}
 
-
+                    <h className="connections">Connections</h>
+                    <div className="line2"> </div>
+                    <img className="lisa-moan" img src={lisaMoan} alt="img of Lisa Moan"/> 
+                    <text className="lisa-moan-text">Lisa Moan</text>
+                    <img className="star" img src={litStarIcon} alt="star"/>
+                    <img className="mona-lia" img src={monaLia} alt="img of Mona Lia" />
+                    <img className="jay-hou" img src={jayHou} alt="img of Jay Hou"/> 
+                    <img className="tommy" img src={tommy} alt="img of Tommy"/>
+                    
                      </div>
+ 
 
                  </header>
 
-                 <div className="connections">
-                 <h4 className="text-font"> My Connections</h4>
-
-
-
-                 </div>
             </div>
         );
     }

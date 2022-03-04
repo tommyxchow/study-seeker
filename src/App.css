@@ -2,7 +2,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Exo:ital@0;1&display=swap');
 
 .App {
-  text-align:start;
+  text-align:flex=start;
 }
 
 .App-logo {
@@ -185,11 +185,13 @@
 .sidenav{
   /* need to specify some position other than static, so height can apply.
      Fixed works since it will stay fixed to the side - 0 from both left and top. */
-  position:fixed;
-  left:0px;
-  top:0px;
-  height:100%;
-  width:300px;
+  position: absolute;
+  width: 335px;
+  height: 1024px;
+  left: 0px;
+  top: 0px;
+     
+  filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
   font-family: 'Exo', sans-serif;
 
   /* internally to this container, we want to use flex positioning of the menu elements */
@@ -199,7 +201,7 @@
   justify-content: flex-start;
   color: white;
 
-  background-color: rgb(144, 118, 113);
+  background-color: rgb(144, 118, 113, 1);
 }
 
 .tag-active{
@@ -296,12 +298,24 @@
 
 /*my code*/
 
-.text-font{
-  font-family: 'Exo', sans-serif;
+.requests{
+  /* Connection Requests */
+
+  position: absolute;
+  width: 347px;
+  height: 48px;
+  left: 372px;
+  top: 42px;
+
+  font-family: Exo;
   font-style: normal;
   font-weight: 500;
   font-size: 36px;
   line-height: 48px;
+
+  /* identical to box height */
+
+  color: #000000;
 }
 
 .reject-button{
@@ -377,7 +391,129 @@
   align-self: center;
 }
 
+.navconnections{
+  /* My Connections */
+
+  position: absolute;
+  left: 9.85%;
+  right: 10.75%;
+  top: 28.22%;
+  bottom: 67.09%;
+
+  font-family: Exo;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 36px;
+  line-height: 48px;
+
+  /* identical to box height */
+
+  color: #FFFFFF;
+}
+
+.line1{
+  position: absolute;
+  width: 1015px;
+  height: 0px;
+  left: 373px;
+  top: 91px;
+
+  border: 1px solid #000000;
+}
+
+
+
+.line2{
+  position: absolute;
+  width: 1015px;
+  height: 0px;
+  left: 373px;
+  top: 562px;
+
+  border: 1px solid #000000;
+}
+
+.home{
+  position: absolute;
+  left: 9.85%;
+  right: 60.6%;
+  top: 3.61%;
+  bottom: 91.7%;
+
+  font-family: Exo;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 36px;
+  line-height: 48px;
+
+  /* identical to box height */
+
+  color: #FFFFFF;
+}
+
+.search{
+  /* Search */
+  
+  position: absolute;
+  left: 9.85%;
+  right: 55.82%;
+  top: 9.77%;
+  bottom: 85.55%;
+
+  font-family: Exo;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 36px;
+  line-height: 48px;
+
+  /* identical to box height */
+
+  color: #FFFFFF;
+}
+
+.profile{
+  /* My Profile */
+
+  position: absolute;
+  left: 9.85%;
+  right: 38.21%;
+  top: 15.92%;
+  bottom: 79.39%;
+
+  font-family: Exo;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 36px;
+  line-height: 48px;
+
+  /* identical to box height */
+
+  color: #FFFFFF;
+}
+
+.groups{
+  /* My Groups */
+
+  position: absolute;
+  left: 9.85%;
+  right: 35.82%;
+  top: 22.07%;
+  bottom: 73.24%;
+
+  font-family: Exo;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 36px;
+  line-height: 48px;
+
+  /* identical to box height */
+
+  color: #FFFFFF;
+}
+
 .connections{
+  /* My Connections */
+
   position: absolute;
   width: 263px;
   height: 48px;
@@ -390,4 +526,71 @@
   font-size: 36px;
   line-height: 48px;
 
+  /* identical to box height */
+
+  color: #000000;
+}
+
+.lisa-moan{
+  position: absolute;
+  width: 100px;
+  height: 100px;
+  left: 374px;
+  top: 590px;
+}
+
+.lisa-moan-text{
+  /* Lisa Moan */
+
+  position: absolute;
+  left: 26.25%;
+  right: 67.92%;
+  top: 67.97%;
+  bottom: 29.69%;
+
+  font-family: Exo;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 24px;
+
+  /* identical to box height */
+
+  color: #000000;
+}
+
+.star{
+  position: absolute;
+  width: 15px;
+  height: 15px;
+  left: 382px;
+  top: 720px;
+
+  box-sizing: border-box;
+}
+
+.jay-hou{
+  position: absolute;
+  width: 100px;
+  height: 100px;
+  left: 537px;
+  top: 590px;
+}
+
+
+.mona-lia{
+  position: fixed;
+  width: 100px;
+  height: 100px;
+  left: 374px;
+  top: 746px;
+
+}
+
+.tommy{
+  position: fixed;
+  width: 100px;
+  height: 100px;
+  left: 539px;
+  top: 746px;
 }
