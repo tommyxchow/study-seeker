@@ -8,14 +8,14 @@
 }
 
 .App-header {
-  background-color: #282c34;
+  background-color: #FFFFFF;
   min-height: 100vh;
   display: flex;
   flex-direction: row;
   align-items: flex-center;
   justify-content: center;
   font-size: calc(10px + 2vmin);
-  color: white;
+  color: #000;
 }
 
 .deletePost{
@@ -287,4 +287,141 @@
   color: black;
   text-decoration: none;
   cursor: pointer;
+}
+
+/* CSS Tommy */
+
+.profile {
+  position: static;
+}
+
+.profile-header {
+  position: static;
+
+}
+
+.profile-name {
+  z-index: 10;
+  position: absolute;
+  left: 400px;
+  top: 220px;
+}
+
+.edit-button {
+  background-color: transparent;
+  border: 0;
+}
+
+
+
+.inline-icon {
+  vertical-align: bottom;
+}
+
+.setting-icon{
+  width:20px;
+  height:20px;
+  z-index: 10;
+  position: absolute;
+  left: 140px;
+  top: 270px;
+}
+
+.profile-picture{
+  margin-left: 7rem;
+  width:190px;
+  height:190px;
+  border: 5px solid #FFFFFF;
+  border-radius: 100%;
+  margin-right: 20px;
+  z-index: 10;
+  position: absolute;
+  left: 70px;
+  top: 180px;
+}
+
+.background-picture{
+  width: 1162px;
+  height: 250px;
+
+  top: 0px;
+  left: 100px;
+  position: absolute;
+}
+
+.profile-data-set{
+  position: absolute;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  margin-left: 400px;
+  top: 325px;
+}
+
+.user-data{
+  position: relative;
+  top: 250px;
+}
+
+.profile-data-icon{
+  width:30px;
+  height:30px;
+  margin-right: 20px;
+  margin-left: 20px;
+}
+
+.profile-data-set label{
+  flex: 0 0 33.333333%;
+  padding-bottom: 1rem;
+}
+
+.profile-data-set-extend{
+  flex-grow: 4;
+}
+.profile-rating{
+  position: absolute;
+  width:25px;
+  height:25px;
+  top: 45%;
+  left: 46%; 
+}
+
+.profile-rating-1{
+  position: absolute;
+  width:25px;
+  height:25px;
+  top: 45%;
+  left: 46%; 
+}
+
+.profile-rating-2{
+  position: absolute;
+  width:25px;
+  height:25px;
+  top: 45%;
+  left: 49%; 
+}
+
+.profile-rating-3{
+  position: absolute;
+  width:25px;
+  height:25px;
+  top: 45%;
+  left: 52%; 
+}
+
+.profile-rating-4{
+  position: absolute;
+  width:25px;
+  height:25px;
+  top: 45%;
+  left: 55%; 
+}
+
+.profile-rating-5{
+  position: absolute;
+  width:25px;
+  height:25px;
+  top: 45%;
+  left: 58%; 
 }

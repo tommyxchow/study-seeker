@@ -1,5 +1,15 @@
 import React from "react";
 import "../App.css";
+import gear from "../assets/gear.png"
+import pp from "../assets/temp_profilepic.jpg"
+import bgp from "../assets/background.jpg"
+import discord from "../assets/discord.png"
+import email from "../assets/email.png"
+import year from "../assets/goal.png"
+import transcript from "../assets/transcript.png"
+import major from "../assets/education.png"
+import star from "../assets/star.png"
+import { string } from "prop-types";
 
 // The Profile component shows data from the user table.  This is set up fairly generically to allow for you to customize
 // user data by adding it to the attributes for each user, which is just a set of name value pairs that you can add things to
@@ -16,16 +26,29 @@ export default class Profile extends React.Component {
       firstname: "",
       lastname: "",
       favoritecolor: "",
-      responseMessage: ""
+      responseMessage: "",
       // NOTE : if you wanted to add another user attribute to the profile, you would add a corresponding state element here
+      profilePicture: "",
+      backgroundPicture: "",
+      rating: "",
+      major: "",
+      year: "",
+      academicStanding: "",
+      discord: "",
+      email: "",
+      privacy: "",
+      year: "",
+      edit: false
     };
     this.fieldChangeHandler.bind(this);
+
   }
 
   // This is the function that will get called every time we change one of the fields tied to the user data source.
   // it keeps the state current so that when we submit the form, we can pull the value to update from the state.  Note that
   // we manage multiple fields with one function and no conditional logic, because we are passing in the name of the state
   // object as an argument to this method.  
+
   fieldChangeHandler(field, e) {
     console.log("field change");
     this.setState({
@@ -58,10 +81,21 @@ export default class Profile extends React.Component {
               // IMPORTANT!  You need to guard against any of these values being null.  If they are, it will
               // try and make the form component uncontrolled, which plays havoc with react
               username: result.attributes.username || "",
-              firstname: result.attributes.firstName || "",
-              lastname: result.attributes.lastName || "",
-              favoritecolor: result.attributes.favoritecolor || ""
-
+              firstname: result.attributes.firstName || "Swastik",
+              lastname: result.attributes.lastName || "Naik",
+              favoritecolor: result.attributes.favoritecolor || "",
+              // new attributes
+              major: result.attributes.major || "Major",
+              year: result.attributes.year || "Year",
+              academicStanding: result.attributes.academicStanding || "Standing",
+              discord: result.attributes.discord || "Discord",
+              email: result.attributes.email || "Email",
+              privacy: result.attributes.privacy || "Everyone",
+              profilePicture: result.attributes.profilePicture || "",
+              backgroundPicture: result.attributes.backgroundPicture || "",
+              rating: result.attributes.rating || "0",
+              year: result.attributes.year || "Year",
+              edit: false
             });
           }
           }
@@ -94,7 +128,19 @@ export default class Profile extends React.Component {
           username: this.state.username,
           firstName: this.state.firstname,
           lastName: this.state.lastname,
-          favoritecolor: this.state.favoritecolor
+          favoritecolor: this.state.favoritecolor,
+          
+          // new attributes
+          major: this.state.major,
+          year: this.state.year,
+          academicStanding: this.state.academicStanding,
+          discord: this.state.discord,
+          email: this.state.email,
+          privacy: this.state.privacy,
+          profilePicture: this.state.profilePicture,
+          backgroundPicture: this.state.backgroundPicture,
+          rating: this.state.backgroundPicture,
+          year: this.state.year
         }
       })
     })
@@ -116,44 +162,185 @@ export default class Profile extends React.Component {
   // as you type them.
   render() {
     return (
-      <form onSubmit={this.submitHandler} className="profileform">
-        <label>
-          Username
-          <input
-            type="text"
-            onChange={e => this.fieldChangeHandler("username", e)}
-            value={this.state.username}
-          />
-        </label>
-        <label>
-          First Name
-          <input
-            type="text"
-            onChange={e => this.fieldChangeHandler("firstname", e)}
-            value={this.state.firstname}
-          />
-        </label>
-        <label>
-          Last Name
-          <input
-            type="text"
-            onChange={e => this.fieldChangeHandler("lastname", e)}
-            value={this.state.lastname}
-          />
-        </label>
-        <label>
-          Favorite Color
-          <input
-            type="text"
-            onChange={e => this.fieldChangeHandler("favoritecolor", e)}
-            value={this.state.favoritecolor}
-          />
-        </label>
-        <input type="submit" value="submit" />
-        <p>Username is : {this.state.username}</p>
-        <p>Firstname is : {this.state.firstname}</p>
-        {this.state.responseMessage}
-      </form>
+      <div className="profile">
+        <div className="profile-header">
+        <img
+              src={bgp}
+              className="background-picture"
+              alt="settingsButton"/>
+            <button
+                className="edit-button"
+                onClick={() => this.setState({ edit: !this.state.edit })}>
+                <img
+                  src={gear}
+                  className="setting-icon"
+                  alt="settingsButton"/>
+            </button>
+            <img
+                  src={pp}
+                  className="profile-picture"
+                  alt="settingsButton"
+                />
+            <h1 className="profile-name">{this.state.firstname}</h1>
+            <img
+            src={star}
+            className="profile-rating-1"
+            alt="star"/> 
+            <img
+            src={star}
+            className="profile-rating-2"
+            alt="star"/> 
+            <img
+            src={star}
+            className="profile-rating-3"
+            alt="star"/> 
+            <img
+            src={star}
+            className="profile-rating-4"
+            alt="star"/> 
+            <img
+            src={star}
+            className="profile-rating-5"
+            alt="star"/> 
+        {this.state.edit ? (
+        <form className="profile-data-set" onSubmit={this.submitHandler}>  
+          <label>
+          <img
+              src={major}
+              className="profile-data-icon"
+              alt="majorIcon"/>
+            <input
+              type="text"
+              onChange={e => this.fieldChangeHandler("major", e)}
+              value={this.state.major}
+            />
+          </label>
+          <label>
+          <img
+              src={year}
+              className="profile-data-icon"
+              alt="majorIcon"/>
+            <input
+              type="text"
+              onChange={e => this.fieldChangeHandler("year", e)}
+              value={this.state.year}
+            />
+          </label>
+          <label>
+          <img
+              src={transcript}
+              className="profile-data-icon"
+              alt="majorIcon"/>
+            <input
+              type="text"
+              onChange={e => this.fieldChangeHandler("academicStanding", e)}
+              value={this.state.academicStanding}
+            />
+          </label>
+          <label>
+          <img
+              src={discord}
+              className="profile-data-icon"
+              alt="majorIcon"/>
+            <input
+              type="text"
+              onChange={e => this.fieldChangeHandler("discord", e)}
+              value={this.state.discord}
+            />
+          </label>
+          <label className="profile-data-set-extend">
+          <img
+              src={email}
+              className="profile-data-icon"
+              alt="majorIcon"/>
+            <input
+              type="text"
+              onChange={e => this.fieldChangeHandler("email", e)}
+              value={this.state.email}
+            />
+          </label>
+          <label>
+          <img
+              src={major}
+              className="profile-data-icon"
+              alt="majorIcon"/>
+            <input
+              type="text"
+              onChange={e => this.fieldChangeHandler("privacy", e)}
+              value={this.state.privacy}
+            />
+          </label>
+          <label>
+          <img
+              src={major}
+              className="profile-data-icon"
+              alt="majorIcon"/>
+            <input
+              type="text"
+              onChange={e => this.fieldChangeHandler("year", e)}
+              value={this.state.year}
+            />
+            </label>
+            <label>
+            <input
+              type="text"
+              onChange={e => this.fieldChangeHandler("year", e)}
+              value={this.state.year}
+            />
+          </label>
+          <label>
+            <input type="submit" value="submit" />
+          </label>
+        </form>
+        ) : (
+        <div className="profile-data-set">
+            <label>
+            <img
+              src={major}
+              className="profile-data-icon"
+              alt="majorIcon"/>
+            {this.state.major}
+            </label>
+            <label><img
+              src={year}
+              className="profile-data-icon"
+              alt="majorIcon"/>
+              {this.state.year}
+            </label>
+            <label>
+            <img
+              src={transcript}
+              className="profile-data-icon"
+              alt="majorIcon"/>
+            {this.state.academicStanding}
+            </label>
+            <label><img
+              src={discord}
+              className="profile-data-icon"
+              alt="majorIcon"/>
+            {this.state.discord}
+            </label>
+            <label>
+            <img
+              src={email}
+              className="profile-data-icon"
+              alt="majorIcon"/>
+            {this.state.email}
+            </label>
+        </div>)}
+        </div>
+        <div className="user-data">
+          <div>
+            <h2>Current Classes</h2>
+          </div>
+          <div>
+            <h2>Completed Classes</h2>
+          </div>
+          <div>
+            <h2>Reviews</h2>
+          </div>
+          </div>
+      </div>
     );
   }
 }
