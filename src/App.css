@@ -349,18 +349,19 @@
   position: absolute;
 }
 
+
+.user-data{
+  position: relative;
+  top: 250px;
+}
+
 .profile-data-set{
   position: absolute;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  margin-left: 400px;
-  top: 325px;
-}
-
-.user-data{
-  position: relative;
-  top: 250px;
+  margin-left: 30%;
+  top: 53%;
 }
 
 .profile-data-icon{
@@ -378,6 +379,26 @@
 .profile-data-set-extend{
   flex-grow: 4;
 }
+
+table{
+  border-start-end-radius: 10%;
+}
+
+td {
+  text-align: left;
+  padding-bottom: 4%;
+  
+}
+
+.profile-data-icon-element{
+  padding-left: 3%;
+}
+.profile-data-text-element{
+  padding-left: 2%;
+  vertical-align: top;
+  width: 150px;
+}
+
 .profile-rating{
   position: absolute;
   width:25px;
@@ -425,3 +446,4 @@
   top: 45%;
   left: 58%; 
 }
+

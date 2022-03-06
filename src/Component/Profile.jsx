@@ -294,39 +294,59 @@ export default class Profile extends React.Component {
         </form>
         ) : (
         <div className="profile-data-set">
-            <label>
-            <img
+        <table>
+          <tr>
+            <td className="profile-data-icon-element">
+              <img
               src={major}
               className="profile-data-icon"
               alt="majorIcon"/>
-            {this.state.major}
-            </label>
-            <label><img
+            </td>
+            <td className="profile-data-text-element">
+              <span>
+                {this.state.major}
+                </span>
+            </td>
+            <td className='profile-data-icon-element'>
+              <img
               src={year}
               className="profile-data-icon"
               alt="majorIcon"/>
-              {this.state.year}
-            </label>
-            <label>
-            <img
+            </td>
+            <td className="profile-data-text-element">
+              <span>{this.state.year}</span>
+            </td>
+            <td className="profile-data-icon-element">
+              <img
               src={transcript}
               className="profile-data-icon"
               alt="majorIcon"/>
-            {this.state.academicStanding}
-            </label>
-            <label><img
+            </td>
+            <td className="profile-data-text-element">
+              <span>{this.state.academicStanding}</span>
+            </td>
+          </tr>
+          <tr>
+            <td className="profile-data-icon-element">
+              <img
               src={discord}
               className="profile-data-icon"
               alt="majorIcon"/>
-            {this.state.discord}
-            </label>
-            <label>
-            <img
+            </td>
+            <td className="profile-data-text-element">
+              <span>{this.state.discord}</span>
+            </td>
+            <td className="profile-data-icon-element">
+              <img
               src={email}
               className="profile-data-icon"
               alt="majorIcon"/>
-            {this.state.email}
-            </label>
+            </td>
+            <td colSpan={3} className="profile-data-text-element">  
+              <span >{this.state.email}</span>
+            </td>
+              </tr>
+            </table>
         </div>)}
         </div>
         <div className="user-data">
