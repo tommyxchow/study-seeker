@@ -9,6 +9,8 @@ import year from "../assets/goal.png"
 import transcript from "../assets/transcript.png"
 import major from "../assets/education.png"
 import star from "../assets/star.png"
+import privacy from "../assets/privacy.png"
+import password from "../assets/password.png"
 import { string } from "prop-types";
 
 // The Profile component shows data from the user table.  This is set up fairly generically to allow for you to customize
@@ -167,7 +169,7 @@ export default class Profile extends React.Component {
         <img
               src={bgp}
               className="background-picture"
-              alt="settingsButton"/>
+              alt="backgroundPicture"/>
             <button
                 className="edit-button"
                 onClick={() => this.setState({ edit: !this.state.edit })}>
@@ -179,7 +181,7 @@ export default class Profile extends React.Component {
             <img
                   src={pp}
                   className="profile-picture"
-                  alt="settingsButton"
+                  alt="profilePicture"
                 />
             <h2 className="profile-name">{this.state.firstname}</h2>
             <img
@@ -251,7 +253,7 @@ export default class Profile extends React.Component {
               <img
               src={discord}
               className="profile-data-icon"
-              alt="majorIcon"/>
+              alt="discordIcon"/>
             </td>
             <td className="profile-data-edit-input">
               <input
@@ -264,7 +266,7 @@ export default class Profile extends React.Component {
               <img
               src={email}
               className="profile-data-icon"
-              alt="majorIcon"/>
+              alt="emailIcon"/>
             </td>
             <td colSpan={3} className="profile-data-edit-input">
               <input
@@ -276,9 +278,9 @@ export default class Profile extends React.Component {
           </tr>
           <tr>
             <td className="profile-data-edit-icon"><img
-              src={major}
+              src={privacy}
               className="profile-data-icon"
-              alt="majorIcon"/>
+              alt="privacyIcon"/>
             </td>
             <td className="profile-data-edit-input" ><input
               type="text"
@@ -288,21 +290,21 @@ export default class Profile extends React.Component {
             </td>
             <td className="profile-data-edit-icon">
             <img
-              src={major}
+              src={password}
               className="profile-data-icon"
-              alt="majorIcon"/>
+              alt="passwordIcon"/>
             </td>
             <td colSpan={3} className="profile-data-edit-input">
             <input
               type="text"
               onChange={e => this.fieldChangeHandler("year", e)}
-              value={this.state.year}
+              value={"New Password"}
               className="passwordInput"
             />
             <input
               type="text"
               onChange={e => this.fieldChangeHandler("year", e)}
-              value={this.state.year}
+              value={'Repeat Password'}
               className="passwordInput"
             />
             </td>
@@ -343,7 +345,7 @@ export default class Profile extends React.Component {
               <img
               src={year}
               className="profile-data-icon"
-              alt="majorIcon"/>
+              alt="yearIcon"/>
             </td>
             <td className="profile-data-text-element">
               <span>{this.state.year}</span>
@@ -352,7 +354,7 @@ export default class Profile extends React.Component {
               <img
               src={transcript}
               className="profile-data-icon"
-              alt="majorIcon"/>
+              alt="transcriptIcon"/>
             </td>
             <td className="profile-data-text-element">
               <span>{this.state.academicStanding}</span>
@@ -363,7 +365,7 @@ export default class Profile extends React.Component {
               <img
               src={discord}
               className="profile-data-icon"
-              alt="majorIcon"/>
+              alt="discordIcon"/>
             </td>
             <td className="profile-data-text-element">
               <span>{this.state.discord}</span>
@@ -372,7 +374,7 @@ export default class Profile extends React.Component {
               <img
               src={email}
               className="profile-data-icon"
-              alt="majorIcon"/>
+              alt="emailIcon"/>
             </td>
             <td colSpan={3} className="profile-data-text-element">  
               <span >{this.state.email}</span>
