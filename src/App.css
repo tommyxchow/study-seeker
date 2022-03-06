@@ -1,4 +1,8 @@
 /* For gods sake, please replace this with styles that are less horrifying than these */
+
+@import url('http://fonts.googleapis.com/css?family=Roboto');
+
+
 .App {
   text-align: center;
 }
@@ -301,6 +305,8 @@
 }
 
 .profile-name {
+  font-size: 40px;
+  font-weight: normal;
   z-index: 10;
   position: absolute;
   left: 400px;
@@ -470,5 +476,10 @@ input{
   height:25px;
   top: 45%;
   left: 58%; 
+}
+
+body{
+  src: url('https://fonts.googleapis.com/css?family=Roboto');
+  font-family: Roboto;
 }
 

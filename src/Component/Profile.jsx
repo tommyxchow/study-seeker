@@ -181,7 +181,7 @@ export default class Profile extends React.Component {
                   className="profile-picture"
                   alt="settingsButton"
                 />
-            <h1 className="profile-name">{this.state.firstname}</h1>
+            <h2 className="profile-name">{this.state.firstname}</h2>
             <img
             src={star}
             className="profile-rating-1"
@@ -311,7 +311,11 @@ export default class Profile extends React.Component {
             <td></td>
             <td></td>
             <td></td>
-            <td><input type="button" value="Cancel"/></td>
+            <td>
+              <input onClick={() => this.setState({ edit: !this.state.edit })}
+                type="button"
+                value="Cancel"/>
+              </td>
             <td></td>
             <td>
               <input type="submit" value="Submit"/>
