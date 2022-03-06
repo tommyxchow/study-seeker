@@ -352,7 +352,7 @@
 
 .user-data{
   position: relative;
-  top: 250px;
+  top: 350px;
 }
 
 .profile-data-set{
@@ -371,23 +371,22 @@
   margin-left: 20px;
 }
 
-.profile-data-set label{
-  flex: 0 0 33.333333%;
-  padding-bottom: 1rem;
-}
-
 .profile-data-set-extend{
   flex-grow: 4;
 }
 
 table{
-  border-start-end-radius: 10%;
+  border-start-end-radius: 0%;
+  border: #000 1%;
 }
+
+/* table, th, td {
+  border: 1px solid;
+} */
 
 td {
   text-align: left;
-  padding-bottom: 4%;
-  
+  padding-bottom: 2%;
 }
 
 .profile-data-icon-element{
@@ -397,6 +396,32 @@ td {
   padding-left: 2%;
   vertical-align: top;
   width: 150px;
+}
+
+.profile-data-edit-icon{
+  padding-left: 2%;
+}
+
+.profile-data-edit-input{
+  padding-left: 0%;
+  vertical-align: top;
+}
+
+input{
+  vertical-align: top;
+  width: 90%;
+  padding: 6px;
+  padding-left: 10px;
+  display: inline-block;
+  border: 1.5px solid #000;
+  border-radius: 50px;
+  box-sizing: border-box;
+  font-size: 17px;
+}
+
+.passwordInput{
+  width: 40%;
+  margin-left: 5%;
 }
 
 .profile-rating{

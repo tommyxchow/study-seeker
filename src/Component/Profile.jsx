@@ -204,96 +204,124 @@ export default class Profile extends React.Component {
             alt="star"/> 
         {this.state.edit ? (
         <form className="profile-data-set" onSubmit={this.submitHandler}>  
-          <label>
-          <img
-              src={major}
-              className="profile-data-icon"
-              alt="majorIcon"/>
-            <input
-              type="text"
-              onChange={e => this.fieldChangeHandler("major", e)}
-              value={this.state.major}
-            />
-          </label>
-          <label>
-          <img
+        <table className="profile-data-edit-table">
+          <tr className="profile-data-edit-row">
+            <td className="profile-data-edit-icon">
+              <img
+                src={major}
+                className="profile-data-icon"
+                alt="majorIcon"/>
+            </td>
+            <td className="profile-data-edit-input">
+              <input
+                type="text"
+                onChange={e => this.fieldChangeHandler("major", e)}
+                value={this.state.major}
+              />
+            </td>
+            <td className="profile-data-edit-icon">
+            <img
               src={year}
               className="profile-data-icon"
-              alt="majorIcon"/>
+              alt="yearIcon"/>
+            </td>
+            <td className="profile-data-edit-input">
             <input
               type="text"
               onChange={e => this.fieldChangeHandler("year", e)}
               value={this.state.year}
             />
-          </label>
-          <label>
-          <img
+            </td>
+            <td className="profile-data-edit-icon">
+              <img
               src={transcript}
               className="profile-data-icon"
-              alt="majorIcon"/>
+              alt="transcriptIcon"/>
+            </td>
+            <td className="profile-data-edit-input">
             <input
               type="text"
               onChange={e => this.fieldChangeHandler("academicStanding", e)}
               value={this.state.academicStanding}
             />
-          </label>
-          <label>
-          <img
+            </td>
+          </tr>
+          <tr className="profile-data-edit-row">
+            <td className="profile-data-edit-icon">
+              <img
               src={discord}
               className="profile-data-icon"
               alt="majorIcon"/>
-            <input
-              type="text"
-              onChange={e => this.fieldChangeHandler("discord", e)}
-              value={this.state.discord}
-            />
-          </label>
-          <label className="profile-data-set-extend">
-          <img
+            </td>
+            <td className="profile-data-edit-input">
+              <input
+                type="text"
+                onChange={e => this.fieldChangeHandler("discord", e)}
+                value={this.state.discord}
+              />
+            </td>
+            <td className="profile-data-edit-icon">
+              <img
               src={email}
               className="profile-data-icon"
               alt="majorIcon"/>
-            <input
-              type="text"
-              onChange={e => this.fieldChangeHandler("email", e)}
-              value={this.state.email}
-            />
-          </label>
-          <label>
-          <img
+            </td>
+            <td colSpan={3} className="profile-data-edit-input">
+              <input
+                type="text"
+                onChange={e => this.fieldChangeHandler("email", e)}
+                value={this.state.email}
+              />
+            </td>
+          </tr>
+          <tr>
+            <td className="profile-data-edit-icon"><img
               src={major}
               className="profile-data-icon"
               alt="majorIcon"/>
-            <input
+            </td>
+            <td className="profile-data-edit-input" ><input
               type="text"
               onChange={e => this.fieldChangeHandler("privacy", e)}
               value={this.state.privacy}
-            />
-          </label>
-          <label>
-          <img
+              />
+            </td>
+            <td className="profile-data-edit-icon">
+            <img
               src={major}
               className="profile-data-icon"
               alt="majorIcon"/>
+            </td>
+            <td colSpan={3} className="profile-data-edit-input">
             <input
               type="text"
               onChange={e => this.fieldChangeHandler("year", e)}
               value={this.state.year}
+              className="passwordInput"
             />
-            </label>
-            <label>
             <input
               type="text"
               onChange={e => this.fieldChangeHandler("year", e)}
               value={this.state.year}
+              className="passwordInput"
             />
-          </label>
-          <label>
-            <input type="submit" value="submit" />
-          </label>
+            </td>
+          </tr>
+          <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td><input type="button" value="Cancel"/></td>
+            <td></td>
+            <td>
+              <input type="submit" value="Submit"/>
+            </td>
+          </tr>
+        </table>
         </form>
         ) : (
         <div className="profile-data-set">
+        
         <table>
           <tr>
             <td className="profile-data-icon-element">
