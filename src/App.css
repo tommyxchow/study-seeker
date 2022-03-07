@@ -1,4 +1,8 @@
 /* For gods sake, please replace this with styles that are less horrifying than these */
+
+@import url('http://fonts.googleapis.com/css?family=Roboto');
+
+
 .App {
   text-align: center;
 }
@@ -8,14 +12,14 @@
 }
 
 .App-header {
-  background-color: #282c34;
+  background-color: #FFFFFF;
   min-height: 100vh;
   display: flex;
   flex-direction: row;
   align-items: flex-center;
   justify-content: center;
   font-size: calc(10px + 2vmin);
-  color: white;
+  color: #000;
 }
 
 .deletePost{
@@ -196,6 +200,7 @@
   justify-content: flex-start;
 
   background-color: blue;
+  z-index: 100;
 }
 
 .tag-active{
@@ -288,3 +293,194 @@
   text-decoration: none;
   cursor: pointer;
 }
+
+/* CSS Tommy */
+
+.profile {
+  position: static;
+}
+
+.profile-header {
+  position: static;
+
+}
+
+.profile-name {
+  font-size: 40px;
+  font-weight: normal;
+  z-index: 10;
+  position: absolute;
+  left: 400px;
+  top: 220px;
+}
+
+.edit-button {
+  background-color: transparent;
+  border: 0;
+}
+
+
+
+.inline-icon {
+  vertical-align: bottom;
+}
+
+.setting-icon{
+  width:20px;
+  height:20px;
+  z-index: 10;
+  position: absolute;
+  left: 140px;
+  top: 270px;
+}
+
+.profile-picture{
+  margin-left: 7rem;
+  width:190px;
+  height:190px;
+  border: 5px solid #FFFFFF;
+  border-radius: 100%;
+  margin-right: 20px;
+  z-index: 10;
+  position: absolute;
+  left: 70px;
+  top: 180px;
+}
+
+.background-picture{
+  width: 1162px;
+  height: 250px;
+
+  top: 0px;
+  left: 100px;
+  position: absolute;
+}
+
+
+.user-data{
+  position: relative;
+  top: 350px;
+}
+
+.profile-data-set{
+  position: absolute;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  margin-left: 30%;
+  top: 53%;
+}
+
+.profile-data-icon{
+  width:30px;
+  height:30px;
+  margin-right: 20px;
+  margin-left: 20px;
+}
+
+.profile-data-set-extend{
+  flex-grow: 4;
+}
+
+table{
+  border-start-end-radius: 0%;
+  border: #000 1%;
+}
+
+/* table, th, td {
+  border: 1px solid;
+} */
+
+td {
+  text-align: left;
+  padding-bottom: 2%;
+}
+
+.profile-data-icon-element{
+  padding-left: 3%;
+}
+.profile-data-text-element{
+  padding-left: 2%;
+  vertical-align: top;
+  width: 150px;
+}
+
+.profile-data-edit-icon{
+  padding-left: 2%;
+}
+
+.profile-data-edit-input{
+  padding-left: 0%;
+  vertical-align: top;
+}
+
+input{
+  vertical-align: top;
+  width: 90%;
+  padding: 6px;
+  padding-left: 10px;
+  display: inline-block;
+  border: 1.5px solid #000;
+  border-radius: 50px;
+  box-sizing: border-box;
+  font-size: 17px;
+}
+
+.passwordInput{
+  width: 40%;
+  margin-left: 5%;
+}
+
+.profile-rating{
+  position: absolute;
+  width:25px;
+  height:25px;
+  top: 45%;
+  left: 46%; 
+}
+
+.profile-rating-1{
+  position: absolute;
+  width:25px;
+  height:25px;
+  top: 45%;
+  left: 46%; 
+}
+
+.profile-rating-2{
+  position: absolute;
+  width:25px;
+  height:25px;
+  top: 45%;
+  left: 49%; 
+}
+
+.profile-rating-3{
+  position: absolute;
+  width:25px;
+  height:25px;
+  top: 45%;
+  left: 52%; 
+}
+
+.profile-rating-4{
+  position: absolute;
+  width:25px;
+  height:25px;
+  top: 45%;
+  left: 55%; 
+}
+
+.profile-rating-5{
+  position: absolute;
+  width:25px;
+  height:25px;
+  top: 45%;
+  left: 58%; 
+}
+
+body{
+  src: url('https://fonts.googleapis.com/css?family=Roboto');
+  font-family: Roboto;
+}
+
