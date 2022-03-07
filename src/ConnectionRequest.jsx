@@ -18,7 +18,7 @@ export default class ConnectionRequest extends React.Component{
         this.state ={
             names: [
                 [ 1,"Ibn Khaldun", personIcon],
-                [2,"Mona Lisa", personIcon2]
+                [2,"Zhuangzi", personIcon2]
         ],
         accepted_friends:[]                                          //List of accepted friends( used for my connection list )
         }; 
@@ -63,8 +63,8 @@ export default class ConnectionRequest extends React.Component{
 
                      {this.state.names.map((name) => {                //Connection Requests
                          return(<p key={name}>
-                             <div>
-                             <table className="same-line">
+                            <div>
+                            <table className="same-line">
 
                                 <tr className="same-line"><td>                          {/*contains profile picture, name and rating of the person who sent request (in a block on table row)*/}
                                     <ul className="table">
