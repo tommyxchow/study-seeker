@@ -110,7 +110,7 @@ export default class ConnectionRequest extends React.Component{
                     <img className="MLstar4" img src={litStarIcon} alt="star"/><img className="MLstar4" img src={starIcon} alt="backing for lit star4"/>
                     <img className="MLstar5" img src={starIcon} alt="star"/>
                     <img className="tommy" img src={tommy} alt="img of Tommy"/>
-                    <text className="tommy-text">Tommy</text>
+                     <text className="tommy-text">Tommy</text>
                     <img className="Tstar1" img src={litStarIcon} alt="star"/><img className="Tstar1" img src={starIcon} alt="backing for lit star1"/>
                     <img className="Tstar2" img src={litStarIcon} alt="star"/><img className="Tstar2" img src={starIcon} alt="backing for lit star2"/>
                     <img className="Tstar3" img src={litStarIcon} alt="star"/><img className="Tstar3" img src={starIcon} alt="backing for lit star3"/>
