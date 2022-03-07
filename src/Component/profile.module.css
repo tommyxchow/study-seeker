@@ -3,6 +3,7 @@
   flex-direction: column;
   align-items: flex-start;
   height: 100vh;
+  width: 100vw;
 }
 
 .backgroundOverlay {
@@ -81,21 +82,33 @@
   display: flex;
   flex-direction: row;
   align-items: center;
+  flex-wrap: wrap;
+  justify-content: left;
 }
 
 .formLabel {
+  margin-bottom: 20px;
   display: flex;
   flex-direction: row;
   align-items: center;
   margin-right: 50px;
 }
 
+.editButtons {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-right: 50px;
+}
+
 .confirmButton {
+  margin: 10px;
   border: 0;
   background: #2ECC71;
 }
 
 .cancelButton {
+  margin: 10px;
   border: 0;
   background: #FF0000;
 }

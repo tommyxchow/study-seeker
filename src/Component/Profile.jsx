@@ -1,11 +1,13 @@
 import React from "react";
 import "../App.css";
-import gear from "../assets/gear.png";
-import pp from "../assets/temp_profilepic.jpg";
-import bgp from "../assets/background.jpg";
-import email from "../assets/email.png";
-import year from "../assets/goal.png";
-import major from "../assets/education.png";
+import settingsLogo from "../assets/gear.png";
+import defaultProfilePicture from "../assets/temp_profilepic.jpg";
+import defaultBackgroundPicture from "../assets/background.jpg";
+import emailLogo from "../assets/email.png";
+import yearLogo from "../assets/goal.png";
+import majorLogo from "../assets/education.png";
+import passwordLogo from "../assets/password.png";
+import privacyLogo from "../assets/privacy.png";
 import styles from "./profile.module.css";
 
 // The Profile component shows data from the user table.  This is set up fairly generically to allow for you to customize
@@ -153,24 +155,38 @@ export default class Profile extends React.Component {
   // state changes, automatically.  This is why you see the username and firstname change on the screen
   // as you type them.
   render() {
-    const profileFields = ["Major", "Year", "Contact"];
+    const profileFields = ["Major", "Year", "Contact", "Privacy", "Password"];
     const profileDetails = [
       this.state.major,
       this.state.year,
       this.state.contact,
     ];
-    const profileDetailIcons = [major, year, email];
+    const profileDetailIcons = [
+      majorLogo,
+      yearLogo,
+      emailLogo,
+      privacyLogo,
+      passwordLogo,
+    ];
 
     return (
       <div className={styles.container}>
         <div className={styles.backgroundOverlay}></div>
-        <img src={bgp} className={styles.backgroundPicture} alt="Cover" />
+        <img
+          src={defaultBackgroundPicture}
+          className={styles.backgroundPicture}
+          alt="Cover"
+        />
         {this.state.edit && (
           <h2 className={styles.editBackground}>Click to Change</h2>
         )}
         <div className={styles.profileHeader}>
           <div>
-            <img src={pp} className={styles.profilePicture} alt="Profile Pic" />
+            <img
+              src={defaultProfilePicture}
+              className={styles.profilePicture}
+              alt="Profile Pic"
+            />
             {this.state.edit && (
               <p className={styles.editPicture}>Click to Change</p>
             )}
@@ -184,22 +200,51 @@ export default class Profile extends React.Component {
         <div className={styles.body}>
           <div className={styles.profileDetails}>
             {this.state.edit ? (
-              <form className={styles.form} onSubmit={this.submitHandler}>
-                {profileDetails.map((e, index) => (
-                  <label className={styles.formLabel}>
-                    <img
-                      src={profileDetailIcons[index]}
-                      alt={profileFields[index]}
-                      className={styles.profileDetailIcon}
-                    />
-                    <input
-                      type="text"
-                      name={profileFields[index].toLowerCase()}
-                      placeholder={profileFields[index]}
-                    />
-                  </label>
-                ))}
-                <div className="form-buttons">
+              <>
+                <form className={styles.form} onSubmit={this.submitHandler}>
+                  {profileFields.map((e, index) => {
+                    if (e === "Password") {
+                      return (
+                        <>
+                          <label className={styles.formLabel}>
+                            <img
+                              src={passwordLogo}
+                              alt={e}
+                              className={styles.profileDetailIcon}
+                            />
+                            <input
+                              type="password"
+                              name={e.toLowerCase()}
+                              placeholder={e}
+                            />
+                          </label>
+                          <label className={styles.formLabel}>
+                            <input
+                              type="password"
+                              name={e.toLowerCase()}
+                              placeholder="Repeat Password"
+                            />
+                        </label>
+                        </>
+                      );
+                    }
+                    return (
+                      <label className={styles.formLabel}>
+                        <img
+                          src={profileDetailIcons[index]}
+                          alt={e}
+                          className={styles.profileDetailIcon}
+                        />
+                        <input
+                          type="text"
+                          name={e.toLowerCase()}
+                          placeholder={e}
+                        />
+                      </label>
+                    );
+                  })}
+                </form>
+                <div className={styles.editButtons}>
                   <input
                     className={styles.confirmButton}
                     type="submit"
@@ -212,7 +257,7 @@ export default class Profile extends React.Component {
                     onClick={() => this.setState({ edit: false })}
                   />
                 </div>
-              </form>
+              </>
             ) : (
               <>
                 {profileDetails.map((e, index) => (
@@ -227,7 +272,7 @@ export default class Profile extends React.Component {
                 ))}
                 <div className={styles.profileDetailItem}>
                   <img
-                    src={gear}
+                    src={settingsLogo}
                     className={styles.profileDetailIcon}
                     alt="Settings"
                     onClick={() => this.setState({ edit: true })}
