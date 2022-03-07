@@ -2,8 +2,8 @@ import React from "react";
 import "./App.css";
 
 import personIcon from "./assets/Ibn_Khaldun.png";
-import starIcon from "./assets/star1.png";
-import litStarIcon from "./assets/star.png";
+import starIcon from "./assets/unlitstar.svg";
+import litStarIcon from "./assets/litstar.svg";
 import personIcon2 from "./assets/group.png";
 import Navigationbar from "./Component/Navigationbar.jsx";
 import lisaMoan from "./assets/lisamoan.png";
@@ -90,32 +90,32 @@ export default class ConnectionRequest extends React.Component{
                     <div className="line2"> </div>
                     <img className="lisa-moan" img src={lisaMoan} alt="img of Lisa Moan"/> 
                     <text className="lisa-moan-text">Lisa Moan</text>
-                    <img className="LMstar1" img src={litStarIcon} alt="star"/><img className="LMstar1" img src={starIcon} alt="backing for lit star1"/>
-                    <img className="LMstar2" img src={litStarIcon} alt="star"/><img className="LMstar2" img src={starIcon} alt="backing for lit star2"/>
+                    <img className="LMstar1" img src={litStarIcon} alt="star"/>
+                    <img className="LMstar2" img src={litStarIcon} alt="star"/>
                     <img className="LMstar3" img src={starIcon} alt="star"/>
                     <img className="LMstar4" img src={starIcon} alt="star"/>
                     <img className="LMstar5" img src={starIcon} alt="star"/>
                     <img className="jay-hou" img src={jayHou} alt="img of Jay Hou"/> 
                     <text className="jay-hou-text">Jay Hou</text>
-                    <img className="JHstar1" img src={litStarIcon} alt="star"/><img className="JHstar1" img src={starIcon} alt="backing for lit star1"/>
-                    <img className="JHstar2" img src={litStarIcon} alt="star"/><img className="JHstar2" img src={starIcon} alt="backing for lit star2"/>
+                    <img className="JHstar1" img src={litStarIcon} alt="star"/>
+                    <img className="JHstar2" img src={litStarIcon} alt="star"/>
                     <img className="JHstar3" img src={starIcon} alt="star"/>
                     <img className="JHstar4" img src={starIcon} alt="star"/>
                     <img className="JHstar5" img src={starIcon} alt="star"/>
                     <img className="mona-lia" img src={monaLia} alt="img of Mona Lia" /> 
                     <text className="mona-lia-text">Mona Lia</text>
-                    <img className="MLstar1" img src={litStarIcon} alt="star"/><img className="MLstar1" img src={starIcon} alt="backing for lit star1"/>
-                    <img className="MLstar2" img src={litStarIcon} alt="star"/><img className="MLstar2" img src={starIcon} alt="backing for lit star2"/>
-                    <img className="MLstar3" img src={litStarIcon} alt="star"/><img className="MLstar3" img src={starIcon} alt="backing for lit star3"/>
-                    <img className="MLstar4" img src={litStarIcon} alt="star"/><img className="MLstar4" img src={starIcon} alt="backing for lit star4"/>
+                    <img className="MLstar1" img src={litStarIcon} alt="star"/>
+                    <img className="MLstar2" img src={litStarIcon} alt="star"/>
+                    <img className="MLstar3" img src={litStarIcon} alt="star"/>
+                    <img className="MLstar4" img src={litStarIcon} alt="star"/>
                     <img className="MLstar5" img src={starIcon} alt="star"/>
                     <img className="tommy" img src={tommy} alt="img of Tommy"/>
                      <text className="tommy-text">Tommy</text>
-                    <img className="Tstar1" img src={litStarIcon} alt="star"/><img className="Tstar1" img src={starIcon} alt="backing for lit star1"/>
-                    <img className="Tstar2" img src={litStarIcon} alt="star"/><img className="Tstar2" img src={starIcon} alt="backing for lit star2"/>
-                    <img className="Tstar3" img src={litStarIcon} alt="star"/><img className="Tstar3" img src={starIcon} alt="backing for lit star3"/>
-                    <img className="Tstar4" img src={litStarIcon} alt="star"/><img className="Tstar4" img src={starIcon} alt="backing for lit star4"/>
-                    <img className="Tstar5" img src={litStarIcon} alt="star"/><img className="Tstar5" img src={starIcon} alt="backing for lit star5"/>
+                    <img className="Tstar1" img src={litStarIcon} alt="star"/>
+                    <img className="Tstar2" img src={litStarIcon} alt="star"/>
+                    <img className="Tstar3" img src={litStarIcon} alt="star"/>
+                    <img className="Tstar4" img src={litStarIcon} alt="star"/>
+                    <img className="Tstar5" img src={litStarIcon} alt="star"/>
                     
                      </div>
  
