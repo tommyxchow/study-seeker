@@ -90,9 +90,19 @@ export default class ConnectionRequest extends React.Component{
                     <div className="line2"> </div>
                     <img className="lisa-moan" img src={lisaMoan} alt="img of Lisa Moan"/> 
                     <text className="lisa-moan-text">Lisa Moan</text>
-                    <img className="star" img src={litStarIcon} alt="star"/>
-                    <img className="mona-lia" img src={monaLia} alt="img of Mona Lia" />
+                    <img className="LMstar1" img src={litStarIcon} alt="star"/><img className="LMstar1" img src={starIcon} alt="backing for lit star1"/>
+                    <img className="LMstar2" img src={litStarIcon} alt="star"/><img className="LMstar2" img src={starIcon} alt="backing for lit star2"/>
+                    <img className="LMstar3" img src={starIcon} alt="star"/>
+                    <img className="LMstar4" img src={starIcon} alt="star"/>
+                    <img className="LMstar5" img src={starIcon} alt="star"/>
                     <img className="jay-hou" img src={jayHou} alt="img of Jay Hou"/> 
+                    <text className="jay-hou-text">Jay Hou</text>
+                    <img className="JHstar1" img src={litStarIcon} alt="star"/><img className="JHstar1" img src={starIcon} alt="backing for lit star1"/>
+                    <img className="JHstar2" img src={litStarIcon} alt="star"/><img className="JHstar2" img src={starIcon} alt="backing for lit star2"/>
+                    <img className="JHstar3" img src={starIcon} alt="star"/>
+                    <img className="JHstar4" img src={starIcon} alt="star"/>
+                    <img className="JHstar5" img src={starIcon} alt="star"/>
+                    <img className="mona-lia" img src={monaLia} alt="img of Mona Lia" /> 
                     <img className="tommy" img src={tommy} alt="img of Tommy"/>
                     
                      </div>
