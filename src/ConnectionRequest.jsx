@@ -103,7 +103,19 @@ export default class ConnectionRequest extends React.Component{
                     <img className="JHstar4" img src={starIcon} alt="star"/>
                     <img className="JHstar5" img src={starIcon} alt="star"/>
                     <img className="mona-lia" img src={monaLia} alt="img of Mona Lia" /> 
+                    <text className="mona-lia-text">Mona Lia</text>
+                    <img className="MLstar1" img src={litStarIcon} alt="star"/><img className="MLstar1" img src={starIcon} alt="backing for lit star1"/>
+                    <img className="MLstar2" img src={litStarIcon} alt="star"/><img className="MLstar2" img src={starIcon} alt="backing for lit star2"/>
+                    <img className="MLstar3" img src={litStarIcon} alt="star"/><img className="MLstar3" img src={starIcon} alt="backing for lit star3"/>
+                    <img className="MLstar4" img src={litStarIcon} alt="star"/><img className="MLstar4" img src={starIcon} alt="backing for lit star4"/>
+                    <img className="MLstar5" img src={starIcon} alt="star"/>
                     <img className="tommy" img src={tommy} alt="img of Tommy"/>
+                    <text className="tommy-text">Tommy</text>
+                    <img className="Tstar1" img src={litStarIcon} alt="star"/><img className="Tstar1" img src={starIcon} alt="backing for lit star1"/>
+                    <img className="Tstar2" img src={litStarIcon} alt="star"/><img className="Tstar2" img src={starIcon} alt="backing for lit star2"/>
+                    <img className="Tstar3" img src={litStarIcon} alt="star"/><img className="Tstar3" img src={starIcon} alt="backing for lit star3"/>
+                    <img className="Tstar4" img src={litStarIcon} alt="star"/><img className="Tstar4" img src={starIcon} alt="backing for lit star4"/>
+                    <img className="Tstar5" img src={litStarIcon} alt="star"/><img className="Tstar5" img src={starIcon} alt="backing for lit star5"/>
                     
                      </div>
  
