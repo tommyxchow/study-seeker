@@ -18,6 +18,9 @@ class Navigationbar extends React.Component {
             <li><h className="profile">Profile</h></li>
             <li><h className="groups">Groups</h></li>
             <li><h className="navconnections">Connections</h></li>
+            <li><h className="logout-text">Logout</h></li>
+            <li><h className="logout-arrow"></h></li>
+            <li><h className="logout-background"></h></li>
         </ul>
      </div>
   );
