@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Exo:ital,wght@0,400;0,700;1,400&display=swap');
+
 .container {
   display: flex;
   flex-direction: column;
@@ -92,6 +94,7 @@
   flex-direction: row;
   align-items: center;
   margin-right: 50px;
+  font-family: Exo;
 }
 
 .editButtons {
@@ -99,18 +102,21 @@
   flex-direction: column;
   justify-content: center;
   margin-right: 50px;
+  font-family: Exo;
 }
 
 .confirmButton {
   margin: 10px;
   border: 0;
   background: #2ecc71;
+  font-family: Exo;
 }
 
 .cancelButton {
   margin: 10px;
   border: 0;
   background: #ff0000;
+  font-family: Exo;
 }
 
 .cancelButton:hover,
