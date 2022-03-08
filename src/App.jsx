@@ -18,6 +18,9 @@ import {
   BrowserRouter as Router, Route, Routes
 } from 'react-router-dom';
 
+import LandingPage from "./LandingPage.jsx";
+import Registration from "./Registration.jsx";
+
 // toggleModal will both show and hide the modal dialog, depending on current state.  Note that the
 // contents of the modal dialog are set separately before calling toggle - this is just responsible
 // for showing and hiding the component
@@ -88,6 +91,7 @@ class App extends React.Component {
   componentDidMount(){
     window.addEventListener('click', e => {console.log("TESTING EVENT LISTENER")});
   }
+  
 
   // As with all react files, render is in charge of determining what shows up on the screen, 
   // and it gets called whenever an element in the state changes.  There are three main areas of the app, 
@@ -108,7 +112,8 @@ class App extends React.Component {
       <div className="App">
         <header className="App-header">
 
-          <Navbar toggleModal={e => toggleModal(this, e)} logout={this.logout}/>
+          {/* conditional rendering will be used to hide/show Navbar (for this week I just commented out the navabar component*/}
+          {/*<Navbar toggleModal={e => toggleModal(this, e)} logout={this.logout}/>*/}
 
           <div className="maincontent" id="mainContent">
             <Routes>
@@ -116,6 +121,9 @@ class App extends React.Component {
               <Route path="/friends" element={<Friends  login={this.login} />} />   
               <Route path="/groups" element={<Groups  login={this.login} />} />     
               <Route path="/posts" element={<Posts doRefreshPosts={this.doRefreshPosts} login={this.login} apprefresh={this.state.refreshPosts} />} />
+
+              <Route path="/register" element={<Register/>} />   
+              <Route path="/landing" element={<LandingTHISWILLCHANGELATER/>} /> 
               <Route path="/" element={<Posts doRefreshPosts={this.doRefreshPosts} login={this.login} apprefresh={this.state.refreshPosts} />} />
             </Routes>
           </div>
@@ -133,6 +141,19 @@ class App extends React.Component {
 /*  BEGIN ROUTE ELEMENT DEFINITIONS */
 // with the latest version of react router, you need to define the contents of the route as an element.  The following define functional components
 // that will appear in the routes.  
+
+const LandingTHISWILLCHANGELATER = () => {
+  // TODO: Change this later so that the default path leads to landing
+ return (
+   <LandingPage/>
+ );
+}
+const Register = (props) => {
+  // show the study seeker registration form
+ return (
+   <Registration/>
+ );
+}
 
 
 const Settings = (props) => {
