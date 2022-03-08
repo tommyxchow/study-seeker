@@ -10,7 +10,7 @@
   position: absolute;
   height: 400px;
   width: 100vw;
-  background-color:rgba(0, 0, 0, 0.5);
+  background-color: rgba(0, 0, 0, 0.5);
 }
 
 .backgroundPicture {
@@ -18,7 +18,6 @@
   width: 100vw;
   object-fit: cover;
 }
-
 
 .profileHeader {
   display: flex;
@@ -46,8 +45,8 @@
 
 .editBackground {
   position: absolute;
-  top: 150px;
-  left: 500px;
+  top: 10%;
+  left: 40%;
   color: white;
 }
 
@@ -65,7 +64,7 @@
   margin-top: 50px;
   display: flex;
   flex-direction: row;
-  align-items: flex-start;
+  align-items: center;
 }
 
 .profileDetailItem {
@@ -76,6 +75,7 @@
   width: 30px;
   height: 30px;
   margin-right: 20px;
+  vertical-align: middle;
 }
 
 .form {
@@ -104,15 +104,16 @@
 .confirmButton {
   margin: 10px;
   border: 0;
-  background: #2ECC71;
+  background: #2ecc71;
 }
 
 .cancelButton {
   margin: 10px;
   border: 0;
-  background: #FF0000;
+  background: #ff0000;
 }
 
-.cancelButton:hover, .confirmButton:hover {
+.cancelButton:hover,
+.confirmButton:hover {
   opacity: 50%;
 }
