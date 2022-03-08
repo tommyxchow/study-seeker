@@ -1,0 +1,105 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  height: 100vh;
+}
+
+.backgroundOverlay {
+  position: absolute;
+  height: 400px;
+  width: 100vw;
+  background-color:rgba(0, 0, 0, 0.5);
+}
+
+.backgroundPicture {
+  height: 400px;
+  width: 100vw;
+  object-fit: cover;
+}
+
+
+.profileHeader {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  position: absolute;
+  top: 100px;
+  left: 150px;
+}
+
+.profilePicture {
+  width: 150px;
+  height: 150px;
+  border: 5px solid #ffffff;
+  border-radius: 100%;
+}
+
+.editPicture {
+  position: absolute;
+  top: 70px;
+  left: 40px;
+  color: white;
+  font-size: small;
+}
+
+.editBackground {
+  position: absolute;
+  top: 150px;
+  left: 500px;
+  color: white;
+}
+
+.profileName {
+  margin-left: 1rem;
+  color: white;
+}
+
+.body {
+  margin-left: 100px;
+}
+
+.profileDetails {
+  margin-left: 80px;
+  margin-top: 50px;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+}
+
+.profileDetailItem {
+  margin-right: 100px;
+}
+
+.profileDetailIcon {
+  width: 30px;
+  height: 30px;
+  margin-right: 20px;
+}
+
+.form {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.formLabel {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-right: 50px;
+}
+
+.confirmButton {
+  border: 0;
+  background: #2ECC71;
+}
+
+.cancelButton {
+  border: 0;
+  background: #FF0000;
+}
+
+.cancelButton:hover, .confirmButton:hover {
+  opacity: 50%;
+}

@@ -148,7 +148,6 @@ const Settings = (props) => {
   }
   return (
     <div className="settings">
-    <p>Settings</p>
     <Profile userid={sessionStorage.getItem("user")} />
   </div>
   );

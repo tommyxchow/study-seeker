@@ -1,14 +1,20 @@
 import React from "react";
 import "../App.css";
+import gear from "../assets/gear.png";
+import pp from "../assets/temp_profilepic.jpg";
+import bgp from "../assets/background.jpg";
+import email from "../assets/email.png";
+import year from "../assets/goal.png";
+import major from "../assets/education.png";
+import styles from "./profile.module.css";
 
 // The Profile component shows data from the user table.  This is set up fairly generically to allow for you to customize
 // user data by adding it to the attributes for each user, which is just a set of name value pairs that you can add things to
 // in order to support your group specific functionality.  In this example, we store basic profile information for the user
 
 export default class Profile extends React.Component {
-  
   // The constructor will hold the default values for the state.  This is also where any props that are passed
-  // in when the component is instantiated will be read and managed.  
+  // in when the component is instantiated will be read and managed.
   constructor(props) {
     super(props);
     this.state = {
@@ -16,8 +22,16 @@ export default class Profile extends React.Component {
       firstname: "",
       lastname: "",
       favoritecolor: "",
-      responseMessage: ""
+      responseMessage: "",
       // NOTE : if you wanted to add another user attribute to the profile, you would add a corresponding state element here
+      profilePicture: "",
+      backgroundPicture: "",
+      rating: "",
+      major: "",
+      year: "",
+      contact: "",
+      privacy: "",
+      edit: false,
     };
     this.fieldChangeHandler.bind(this);
   }
@@ -25,87 +39,111 @@ export default class Profile extends React.Component {
   // This is the function that will get called every time we change one of the fields tied to the user data source.
   // it keeps the state current so that when we submit the form, we can pull the value to update from the state.  Note that
   // we manage multiple fields with one function and no conditional logic, because we are passing in the name of the state
-  // object as an argument to this method.  
+  // object as an argument to this method.
+
   fieldChangeHandler(field, e) {
     console.log("field change");
     this.setState({
-      [field]: e.target.value
+      [field]: e.target.value,
     });
   }
 
-  
   // This is the function that will get called the first time that the component gets rendered.  This is where we load the current
-  // values from the database via the API, and put them in the state so that they can be rendered to the screen.  
+  // values from the database via the API, and put them in the state so that they can be rendered to the screen.
   componentDidMount() {
     console.log("In profile");
     console.log(this.props);
 
     // fetch the user data, and extract out the attributes to load and display
-    fetch(process.env.REACT_APP_API_PATH+"/users/"+sessionStorage.getItem("user"), {
-      method: "get",
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': 'Bearer '+sessionStorage.getItem("token")
+    fetch(
+      process.env.REACT_APP_API_PATH +
+        "/users/" +
+        sessionStorage.getItem("user"),
+      {
+        method: "get",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + sessionStorage.getItem("token"),
+        },
       }
-    })
-      .then(res => res.json())
+    )
+      .then((res) => res.json())
       .then(
-        result => {
+        (result) => {
           if (result) {
             console.log(result);
-            if (result.attributes){
-            this.setState({
-              // IMPORTANT!  You need to guard against any of these values being null.  If they are, it will
-              // try and make the form component uncontrolled, which plays havoc with react
-              username: result.attributes.username || "",
-              firstname: result.attributes.firstName || "",
-              lastname: result.attributes.lastName || "",
-              favoritecolor: result.attributes.favoritecolor || ""
-
-            });
-          }
+            if (result.attributes) {
+              this.setState({
+                // IMPORTANT!  You need to guard against any of these values being null.  If they are, it will
+                // try and make the form component uncontrolled, which plays havoc with react
+                username: result.attributes.username || "",
+                firstname: result.attributes.firstName || "First Name",
+                lastname: result.attributes.lastName || "Last Name",
+                favoritecolor: result.attributes.favoritecolor || "",
+                // new attributes
+                major: result.attributes.major || "Major",
+                year: result.attributes.year || "Year",
+                contact: result.attributes.contact || "Contact",
+                privacy: result.attributes.privacy || "Everyone",
+                profilePicture: result.attributes.profilePicture || "",
+                backgroundPicture: result.attributes.backgroundPicture || "",
+                rating: result.attributes.rating || "0",
+                edit: false,
+              });
+            }
           }
         },
-        error => {
+        (error) => {
           alert("error!");
         }
       );
-
-    
   }
 
   // This is the function that will get called when the submit button is clicked, and it stores
   // the current values to the database via the api calls to the user and user_preferences endpoints
-  submitHandler = event => {
-    
+  submitHandler = (event) => {
     //keep the form from actually submitting, since we are handling the action ourselves via
     //the fetch calls to the API
     event.preventDefault();
 
     //make the api call to the user controller, and update the user fields (username, firstname, lastname)
-    fetch(process.env.REACT_APP_API_PATH+"/users/"+sessionStorage.getItem("user"), {
-      method: "PATCH",
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': 'Bearer '+sessionStorage.getItem("token")
-      },
-      body: JSON.stringify({
-        attributes: {
-          username: this.state.username,
-          firstName: this.state.firstname,
-          lastName: this.state.lastname,
-          favoritecolor: this.state.favoritecolor
-        }
-      })
-    })
-      .then(res => res.json())
+    fetch(
+      process.env.REACT_APP_API_PATH +
+        "/users/" +
+        sessionStorage.getItem("user"),
+      {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + sessionStorage.getItem("token"),
+        },
+        body: JSON.stringify({
+          attributes: {
+            username: this.state.username,
+            firstName: this.state.firstname,
+            lastName: this.state.lastname,
+            favoritecolor: this.state.favoritecolor,
+
+            // new attributes
+            major: this.state.major,
+            year: this.state.year,
+            contact: this.state.contact,
+            privacy: this.state.privacy,
+            profilePicture: this.state.profilePicture,
+            backgroundPicture: this.state.backgroundPicture,
+            rating: this.state.backgroundPicture,
+          },
+        }),
+      }
+    )
+      .then((res) => res.json())
       .then(
-        result => {
+        (result) => {
           this.setState({
-            responseMessage: result.Status
+            responseMessage: result.Status,
           });
         },
-        error => {
+        (error) => {
           alert("error!");
         }
       );
@@ -115,45 +153,91 @@ export default class Profile extends React.Component {
   // state changes, automatically.  This is why you see the username and firstname change on the screen
   // as you type them.
   render() {
+    const profileFields = ["Major", "Year", "Contact"];
+    const profileDetails = [
+      this.state.major,
+      this.state.year,
+      this.state.contact,
+    ];
+    const profileDetailIcons = [major, year, email];
+
     return (
-      <form onSubmit={this.submitHandler} className="profileform">
-        <label>
-          Username
-          <input
-            type="text"
-            onChange={e => this.fieldChangeHandler("username", e)}
-            value={this.state.username}
-          />
-        </label>
-        <label>
-          First Name
-          <input
-            type="text"
-            onChange={e => this.fieldChangeHandler("firstname", e)}
-            value={this.state.firstname}
-          />
-        </label>
-        <label>
-          Last Name
-          <input
-            type="text"
-            onChange={e => this.fieldChangeHandler("lastname", e)}
-            value={this.state.lastname}
-          />
-        </label>
-        <label>
-          Favorite Color
-          <input
-            type="text"
-            onChange={e => this.fieldChangeHandler("favoritecolor", e)}
-            value={this.state.favoritecolor}
-          />
-        </label>
-        <input type="submit" value="submit" />
-        <p>Username is : {this.state.username}</p>
-        <p>Firstname is : {this.state.firstname}</p>
-        {this.state.responseMessage}
-      </form>
+      <div className={styles.container}>
+        <div className={styles.backgroundOverlay}></div>
+        <img src={bgp} className={styles.backgroundPicture} alt="Cover" />
+        {this.state.edit && (
+          <h2 className={styles.editBackground}>Click to Change</h2>
+        )}
+        <div className={styles.profileHeader}>
+          <div>
+            <img src={pp} className={styles.profilePicture} alt="Profile Pic" />
+            {this.state.edit && (
+              <p className={styles.editPicture}>Click to Change</p>
+            )}
+          </div>
+          {!this.state.edit && (
+            <h1 className={styles.profileName}>
+              {this.state.firstname} {this.state.lastname}
+            </h1>
+          )}
+        </div>
+        <div className={styles.body}>
+          <div className={styles.profileDetails}>
+            {this.state.edit ? (
+              <form className={styles.form} onSubmit={this.submitHandler}>
+                {profileDetails.map((e, index) => (
+                  <label className={styles.formLabel}>
+                    <img
+                      src={profileDetailIcons[index]}
+                      alt={profileFields[index]}
+                      className={styles.profileDetailIcon}
+                    />
+                    <input
+                      type="text"
+                      name={profileFields[index].toLowerCase()}
+                      placeholder={profileFields[index]}
+                    />
+                  </label>
+                ))}
+                <div className="form-buttons">
+                  <input
+                    className={styles.confirmButton}
+                    type="submit"
+                    value="Confirm"
+                  />
+                  <input
+                    className={styles.cancelButton}
+                    type="button"
+                    value="Cancel"
+                    onClick={() => this.setState({ edit: false })}
+                  />
+                </div>
+              </form>
+            ) : (
+              <>
+                {profileDetails.map((e, index) => (
+                  <div className={styles.profileDetailItem}>
+                    <img
+                      src={profileDetailIcons[index]}
+                      alt={profileFields[index]}
+                      className={styles.profileDetailIcon}
+                    />
+                    {e}
+                  </div>
+                ))}
+                <div className={styles.profileDetailItem}>
+                  <img
+                    src={gear}
+                    className={styles.profileDetailIcon}
+                    alt="Settings"
+                    onClick={() => this.setState({ edit: true })}
+                  />
+                </div>
+              </>
+            )}
+          </div>
+        </div>
+      </div>
     );
   }
 }
