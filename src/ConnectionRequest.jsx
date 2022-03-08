@@ -1,6 +1,9 @@
 import React from "react";
 import "./App.css";
-
+import tommy from "./Component/tommy.module.css";
+import jay from "./Component/jay.module.css";
+import lisa from "./Component/lisa.module.css";
+import mona from "./Component/mona.module.css";
 import personIcon from "./assets/Ibn_Khaldun.png";
 import starIcon from "./assets/unlitstar.svg";
 import litStarIcon from "./assets/litstar.svg";
@@ -9,7 +12,7 @@ import Navigationbar from "./Component/Navigationbar.jsx";
 import lisaMoan from "./assets/lisamoan.png";
 import monaLia from "./assets/monalia.png";
 import jayHou from "./assets/jayhou.png";
-import tommy from "./assets/tommy.png";
+import tommypic from "./assets/tommy.png";
 
 export default class ConnectionRequest extends React.Component{
     constructor(props) {
@@ -88,34 +91,34 @@ export default class ConnectionRequest extends React.Component{
 
                     <h className="connections">Connections</h>
                     <div className="line2"> </div>
-                    <img className="lisa-moan" img src={lisaMoan} alt="img of Lisa Moan"/> 
-                    <text className="lisa-moan-text">Lisa Moan</text>
-                    <img className="LMstar1" img src={litStarIcon} alt="star"/>
-                    <img className="LMstar2" img src={litStarIcon} alt="star"/>
-                    <img className="LMstar3" img src={starIcon} alt="star"/>
-                    <img className="LMstar4" img src={starIcon} alt="star"/>
-                    <img className="LMstar5" img src={starIcon} alt="star"/>
-                    <img className="jay-hou" img src={jayHou} alt="img of Jay Hou"/> 
-                    <text className="jay-hou-text">Jay Hou</text>
-                    <img className="JHstar1" img src={litStarIcon} alt="star"/>
-                    <img className="JHstar2" img src={litStarIcon} alt="star"/>
-                    <img className="JHstar3" img src={starIcon} alt="star"/>
-                    <img className="JHstar4" img src={starIcon} alt="star"/>
-                    <img className="JHstar5" img src={starIcon} alt="star"/>
-                    <img className="mona-lia" img src={monaLia} alt="img of Mona Lia" /> 
-                    <text className="mona-lia-text">Mona Lia</text>
-                    <img className="MLstar1" img src={litStarIcon} alt="star"/>
-                    <img className="MLstar2" img src={litStarIcon} alt="star"/>
-                    <img className="MLstar3" img src={litStarIcon} alt="star"/>
-                    <img className="MLstar4" img src={litStarIcon} alt="star"/>
-                    <img className="MLstar5" img src={starIcon} alt="star"/>
-                    <img className="tommy" img src={tommy} alt="img of Tommy"/>
-                     <text className="tommy-text">Tommy</text>
-                    <img className="Tstar1" img src={litStarIcon} alt="star"/>
-                    <img className="Tstar2" img src={litStarIcon} alt="star"/>
-                    <img className="Tstar3" img src={litStarIcon} alt="star"/>
-                    <img className="Tstar4" img src={litStarIcon} alt="star"/>
-                    <img className="Tstar5" img src={litStarIcon} alt="star"/>
+                    <img className={lisa.picture} img src={lisaMoan} alt="img of Lisa Moan"/> 
+                    <text className={lisa.name}>Lisa Moan</text>
+                    <img className={lisa.star1} img src={litStarIcon} alt="star"/>
+                    <img className={lisa.star2} img src={litStarIcon} alt="star"/>
+                    <img className={lisa.star3} img src={starIcon} alt="star"/>
+                    <img className={lisa.star4} img src={starIcon} alt="star"/>
+                    <img className={lisa.star5} img src={starIcon} alt="star"/>
+                    <img className={jay.picture} img src={jayHou} alt="img of Jay Hou"/> 
+                    <text className={jay.name}>Jay Hou</text>
+                    <img className={jay.star1} img src={litStarIcon} alt="star"/>
+                    <img className={jay.star2} img src={litStarIcon} alt="star"/>
+                    <img className={jay.star3} img src={starIcon} alt="star"/>
+                    <img className={jay.star4} img src={starIcon} alt="star"/>
+                    <img className={jay.star5} img src={starIcon} alt="star"/>
+                    <img className={mona.picture} img src={monaLia} alt="img of Mona Lia" /> 
+                    <text className={mona.name}>Mona Lia</text>
+                    <img className={mona.star1} img src={litStarIcon} alt="star"/>
+                    <img className={mona.star2} img src={litStarIcon} alt="star"/>
+                    <img className={mona.star3} img src={litStarIcon} alt="star"/>
+                    <img className={mona.star4} img src={litStarIcon} alt="star"/>
+                    <img className={mona.star5} img src={starIcon} alt="star"/>
+                    <img className={tommy.picture} img src={tommypic} alt="img of Tommy"/>
+                     <text className={tommy.name}>Tommy</text>
+                    <img className={tommy.star1} img src={litStarIcon} alt="star"/>
+                    <img className={tommy.star2} img src={litStarIcon} alt="star"/>
+                    <img className={tommy.star3} img src={litStarIcon} alt="star"/>
+                    <img className={tommy.star4} img src={litStarIcon} alt="star"/>
+                    <img className={tommy.star5} img src={litStarIcon} alt="star"/>
                     
                      </div>
  

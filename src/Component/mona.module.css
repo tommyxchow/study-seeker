@@ -1,0 +1,79 @@
+.picture{
+    position: absolute;
+    width: 100px;
+    height: 100px;
+    left: 374px;
+    top: 746px;
+  
+  }
+  
+  .name{
+    /* Mona Lia */
+  
+    position: absolute;
+    left: 386px;
+    top: 852px;
+    width: 75px;
+    height: 24px;
+  
+    font-family: Exo;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 24px;
+  
+    /* identical to box height */
+  
+    color: #000000;
+  }
+  
+  .star1{
+    position: absolute;
+    width: 15px;
+    height: 15px;
+    left: 386px;
+    top: 876px;
+  
+    box-sizing: border-box;
+  }
+  
+  .star2{
+    position: absolute;
+    width: 15px;
+    height: 15px;
+    left: 401px;
+    top: 876px;
+  
+    box-sizing: border-box;
+  }
+  
+  .star3{
+    position: absolute;
+    width: 15px;
+    height: 15px;
+    left: 416px;
+    top: 876px;
+  
+    box-sizing: border-box;
+  }
+  
+  .star4{
+    position: absolute;
+    width: 15px;
+    height: 15px;
+    left: 431px;
+    top: 876px;
+  
+    box-sizing: border-box;
+  }
+  
+  .star5{
+    position: absolute;
+    width: 15px;
+    height: 15px;
+    left: 446px;
+    top: 876px;
+  
+    box-sizing: border-box;
+  }
+  
