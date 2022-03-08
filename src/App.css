@@ -4,7 +4,7 @@
 
 
 .App {
-  text-align: center;
+  text-align:start;
 }
 
 .App-logo {
@@ -12,14 +12,16 @@
 }
 
 .App-header {
-  background-color: #FFFFFF;
+  background-color: #ffffff;
+
   min-height: 100vh;
   display: flex;
-  flex-direction: row;
+  flex-direction:column;
   align-items: flex-center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: #000;
+
+  justify-content: start;
+  font-size: calc(5px + 2vmin);
+  color: rgb(0, 0, 0);
 }
 
 .deletePost{
@@ -191,16 +193,17 @@
   left:0px;
   top:0px;
   height:100%;
-  width:100px;
+  width:300px;
 
   /* internally to this container, we want to use flex positioning of the menu elements */
   display:flex;
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
+  color: white;
 
-  background-color: blue;
-  z-index: 100;
+  
+  background-color: rgb(144, 118, 113);
 }
 
 .tag-active{
@@ -294,6 +297,87 @@
   cursor: pointer;
 }
 
+
+
+/*my code*/
+
+.text-font{
+  font-family:cursive;
+  font-style: italic;
+}
+
+.reject-button{
+  background-color: #ff0000; /* Green */
+  width:75px !important;
+  height: 25px !important;
+  border: none;
+  color: rgb(0, 0, 0);
+  text-align: center;
+  font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  text-decoration: none;
+  font-size: 14px;
+  margin: 4px 2px;
+  cursor: pointer;
+  border-radius: 25px;
+  margin-left: 150px;
+}
+
+.accept-button{
+  background-color: #56c73f; /* Green */
+  width:75px !important;
+  height: 25px !important;
+  border: none;
+  color: rgb(0, 0, 0);
+  text-align: center;
+  font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  text-decoration: none;
+  font-size: 14px;
+  margin: 4px 2px;
+  cursor: pointer;
+  border-radius: 25px;
+  margin-left: 150px;
+}
+
+.same-line{
+  display: inline-block;
+}
+
+
+.table{
+  display: inline-block;
+  list-style-type: none;
+  line-height: 30px;
+}
+
+.list-table{
+  display:inline-block;
+  list-style-type: none;
+  margin-top: 0px;
+}
+
+.person-image{
+  width:120px;
+  height:120px;
+  border-radius: 50%;
+}
+
+.star{
+  width: 10px;
+  height: 10px;
+}
+
+.fixed{
+  padding-left: 350px;
+}
+
+.text-center{
+  text-align: center;
+  position: fixed;
+}
+
+.center{
+  align-self: center;
+}
 /* CSS Tommy */
 
 .profile {
