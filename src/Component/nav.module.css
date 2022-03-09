@@ -1,0 +1,142 @@
+.home{
+position: absolute;
+left: 9.85%;
+right: 60.6%;
+top: 3.61%;
+bottom: 91.7%;
+
+font-family: Exo;
+font-style: normal;
+font-weight: bold;
+font-size: 36px;
+line-height: 48px;
+
+/* identical to box height */
+
+color: #FFFFFF;
+}
+  
+.search{
+  /* Search */
+    
+  position: absolute;
+  left: 9.85%;
+  right: 55.82%;
+  top: 9.77%;
+  bottom: 85.55%;
+  
+  font-family: Exo;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 36px;
+  line-height: 48px;
+  
+  /* identical to box height */
+  
+  color: #FFFFFF;
+}
+  
+.profile{
+  /* My Profile */
+  
+  position: absolute;
+  left: 9.85%;
+  right: 38.21%;
+  top: 15.92%;
+  bottom: 79.39%;
+  
+  font-family: Exo;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 36px;
+  line-height: 48px;
+  
+  /* identical to box height */
+  
+  color: #FFFFFF;
+}
+  
+.groups{
+  /* My Groups */
+  
+  position: absolute;
+  left: 9.85%;
+  right: 35.82%;
+  top: 22.07%;
+  bottom: 73.24%;
+  
+  font-family: Exo;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 36px;
+  line-height: 48px;
+  
+  /* identical to box height */
+  
+  color: #FFFFFF;
+} 
+  
+.connections{
+  /* My Connections */
+  
+  position: absolute;
+  left: 9.85%;
+  right: 10.75%;
+  top: 28.22%;
+  bottom: 67.09%;
+  
+  font-family: Exo;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 36px;
+  line-height: 48px;
+  
+  /* identical to box height */
+  
+  color: #FFFFFF;
+}
+  
+.logouttext{
+  /* Logout */
+  
+  position: absolute;
+  left: 61px;
+  top: 943px;
+  width: 118px;
+  height: 48px;
+  
+  font-family: Exo;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 36px;
+  line-height: 48px;
+  
+  /* identical to box height */
+  
+  color: #FFFFFF;
+  z-index: 1;
+  
+}
+  
+.logoutarrow{
+  position: absolute;
+  left: 23px;
+  top: 967px;
+  width: 20px;
+
+  border: 3px solid #FFFFFF;
+  box-sizing: border-box;
+  z-index: 1;
+}
+  
+.logoutbackground{
+  position: absolute;
+  left: 0%;
+  top: 942px;
+  width: 200px;
+  height: 50px;
+
+  background: #E74C3C;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  z-index: 0;
+}

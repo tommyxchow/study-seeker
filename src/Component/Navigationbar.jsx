@@ -1,5 +1,6 @@
 import React from "react";
 import "../App.css";
+import navbar from "./nav.module.css";
 import {
    Link
 } from 'react-router-dom';
@@ -13,11 +14,14 @@ class Navigationbar extends React.Component {
     return (
         <div className="sidenav">                      
         <ul id="side-menu-items">
-            <li><h3>Home</h3></li>
-            <li><h3>Search</h3></li>
-            <li><h3>My Profile</h3></li>
-            <li><h3>My Groups</h3></li>
-            <li><h3>My Connections</h3></li>
+            <li><h className={navbar.home}>Home</h></li>
+            <li><h className={navbar.search}>Search</h></li>
+            <li><h className={navbar.profile}>Profile</h></li>
+            <li><h className={navbar.groups}>Groups</h></li>
+            <li><h className={navbar.connections}>Connections</h></li>
+            <li><h className={navbar.logouttext}>Logout</h></li>
+            <li><h className={navbar.logoutarrow}></h></li>
+            <li><h className={navbar.logoutbackground}></h></li>
         </ul>
      </div>
   );
