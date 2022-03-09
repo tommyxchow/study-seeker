@@ -9,6 +9,8 @@ import Navigationbar from "./Component/Navigationbar.jsx";
 import connections from "./Component/connections.module.css";
 import lisaMoan from "./assets/lisamoan.png";
 import lisa from "./Component/lisa.module.css";
+import jayHou from "./assets/jayhou.png";
+import jay from "./Component/jay.module.css";
 
 export default class ConnectionRequest extends React.Component{
     constructor(props) {
@@ -94,6 +96,13 @@ export default class ConnectionRequest extends React.Component{
                     <img className={lisa.star3} img src={starIcon} alt="star"/>
                     <img className={lisa.star4} img src={starIcon} alt="star"/>
                     <img className={lisa.star5} img src={starIcon} alt="star"/>
+                    <img className={jay.picture} img src={jayHou} alt="img of Jay Hou"/> 
+                    <text className={jay.name}>Jay Hou</text>
+                    <img className={jay.star1} img src={litStarIcon} alt="star"/>
+                    <img className={jay.star2} img src={litStarIcon} alt="star"/>
+                    <img className={jay.star3} img src={starIcon} alt="star"/>
+                    <img className={jay.star4} img src={starIcon} alt="star"/>
+                    <img className={jay.star5} img src={starIcon} alt="star"/>
                      </div>
 
                  </header>
