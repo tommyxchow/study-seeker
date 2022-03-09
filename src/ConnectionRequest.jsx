@@ -2,10 +2,13 @@ import React from "react";
 import "./App.css";
 
 import personIcon from "./assets/Ibn_Khaldun.png";
-import starIcon from "./assets/star1.png";
+import litStarIcon from "./assets/litstar.svg";
+import starIcon from "./assets/unlitstar.svg";
 import personIcon2 from "./assets/group.png";
 import Navigationbar from "./Component/Navigationbar.jsx";
 import connections from "./Component/connections.module.css";
+import lisaMoan from "./assets/lisamoan.png";
+import lisa from "./Component/lisa.module.css";
 
 export default class ConnectionRequest extends React.Component{
     constructor(props) {
@@ -66,7 +69,7 @@ export default class ConnectionRequest extends React.Component{
                                     <ul className="table">
                                     <li><img src={name[2]} alt={name[1]} title={name[1]} className="person-image"/></li> 
                                     <div className="text-center"><li> {name[1]}</li>
-                                    <li><img src={starIcon} className="star"/><img src={starIcon} className="star"/><img src={starIcon} className="star"/><img src={starIcon} className="star"/><img src={starIcon} className="star"/></li></div>
+                                    <li><img src={litStarIcon} className="star"/><img src={litStarIcon} className="star"/><img src={litStarIcon} className="star"/><img src={litStarIcon} className="star"/><img src={litStarIcon} className="star"/></li></div>
                                     </ul>
                                     </td></tr>
 
@@ -84,6 +87,13 @@ export default class ConnectionRequest extends React.Component{
 
                     <h className={connections.connections}>Connections</h>
                     <div className={connections.line2}> </div>
+                    <img className={lisa.picture} img src={lisaMoan} alt="img of Lisa Moan"/> 
+                    <text className={lisa.name}>Lisa Moan</text>
+                    <img className={lisa.star1} img src={litStarIcon} alt="star"/>
+                    <img className={lisa.star2} img src={litStarIcon} alt="star"/>
+                    <img className={lisa.star3} img src={starIcon} alt="star"/>
+                    <img className={lisa.star4} img src={starIcon} alt="star"/>
+                    <img className={lisa.star5} img src={starIcon} alt="star"/>
                      </div>
 
                  </header>
