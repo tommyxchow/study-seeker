@@ -1,15 +1,18 @@
+@import url('https://fonts.googleapis.com/css2?family=Exo:ital,wght@0,400;0,700;1,400&display=swap');
+
 .container {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   height: 100vh;
+  width: 100vw;
 }
 
 .backgroundOverlay {
   position: absolute;
   height: 400px;
   width: 100vw;
-  background-color:rgba(0, 0, 0, 0.5);
+  background-color: rgba(0, 0, 0, 0.5);
 }
 
 .backgroundPicture {
@@ -17,7 +20,6 @@
   width: 100vw;
   object-fit: cover;
 }
-
 
 .profileHeader {
   display: flex;
@@ -45,8 +47,8 @@
 
 .editBackground {
   position: absolute;
-  top: 150px;
-  left: 500px;
+  top: 10%;
+  left: 40%;
   color: white;
 }
 
@@ -64,7 +66,7 @@
   margin-top: 50px;
   display: flex;
   flex-direction: row;
-  align-items: flex-start;
+  align-items: center;
 }
 
 .profileDetailItem {
@@ -75,31 +77,49 @@
   width: 30px;
   height: 30px;
   margin-right: 20px;
+  vertical-align: middle;
 }
 
 .form {
   display: flex;
   flex-direction: row;
   align-items: center;
+  flex-wrap: wrap;
+  justify-content: left;
 }
 
 .formLabel {
+  margin-bottom: 20px;
   display: flex;
   flex-direction: row;
   align-items: center;
   margin-right: 50px;
+  font-family: Exo;
+}
+
+.editButtons {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-right: 50px;
+  font-family: Exo;
 }
 
 .confirmButton {
+  margin: 10px;
   border: 0;
-  background: #2ECC71;
+  background: #2ecc71;
+  font-family: Exo;
 }
 
 .cancelButton {
+  margin: 10px;
   border: 0;
-  background: #FF0000;
+  background: #ff0000;
+  font-family: Exo;
 }
 
-.cancelButton:hover, .confirmButton:hover {
+.cancelButton:hover,
+.confirmButton:hover {
   opacity: 50%;
 }
