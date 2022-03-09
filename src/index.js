@@ -9,7 +9,7 @@ import ReactPropTypesSecret from 'prop-types/lib/ReactPropTypesSecret';
 ReactDOM.render(
 //<App />
 <React.StrictMode>
-    <Demo2/>
+    <App/>
 </React.StrictMode>,
 document.getElementById('root')
 );

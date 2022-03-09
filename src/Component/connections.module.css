@@ -1,0 +1,43 @@
+.line1{
+  position: absolute;
+  width: 1015px;
+  height: 0px;
+  left: 373px;
+  top: 91px;
+  
+  border: 1px solid #000000;
+}
+  
+  
+  
+.line2{
+  position: absolute;
+  width: 1015px;
+  height: 0px;
+  left: 373px;
+  top: 562px;
+  
+  border: 1px solid #000000;
+}
+
+
+.connections{
+  /* My Connections */
+  
+  position: absolute;
+  width: 263px;
+  height: 48px;
+  left: 373px;
+  top: 514px;
+  
+  font-family: Exo;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 36px;
+  line-height: 48px;
+  
+  /* identical to box height */
+  
+  color: #000000;
+}
+  
