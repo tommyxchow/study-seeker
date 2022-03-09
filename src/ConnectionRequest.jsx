@@ -13,6 +13,8 @@ import jayHou from "./assets/jayhou.png";
 import jay from "./Component/jay.module.css";
 import monaLia from "./assets/monalia.png";
 import mona from "./Component/mona.module.css";
+import tommypic from "./assets/tommy.png";
+import tommy from "./Component/tommy.module.css";
 
 export default class ConnectionRequest extends React.Component{
     constructor(props) {
@@ -112,6 +114,13 @@ export default class ConnectionRequest extends React.Component{
                     <img className={mona.star3} img src={litStarIcon} alt="star"/>
                     <img className={mona.star4} img src={litStarIcon} alt="star"/>
                     <img className={mona.star5} img src={starIcon} alt="star"/>
+                    <img className={tommy.picture} img src={tommypic} alt="img of Tommy"/>
+                    <text className={tommy.name}>Tommy</text>
+                    <img className={tommy.star1} img src={litStarIcon} alt="star"/>
+                    <img className={tommy.star2} img src={litStarIcon} alt="star"/>
+                    <img className={tommy.star3} img src={litStarIcon} alt="star"/>
+                    <img className={tommy.star4} img src={litStarIcon} alt="star"/>
+                    <img className={tommy.star5} img src={litStarIcon} alt="star"/>
                      </div>
 
                  </header>
