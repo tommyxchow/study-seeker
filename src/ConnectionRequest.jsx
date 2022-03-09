@@ -5,6 +5,7 @@ import personIcon from "./assets/Ibn_Khaldun.png";
 import starIcon from "./assets/star1.png";
 import personIcon2 from "./assets/group.png";
 import Navigationbar from "./Component/Navigationbar.jsx";
+import connections from "./Component/connections.module.css";
 
 export default class ConnectionRequest extends React.Component{
     constructor(props) {
@@ -54,7 +55,7 @@ export default class ConnectionRequest extends React.Component{
 
                     <div className="fixed">
                     <h3 className="text-font">Connection Requests</h3>
-
+                    <div className={connections.line1}></div>
                      
                      {this.state.names.map((name) => {                //Connection Requests
                          return(<p key={name}>
@@ -81,7 +82,8 @@ export default class ConnectionRequest extends React.Component{
                          </p>)
                      })}
 
-
+                    <h className={connections.connections}>Connections</h>
+                    <div className={connections.line2}> </div>
                      </div>
 
                  </header>
