@@ -301,8 +301,7 @@
 /*my code*/
 
 .text-font{
-  font-family:cursive;
-  font-style: italic;
+  font-family: Exo;
 }
 
 .reject-button{
@@ -367,11 +366,12 @@
 
 .fixed{
   padding-left: 350px;
+  padding-top: 70px;
 }
 
 .text-center{
   text-align: center;
-  position: fixed;
+  position: absolute;
 }
 
 .center{

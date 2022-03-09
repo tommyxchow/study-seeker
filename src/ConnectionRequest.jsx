@@ -63,7 +63,7 @@ export default class ConnectionRequest extends React.Component{
                     <Navigationbar/>                            {/*Navigation bar*/} 
 
                     <div className="fixed">
-                    <h3 className="text-font">Connection Requests</h3>
+                    <h className={connections.requests}>Connection Requests</h>
                     <div className={connections.line1}></div>
                      
                      {this.state.names.map((name) => {                //Connection Requests
