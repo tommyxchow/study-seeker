@@ -1,20 +1,20 @@
 import React from "react";
-import "./App.css";
+import "../App.css";
 
-import personIcon from "./assets/Ibn_Khaldun.png";
-import litStarIcon from "./assets/litstar.svg";
-import starIcon from "./assets/unlitstar.svg";
-import personIcon2 from "./assets/group.png";
-import Navigationbar from "./Component/Navigationbar.jsx";
-import connections from "./Component/connections.module.css";
-import lisaMoan from "./assets/lisamoan.png";
-import lisa from "./Component/lisa.module.css";
-import jayHou from "./assets/jayhou.png";
-import jay from "./Component/jay.module.css";
-import monaLia from "./assets/monalia.png";
-import mona from "./Component/mona.module.css";
-import tommypic from "./assets/tommy.png";
-import tommy from "./Component/tommy.module.css";
+import personIcon from "../assets/Ibn_Khaldun.png";
+import litStarIcon from "../assets/litstar.svg";
+import starIcon from "../assets/unlitstar.svg";
+import personIcon2 from "../assets/zhuangzi.svg";
+import Navigationbar from "./Navigationbar.jsx";
+import connections from "./connections.module.css";
+import lisaMoan from "../assets/lisamoan.png";
+import lisa from "./lisa.module.css";
+import jayHou from "../assets/jayhou.png";
+import jay from "./jay.module.css";
+import monaLia from "../assets/monalia.png";
+import mona from "./mona.module.css";
+import tommypic from "../assets/tommy.png";
+import tommy from "./tommy.module.css";
 
 export default class ConnectionRequest extends React.Component{
     constructor(props) {
@@ -23,7 +23,7 @@ export default class ConnectionRequest extends React.Component{
         this.state ={
             names: [
                 [ 1,"Ibn Khaldun", personIcon],
-                [2,"Mona Lisa", personIcon2]
+                [2,"Zhuangzi", personIcon2]
         ],
         accepted_friends:[]                                          //List of accepted friends( used for my connection list )
         }; 

@@ -13,7 +13,7 @@ import LoginForm from "./Component/LoginForm.jsx";
 import Profile from "./Component/Profile.jsx";
 import FriendForm from "./Component/FriendForm.jsx";
 import Modal from "./Component/Modal.jsx";
-import Navbar from "./Component/Navbar.jsx";
+import Navbar from "./Component/Navigationbar.jsx";
 import {
   BrowserRouter as Router, Route, Routes
 } from 'react-router-dom';
@@ -117,6 +117,7 @@ class App extends React.Component {
               <Route path="/groups" element={<Groups  login={this.login} />} />     
               <Route path="/posts" element={<Posts doRefreshPosts={this.doRefreshPosts} login={this.login} apprefresh={this.state.refreshPosts} />} />
               <Route path="/" element={<Posts doRefreshPosts={this.doRefreshPosts} login={this.login} apprefresh={this.state.refreshPosts} />} />
+              <Route path="/connections" element={<Connections />} />
             </Routes>
           </div>
         </header>
@@ -217,6 +218,14 @@ const Posts = (props) => {
     </div>
     );
   }
+}
+
+const Connections = (props) => {
+  return(
+    <div>
+      <p>Testing</p>
+    </div>
+  );
 }
 /* END ROUTE ELEMENT DEFINITIONS */
 

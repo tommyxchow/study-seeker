@@ -311,7 +311,8 @@
   border: none;
   color: rgb(0, 0, 0);
   text-align: center;
-  font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  font-family: Exo;
+  font-weight: bold;
   text-decoration: none;
   font-size: 14px;
   margin: 4px 2px;
@@ -327,7 +328,8 @@
   border: none;
   color: rgb(0, 0, 0);
   text-align: center;
-  font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  font-family: Exo;
+  font-weight: bold;
   text-decoration: none;
   font-size: 14px;
   margin: 4px 2px;
