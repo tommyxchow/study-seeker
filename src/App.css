@@ -317,7 +317,7 @@
   border-radius: 50px;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: space-evenly;
   align-items: center;
 }
 .landing-page-box {
@@ -325,6 +325,7 @@
   width: 400px;
   left: 443px;
   top: 257px;
+  justify-content: space-evenly;
 }
 
 .logo-text {
@@ -336,11 +337,12 @@
   font-family: Sofia, cursive;
   font-style: normal;
   font-weight: normal;
-  font-size: 80px;
+  font-size: 70px;
   line-height: 84.9%;
   /* or 82px */
 
   text-align: center;
+  margin: 15px;
 
   color: #3D3E3F;
 }
@@ -354,43 +356,87 @@
   font-family: Exo, sans-serif;
   font-style: normal;
   font-weight: 800;
-  font-size: 16px;
+  font-size: 18px;
   line-height: 32px;
   text-align: center;
 
   color: #3D3E3F;
 }
 
-.buttonSubmitForm {
+.buttonSubmitForm, signUpButton {
   background-color: #907671;
   border: none;
   color: white;
   padding: 20px;
   text-align: center;
   text-decoration: none;
-  display: inline-block;
   font-family: Exo, sans-serif;
-  font-size: 20px;
-  margin: 4px 2px;
+  font-size: 22px;
+  margin: 15px 2px;
   cursor: pointer;
   border-radius: 30px;
-  width: 150px;
-  height: 55px;
+  width: 125px;
+  height: 40px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
-/*
-.hide-password-button {
+.registrationForm{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.textBox, emailTextBox{
+  width: 175px;
+  height: 35px;
+  border: none;
+  background: #D8C8C8;
+  border-radius: 30px;
+  margin: 10px;
+  margin-right: 0px;
+  text-align: center;
+}
+.emailTextbox{
+  width: 375px;
+  height: 35px;
+  border: none;
+  background: #D8C8C8;
+  border-radius: 30px;
+  margin: 10px;
+  margin-right: 0px;
+  text-align: center;
+}
+.passwordRow{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+
+
+.passwordReqText{
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 12px;
+
+  text-align: center;
+
+  color: #FF0000;
 
 }
 
-.user-credentials-box {
-
-
+.formMargin{
+  margin-bottom: 30px;
 }
-.user-credentials-textbox {
 
-}
-*/
+
+
 
 
 

@@ -1,7 +1,7 @@
 import React from "react";
 import "./App.css";
 
-function BackgroundImage(props){
+export function BackgroundImage(props){
     return(
         <div className="background-image">
             {props.children}
@@ -17,20 +17,21 @@ function LandingPageBox(props){
     );
 }
 
-function LogoText(){
+export function LogoText(){
     return(
+        <div>
         <span className="logo-text">
-        Study
-        <br />
-        Seeker
-        <br />
-      </span>
+          Study
+          <br />
+          Seeker
+          <br />
+        </span>
+        <span className="logo-subtext">SEEK FRIENDS TO STUDY</span>
+      </div>
     );
 }
-function LogoSubtext(){
-    return( <span className="logo-subtext">SEEK FRIENDS TO STUDY</span>);
-}
-function ButtonSubmitForm(props){
+
+export function ButtonSubmitForm(props){
     return(
         <form action= {props.link} >
         <button className="buttonSubmitForm">{props.buttonText}</button>
@@ -59,16 +60,15 @@ class LandingPage extends React.Component {
             <link rel="stylesheet" type="text/css" href="styleStudy.css" />
             <link rel="preconnect" href="https://fonts.googleapis.com" />
             <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
-            <link
-            href="https://fonts.googleapis.com/css2?family=Exo:ital,wght@1,600&family=Sofia&display=swap"
-            rel="stylesheet"/>
+            <link href="https://fonts.googleapis.com/css2?family=Exo:wght@700&family=Sofia&display=swap" rel="stylesheet"/>
 
             <BackgroundImage>
                 <LandingPageBox>
                     <LogoText/>
-                    <LogoSubtext/>
+                    <div>
                     <ButtonSubmitForm link ={"/register/"} buttonText={"Sign Up"}/>
                     <ButtonSubmitForm link ={"https://www.google.com/"} buttonText={"Login"} />
+                    </div>
                 </LandingPageBox>
             </BackgroundImage>
             </>

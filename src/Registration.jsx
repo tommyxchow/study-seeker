@@ -1,6 +1,9 @@
 import React from "react";
 import "./App.css";
+import {BackgroundImage} from "./LandingPage.jsx"
+import {LogoText} from "./LandingPage.jsx"
 
+import {ButtonSubmitForm} from "./LandingPage.jsx"
 class Registration extends React.Component {
     constructor(props) {
         super(props);
@@ -16,15 +19,11 @@ class Registration extends React.Component {
     href="https://fonts.googleapis.com/css2?family=Exo:ital,wght@1,600&family=Sofia&display=swap"
     rel="stylesheet"
   />
-  <div className="background-image">
-    <div className="user-credentials-box">
-      <span className="logo-text">
-        Study
-        <br />
-        Seeker
-        <br />
-      </span>
-      <span className="logo-subtext">SEEK FRIENDS TO STUDY</span>
+
+  <BackgroundImage>
+  <div className="user-credentials-box">
+      <LogoText/>
+
       <form action="/">
         <input
           type="text"
@@ -57,11 +56,9 @@ class Registration extends React.Component {
           defaultValue="Sign Up"
         />
       </form>
-      <form action="https://www.google.com/">
-        <button className="buttonSubmitForm">Login</button>
-      </form>
+      <ButtonSubmitForm link ={"https://www.google.com/"} buttonText={"Login"} />
     </div>
-  </div>
+  </BackgroundImage>
 </>
 
         );
