@@ -224,7 +224,7 @@ export default class Profile extends React.Component {
                               name={e.toLowerCase()}
                               placeholder="Repeat Password"
                             />
-                        </label>
+                          </label>
                         </>
                       );
                     }

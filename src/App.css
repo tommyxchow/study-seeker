@@ -154,14 +154,6 @@
 }
 
 
-.maincontent{
-  display: flex;
-  flex-direction: column;
-
-  justify-content: center;
-  flex-grow: 1;
-}
-
 .posts{
     display:flex;
     flex-direction: column;
@@ -183,26 +175,6 @@
   flex-direction: column;
   align-items: flex-start;
   justify-content: center;
-}
-
-.sidenav{
-  /* need to specify some position other than static, so height can apply.
-     Fixed works since it will stay fixed to the side - 0 from both left and top. */
-  position: absolute;
-  width: 335px;
-  height: 1024px;
-  left: 0px;
-  top: 0px;
-
-  /* internally to this container, we want to use flex positioning of the menu elements */
-  display:flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: flex-start;
-  color: white;
-
-  
-  background-color: rgb(144, 118, 113, 1);
 }
 
 .tag-active{
@@ -367,8 +339,7 @@
 }
 
 .fixed{
-  padding-left: 350px;
-  padding-top: 70px;
+  margin-top: 70px;
 }
 
 .text-center{
@@ -378,93 +349,6 @@
 
 .center{
   align-self: center;
-}
-/* CSS Tommy */
-
-.profile {
-  position: static;
-}
-
-.profile-header {
-  position: static;
-
-}
-
-.profile-name {
-  font-size: 40px;
-  font-weight: normal;
-  z-index: 10;
-  position: absolute;
-  left: 400px;
-  top: 220px;
-}
-
-.edit-button {
-  background-color: transparent;
-  border: 0;
-}
-
-
-
-.inline-icon {
-  vertical-align: bottom;
-}
-
-.setting-icon{
-  width:20px;
-  height:20px;
-  z-index: 10;
-  position: absolute;
-  left: 140px;
-  top: 270px;
-}
-
-.profile-picture{
-  margin-left: 7rem;
-  width:190px;
-  height:190px;
-  border: 5px solid #FFFFFF;
-  border-radius: 100%;
-  margin-right: 20px;
-  z-index: 10;
-  position: absolute;
-  left: 70px;
-  top: 180px;
-}
-
-.background-picture{
-  width: 1162px;
-  height: 250px;
-
-  top: 0px;
-  left: 100px;
-  position: absolute;
-}
-
-
-.user-data{
-  position: relative;
-  top: 350px;
-}
-
-.profile-data-set{
-  position: absolute;
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  margin-left: 30%;
-  top: 53%;
-}
-
-.profile-data-icon{
-  width:30px;
-  height:30px;
-  margin-right: 20px;
-  margin-left: 20px;
-}
-
-.profile-data-set-extend{
-  flex-grow: 4;
 }
 
 table{
@@ -567,3 +451,7 @@ body{
   font-family: Exo;
 }
 
+.home {
+  display: flex;
+  flex-direction: row;
+}

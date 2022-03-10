@@ -27,7 +27,7 @@
   align-items: center;
   position: absolute;
   top: 100px;
-  left: 150px;
+  left: 350px;
 }
 
 .profilePicture {
@@ -58,7 +58,8 @@
 }
 
 .body {
-  margin-left: 100px;
+  display: flex;
+  flex-direction: column;
 }
 
 .profileDetails {

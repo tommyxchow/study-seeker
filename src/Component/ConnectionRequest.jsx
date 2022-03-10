@@ -5,7 +5,6 @@ import personIcon from "../assets/Ibn_Khaldun.png";
 import litStarIcon from "../assets/litstar.svg";
 import starIcon from "../assets/unlitstar.svg";
 import personIcon2 from "../assets/zhuangzi.svg";
-import Navigationbar from "./Navigationbar.jsx";
 import connections from "./connections.module.css";
 import lisaMoan from "../assets/lisamoan.png";
 import lisa from "./lisa.module.css";
@@ -58,10 +57,6 @@ export default class ConnectionRequest extends React.Component{
     render() {
         return (
             <div className="App">
-                 <header className = "App-header">
-                     
-                    <Navigationbar/>                            {/*Navigation bar*/} 
-
                     <div className="fixed">
                     <h className={connections.requests}>Connection Requests</h>
                     <div className={connections.line1}></div>
@@ -123,7 +118,6 @@ export default class ConnectionRequest extends React.Component{
                     <img className={tommy.star5} img src={litStarIcon} alt="star"/>
                      </div>
 
-                 </header>
             </div>
         );
     }
