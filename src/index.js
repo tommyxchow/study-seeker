@@ -7,10 +7,7 @@ import Demo2 from './ConnectionRequest';
 import ReactPropTypesSecret from 'prop-types/lib/ReactPropTypesSecret';
 
 ReactDOM.render(
-//<App />
-<React.StrictMode>
-    <Demo2/>
-</React.StrictMode>,
+<App />,
 document.getElementById('root')
 );
 

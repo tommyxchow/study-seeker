@@ -17,8 +17,9 @@
 
 .backgroundPicture {
   height: 400px;
-  width: 100vw;
+  width: 80%;
   object-fit: cover;
+  align-self: flex-end;
 }
 
 .profileHeader {
@@ -26,9 +27,11 @@
   flex-direction: row;
   align-items: center;
   position: absolute;
+  align-items: stretch;
   top: 100px;
   left: 150px;
 }
+
 
 .profilePicture {
   width: 150px;
@@ -52,9 +55,31 @@
   color: white;
 }
 
+.nameConnectButtonHeader {
+  display: flex;
+  align-items: center;
+}
+
 .profileName {
   margin-left: 1rem;
   color: white;
+  display: inline;
+}
+
+.connectButton, .disconnectButton{
+  border: 0;
+  border-radius: 10px;
+  height: 35px;
+  width: 100px;
+  background: #2ecc71;
+  font-family: Exo;
+  align-self: center;
+  font-size: large;
+  margin-left: 40vw;
+}
+
+.disconnectButton{
+  background: #ff0000;
 }
 
 .body {
@@ -120,6 +145,6 @@
 }
 
 .cancelButton:hover,
-.confirmButton:hover {
+.confirmButton:hover{
   opacity: 50%;
 }
