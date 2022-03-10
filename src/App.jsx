@@ -17,6 +17,7 @@ import Navbar from "./Component/Navigationbar.jsx";
 import {
   BrowserRouter as Router, Route, Routes
 } from 'react-router-dom';
+import ConnectionRequest from "Component/ConnectionRequest";
 
 // toggleModal will both show and hide the modal dialog, depending on current state.  Note that the
 // contents of the modal dialog are set separately before calling toggle - this is just responsible
@@ -107,22 +108,24 @@ class App extends React.Component {
       <Router basename={process.env.PUBLIC_URL}>
       <div className="App">
         <header className="App-header">
+          
+          <div className="home">
+            <Navbar toggleModal={e => toggleModal(this)} logout={this.logout}/>
 
-          <Navbar toggleModal={e => toggleModal(this, e)} logout={this.logout}/>
-
-          <div className="maincontent" id="mainContent">
-            <Routes>
-              <Route path="/settings" element={<Settings login={this.login}  />} />
-              <Route path="/friends" element={<Friends  login={this.login} />} />   
-              <Route path="/groups" element={<Groups  login={this.login} />} />     
-              <Route path="/posts" element={<Posts doRefreshPosts={this.doRefreshPosts} login={this.login} apprefresh={this.state.refreshPosts} />} />
-              <Route path="/" element={<Posts doRefreshPosts={this.doRefreshPosts} login={this.login} apprefresh={this.state.refreshPosts} />} />
-              <Route path="/connections" element={<Connections />} />
-            </Routes>
+            <div className="maincontent" id="mainContent">
+              <Routes>
+                <Route path="/profile" element={<ProfilePage login={this.login}  />} />
+                <Route path="/friends" element={<Friends  login={this.login} />} />   
+                <Route path="/groups" element={<Groups  login={this.login} />} />     
+                <Route path="/posts" element={<Posts doRefreshPosts={this.doRefreshPosts} login={this.login} apprefresh={this.state.refreshPosts} />} />
+                <Route path="/" element={<Posts doRefreshPosts={this.doRefreshPosts} login={this.login} apprefresh={this.state.refreshPosts} />} />
+                <Route path="/connections" element={<Connections />} />
+              </Routes>
+            </div>
           </div>
         </header>
 
-        <Modal show={this.state.openModal} onClose={e => toggleModal(this, e)}>
+        <Modal show={this.state.openModal} onClose={e => toggleModal(this)}>
           This is a modal dialog!
         </Modal>
       </div>
@@ -136,7 +139,7 @@ class App extends React.Component {
 // that will appear in the routes.  
 
 
-const Settings = (props) => {
+const ProfilePage = (props) => {
    // if the user is not logged in, show the login form.  Otherwise, show the settings page
    if (!sessionStorage.getItem("token")){
     console.log("LOGGED OUT");
@@ -222,9 +225,7 @@ const Posts = (props) => {
 
 const Connections = (props) => {
   return(
-    <div>
-      <p>Testing</p>
-    </div>
+    <ConnectionRequest/>
   );
 }
 /* END ROUTE ELEMENT DEFINITIONS */
