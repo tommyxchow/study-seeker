@@ -3,7 +3,72 @@ import "./App.css";
 import {BackgroundImage} from "./LandingPage.jsx"
 import {LogoText} from "./LandingPage.jsx"
 
-import {ButtonSubmitForm} from "./LandingPage.jsx"
+
+
+
+  function UserCredentialsBox(props){
+    return(
+        <div className="user-credentials-box">
+            {props.children}
+        </div>
+    );
+}
+function CredentialsTextForm(){
+    return(
+        <div className="formMargin">
+        <form className="registrationForm" action="/">
+          <div>
+            <input
+              className="textBox"
+              type="text"
+              id="fname"
+              name="firstname"
+              placeholder="First Name"
+            />
+            <input
+              className="textBox"
+              type="text"
+              id="lname"
+              name="lastname"
+              placeholder="Last Name"
+            />
+          </div>
+          <input
+            className="emailTextbox"
+            type="email"
+            id="email"
+            name="email"
+            placeholder="Email Address"
+          />
+          <div className="passwordRow">
+            <input
+              className="textBox"
+              type="password"
+              id="password"
+              name="password"
+              placeholder="Password"
+            />
+            <input
+              className="textBox"
+              type="password"
+              id="confirmPass"
+              name="password"
+              placeholder="Confirm Password"
+            />
+          </div>
+          <span className="passwordReqText">
+            <br />
+            Password must be at least 8 characters in length
+          </span>
+          <input
+            className="buttonSubmitForm"
+            type="submit"
+            defaultValue="Sign Up"
+          />
+        </form>
+      </div>
+    );
+}
 class Registration extends React.Component {
     constructor(props) {
         super(props);
@@ -16,51 +81,17 @@ class Registration extends React.Component {
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
   <link
-    href="https://fonts.googleapis.com/css2?family=Exo:ital,wght@1,600&family=Sofia&display=swap"
+    href="https://fonts.googleapis.com/css2?family=Exo:wght@700&family=Sofia&display=swap"
     rel="stylesheet"
   />
 
   <BackgroundImage>
-  <div className="user-credentials-box">
-      <LogoText/>
-
-      <form action="/">
-        <input
-          type="text"
-          id="fname"
-          name="firstname"
-          placeholder="First Name"
-        />
-        <input type="text" id="lname" name="lastname" placeholder="Last Name" />
-        <input
-          type="text"
-          id="email"
-          name="email"
-          placeholder="Email Address"
-        />
-        <input
-          type="text"
-          id="password"
-          name="password"
-          placeholder="Password"
-        />
-        <input
-          type="text"
-          id="confirmPass"
-          name="password"
-          placeholder="Confirm Password"
-        />
-        <input
-          type="submit"
-          className="buttonSubmitForm"
-          defaultValue="Sign Up"
-        />
-      </form>
-      <ButtonSubmitForm link ={"https://www.google.com/"} buttonText={"Login"} />
-    </div>
+      <UserCredentialsBox> 
+          <LogoText/>
+          <CredentialsTextForm/>
+      </UserCredentialsBox>
   </BackgroundImage>
 </>
-
         );
 
     }
