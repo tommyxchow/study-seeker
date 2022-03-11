@@ -5,11 +5,13 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  background-image: url('../assets/backgroundCoffee.png');
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 
 .loginBackground {
-  height: 80%;
-  max-height: 900px;
+  height: 900px;
   width: 70%;
   max-width: 1000px;
   background-color: #ede5e5;
