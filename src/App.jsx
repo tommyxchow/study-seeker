@@ -8,6 +8,7 @@ import ConnectionRequest from "Component/ConnectionRequest";
 import React from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import "./App.css";
+import ForgotPasswordPage from "./Component/ForgotPassword.jsx";
 import FriendForm from "./Component/FriendForm.jsx";
 import FriendList from "./Component/FriendList.jsx";
 import GroupList from "./Component/GroupList.jsx";
@@ -134,6 +135,8 @@ class App extends React.Component {
                       />
                     }
                   />
+                  <Route path="/reset-password" element={<ForgotPassword />} />
+                  <Route path="/connections" element={<Connections />} />
                   <Route
                     path="/"
                     element={
@@ -144,7 +147,6 @@ class App extends React.Component {
                       />
                     }
                   />
-                  <Route path="/connections" element={<Connections />} />
                 </Routes>
               </div>
             </div>
@@ -245,6 +247,11 @@ const Posts = (props) => {
 const Connections = (props) => {
   return <ConnectionRequest />;
 };
+
+const ForgotPassword = (props) => {
+  return <ForgotPasswordPage />;
+};
+
 /* END ROUTE ELEMENT DEFINITIONS */
 
 // export the app for use in index.js

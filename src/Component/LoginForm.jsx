@@ -1,6 +1,6 @@
 import React from "react";
 import "../App.css";
-import styles from "./login.module.css";
+import styles from "./auth.module.css";
 
 // the login form will display if there is no session token stored.  This will display
 // the login form, and call the API to authenticate the user and store the token in
@@ -93,18 +93,20 @@ export default class LoginForm extends React.Component {
     if (!sessionStorage.getItem("token")) {
       return (
         <div className={styles.container}>
-          <div className={styles.loginBackground}>
-            <div className={styles.login}>
+          <div className={styles.background}>
+            <div className={styles.content}>
               <strong className={styles.logoText}>
                 Study
                 <br />
                 Seeker
               </strong>
-              <b className={styles.subtitle}>SEEK FRIENDS TO STUDY</b>
+              <b className={styles.subtitle}>
+                SIGN UP TO FIND YOUR NEXT STUDY BUDDY
+              </b>
               <form className={styles.form} onSubmit={this.submitHandler}>
                 <input
                   className={styles.input}
-                  type="text"
+                  type="email"
                   name="login"
                   placeholder="Email"
                   onChange={this.myChangeHandler}
@@ -120,7 +122,7 @@ export default class LoginForm extends React.Component {
               <a className={styles.forgotPassword} href="/reset-password">
                 forgot password?
               </a>
-              <button className={styles.loginButton}>Login</button>
+              <button className={styles.button}>Login</button>
               <a className={styles.noAccount} href="/register">
                 don't have an account?
               </a>
