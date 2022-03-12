@@ -100,9 +100,7 @@ export default class LoginForm extends React.Component {
                 <br />
                 Seeker
               </strong>
-              <b className={styles.subtitle}>
-                SIGN UP TO FIND YOUR NEXT STUDY BUDDY
-              </b>
+              <b className={styles.subtitle}>LOG IN TO YOUR ACCOUNT</b>
               <form className={styles.form} onSubmit={this.submitHandler}>
                 <input
                   className={styles.input}
