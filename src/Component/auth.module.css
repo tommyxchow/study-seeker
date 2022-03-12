@@ -11,17 +11,20 @@
 }
 
 .background {
-  height: 900px;
+  height: 90%;
+  max-height: 900px;
   width: 70%;
   max-width: 1000px;
   background-color: #ede5e5;
   border-radius: 50px;
+  padding: 2rem;
 }
 
 .form {
   display: flex;
   flex-direction: column;
   align-items: center;
+  width: 100%;
 }
 
 .input {
@@ -29,6 +32,9 @@
   border: none;
   margin-top: 1rem;
   text-align: center;
+  width: 400px;
+  max-width: 100%;
+  height: 50px;
 }
 
 .content {
@@ -67,6 +73,7 @@
   margin-top: 1rem;
   color: black;
   margin-bottom: 2rem;
+  text-align: center;
 }
 
 .forgotPassword:hover,
@@ -85,14 +92,15 @@
   font-weight: bold;
   cursor: pointer;
   border-radius: 30px;
-  width: 125px;
-  height: 40px;
   margin-bottom: 2rem;
   margin-top: 1rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
 }
 
 .noAccount {
   text-decoration: none;
   font-size: 18px;
   color: black;
+  text-align: center;
 }
