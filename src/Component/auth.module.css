@@ -5,7 +5,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background-image: url('../assets/backgroundCoffee.png');
+  background-image: url("../assets/backgroundCoffee.png");
   background-repeat: no-repeat;
   background-size: cover;
 }
@@ -21,10 +21,11 @@
 .form {
   display: flex;
   flex-direction: column;
+  align-items: center;
 }
 
 .input {
-  background: #D8C8C8;
+  background: #d8c8c8;
   border: none;
   margin-top: 1rem;
   text-align: center;
@@ -57,7 +58,7 @@
   text-align: center;
   margin: 15px;
 
-  color: #3D3E3F;
+  color: #3d3e3f;
 }
 
 .forgotPassword {
@@ -68,25 +69,26 @@
   margin-bottom: 2rem;
 }
 
-.forgotPassword:hover, .noAccount:hover {
+.forgotPassword:hover,
+.noAccount:hover {
   text-decoration: underline;
 }
 
 .button {
-    background-color: #907671;
-    border: none;
-    color: white;
-    text-align: center;
-    text-decoration: none;
-    font-family: Exo, sans-serif;
-    font-size: 22px;
-    font-weight: bold;
-    cursor: pointer;
-    border-radius: 30px;
-    width: 125px;
-    height: 40px;
-    margin-bottom: 2rem;
-    margin-top: 1rem;
+  background-color: #907671;
+  border: none;
+  color: white;
+  text-align: center;
+  text-decoration: none;
+  font-family: Exo, sans-serif;
+  font-size: 22px;
+  font-weight: bold;
+  cursor: pointer;
+  border-radius: 30px;
+  width: 125px;
+  height: 40px;
+  margin-bottom: 2rem;
+  margin-top: 1rem;
 }
 
 .noAccount {

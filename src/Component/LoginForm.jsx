@@ -82,7 +82,7 @@ export default class LoginForm extends React.Component {
           }
         },
         (error) => {
-          alert("error!");
+          alert("User does not exist or password is invalid.");
         }
       );
   };
@@ -110,19 +110,21 @@ export default class LoginForm extends React.Component {
                   name="login"
                   placeholder="Email"
                   onChange={this.myChangeHandler}
-                ></input>
+                  required
+                />
                 <input
                   className={styles.input}
                   type="password"
                   name="password"
                   placeholder="Password"
                   onChange={this.passwordChangeHandler}
-                ></input>
+                  required
+                />
+                <a className={styles.forgotPassword} href="/reset-password">
+                  forgot password?
+                </a>
+                <input type="submit" value="Login" className={styles.button} />
               </form>
-              <a className={styles.forgotPassword} href="/reset-password">
-                forgot password?
-              </a>
-              <button className={styles.button}>Login</button>
               <a className={styles.noAccount} href="/register">
                 don't have an account?
               </a>
