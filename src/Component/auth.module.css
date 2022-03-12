@@ -85,10 +85,10 @@
   font-weight: bold;
   cursor: pointer;
   border-radius: 30px;
-  width: 125px;
-  height: 40px;
   margin-bottom: 2rem;
   margin-top: 1rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
 }
 
 .noAccount {
