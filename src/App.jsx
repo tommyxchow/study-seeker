@@ -17,6 +17,7 @@ import Modal from "./Component/Modal.jsx";
 import Navbar from "./Component/Navigationbar.jsx";
 import PostForm from "./Component/PostForm.jsx";
 import Profile from "./Component/Profile.jsx";
+import { useParams } from "react-router-dom";
 
 // toggleModal will both show and hide the modal dialog, depending on current state.  Note that the
 // contents of the modal dialog are set separately before calling toggle - this is just responsible
@@ -117,6 +118,10 @@ class App extends React.Component {
                     path="/profile"
                     element={<ProfilePage login={this.login} />}
                   />
+                  <Route 
+                    path="/profile/:id"
+                    element={<ProfilePage login={this.login}/>} 
+                  />
                   <Route
                     path="/friends"
                     element={<Friends login={this.login} />}
@@ -167,17 +172,21 @@ class App extends React.Component {
 
 const ProfilePage = (props) => {
   // if the user is not logged in, show the login form.  Otherwise, show the settings page
+  const user_id = sessionStorage.getItem("user");
+  let { id } = useParams();
+  id = !id ? user_id:id;
+
   if (!sessionStorage.getItem("token")) {
-    console.log("LOGGED OUT");
+    console.log("LOGGED OUT", );
     return (
       <div>
         <LoginPage login={props.login} />
       </div>
     );
-  }
+  } 
   return (
-    <div className="settings">
-      <Profile userid={sessionStorage.getItem("user")} />
+    <div className="Profile">
+      <Profile userid={user_id} profileid={id}/>
     </div>
   );
 };

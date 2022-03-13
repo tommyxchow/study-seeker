@@ -61,7 +61,7 @@ export default class Profile extends React.Component {
     fetch(
       process.env.REACT_APP_API_PATH +
         "/users/" +
-        sessionStorage.getItem("user"),
+        this.props.profileid,
       {
         method: "get",
         headers: {
@@ -157,6 +157,7 @@ export default class Profile extends React.Component {
   // state changes, automatically.  This is why you see the username and firstname change on the screen
   // as you type them.
   render() {
+    console.log("Testing", this.props);
     const profileFields = ["Major", "Year", "Contact", "Privacy", "Password"];
     const profileDetails = [
       this.state.major,
@@ -180,7 +181,8 @@ export default class Profile extends React.Component {
           alt="Cover"
         />
         {this.state.edit && (
-          <h2 className={styles.editBackground}>Click to Change</h2>
+          <h2 className={styles.editBackground}>Click to Change
+        </h2>
         )}
         <div className={styles.profileHeader}>
           <div>

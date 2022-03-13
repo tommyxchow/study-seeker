@@ -5,21 +5,21 @@
   flex-direction: column;
   align-items: flex-start;
   height: 100vh;
-  width: 100vw;
+  width: 75vw;
 }
 
 .backgroundOverlay {
   position: absolute;
   height: 400px;
-  width: 100vw;
+  width: 75vw;
   background-color: rgba(0, 0, 0, 0.5);
 }
 
 .backgroundPicture {
   height: 400px;
-  width: 80%;
+  width: 75vw;
   object-fit: cover;
-  align-self: flex-end;
+  align-self: flex-start;
 }
 
 .profileHeader {
@@ -75,7 +75,7 @@
   font-family: Exo;
   align-self: center;
   font-size: large;
-  margin-left: 40vw;
+  margin-left: 30vw;
 }
 
 .disconnectButton{
