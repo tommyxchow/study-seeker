@@ -35,6 +35,7 @@ export default class Profile extends React.Component {
       privacy: "",
       edit: false,
       connect: false,
+      profile: this.props.userid == this.props.profileid
     };
     this.fieldChangeHandler.bind(this);
   }
@@ -61,7 +62,7 @@ export default class Profile extends React.Component {
     fetch(
       process.env.REACT_APP_API_PATH +
         "/users/" +
-        sessionStorage.getItem("user"),
+        this.props.profileid,
       {
         method: "get",
         headers: {
@@ -157,6 +158,7 @@ export default class Profile extends React.Component {
   // state changes, automatically.  This is why you see the username and firstname change on the screen
   // as you type them.
   render() {
+    console.log("Testing", this.props);
     const profileFields = ["Major", "Year", "Contact", "Privacy", "Password"];
     const profileDetails = [
       this.state.major,
@@ -192,21 +194,31 @@ export default class Profile extends React.Component {
             {this.state.edit && (
               <p className={styles.editPicture}>Click to Change</p>
             )}
+            {this.state.edit && (
+              <button className={styles.deleteAccountButton}>
+              Delete Account
+              </button>
+            )}
           </div>
+          
           {!this.state.edit && (
             <div className={styles.nameConnectButtonHeader}><h1 className={styles.profileName}>
-              {this.state.firstname} {this.state.lastname}
-            </h1>
-            {this.state.connect ?(
-              <button className={styles.disconnectButton} onClick={() => this.setState({ connect: false })}>
-              Disconnect
-              </button>
-              ):(
-              <button className={styles.connectButton} onClick={() => this.setState({ connect: true })}>
-                Connect
-              </button>
-            )}</div>
-          )}
+              {this.state.firstname} {this.state.lastname}</h1>
+            </div>)}
+          {!this.state.profile && (this.state.connect ? 
+          (
+            <button className={styles.disconnectButton} onClick={() => this.setState({ connect: false })}>
+            Disconnect
+            </button>
+            ):(
+            <button className={styles.connectButton} onClick={() => this.setState({ connect: true })}>
+              Connect
+            </button>)
+            )}
+            {
+              !this.state.profile &&
+              <button className={styles.blockButton}>Block</button>
+            }
         </div>
         <div className={styles.body}>
           <div className={styles.profileDetails}>
@@ -281,14 +293,15 @@ export default class Profile extends React.Component {
                     {e}
                   </div>
                 ))}
-                <div className={styles.profileDetailItem}>
+                {this.state.profile &&
+                (<div className={styles.profileDetailItem}>
                   <img
                     src={settingsLogo}
                     className={styles.profileDetailIcon}
                     alt="Settings"
                     onClick={() => this.setState({ edit: true })}
                   />
-                </div>
+                </div>)}
               </>
             )}
           </div>
