@@ -3,11 +3,14 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
-import Demo2 from './ConnectionRequest';
+import Demo2 from './Component/ConnectionRequest';
 import ReactPropTypesSecret from 'prop-types/lib/ReactPropTypesSecret';
 
 ReactDOM.render(
-<App />,
+//<App />
+<React.StrictMode>
+    <App/>
+</React.StrictMode>,
 document.getElementById('root')
 );
 

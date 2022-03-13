@@ -1,0 +1,77 @@
+.picture{
+  position: absolute;
+  width: 100px;
+  height: 100px;
+  left: 374px;
+  top: 590px;
+}
+
+.name{
+  /* Lisa Moan */
+
+  position: absolute;
+  left: 378px;
+  top: 696px;
+  width: 84px;
+  height: 24px;
+
+  font-family: Exo;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 24px;
+
+  /* identical to box height */
+
+  color: #000000;
+}
+
+.star1{
+  position: absolute;
+  width: 15px;
+  height: 15px;
+  left: 382px;
+  top: 720px;
+
+  box-sizing: border-box;
+}
+
+.star2{
+  position: absolute;
+  width: 15px;
+  height: 15px;
+  left: 397px;
+  top: 720px;
+
+  box-sizing: border-box;
+}
+
+.star3{
+  position: absolute;
+  width: 15px;
+  height: 15px;
+  left: 412px;
+  top: 720px;
+
+  box-sizing: border-box;
+}
+
+.star4{
+  position: absolute;
+  width: 15px;
+  height: 15px;
+  left: 427px;
+  top: 720px;
+
+  box-sizing: border-box;
+}
+
+.star5{
+  position: absolute;
+  width: 15px;
+  height: 15px;
+  left: 442px;
+  top: 720px;
+
+  box-sizing: border-box;
+}
