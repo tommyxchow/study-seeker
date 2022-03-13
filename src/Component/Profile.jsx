@@ -35,6 +35,7 @@ export default class Profile extends React.Component {
       privacy: "",
       edit: false,
       connect: false,
+      profile: this.props.userid == this.props.profileid
     };
     this.fieldChangeHandler.bind(this);
   }
@@ -181,8 +182,7 @@ export default class Profile extends React.Component {
           alt="Cover"
         />
         {this.state.edit && (
-          <h2 className={styles.editBackground}>Click to Change
-        </h2>
+          <h2 className={styles.editBackground}>Click to Change</h2>
         )}
         <div className={styles.profileHeader}>
           <div>
@@ -195,20 +195,20 @@ export default class Profile extends React.Component {
               <p className={styles.editPicture}>Click to Change</p>
             )}
           </div>
+          
           {!this.state.edit && (
             <div className={styles.nameConnectButtonHeader}><h1 className={styles.profileName}>
-              {this.state.firstname} {this.state.lastname}
-            </h1>
-            {this.state.connect ?(
-              <button className={styles.disconnectButton} onClick={() => this.setState({ connect: false })}>
-              Disconnect
-              </button>
-              ):(
-              <button className={styles.connectButton} onClick={() => this.setState({ connect: true })}>
-                Connect
-              </button>
-            )}</div>
-          )}
+              {this.state.firstname} {this.state.lastname}</h1>
+            </div>)}
+          {!this.state.profile && (this.state.connect ? (
+            <button className={styles.disconnectButton} onClick={() => this.setState({ connect: false })}>
+            Disconnect
+            </button>
+            ):(
+            <button className={styles.connectButton} onClick={() => this.setState({ connect: true })}>
+              Connect
+            </button>))
+          }
         </div>
         <div className={styles.body}>
           <div className={styles.profileDetails}>
