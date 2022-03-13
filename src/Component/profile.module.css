@@ -66,7 +66,7 @@
   display: inline;
 }
 
-.connectButton, .disconnectButton, .blockButton{
+.connectButton, .disconnectButton, .blockButton, .deleteAccountButton{
   border: 0;
   border-radius: 10px;
   height: 35px;
@@ -79,12 +79,19 @@
 }
 
 .deleteAccountButton {
+  margin-left: 0vw;
   position: absolute;
   top:-12vh;
   left: 60vw;
+  width: 96px;
+  height: 42px;
+  font-size: 15px;
+  border-radius: 50px;
+  color: #ffffff;  
+  font-weight: bold;
 }
 
-.disconnectButton, .blockButton{
+.disconnectButton, .blockButton, .deleteAccountButton{
   background: #ff0000;
 }
 
