@@ -34,6 +34,7 @@ export default class Profile extends React.Component {
       contact: "",
       privacy: "",
       edit: false,
+      connect: false,
     };
     this.fieldChangeHandler.bind(this);
   }
@@ -91,6 +92,7 @@ export default class Profile extends React.Component {
                 backgroundPicture: result.attributes.backgroundPicture || "",
                 rating: result.attributes.rating || "0",
                 edit: false,
+                connect: false
               });
             }
           }
@@ -192,9 +194,18 @@ export default class Profile extends React.Component {
             )}
           </div>
           {!this.state.edit && (
-            <h1 className={styles.profileName}>
+            <div className={styles.nameConnectButtonHeader}><h1 className={styles.profileName}>
               {this.state.firstname} {this.state.lastname}
             </h1>
+            {this.state.connect ?(
+              <button className={styles.disconnectButton} onClick={() => this.setState({ connect: false })}>
+              Disconnect
+              </button>
+              ):(
+              <button className={styles.connectButton} onClick={() => this.setState({ connect: true })}>
+                Connect
+              </button>
+            )}</div>
           )}
         </div>
         <div className={styles.body}>
