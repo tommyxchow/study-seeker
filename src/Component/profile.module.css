@@ -66,7 +66,7 @@
   display: inline;
 }
 
-.connectButton, .disconnectButton{
+.connectButton, .disconnectButton, .blockButton{
   border: 0;
   border-radius: 10px;
   height: 35px;
@@ -75,11 +75,22 @@
   font-family: Exo;
   align-self: center;
   font-size: large;
-  margin-left: 30vw;
+  margin-left: 28vw;
 }
 
-.disconnectButton{
+.deleteAccountButton {
+  position: absolute;
+  top:-12vh;
+  left: 60vw;
+}
+
+.disconnectButton, .blockButton{
   background: #ff0000;
+}
+
+.blockButton{
+  margin-left: 20px;
+  margin-right: 20px;
 }
 
 .body {

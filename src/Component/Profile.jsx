@@ -194,21 +194,31 @@ export default class Profile extends React.Component {
             {this.state.edit && (
               <p className={styles.editPicture}>Click to Change</p>
             )}
+            {this.state.edit && (
+              <button className={styles.deleteAccountButton}>
+              Delete Account
+              </button>
+            )}
           </div>
           
           {!this.state.edit && (
             <div className={styles.nameConnectButtonHeader}><h1 className={styles.profileName}>
               {this.state.firstname} {this.state.lastname}</h1>
             </div>)}
-          {!this.state.profile && (this.state.connect ? (
+          {!this.state.profile && (this.state.connect ? 
+          (
             <button className={styles.disconnectButton} onClick={() => this.setState({ connect: false })}>
             Disconnect
             </button>
             ):(
             <button className={styles.connectButton} onClick={() => this.setState({ connect: true })}>
               Connect
-            </button>))
-          }
+            </button>)
+            )}
+            {
+              !this.state.profile &&
+              <button className={styles.blockButton}>Block</button>
+            }
         </div>
         <div className={styles.body}>
           <div className={styles.profileDetails}>
@@ -283,14 +293,15 @@ export default class Profile extends React.Component {
                     {e}
                   </div>
                 ))}
-                <div className={styles.profileDetailItem}>
+                {this.state.profile &&
+                (<div className={styles.profileDetailItem}>
                   <img
                     src={settingsLogo}
                     className={styles.profileDetailIcon}
                     alt="Settings"
                     onClick={() => this.setState({ edit: true })}
                   />
-                </div>
+                </div>)}
               </>
             )}
           </div>
