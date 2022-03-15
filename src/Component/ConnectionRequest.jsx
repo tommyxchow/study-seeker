@@ -133,38 +133,55 @@ export default class ConnectionRequest extends React.Component{
                             </div>
                          </p>)
                      })}
-
-                    <h className={connections.connections}>Connections</h>
-                    <div className={connections.line2}> </div>
-                    <img className={lisa.picture} img src={lisaMoan} alt="img of Lisa Moan"/> 
-                    <text className={lisa.name}>Lisa Moan</text>
-                    <img className={lisa.star1} img src={litStarIcon} alt="star"/>
-                    <img className={lisa.star2} img src={litStarIcon} alt="star"/>
-                    <img className={lisa.star3} img src={starIcon} alt="star"/>
-                    <img className={lisa.star4} img src={starIcon} alt="star"/>
-                    <img className={lisa.star5} img src={starIcon} alt="star"/>
-                    <img className={jay.picture} img src={jayHou} alt="img of Jay Hou"/> 
-                    <text className={jay.name}>Jay Hou</text>
-                    <img className={jay.star1} img src={litStarIcon} alt="star"/>
-                    <img className={jay.star2} img src={litStarIcon} alt="star"/>
-                    <img className={jay.star3} img src={starIcon} alt="star"/>
-                    <img className={jay.star4} img src={starIcon} alt="star"/>
-                    <img className={jay.star5} img src={starIcon} alt="star"/>
-                    <img className={mona.picture} img src={monaLia} alt="img of Mona Lia" /> 
-                    <text className={mona.name}>Mona Lia</text>
-                    <img className={mona.star1} img src={litStarIcon} alt="star"/>
-                    <img className={mona.star2} img src={litStarIcon} alt="star"/>
-                    <img className={mona.star3} img src={litStarIcon} alt="star"/>
-                    <img className={mona.star4} img src={litStarIcon} alt="star"/>
-                    <img className={mona.star5} img src={starIcon} alt="star"/>
-                    <img className={tommy.picture} img src={tommypic} alt="img of Tommy"/>
-                    <text className={tommy.name}>Tommy</text>
-                    <img className={tommy.star1} img src={litStarIcon} alt="star"/>
-                    <img className={tommy.star2} img src={litStarIcon} alt="star"/>
-                    <img className={tommy.star3} img src={litStarIcon} alt="star"/>
-                    <img className={tommy.star4} img src={litStarIcon} alt="star"/>
-                    <img className={tommy.star5} img src={litStarIcon} alt="star"/>
                      </div>
+                    <div className={connections.connections}>Connections</div>
+                    <div className={connections.line2}> </div>
+                    <div className={connections.container}>
+                        <div className={lisa.div}>
+                            <img className={lisa.picture} img src={lisaMoan} alt="img of Lisa Moan"/> 
+                            <text className={lisa.name}>Lisa Moan</text>
+                            <div className={lisa.stars}>
+                                <img className={lisa.star1} img src={litStarIcon} alt="star"/>
+                                <img className={lisa.star2} img src={litStarIcon} alt="star"/>
+                                <img className={lisa.star3} img src={starIcon} alt="star"/>
+                                <img className={lisa.star4} img src={starIcon} alt="star"/>
+                                <img className={lisa.star5} img src={starIcon} alt="star"/>
+                            </div>
+                        </div>
+                        <div className={jay.div}>
+                            <img className={jay.picture} img src={jayHou} alt="img of Jay Hou"/> 
+                            <text className={jay.name}>Jay Hou</text>
+                            <div className={jay.stars}>
+                                <img className={jay.star1} img src={litStarIcon} alt="star"/>
+                                <img className={jay.star2} img src={litStarIcon} alt="star"/>
+                                <img className={jay.star3} img src={starIcon} alt="star"/>
+                                <img className={jay.star4} img src={starIcon} alt="star"/>
+                                <img className={jay.star5} img src={starIcon} alt="star"/>
+                            </div>
+                        </div>
+                        <div className={mona.div}>
+                            <img className={mona.picture} img src={monaLia} alt="img of Mona Lia" /> 
+                            <text className={mona.name}>Mona Lia</text>
+                            <div className={mona.stars}>
+                                <img className={mona.star1} img src={litStarIcon} alt="star"/>
+                                <img className={mona.star2} img src={litStarIcon} alt="star"/>
+                                <img className={mona.star3} img src={litStarIcon} alt="star"/>
+                                <img className={mona.star4} img src={litStarIcon} alt="star"/>
+                                <img className={mona.star5} img src={starIcon} alt="star"/>
+                            </div>
+                        </div>
+                        <div className={tommy.div}>
+                            <img className={tommy.picture} img src={tommypic} alt="img of Tommy"/>
+                            <text className={tommy.name}>Tommy</text>
+                            <div className={tommy.stars}>
+                                <img className={tommy.star1} img src={litStarIcon} alt="star"/>
+                                <img className={tommy.star2} img src={litStarIcon} alt="star"/>
+                                <img className={tommy.star3} img src={litStarIcon} alt="star"/>
+                                <img className={tommy.star4} img src={litStarIcon} alt="star"/>
+                                <img className={tommy.star5} img src={litStarIcon} alt="star"/>
+                            </div>
+                        </div>
+                    </div>
 
             </div>
         );

@@ -1,9 +1,9 @@
 .line1{
-  position: absolute;
   width: 1015px;
   height: 0px;
   left: 373px;
   top: 91px;
+  margin-left: 37px;
   
   border: 1px solid #000000;
 }
@@ -11,11 +11,11 @@
   
   
 .line2{
-  position: absolute;
   width: 1015px;
   height: 0px;
   left: 373px;
   top: 562px;
+  margin-left: 37px;
   
   border: 1px solid #000000;
 }
@@ -24,11 +24,11 @@
 .connections{
   /* My Connections */
   
-  position: absolute;
   width: 263px;
   height: 48px;
   left: 373px;
   top: 514px;
+  margin-left: 37px;
   
   font-family: Exo;
   font-style: normal;
@@ -44,11 +44,11 @@
 .requests{
   /* Connection Requests */
 
-  position: absolute;
   width: 347px;
   height: 48px;
   left: 372px;
   top: 42px;
+  margin-left: 37px;
 
   font-family: Exo;
   font-style: normal;
@@ -59,4 +59,13 @@
   /* identical to box height */
 
   color: #000000;
+}
+
+.container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  margin-top: 30px;
+  
 }

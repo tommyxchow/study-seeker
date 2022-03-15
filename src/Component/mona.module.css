@@ -1,18 +1,13 @@
 .picture{
-  position: absolute;
+  align-self: auto;
   width: 100px;
   height: 100px;
-  left: 374px;
-  top: 746px;
-
 }
   
 .name{
   /* Mona Lia */
 
-  position: absolute;
-  left: 386px;
-  top: 852px;
+  align-self: center;
   width: 75px;
   height: 24px;
 
@@ -28,52 +23,53 @@
 }
   
 .star1{
-  position: absolute;
+  align-self: center;
   width: 15px;
   height: 15px;
-  left: 386px;
-  top: 876px;
 
   box-sizing: border-box;
 }
 
 .star2{
-  position: absolute;
+  align-self: center;
   width: 15px;
   height: 15px;
-  left: 401px;
-  top: 876px;
 
   box-sizing: border-box;
 }
 
 .star3{
-  position: absolute;
+  align-self: center;
   width: 15px;
   height: 15px;
-  left: 416px;
-  top: 876px;
 
   box-sizing: border-box;
 }
 
 .star4{
-  position: absolute;
+  align-self: center;
   width: 15px;
   height: 15px;
-  left: 431px;
-  top: 876px;
 
   box-sizing: border-box;
 }
 
 .star5{
-  position: absolute;
+  align-self: center;
   width: 15px;
   height: 15px;
-  left: 446px;
-  top: 876px;
 
   box-sizing: border-box;
 }
   
+.div {
+  align-self: flex-start;
+  display: flex;
+  flex-direction: column;
+}
+
+.stars {
+  flex-direction: row;
+  display: flex;
+  align-self: center;
+}

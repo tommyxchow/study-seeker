@@ -1,5 +1,5 @@
 .picture{
-  position: absolute;
+  align-self: auto;
   width: 100px;
   height: 100px;
   left: 537px;
@@ -9,9 +9,7 @@
 .name{
   /* Jay Hou */
 
-  position: absolute;
-  left: 555px;
-  top: 696px;
+  align-self: center;
   width: 65px;
   height: 24px;
 
@@ -27,51 +25,53 @@
 }
 
 .star1{
-  position: absolute;
+  align-self: center;
   width: 15px;
   height: 15px;
-  left: 552px;
-  top: 718px;
 
   box-sizing: border-box;
 }
 
 .star2{
-  position: absolute;
+  align-self: center;
   width: 15px;
   height: 15px;
-  left: 567px;
-  top: 718px;
 
   box-sizing: border-box;
 }
 
 .star3{
-  position: absolute;
+  align-self: center;
   width: 15px;
   height: 15px;
-  left: 582px;
-  top: 718px;
 
   box-sizing: border-box;
 }
 
 .star4{
-  position: absolute;
+  align-self: center;
   width: 15px;
   height: 15px;
-  left: 597px;
-  top: 718px;
 
   box-sizing: border-box;
 }
 
 .star5{
-  position: absolute;
+  align-self: center;
   width: 15px;
   height: 15px;
-  left: 612px;
-  top: 718px;
 
   box-sizing: border-box;
+}
+
+.div {
+  align-self: flex-start;
+  display: flex;
+  flex-direction: column;
+}
+
+.stars {
+  flex-direction: row;
+  display: flex;
+  align-self: center;
 }

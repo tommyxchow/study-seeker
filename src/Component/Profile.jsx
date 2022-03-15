@@ -54,23 +54,26 @@ export default class Profile extends React.Component {
 
   // This is the function that will get called the first time that the component gets rendered.  This is where we load the current
   // values from the database via the API, and put them in the state so that they can be rendered to the screen.
+  
+  createFetch(path, method, body){
+    const supplyPath = process.env.REACT_APP_API_PATH+path;
+    const supplyMethod = {
+      method: method,
+      headers: {"Content-Type": "application/json",
+                Authorization: "Bearer " + sessionStorage.getItem("token")
+              }
+    };
+    if(body != null){
+      supplyMethod.body = JSON.stringify(body);
+    }
+    return fetch(supplyPath, supplyMethod);
+  }
+
   componentDidMount() {
     console.log("In profile");
     console.log(this.props);
 
-    // fetch the user data, and extract out the attributes to load and display
-    fetch(
-      process.env.REACT_APP_API_PATH +
-        "/users/" +
-        this.props.profileid,
-      {
-        method: "get",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: "Bearer " + sessionStorage.getItem("token"),
-        },
-      }
-    )
+    this.createFetch("/users/"+this.props.profileid, "get", null)
       .then((res) => res.json())
       .then(
         (result) => {
@@ -112,35 +115,23 @@ export default class Profile extends React.Component {
     event.preventDefault();
 
     //make the api call to the user controller, and update the user fields (username, firstname, lastname)
-    fetch(
-      process.env.REACT_APP_API_PATH +
-        "/users/" +
-        sessionStorage.getItem("user"),
-      {
-        method: "PATCH",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: "Bearer " + sessionStorage.getItem("token"),
-        },
-        body: JSON.stringify({
-          attributes: {
-            username: this.state.username,
-            firstName: this.state.firstname,
-            lastName: this.state.lastname,
-            favoritecolor: this.state.favoritecolor,
+    const body = {attributes: {
+      username: this.state.username,
+      firstName: this.state.firstname,
+      lastName: this.state.lastname,
+      favoritecolor: this.state.favoritecolor,
 
-            // new attributes
-            major: this.state.major,
-            year: this.state.year,
-            contact: this.state.contact,
-            privacy: this.state.privacy,
-            profilePicture: this.state.profilePicture,
-            backgroundPicture: this.state.backgroundPicture,
-            rating: this.state.backgroundPicture,
-          },
-        }),
-      }
-    )
+      // new attributes
+      major: this.state.major,
+      year: this.state.year,
+      contact: this.state.contact,
+      privacy: this.state.privacy,
+      profilePicture: this.state.profilePicture,
+      backgroundPicture: this.state.backgroundPicture,
+      rating: this.state.backgroundPicture,
+    }};
+
+    this.createFetch("/users/"+sessionStorage.getItem("user"), 'PATCH', body)
       .then((res) => res.json())
       .then(
         (result) => {
@@ -153,6 +144,33 @@ export default class Profile extends React.Component {
         }
       );
   };
+
+  connectionHandler = (event) =>{
+    event.preventDefault();
+    const body = {
+      "fromUserID": Number(this.props.userid),
+      "toUserID": Number(this.props.profileid),
+      "attributes": {
+        "additionalProp1": {}}};
+    this.createFetch("/connections", 'POST', body)
+    .then((res) => res.json())
+      .then(
+        (result) => {
+          this.setState({
+            responseMessage: result.Status,
+          });
+        },
+        (error) => {
+          alert("error");
+        }
+      );
+  };
+
+  connectionButton(){
+
+  }
+
+
 
   // This is the function that draws the component to the screen.  It will get called every time the
   // state changes, automatically.  This is why you see the username and firstname change on the screen
