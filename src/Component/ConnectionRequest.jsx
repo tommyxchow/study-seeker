@@ -15,6 +15,54 @@ import mona from "./mona.module.css";
 import tommypic from "../assets/tommy.png";
 import tommy from "./tommy.module.css";
 
+var myHeaders = new Headers();
+myHeaders.append("accept", "*/*");
+myHeaders.append("Authorization", "Bearer commitment|RdOfs4E9XUmXFx-hfpsBFLk6Yh3ShUcggDN8oOrCApQ");
+myHeaders.append("Content-Type", "application/json");
+
+// var raw = JSON.stringify({
+//   "fromUserID": 10,
+//   "toUserID": 9,
+//   "attributes": {
+//     "additionalProp1": {}
+//   }
+// });    
+
+var requestOptionsGet = {
+    method: 'GET',
+    headers: myHeaders,
+    redirect: 'follow'
+};
+
+// var requestOptionsPost = {
+//     method: 'POST',
+//     headers: myHeaders,
+//     body: raw,
+//     redirect: 'follow'
+//   };
+
+    
+fetch("https://webdev.cse.buffalo.edu/hci/api/api/commitment/connections/1", requestOptionsGet)
+    .then(response => response.text())
+    .then(result => console.log(result))
+    .catch(error => console.log('error', error));
+
+fetch("https://webdev.cse.buffalo.edu/hci/api/api/commitment/connections/17", requestOptionsGet)
+    .then(response => response.text())
+    .then(result => console.log(result))
+    .catch(error => console.log('error', error));
+
+fetch("https://webdev.cse.buffalo.edu/hci/api/api/commitment/connections/41", requestOptionsGet)
+    .then(response => response.text())
+    .then(result => console.log(result))
+    .catch(error => console.log('error', error));
+
+// fetch("https://webdev.cse.buffalo.edu/hci/api/api/commitment/connections", requestOptionsPost)
+//     .then(response => response.text())
+//     .then(result => console.log(result))
+//     .catch(error => console.log('error', error));
+
+
 export default class ConnectionRequest extends React.Component{
     constructor(props) {
         super(props);
