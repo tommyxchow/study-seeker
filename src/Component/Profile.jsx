@@ -9,6 +9,7 @@ import majorLogo from "../assets/education.png";
 import passwordLogo from "../assets/password.png";
 import privacyLogo from "../assets/privacy.png";
 import styles from "./profile.module.css";
+import ConnectionRequest from "./ConnectionRequest";
 
 // The Profile component shows data from the user table.  This is set up fairly generically to allow for you to customize
 // user data by adding it to the attributes for each user, which is just a set of name value pairs that you can add things to
@@ -35,7 +36,8 @@ export default class Profile extends React.Component {
       privacy: "",
       edit: false,
       connect: false,
-      profile: this.props.userid == this.props.profileid
+      connection_id: -1,
+      profile: this.props.userid == this.props.profileid,
     };
     this.fieldChangeHandler.bind(this);
   }
@@ -54,24 +56,27 @@ export default class Profile extends React.Component {
 
   // This is the function that will get called the first time that the component gets rendered.  This is where we load the current
   // values from the database via the API, and put them in the state so that they can be rendered to the screen.
+
+  createFetch(path, method, body){
+    const supplyPath = process.env.REACT_APP_API_PATH+path;
+    const supplyMethod = {
+      method: method,
+      headers: {"Content-Type": "application/json",
+                Authorization: "Bearer " + sessionStorage.getItem("token")
+              }
+    };
+    if(body != null){
+      supplyMethod.body = JSON.stringify(body);
+    }
+    return fetch(supplyPath, supplyMethod);
+  }
+
   componentDidMount() {
     console.log("In profile");
     console.log(this.props);
 
-    // fetch the user data, and extract out the attributes to load and display
-    fetch(
-      process.env.REACT_APP_API_PATH +
-        "/users/" +
-        this.props.profileid,
-      {
-        method: "get",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: "Bearer " + sessionStorage.getItem("token"),
-        },
-      }
-    )
-      .then((res) => res.json())
+    this.createFetch("/users/"+this.props.profileid, "get", null)
+    .then((res) => res.json())
       .then(
         (result) => {
           if (result) {
@@ -93,7 +98,8 @@ export default class Profile extends React.Component {
                 backgroundPicture: result.attributes.backgroundPicture || "",
                 rating: result.attributes.rating || "0",
                 edit: false,
-                connect: false
+                connect: false,
+                connection_id: -1,
               });
             }
           }
@@ -112,35 +118,23 @@ export default class Profile extends React.Component {
     event.preventDefault();
 
     //make the api call to the user controller, and update the user fields (username, firstname, lastname)
-    fetch(
-      process.env.REACT_APP_API_PATH +
-        "/users/" +
-        sessionStorage.getItem("user"),
-      {
-        method: "PATCH",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: "Bearer " + sessionStorage.getItem("token"),
-        },
-        body: JSON.stringify({
-          attributes: {
-            username: this.state.username,
-            firstName: this.state.firstname,
-            lastName: this.state.lastname,
-            favoritecolor: this.state.favoritecolor,
+    const body = {attributes: {
+      username: this.state.username,
+      firstName: this.state.firstname,
+      lastName: this.state.lastname,
+      favoritecolor: this.state.favoritecolor,
 
-            // new attributes
-            major: this.state.major,
-            year: this.state.year,
-            contact: this.state.contact,
-            privacy: this.state.privacy,
-            profilePicture: this.state.profilePicture,
-            backgroundPicture: this.state.backgroundPicture,
-            rating: this.state.backgroundPicture,
-          },
-        }),
-      }
-    )
+      // new attributes
+      major: this.state.major,
+      year: this.state.year,
+      contact: this.state.contact,
+      privacy: this.state.privacy,
+      profilePicture: this.state.profilePicture,
+      backgroundPicture: this.state.backgroundPicture,
+      rating: this.state.backgroundPicture,
+    }};
+
+    this.createFetch("/users/"+sessionStorage.getItem("user"), 'PATCH', body)
       .then((res) => res.json())
       .then(
         (result) => {
@@ -153,6 +147,77 @@ export default class Profile extends React.Component {
         }
       );
   };
+
+
+  
+  //connects with other user
+  //sends connection request though backend
+  //has new attribute {"status": "pending"} for any request that is in pending state
+  connectionHandler = (event) =>{
+    this.setState({ connect: true });
+    event.preventDefault();
+    this.checkConnection();
+    const body = {
+      "fromUserID": Number(this.props.userid),
+      "toUserID": Number(this.props.profileid),
+      "attributes": {
+        "status": "pending"}};
+    this.createFetch("/connections", 'POST', body)
+    .then((res) => res.json())
+      .then(
+        (result) => {
+          this.setState({
+            responseMessage: result.Status,
+          });
+        },
+        (error) => {
+          alert("error");
+        }
+      );
+  };
+
+
+  //disconnects other user
+  disconnectionHandler = (event) =>{
+    this.setState({ connect: false });
+    event.preventDefault();
+    const body = {
+      "fromUserID": Number(this.props.userid),
+      "toUserID": Number(this.props.profileid),
+      "attributes": {
+        "status": "inactive"}};
+    this.checkConnection();
+    console.log(this.state.connection_id);
+    this.createFetch("/connections/"+ String(this.state.connection_id), 'DELETE', null)
+    
+      
+  };
+
+  connectionButton(){
+    
+  }
+
+
+  //gets the connection id
+  checkConnection = () => {         
+    if(this.props.userid != this.props.profileid){
+      this.createFetch("/connections?fromUserID="+this.props.userid+"&toUserID"+this.props.profileid, 'GET',null)
+      .then((res) => res.json())
+      .then(
+        (result) => {
+          this.state.connection_id=result[1]?result[0][0].id:-1
+          this.setState({
+            connection_id: result[1]?result[0][0].id:-1
+          });
+        },
+        (error) => {
+          alert("error!");
+        }
+      );
+    }
+    return -1;
+  }
+
 
   // This is the function that draws the component to the screen.  It will get called every time the
   // state changes, automatically.  This is why you see the username and firstname change on the screen
@@ -207,11 +272,11 @@ export default class Profile extends React.Component {
             </div>)}
           {!this.state.profile && (this.state.connect ? 
           (
-            <button className={styles.disconnectButton} onClick={() => this.setState({ connect: false })}>
+            <button className={styles.disconnectButton} onClick={ this.disconnectionHandler}>
             Disconnect
             </button>
             ):(
-            <button className={styles.connectButton} onClick={() => this.setState({ connect: true })}>
+            <button className={styles.connectButton} onClick={this.connectionHandler}>
               Connect
             </button>)
             )}
