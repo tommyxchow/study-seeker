@@ -18,8 +18,8 @@ import {
   BrowserRouter as Router, Route, Routes
 } from 'react-router-dom';
 
-import LandingPage from "./LandingPage.jsx";
-import Registration from "./Registration.jsx";
+import LandingPage from "./Component/LandingPage.jsx";
+import Registration from "./Component/Registration.jsx";
 
 // toggleModal will both show and hide the modal dialog, depending on current state.  Note that the
 // contents of the modal dialog are set separately before calling toggle - this is just responsible
@@ -122,7 +122,7 @@ class App extends React.Component {
               <Route path="/groups" element={<Groups  login={this.login} />} />     
               <Route path="/posts" element={<Posts doRefreshPosts={this.doRefreshPosts} login={this.login} apprefresh={this.state.refreshPosts} />} />
 
-              <Route path="/register" element={<Register/>} />   
+              <Route path="/register" element={<Register doRefreshPosts={this.doRefreshPosts} login={this.login} apprefresh={this.state.refreshPosts}/>} />   
               <Route path="/landing" element={<LandingTHISWILLCHANGELATER/>} /> 
               <Route path="/" element={<Posts doRefreshPosts={this.doRefreshPosts} login={this.login} apprefresh={this.state.refreshPosts} />} />
             </Routes>

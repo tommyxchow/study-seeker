@@ -291,148 +291,148 @@
 
 /* Jeff's Code*/
 .bodyMargin {
-  margin: 0;
+    margin: 0;
 }
 
 .background-image {
-  background-image: url("backgroundCoffee.png");
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-attachment: fixed;
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+    background-image: url("backgroundCoffee.png");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .landing-page-box, .user-credentials-box {
-  height: 554px;
-  width: 551px;
-  left: 443px;
-  top: 257px;
-  background: #EDE5E5;
-  border-radius: 50px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-evenly;
-  align-items: center;
+    height: 554px;
+    width: 551px;
+    left: 443px;
+    top: 257px;
+    background: #EDE5E5;
+    border-radius: 50px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
 }
 .landing-page-box {
-  height: 400px;
-  width: 400px;
-  left: 443px;
-  top: 257px;
-  justify-content: space-evenly;
+    height: 400px;
+    width: 400px;
+    left: 443px;
+    top: 257px;
+    justify-content: space-evenly;
 }
 
 .logo-text {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 
-  font-family: Sofia, cursive;
-  font-style: normal;
-  font-weight: normal;
-  font-size: 70px;
-  line-height: 84.9%;
-  /* or 82px */
+    font-family: Sofia, cursive;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 70px;
+    line-height: 84.9%;
+    /* or 82px */
 
-  text-align: center;
-  margin: 15px;
+    text-align: center;
+    margin: 15px;
 
-  color: #3D3E3F;
+    color: #3D3E3F;
 }
 
 .logo-subtext {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 
-  font-family: Exo, sans-serif;
-  font-style: normal;
-  font-weight: 800;
-  font-size: 18px;
-  line-height: 32px;
-  text-align: center;
+    font-family: Exo, sans-serif;
+    font-style: normal;
+    font-weight: 800;
+    font-size: 18px;
+    line-height: 32px;
+    text-align: center;
 
-  color: #3D3E3F;
+    color: #3D3E3F;
 }
 
 .buttonSubmitForm, signUpButton {
-  background-color: #907671;
-  border: none;
-  color: white;
-  padding: 20px;
-  text-align: center;
-  text-decoration: none;
-  font-family: Exo, sans-serif;
-  font-size: 22px;
-  margin: 15px 2px;
-  cursor: pointer;
-  border-radius: 30px;
-  width: 125px;
-  height: 40px;
+    background-color: #907671;
+    border: none;
+    color: white;
+    padding: 20px;
+    text-align: center;
+    text-decoration: none;
+    font-family: Exo, sans-serif;
+    font-size: 22px;
+    margin: 15px 2px;
+    cursor: pointer;
+    border-radius: 30px;
+    width: 125px;
+    height: 40px;
 
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
 .registrationForm{
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 .textBox, emailTextBox{
-  width: 175px;
-  height: 35px;
-  border: none;
-  background: #D8C8C8;
-  border-radius: 30px;
-  margin: 10px;
-  margin-right: 0px;
-  text-align: center;
+    width: 175px;
+    height: 35px;
+    border: none;
+    background: #D8C8C8;
+    border-radius: 30px;
+    margin: 10px;
+    margin-right: 0px;
+    text-align: center;
 }
 .emailTextbox{
-  width: 375px;
-  height: 35px;
-  border: none;
-  background: #D8C8C8;
-  border-radius: 30px;
-  margin: 10px;
-  margin-right: 0px;
-  text-align: center;
+    width: 375px;
+    height: 35px;
+    border: none;
+    background: #D8C8C8;
+    border-radius: 30px;
+    margin: 10px;
+    margin-right: 0px;
+    text-align: center;
 }
 .passwordRow{
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
 }
 
 
 
 .passwordReqText{
-  font-family: 'Roboto';
-  font-style: normal;
-  font-weight: 400;
-  font-size: 12px;
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 12px;
 
-  text-align: center;
+    text-align: center;
 
-  color: #FF0000;
+    color: #FF0000;
 
 }
 
 .formMargin{
-  margin-bottom: 30px;
+    margin-bottom: 30px;
 }
 
 
