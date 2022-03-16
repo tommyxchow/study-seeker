@@ -48,11 +48,12 @@
   font-size: small;
 }
 
-.editBackground {
+.uploadButtonBackground {
   position: absolute;
-  top: 15%;
-  left: 60%;
+  top: 180px;
+  left: 700px;
   color: white;
+  font-weight: bold;
 }
 
 .nameConnectButtonHeader {

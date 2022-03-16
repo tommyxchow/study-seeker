@@ -149,20 +149,24 @@ export default class Profile extends React.Component {
       );
   };
 
-  handleUpload = (e) => {
-    const newProfilePic = e.target.files[0];
+  handleUpload = (e, backgroundPicture = false) => {
+    const newPic = e.target.files[0];
     const reader = new FileReader();
 
     reader.addEventListener(
       "load",
       () => {
-        this.setState({ profilePicture: reader.result });
+        this.setState(
+          backgroundPicture
+            ? { backgroundPicture: reader.result }
+            : { profilePicture: reader.result }
+        );
       },
       false
     );
 
-    if (newProfilePic) {
-      reader.readAsDataURL(newProfilePic);
+    if (newPic) {
+      reader.readAsDataURL(newPic);
     }
   };
 
@@ -189,12 +193,30 @@ export default class Profile extends React.Component {
       <div className={styles.container}>
         <div className={styles.backgroundOverlay}></div>
         <img
-          src={defaultBackgroundPicture}
+          src={
+            this.state.backgroundPicture === ""
+              ? defaultBackgroundPicture
+              : this.state.backgroundPicture
+          }
           className={styles.backgroundPicture}
           alt="Cover"
         />
         {this.state.edit && (
-          <h2 className={styles.editBackground}>Click to Change</h2>
+          <>
+            <label
+              className={styles.uploadButtonBackground}
+              htmlFor="backgroundPic"
+            >
+              Click to Change
+            </label>
+            <input
+              type="file"
+              id="backgroundPic"
+              accept="image/*"
+              onChange={(e) => this.handleUpload(e, true)}
+              style={{ display: "none" }}
+            />
+          </>
         )}
         <div className={styles.profileHeader}>
           <div>
