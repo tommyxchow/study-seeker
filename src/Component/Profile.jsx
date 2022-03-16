@@ -5,7 +5,6 @@ import majorLogo from "../assets/education.png";
 import emailLogo from "../assets/email.png";
 import settingsLogo from "../assets/gear.png";
 import yearLogo from "../assets/goal.png";
-import passwordLogo from "../assets/password.png";
 import privacyLogo from "../assets/privacy.png";
 import defaultProfilePicture from "../assets/temp_profilepic.jpg";
 import styles from "./profile.module.css";
@@ -78,7 +77,6 @@ export default class Profile extends React.Component {
                 username: result.attributes.username || "",
                 firstname: result.attributes.firstName || "First Name",
                 lastname: result.attributes.lastName || "Last Name",
-                favoritecolor: result.attributes.favoritecolor || "",
                 // new attributes
                 major: result.attributes.major || "Major",
                 year: result.attributes.year || "Year",
@@ -105,6 +103,12 @@ export default class Profile extends React.Component {
     //keep the form from actually submitting, since we are handling the action ourselves via
     //the fetch calls to the API
     event.preventDefault();
+    this.setState({
+      edit: false,
+      year: event.target.year.value,
+      contact: event.target.contact.value,
+      privacy: event.target.privacy.value,
+    });
 
     //make the api call to the user controller, and update the user fields (username, firstname, lastname)
     fetch(
@@ -122,16 +126,14 @@ export default class Profile extends React.Component {
             username: this.state.username,
             firstName: this.state.firstname,
             lastName: this.state.lastname,
-            favoritecolor: this.state.favoritecolor,
 
             // new attributes
-            major: this.state.major,
-            year: this.state.year,
-            contact: this.state.contact,
-            privacy: this.state.privacy,
+            major: event.target.major.value,
+            year: event.target.year.value,
+            contact: event.target.contact.value,
+            privacy: event.target.privacy.value,
             profilePicture: this.state.profilePicture,
             backgroundPicture: this.state.backgroundPicture,
-            rating: this.state.backgroundPicture,
           },
         }),
       }
@@ -175,19 +177,13 @@ export default class Profile extends React.Component {
   // as you type them.
   render() {
     console.log("Testing", this.props);
-    const profileFields = ["Major", "Year", "Contact", "Privacy", "Password"];
+    const profileFields = ["Major", "Year", "Contact", "Privacy"];
     const profileDetails = [
       this.state.major,
       this.state.year,
       this.state.contact,
     ];
-    const profileDetailIcons = [
-      majorLogo,
-      yearLogo,
-      emailLogo,
-      privacyLogo,
-      passwordLogo,
-    ];
+    const profileDetailIcons = [majorLogo, yearLogo, emailLogo, privacyLogo];
 
     return (
       <div className={styles.container}>
@@ -219,36 +215,34 @@ export default class Profile extends React.Component {
           </>
         )}
         <div className={styles.profileHeader}>
-          <div>
-            <img
-              src={
-                this.state.profilePicture === ""
-                  ? defaultProfilePicture
-                  : this.state.profilePicture
-              }
-              className={styles.profilePicture}
-              alt="Profile Pic"
-            />
-            {this.state.edit && (
-              <>
-                <label className={styles.uploadButton} htmlFor="profilePic">
-                  Click to Change
-                </label>
-                <input
-                  type="file"
-                  id="profilePic"
-                  accept="image/*"
-                  onChange={this.handleUpload}
-                  style={{ display: "none" }}
-                />
-              </>
-            )}
-            {this.state.edit && (
-              <button className={styles.deleteAccountButton}>
-                Delete Account
-              </button>
-            )}
-          </div>
+          <img
+            src={
+              this.state.profilePicture === ""
+                ? defaultProfilePicture
+                : this.state.profilePicture
+            }
+            className={styles.profilePicture}
+            alt="Profile Pic"
+          />
+          {this.state.edit && (
+            <>
+              <label className={styles.uploadButton} htmlFor="profilePic">
+                Click to Change
+              </label>
+              <input
+                type="file"
+                id="profilePic"
+                accept="image/*"
+                onChange={this.handleUpload}
+                style={{ display: "none" }}
+              />
+            </>
+          )}
+          {this.state.edit && (
+            <button className={styles.deleteAccountButton}>
+              Delete Account
+            </button>
+          )}
 
           {!this.state.edit && (
             <div className={styles.nameConnectButtonHeader}>
@@ -281,51 +275,30 @@ export default class Profile extends React.Component {
           <div className={styles.profileDetails}>
             {this.state.edit ? (
               <>
-                <form className={styles.form} onSubmit={this.submitHandler}>
-                  {profileFields.map((e, index) => {
-                    if (e === "Password") {
-                      return (
-                        <>
-                          <label className={styles.formLabel}>
-                            <img
-                              src={passwordLogo}
-                              alt={e}
-                              className={styles.profileDetailIcon}
-                            />
-                            <input
-                              type="password"
-                              name={e.toLowerCase()}
-                              placeholder={e}
-                            />
-                          </label>
-                          <label className={styles.formLabel}>
-                            <input
-                              type="password"
-                              name={e.toLowerCase()}
-                              placeholder="Repeat Password"
-                            />
-                          </label>
-                        </>
-                      );
-                    }
-                    return (
-                      <label className={styles.formLabel}>
-                        <img
-                          src={profileDetailIcons[index]}
-                          alt={e}
-                          className={styles.profileDetailIcon}
-                        />
-                        <input
-                          type="text"
-                          name={e.toLowerCase()}
-                          placeholder={e}
-                        />
-                      </label>
-                    );
-                  })}
+                <form
+                  className={styles.form}
+                  onSubmit={this.submitHandler}
+                  id="edit"
+                >
+                  {profileFields.map((e, index) => (
+                    <label className={styles.formLabel}>
+                      <img
+                        src={profileDetailIcons[index]}
+                        alt={e}
+                        className={styles.profileDetailIcon}
+                      />
+                      <input
+                        type="text"
+                        defaultValue={this.state[e.toLowerCase()]}
+                        name={e.toLowerCase()}
+                        placeholder={e}
+                      />
+                    </label>
+                  ))}
                 </form>
                 <div className={styles.editButtons}>
                   <input
+                    form="edit"
                     className={styles.confirmButton}
                     type="submit"
                     value="Confirm"
