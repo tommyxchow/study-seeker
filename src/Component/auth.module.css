@@ -1,0 +1,106 @@
+.container {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-image: url("../assets/backgroundCoffee.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.background {
+  height: 90%;
+  max-height: 900px;
+  width: 70%;
+  max-width: 1000px;
+  background-color: #ede5e5;
+  border-radius: 50px;
+  padding: 2rem;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+.input {
+  background: #d8c8c8;
+  border: none;
+  margin-top: 1rem;
+  text-align: center;
+  width: 400px;
+  max-width: 100%;
+  height: 50px;
+}
+
+.content {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.subtitle {
+  font-size: 24px;
+  margin-bottom: 3rem;
+  margin-left: 1rem;
+  margin-right: 1rem;
+  text-align: center;
+}
+
+.logoText {
+  font-family: Sofia, cursive;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 96px;
+  line-height: 84.9%;
+  /* or 82px */
+
+  text-align: center;
+  margin: 15px;
+
+  color: #3d3e3f;
+}
+
+.forgotPassword {
+  text-decoration: none;
+  font-size: 18px;
+  margin-top: 1rem;
+  color: black;
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+.forgotPassword:hover,
+.noAccount:hover {
+  text-decoration: underline;
+}
+
+.button {
+  background-color: #907671;
+  border: none;
+  color: white;
+  text-align: center;
+  text-decoration: none;
+  font-family: Exo, sans-serif;
+  font-size: 22px;
+  font-weight: bold;
+  cursor: pointer;
+  border-radius: 30px;
+  margin-bottom: 2rem;
+  margin-top: 1rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+.noAccount {
+  text-decoration: none;
+  font-size: 18px;
+  color: black;
+  text-align: center;
+}

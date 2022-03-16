@@ -1,6 +1,10 @@
 /* For gods sake, please replace this with styles that are less horrifying than these */
+@import url('https://fonts.googleapis.com/css2?family=Exo:ital,wght@0,400;0,700;1,400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Sofia&display=swap');
+
+
 .App {
-  text-align: center;
+  text-align:start;
 }
 
 .App-logo {
@@ -8,14 +12,16 @@
 }
 
 .App-header {
-  background-color: #282c34;
+  background-color: #ffffff;
+
   min-height: 100vh;
   display: flex;
-  flex-direction: row;
+  flex-direction:column;
   align-items: flex-center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+
+  justify-content: start;
+  font-size: calc(5px + 2vmin);
+  color: rgb(0, 0, 0);
 }
 
 .deletePost{
@@ -149,14 +155,6 @@
 }
 
 
-.maincontent{
-  display: flex;
-  flex-direction: column;
-
-  justify-content: center;
-  flex-grow: 1;
-}
-
 .posts{
     display:flex;
     flex-direction: column;
@@ -178,24 +176,6 @@
   flex-direction: column;
   align-items: flex-start;
   justify-content: center;
-}
-
-.sidenav{
-  /* need to specify some position other than static, so height can apply.
-     Fixed works since it will stay fixed to the side - 0 from both left and top. */
-  position:fixed;
-  left:0px;
-  top:0px;
-  height:100%;
-  width:100px;
-
-  /* internally to this container, we want to use flex positioning of the menu elements */
-  display:flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: flex-start;
-
-  background-color: blue;
 }
 
 .tag-active{
@@ -537,11 +517,188 @@
   }
 }
 
+/*my code*/
+
+.text-font{
+  font-family: Exo;
+}
+
+.reject-button{
+  background-color: #ff0000; /* Green */
+  width:75px !important;
+  height: 25px !important;
+  border: none;
+  color: rgb(0, 0, 0);
+  text-align: center;
+  font-family: Exo;
+  font-weight: bold;
+  text-decoration: none;
+  font-size: 14px;
+  margin: 4px 2px;
+  cursor: pointer;
+  border-radius: 25px;
+  margin-left: 150px;
+}
+
+.accept-button{
+  background-color: #56c73f; /* Green */
+  width:75px !important;
+  height: 25px !important;
+  border: none;
+  color: rgb(0, 0, 0);
+  text-align: center;
+  font-family: Exo;
+  font-weight: bold;
+  text-decoration: none;
+  font-size: 14px;
+  margin: 4px 2px;
+  cursor: pointer;
+  border-radius: 25px;
+  margin-left: 150px;
+}
+
+.same-line{
+  display: inline-block;
+}
 
 
+.table{
+  display: inline-block;
+  list-style-type: none;
+  line-height: 30px;
+}
 
+.list-table{
+  display:inline-block;
+  list-style-type: none;
+  margin-top: 0px;
+}
 
+.person-image{
+  width:120px;
+  height:120px;
+  border-radius: 50%;
+}
 
+.star{
+  width: 10px;
+  height: 10px;
+}
 
+.fixed{
+  margin-top: 70px;
+}
 
+.text-center{
+  text-align: center;
+  position: absolute;
+}
 
+.center{
+  align-self: center;
+}
+
+table{
+  border-start-end-radius: 0%;
+  border: #000 1%;
+}
+
+/* table, th, td {
+  border: 1px solid;
+} */
+
+td {
+  text-align: left;
+  padding-bottom: 2%;
+}
+
+.profile-data-icon-element{
+  padding-left: 3%;
+}
+.profile-data-text-element{
+  padding-left: 2%;
+  vertical-align: top;
+  width: 150px;
+}
+
+.profile-data-edit-icon{
+  padding-left: 2%;
+}
+
+.profile-data-edit-input{
+  padding-left: 0%;
+  vertical-align: top;
+}
+
+input{
+  vertical-align: top;
+  padding: 6px;
+  padding-left: 10px;
+  display: inline-block;
+  border: 1.5px solid #000;
+  border-radius: 50px;
+  box-sizing: border-box;
+  font-size: 17px;
+}
+
+.passwordInput{
+  width: 40%;
+  margin-left: 5%;
+}
+
+.profile-rating{
+  position: absolute;
+  width:25px;
+  height:25px;
+  top: 45%;
+  left: 46%; 
+}
+
+.profile-rating-1{
+  position: absolute;
+  width:25px;
+  height:25px;
+  top: 45%;
+  left: 46%; 
+}
+
+.profile-rating-2{
+  position: absolute;
+  width:25px;
+  height:25px;
+  top: 45%;
+  left: 49%; 
+}
+
+.profile-rating-3{
+  position: absolute;
+  width:25px;
+  height:25px;
+  top: 45%;
+  left: 52%; 
+}
+
+.profile-rating-4{
+  position: absolute;
+  width:25px;
+  height:25px;
+  top: 45%;
+  left: 55%; 
+}
+
+.profile-rating-5{
+  position: absolute;
+  width:25px;
+  height:25px;
+  top: 45%;
+  left: 58%; 
+}
+
+body{
+  font-family: Exo;
+}
+
+.home {
+  display: flex;
+  flex-direction: row;
+}

@@ -1,0 +1,77 @@
+.picture{
+  position: absolute;
+  width: 100px;
+  height: 100px;
+  left: 539px;
+  top: 746px;
+}
+  
+.name{
+  /* Tommy */
+
+  position: absolute;
+  left: 557px;
+  top: 852px;
+  width: 64px;
+  height: 24px;
+
+  font-family: Exo;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 24px;
+
+  /* identical to box height */
+
+  color: #000000;
+}
+  
+.star1{
+  position: absolute;
+  width: 15px;
+  height: 15px;
+  left: 552px;
+  top: 876px;
+
+  box-sizing: border-box;
+}
+
+.star2{
+  position: absolute;
+  width: 15px;
+  height: 15px;
+  left: 567px;
+  top: 876px;
+
+  box-sizing: border-box;
+}
+
+.star3{
+  position: absolute;
+  width: 15px;
+  height: 15px;
+  left: 582px;
+  top: 876px;
+
+  box-sizing: border-box;
+}
+
+.star4{
+  position: absolute;
+  width: 15px;
+  height: 15px;
+  left: 597px;
+  top: 876px;
+
+  box-sizing: border-box;
+}
+
+.star5{
+  position: absolute;
+  width: 15px;
+  height: 15px;
+  left: 612px;
+  top: 876px;
+
+  box-sizing: border-box;
+}

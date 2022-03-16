@@ -1,0 +1,169 @@
+@import url('https://fonts.googleapis.com/css2?family=Exo:ital,wght@0,400;0,700;1,400&display=swap');
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  height: 100vh;
+  width: 75vw;
+}
+
+.backgroundOverlay {
+  position: absolute;
+  height: 400px;
+  width: 75vw;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.backgroundPicture {
+  height: 400px;
+  width: 75vw;
+  object-fit: cover;
+  align-self: flex-start;
+}
+
+.profileHeader {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  position: absolute;
+  align-items: stretch;
+  top: 100px;
+  left: 350px;
+}
+
+
+.profilePicture {
+  width: 150px;
+  height: 150px;
+  border: 5px solid #ffffff;
+  border-radius: 100%;
+}
+
+.editPicture {
+  position: absolute;
+  top: 70px;
+  left: 40px;
+  color: white;
+  font-size: small;
+}
+
+.editBackground {
+  position: absolute;
+  top: 15%;
+  left: 60%;
+  color: white;
+}
+
+.nameConnectButtonHeader {
+  display: flex;
+  align-items: center;
+}
+
+.profileName {
+  margin-left: 1rem;
+  color: white;
+  display: inline;
+}
+
+.connectButton, .disconnectButton, .blockButton, .deleteAccountButton{
+  border: 0;
+  border-radius: 10px;
+  height: 35px;
+  width: 100px;
+  background: #2ecc71;
+  font-family: Exo;
+  align-self: center;
+  font-size: large;
+  margin-left: 28vw;
+}
+
+.deleteAccountButton {
+  margin-left: 0vw;
+  position: absolute;
+  top:-12vh;
+  left: 60vw;
+  width: 96px;
+  height: 42px;
+  font-size: 15px;
+  border-radius: 50px;
+  color: #ffffff;  
+  font-weight: bold;
+}
+
+.disconnectButton, .blockButton, .deleteAccountButton{
+  background: #ff0000;
+}
+
+.blockButton{
+  margin-left: 20px;
+  margin-right: 20px;
+}
+
+.body {
+  display: flex;
+  flex-direction: column;
+}
+
+.profileDetails {
+  margin-left: 80px;
+  margin-top: 50px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.profileDetailItem {
+  margin-right: 100px;
+}
+
+.profileDetailIcon {
+  width: 30px;
+  height: 30px;
+  margin-right: 20px;
+  vertical-align: middle;
+}
+
+.form {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  flex-wrap: wrap;
+  justify-content: left;
+}
+
+.formLabel {
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-right: 50px;
+  font-family: Exo;
+}
+
+.editButtons {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-right: 50px;
+  font-family: Exo;
+}
+
+.confirmButton {
+  margin: 10px;
+  border: 0;
+  background: #2ecc71;
+  font-family: Exo;
+}
+
+.cancelButton {
+  margin: 10px;
+  border: 0;
+  background: #ff0000;
+  font-family: Exo;
+}
+
+.cancelButton:hover,
+.confirmButton:hover{
+  opacity: 50%;
+}
