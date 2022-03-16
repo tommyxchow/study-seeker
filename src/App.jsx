@@ -6,20 +6,23 @@
 
 import ConnectionRequest from "Component/ConnectionRequest";
 import React from "react";
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Route,
+  Routes,
+  useParams,
+} from "react-router-dom";
 import "./App.css";
 import ForgotPasswordPage from "./Component/ForgotPassword.jsx";
 import FriendForm from "./Component/FriendForm.jsx";
 import FriendList from "./Component/FriendList.jsx";
 import GroupList from "./Component/GroupList.jsx";
+import LandingPage from "./Component/LandingPage.jsx";
 import LoginPage from "./Component/LoginForm.jsx";
 import Modal from "./Component/Modal.jsx";
 import Navbar from "./Component/Navigationbar.jsx";
 import PostForm from "./Component/PostForm.jsx";
 import Profile from "./Component/Profile.jsx";
-import { useParams } from "react-router-dom";
-
-import LandingPage from "./Component/LandingPage.jsx";
 import Registration from "./Component/Registration.jsx";
 
 // toggleModal will both show and hide the modal dialog, depending on current state.  Note that the
@@ -90,7 +93,6 @@ class App extends React.Component {
       console.log("TESTING EVENT LISTENER");
     });
   }
-  
 
   // As with all react files, render is in charge of determining what shows up on the screen,
   // and it gets called whenever an element in the state changes.  There are three main areas of the app,
@@ -122,9 +124,9 @@ class App extends React.Component {
                     path="/profile"
                     element={<ProfilePage login={this.login} />}
                   />
-                  <Route 
+                  <Route
                     path="/profile/:id"
-                    element={<ProfilePage login={this.login}/>} 
+                    element={<ProfilePage login={this.login} />}
                   />
                   <Route
                     path="/friends"
@@ -144,6 +146,11 @@ class App extends React.Component {
                       />
                     }
                   />
+                  <Route
+                    path="/login"
+                    element={<LoginPage login={this.login} />}
+                  />
+                  <Route path="/register" element={<Register />} />
                   <Route path="/reset-password" element={<ForgotPassword />} />
                   <Route path="/connections" element={<Connections />} />
                   <Route
@@ -174,37 +181,28 @@ class App extends React.Component {
 // with the latest version of react router, you need to define the contents of the route as an element.  The following define functional components
 // that will appear in the routes.
 
-const LandingTHISWILLCHANGELATER = () => {
-  // TODO: Change this later so that the default path leads to landing
- return (
-   <LandingPage/>
- );
-}
-
 const Register = (props) => {
   // show the study seeker registration form
- return (
-   <Registration/>
- );
-}
+  return <Registration />;
+};
 
 const ProfilePage = (props) => {
   // if the user is not logged in, show the login form.  Otherwise, show the settings page
   const user_id = sessionStorage.getItem("user");
   let { id } = useParams();
-  id = !id ? user_id:id;
-  
+  id = !id ? user_id : id;
+
   if (!sessionStorage.getItem("token")) {
-    console.log("LOGGED OUT", );
+    console.log("LOGGED OUT");
     return (
       <div>
-        <LoginPage login={props.login} />
+        <LandingPage login={props.login} />
       </div>
     );
-  } 
+  }
   return (
     <div className="Profile">
-      <Profile userid={user_id} profileid={id}/>
+      <Profile userid={user_id} profileid={id} />
     </div>
   );
 };
@@ -215,7 +213,7 @@ const Friends = (props) => {
     console.log("LOGGED OUT");
     return (
       <div>
-        <LoginPage login={props.login} />
+        <LandingPage login={props.login} />
       </div>
     );
   }
@@ -234,7 +232,7 @@ const Groups = (props) => {
     console.log("LOGGED OUT");
     return (
       <div>
-        <LoginPage login={props.login} />
+        <LandingPage login={props.login} />
       </div>
     );
   }
@@ -257,7 +255,7 @@ const Posts = (props) => {
     console.log("LOGGED OUT");
     return (
       <div>
-        <LoginPage login={props.login} />
+        <LandingPage login={props.login} />
       </div>
     );
   } else {

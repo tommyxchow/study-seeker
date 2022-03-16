@@ -1,7 +1,6 @@
 import React from "react";
 import "../App.css";
-import {BackgroundImage} from "./LandingPage.jsx"
-import {LogoText} from "./LandingPage.jsx"
+import { BackgroundImage, LogoText } from "./LandingPage.jsx";
 
 
 
@@ -180,10 +179,6 @@ class Registration extends React.Component {
               onChange={this.confirmPasswordChangeHandler}
             />
           </div>
-          <span className="passwordReqText">
-            <br />
-            Password must be at least 8 characters in length
-          </span>
           <input
             className="buttonSubmitForm"
             type="submit"
