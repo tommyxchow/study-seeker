@@ -19,6 +19,9 @@ import PostForm from "./Component/PostForm.jsx";
 import Profile from "./Component/Profile.jsx";
 import { useParams } from "react-router-dom";
 
+import LandingPage from "./Component/LandingPage.jsx";
+import Registration from "./Component/Registration.jsx";
+
 // toggleModal will both show and hide the modal dialog, depending on current state.  Note that the
 // contents of the modal dialog are set separately before calling toggle - this is just responsible
 // for showing and hiding the component
@@ -87,6 +90,7 @@ class App extends React.Component {
       console.log("TESTING EVENT LISTENER");
     });
   }
+  
 
   // As with all react files, render is in charge of determining what shows up on the screen,
   // and it gets called whenever an element in the state changes.  There are three main areas of the app,
@@ -170,12 +174,26 @@ class App extends React.Component {
 // with the latest version of react router, you need to define the contents of the route as an element.  The following define functional components
 // that will appear in the routes.
 
+const LandingTHISWILLCHANGELATER = () => {
+  // TODO: Change this later so that the default path leads to landing
+ return (
+   <LandingPage/>
+ );
+}
+
+const Register = (props) => {
+  // show the study seeker registration form
+ return (
+   <Registration/>
+ );
+}
+
 const ProfilePage = (props) => {
   // if the user is not logged in, show the login form.  Otherwise, show the settings page
   const user_id = sessionStorage.getItem("user");
   let { id } = useParams();
   id = !id ? user_id:id;
-
+  
   if (!sessionStorage.getItem("token")) {
     console.log("LOGGED OUT", );
     return (
