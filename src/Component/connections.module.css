@@ -68,5 +68,95 @@
   justify-content: flex-start;
   margin-top: 30px;
   margin-left: 37px;
+}
+
+.picture{
+  align-self: auto;
+  width: 100px;
+  height: 100px;
+}
+
+.name{
+  /* Ibn Khaldun */
+
+  align-self: center;
+  width: 65px;
+  height: 24px;
+
+  font-family: Exo;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 24px;
+
+  /* identical to box height */
+
+  color: #000000;
+}
+
+.star1{
+  align-self: center;
+  width: 15px;
+  height: 15px;
+
+  box-sizing: border-box;
+}
+
+.star2{
+  align-self: center;
+  width: 15px;
+  height: 15px;
+
+  box-sizing: border-box;
+}
+
+.star3{
+  align-self: center;
+  width: 15px;
+  height: 15px;
+
+  box-sizing: border-box;
+}
+
+.star4{
+  align-self: center;
+  width: 15px;
+  height: 15px;
+
+  box-sizing: border-box;
+}
+
+.star5{
+  align-self: center;
+  width: 15px;
+  height: 15px;
+
+  box-sizing: border-box;
+}
   
+.div2 {
+  align-self: flex-start;
+  display: none;
+  flex-direction: column;
+  margin-right: 63px;
+}
+  
+.stars {
+  flex-direction: row;
+  display: flex;
+  align-self: center;
+}
+
+.div {
+  align-self: flex-start;
+  display: flex;
+  flex-direction: column;
+  margin-right: 63px;
+}
+
+.picturecircle {
+  align-self: auto;
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
 }

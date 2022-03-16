@@ -7,16 +7,10 @@ import starIcon from "../assets/unlitstar.svg";
 import personIcon2 from "../assets/zhuangzi.svg";
 import connections from "./connections.module.css";
 import lisaMoan from "../assets/lisamoan.png";
-import lisa from "./lisa.module.css";
 import jayHou from "../assets/jayhou.png";
-import jay from "./jay.module.css";
 import monaLia from "../assets/monalia.png";
-import mona from "./mona.module.css";
 import tommypic from "../assets/tommy.png";
-import tommy from "./tommy.module.css";
-import ibn from "./ibn.module.css";
-import zhuang from "./zhuangzi.module.css";
-import Profile from "./Profile"
+
 
 var myHeaders = new Headers();
 myHeaders.append("accept", "*/*");
@@ -59,7 +53,8 @@ export default class ConnectionRequest extends React.Component{
                 [2,"Zhuangzi", personIcon2]
         ],
         accepted_friends:[],                                      //List of accepted friends( used for my connection list )
-        connection_id: -1
+        connection_id: -1,
+        ConnectionRequests : []
     }; 
         
     }
@@ -204,70 +199,70 @@ export default class ConnectionRequest extends React.Component{
                     <div className={connections.connections}>Connections</div>
                     <div className={connections.line2}> </div>
                     <div className={connections.container}>
-                        <div className={lisa.div}>
-                            <img className={lisa.picture} img src={lisaMoan} alt="img of Lisa Moan"/> 
-                            <div className={lisa.name}>Lisa Moan</div>
-                            <div className={lisa.stars}>
-                                <img className={lisa.star1} img src={litStarIcon} alt="star"/>
-                                <img className={lisa.star2} img src={litStarIcon} alt="star"/>
-                                <img className={lisa.star3} img src={starIcon} alt="star"/>
-                                <img className={lisa.star4} img src={starIcon} alt="star"/>
-                                <img className={lisa.star5} img src={starIcon} alt="star"/>
+                        <div className={connections.div}>
+                            <img className={connections.picture} img src={lisaMoan} alt="img of Lisa Moan"/> 
+                            <div className={connections.name}>Lisa M.</div>
+                            <div className={connections.stars}>
+                                <img className={connections.star1} img src={litStarIcon} alt="star"/>
+                                <img className={connections.star2} img src={litStarIcon} alt="star"/>
+                                <img className={connections.star3} img src={starIcon} alt="star"/>
+                                <img className={connections.star4} img src={starIcon} alt="star"/>
+                                <img className={connections.star5} img src={starIcon} alt="star"/>
                             </div>
                         </div>
-                        <div className={jay.div}>
-                            <img className={jay.picture} img src={jayHou} alt="img of Jay Hou"/> 
-                            <div className={jay.name}>Jay Hou</div>
-                            <div className={jay.stars}>
-                                <img className={jay.star1} img src={litStarIcon} alt="star"/>
-                                <img className={jay.star2} img src={litStarIcon} alt="star"/>
-                                <img className={jay.star3} img src={starIcon} alt="star"/>
-                                <img className={jay.star4} img src={starIcon} alt="star"/>
-                                <img className={jay.star5} img src={starIcon} alt="star"/>
+                        <div className={connections.div}>
+                            <img className={connections.picture} img src={jayHou} alt="img of Jay Hou"/> 
+                            <div className={connections.name}>Jay H.</div>
+                            <div className={connections.stars}>
+                                <img className={connections.star1} img src={litStarIcon} alt="star"/>
+                                <img className={connections.star2} img src={litStarIcon} alt="star"/>
+                                <img className={connections.star3} img src={starIcon} alt="star"/>
+                                <img className={connections.star4} img src={starIcon} alt="star"/>
+                                <img className={connections.star5} img src={starIcon} alt="star"/>
                             </div>
                         </div>
-                        <div className={mona.div}>
-                            <img className={mona.picture} img src={monaLia} alt="img of Mona Lia" /> 
-                            <div className={mona.name}>Mona Lia</div>
-                            <div className={mona.stars}>
-                                <img className={mona.star1} img src={litStarIcon} alt="star"/>
-                                <img className={mona.star2} img src={litStarIcon} alt="star"/>
-                                <img className={mona.star3} img src={litStarIcon} alt="star"/>
-                                <img className={mona.star4} img src={litStarIcon} alt="star"/>
-                                <img className={mona.star5} img src={starIcon} alt="star"/>
+                        <div className={connections.div}>
+                            <img className={connections.picture} img src={monaLia} alt="img of Mona Lia" /> 
+                            <div className={connections.name}>Mona L.</div>
+                            <div className={connections.stars}>
+                                <img className={connections.star1} img src={litStarIcon} alt="star"/>
+                                <img className={connections.star2} img src={litStarIcon} alt="star"/>
+                                <img className={connections.star3} img src={litStarIcon} alt="star"/>
+                                <img className={connections.star4} img src={litStarIcon} alt="star"/>
+                                <img className={connections.star5} img src={starIcon} alt="star"/>
                             </div>
                         </div>
-                        <div className={tommy.div}>
-                            <img className={tommy.picture} img src={tommypic} alt="img of Tommy"/>
-                            <div className={tommy.name}>Tommy</div>
-                            <div className={tommy.stars}>
-                                <img className={tommy.star1} img src={litStarIcon} alt="star"/>
-                                <img className={tommy.star2} img src={litStarIcon} alt="star"/>
-                                <img className={tommy.star3} img src={litStarIcon} alt="star"/>
-                                <img className={tommy.star4} img src={litStarIcon} alt="star"/>
-                                <img className={tommy.star5} img src={litStarIcon} alt="star"/>
+                        <div className={connections.div}>
+                            <img className={connections.picture} img src={tommypic} alt="img of Tommy"/>
+                            <div className={connections.name}>Tommy</div>
+                            <div className={connections.stars}>
+                                <img className={connections.star1} img src={litStarIcon} alt="star"/>
+                                <img className={connections.star2} img src={litStarIcon} alt="star"/>
+                                <img className={connections.star3} img src={litStarIcon} alt="star"/>
+                                <img className={connections.star4} img src={litStarIcon} alt="star"/>
+                                <img className={connections.star5} img src={litStarIcon} alt="star"/>
                             </div>
                         </div>
-                        <div className={ibn.div2}>
-                            <img className={ibn.picture} img src={personIcon} alt="img of Ibn"/>
-                            <div className={ibn.name}>Ibn K.</div>
-                            <div className={ibn.stars}>
-                                <img className={ibn.star1} img src={litStarIcon} alt="star"/>
-                                <img className={ibn.star2} img src={litStarIcon} alt="star"/>
-                                <img className={ibn.star3} img src={litStarIcon} alt="star"/>
-                                <img className={ibn.star4} img src={litStarIcon} alt="star"/>
-                                <img className={ibn.star5} img src={litStarIcon} alt="star"/>
+                        <div className={connections.div}>
+                            <img className={connections.picturecircle} img src={personIcon} alt="img of Ibn"/>
+                            <div className={connections.name}>Ibn K.</div>
+                            <div className={connections.stars}>
+                                <img className={connections.star1} img src={litStarIcon} alt="star"/>
+                                <img className={connections.star2} img src={litStarIcon} alt="star"/>
+                                <img className={connections.star3} img src={litStarIcon} alt="star"/>
+                                <img className={connections.star4} img src={litStarIcon} alt="star"/>
+                                <img className={connections.star5} img src={litStarIcon} alt="star"/>
                             </div>
                         </div>
-                        <div className={zhuang.div2}>
-                            <img className={zhuang.picture} img src={personIcon2} alt="img of Zhuang"/>
-                            <div className={zhuang.name}>Zhuangzi</div>
-                            <div className={zhuang.stars}>
-                                <img className={zhuang.star1} img src={litStarIcon} alt="star"/>
-                                <img className={zhuang.star2} img src={litStarIcon} alt="star"/>
-                                <img className={zhuang.star3} img src={litStarIcon} alt="star"/>
-                                <img className={zhuang.star4} img src={litStarIcon} alt="star"/>
-                                <img className={zhuang.star5} img src={litStarIcon} alt="star"/>
+                        <div className={connections.div}>
+                            <img className={connections.picturecircle} img src={personIcon2} alt="img of Zhuang"/>
+                            <div className={connections.name}>Zhuangzi</div>
+                            <div className={connections.stars}>
+                                <img className={connections.star1} img src={litStarIcon} alt="star"/>
+                                <img className={connections.star2} img src={litStarIcon} alt="star"/>
+                                <img className={connections.star3} img src={litStarIcon} alt="star"/>
+                                <img className={connections.star4} img src={litStarIcon} alt="star"/>
+                                <img className={connections.star5} img src={litStarIcon} alt="star"/>
                             </div>
                         </div>
                     </div>
