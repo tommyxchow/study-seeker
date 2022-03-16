@@ -1,13 +1,13 @@
 import React from "react";
 import "../App.css";
-import settingsLogo from "../assets/gear.png";
-import defaultProfilePicture from "../assets/temp_profilepic.jpg";
 import defaultBackgroundPicture from "../assets/background.jpg";
-import emailLogo from "../assets/email.png";
-import yearLogo from "../assets/goal.png";
 import majorLogo from "../assets/education.png";
+import emailLogo from "../assets/email.png";
+import settingsLogo from "../assets/gear.png";
+import yearLogo from "../assets/goal.png";
 import passwordLogo from "../assets/password.png";
 import privacyLogo from "../assets/privacy.png";
+import defaultProfilePicture from "../assets/temp_profilepic.jpg";
 import styles from "./profile.module.css";
 
 // The Profile component shows data from the user table.  This is set up fairly generically to allow for you to customize
@@ -35,7 +35,7 @@ export default class Profile extends React.Component {
       privacy: "",
       edit: false,
       connect: false,
-      profile: this.props.userid == this.props.profileid
+      profile: this.props.userid === this.props.profileid,
     };
     this.fieldChangeHandler.bind(this);
   }
@@ -59,18 +59,13 @@ export default class Profile extends React.Component {
     console.log(this.props);
 
     // fetch the user data, and extract out the attributes to load and display
-    fetch(
-      process.env.REACT_APP_API_PATH +
-        "/users/" +
-        this.props.profileid,
-      {
-        method: "get",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: "Bearer " + sessionStorage.getItem("token"),
-        },
-      }
-    )
+    fetch(process.env.REACT_APP_API_PATH + "/users/" + this.props.profileid, {
+      method: "get",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + sessionStorage.getItem("token"),
+      },
+    })
       .then((res) => res.json())
       .then(
         (result) => {
@@ -93,7 +88,7 @@ export default class Profile extends React.Component {
                 backgroundPicture: result.attributes.backgroundPicture || "",
                 rating: result.attributes.rating || "0",
                 edit: false,
-                connect: false
+                connect: false,
               });
             }
           }
@@ -154,6 +149,23 @@ export default class Profile extends React.Component {
       );
   };
 
+  handleUpload = (e) => {
+    const newProfilePic = e.target.files[0];
+    const reader = new FileReader();
+
+    reader.addEventListener(
+      "load",
+      () => {
+        this.setState({ profilePicture: reader.result });
+      },
+      false
+    );
+
+    if (newProfilePic) {
+      reader.readAsDataURL(newProfilePic);
+    }
+  };
+
   // This is the function that draws the component to the screen.  It will get called every time the
   // state changes, automatically.  This is why you see the username and firstname change on the screen
   // as you type them.
@@ -187,38 +199,61 @@ export default class Profile extends React.Component {
         <div className={styles.profileHeader}>
           <div>
             <img
-              src={defaultProfilePicture}
+              src={
+                this.state.profilePicture === ""
+                  ? defaultProfilePicture
+                  : this.state.profilePicture
+              }
               className={styles.profilePicture}
               alt="Profile Pic"
             />
             {this.state.edit && (
-              <p className={styles.editPicture}>Click to Change</p>
+              <>
+                <label className={styles.uploadButton} htmlFor="profilePic">
+                  Click to Change
+                </label>
+                <input
+                  type="file"
+                  id="profilePic"
+                  accept="image/*"
+                  onChange={this.handleUpload}
+                  style={{ display: "none" }}
+                />
+              </>
             )}
             {this.state.edit && (
               <button className={styles.deleteAccountButton}>
-              Delete Account
+                Delete Account
               </button>
             )}
           </div>
-          
+
           {!this.state.edit && (
-            <div className={styles.nameConnectButtonHeader}><h1 className={styles.profileName}>
-              {this.state.firstname} {this.state.lastname}</h1>
-            </div>)}
-          {!this.state.profile && (this.state.connect ? 
-          (
-            <button className={styles.disconnectButton} onClick={() => this.setState({ connect: false })}>
-            Disconnect
-            </button>
-            ):(
-            <button className={styles.connectButton} onClick={() => this.setState({ connect: true })}>
-              Connect
-            </button>)
-            )}
-            {
-              !this.state.profile &&
-              <button className={styles.blockButton}>Block</button>
-            }
+            <div className={styles.nameConnectButtonHeader}>
+              <h1 className={styles.profileName}>
+                {this.state.firstname} {this.state.lastname}
+              </h1>
+            </div>
+          )}
+          {!this.state.profile &&
+            (this.state.connect ? (
+              <button
+                className={styles.disconnectButton}
+                onClick={() => this.setState({ connect: false })}
+              >
+                Disconnect
+              </button>
+            ) : (
+              <button
+                className={styles.connectButton}
+                onClick={() => this.setState({ connect: true })}
+              >
+                Connect
+              </button>
+            ))}
+          {!this.state.profile && (
+            <button className={styles.blockButton}>Block</button>
+          )}
         </div>
         <div className={styles.body}>
           <div className={styles.profileDetails}>
@@ -293,15 +328,16 @@ export default class Profile extends React.Component {
                     {e}
                   </div>
                 ))}
-                {this.state.profile &&
-                (<div className={styles.profileDetailItem}>
-                  <img
-                    src={settingsLogo}
-                    className={styles.profileDetailIcon}
-                    alt="Settings"
-                    onClick={() => this.setState({ edit: true })}
-                  />
-                </div>)}
+                {this.state.profile && (
+                  <div className={styles.profileDetailItem}>
+                    <img
+                      src={settingsLogo}
+                      className={styles.profileDetailIcon}
+                      alt="Settings"
+                      onClick={() => this.setState({ edit: true })}
+                    />
+                  </div>
+                )}
               </>
             )}
           </div>
