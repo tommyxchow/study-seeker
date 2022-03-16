@@ -49,10 +49,6 @@ function ButtonSubmitForm({link, buttonText}){
 */
 
 class LandingPage extends React.Component {
-
-    constructor(props) {
-        super(props);
-    }
     render () {
         return (
             <>
@@ -66,8 +62,8 @@ class LandingPage extends React.Component {
                 <LandingPageBox>
                     <LogoText subtitle={"SEEK FRIENDS TO STUDY"}/>
                     <div>
-                    <ButtonSubmitForm link ={"/register/"} buttonText={"Sign Up"}/>
-                    <ButtonSubmitForm link ={"https://www.google.com/"} buttonText={"Login"} />
+                    <ButtonSubmitForm link ={"/register"} buttonText={"Sign Up"}/>
+                    <ButtonSubmitForm link ={"/login"} buttonText={"Login"} />
                     </div>
                 </LandingPageBox>
             </BackgroundImage>
