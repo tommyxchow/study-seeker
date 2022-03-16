@@ -146,7 +146,10 @@ class App extends React.Component {
                       />
                     }
                   />
-                  <Route path="/login" element={<LoginPage />} />
+                  <Route
+                    path="/login"
+                    element={<LoginPage login={this.login} />}
+                  />
                   <Route path="/register" element={<Register />} />
                   <Route path="/reset-password" element={<ForgotPassword />} />
                   <Route path="/connections" element={<Connections />} />
