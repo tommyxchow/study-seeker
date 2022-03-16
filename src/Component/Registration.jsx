@@ -101,6 +101,7 @@ class Registration extends React.Component {
               sessiontoken: result.token,
               alanmessage: result.token
             });
+            alert("You have registered successfully.");
 
             //todo: call refresh on the posting list?
             //this.refreshPostsFromLogin();
@@ -132,7 +133,7 @@ class Registration extends React.Component {
 
   <BackgroundImage>
       <UserCredentialsBox> 
-          <LogoText/>
+          <LogoText subtitle="SIGN UP TO FIND YOUR NEXT STUDY BUDDY"/>
           <div className="formMargin">
         <form className="registrationForm" onSubmit={this.submitHandler}>
           <div>

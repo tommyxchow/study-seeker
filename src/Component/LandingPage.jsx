@@ -17,7 +17,7 @@ function LandingPageBox(props){
     );
 }
 
-export function LogoText(){
+export function LogoText(props){
     return(
         <div>
         <span className="logo-text">
@@ -26,7 +26,7 @@ export function LogoText(){
           Seeker
           <br />
         </span>
-        <span className="logo-subtext">SEEK FRIENDS TO STUDY</span>
+        <span className="logo-subtext">{props.subtitle}</span>
       </div>
     );
 }
@@ -64,7 +64,7 @@ class LandingPage extends React.Component {
 
             <BackgroundImage>
                 <LandingPageBox>
-                    <LogoText/>
+                    <LogoText subtitle={"SEEK FRIENDS TO STUDY"}/>
                     <div>
                     <ButtonSubmitForm link ={"/register/"} buttonText={"Sign Up"}/>
                     <ButtonSubmitForm link ={"https://www.google.com/"} buttonText={"Login"} />
