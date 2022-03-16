@@ -2,8 +2,6 @@
   align-self: auto;
   width: 100px;
   height: 100px;
-  left: 537px;
-  top: 590px;
 }
   
 .name{
@@ -68,6 +66,7 @@
   align-self: flex-start;
   display: flex;
   flex-direction: column;
+  margin-right: 63px;
 }
 
 .stars {

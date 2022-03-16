@@ -9,6 +9,7 @@ import majorLogo from "../assets/education.png";
 import passwordLogo from "../assets/password.png";
 import privacyLogo from "../assets/privacy.png";
 import styles from "./profile.module.css";
+import ConnectionRequest from "./ConnectionRequest";
 
 // The Profile component shows data from the user table.  This is set up fairly generically to allow for you to customize
 // user data by adding it to the attributes for each user, which is just a set of name value pairs that you can add things to
@@ -35,7 +36,8 @@ export default class Profile extends React.Component {
       privacy: "",
       edit: false,
       connect: false,
-      profile: this.props.userid == this.props.profileid
+      connection_id: -1,
+      profile: this.props.userid == this.props.profileid,
     };
     this.fieldChangeHandler.bind(this);
   }
@@ -54,7 +56,6 @@ export default class Profile extends React.Component {
 
   // This is the function that will get called the first time that the component gets rendered.  This is where we load the current
   // values from the database via the API, and put them in the state so that they can be rendered to the screen.
-  
   createFetch(path, method, body){
     const supplyPath = process.env.REACT_APP_API_PATH+path;
     const supplyMethod = {
@@ -74,7 +75,7 @@ export default class Profile extends React.Component {
     console.log(this.props);
 
     this.createFetch("/users/"+this.props.profileid, "get", null)
-      .then((res) => res.json())
+    .then((res) => res.json())
       .then(
         (result) => {
           if (result) {
@@ -96,7 +97,8 @@ export default class Profile extends React.Component {
                 backgroundPicture: result.attributes.backgroundPicture || "",
                 rating: result.attributes.rating || "0",
                 edit: false,
-                connect: false
+                connect: false,
+                connection_id: -1,
               });
             }
           }
@@ -145,13 +147,20 @@ export default class Profile extends React.Component {
       );
   };
 
+
+  
+  //connects with other user
+  //sends connection request though backend
+  //has new attribute {"status": "pending"} for any request that is in pending state
   connectionHandler = (event) =>{
+    this.setState({ connect: true });
     event.preventDefault();
+    this.checkConnection();
     const body = {
       "fromUserID": Number(this.props.userid),
       "toUserID": Number(this.props.profileid),
       "attributes": {
-        "additionalProp1": {}}};
+        "status": "pending"}};
     this.createFetch("/connections", 'POST', body)
     .then((res) => res.json())
       .then(
@@ -166,10 +175,47 @@ export default class Profile extends React.Component {
       );
   };
 
-  connectionButton(){
 
+  //disconnects other user
+  disconnectionHandler = (event) =>{
+    this.setState({ connect: false });
+    event.preventDefault();
+    const body = {
+      "fromUserID": Number(this.props.userid),
+      "toUserID": Number(this.props.profileid),
+      "attributes": {
+        "status": "inactive"}};
+    this.checkConnection();
+    console.log(this.state.connection_id);
+    this.createFetch("/connections/"+ String(this.state.connection_id), 'DELETE', null)
+    
+      
+  };
+
+  connectionButton(){
+    
   }
 
+
+  //gets the connection id
+  checkConnection = () => {         
+    if(this.props.userid != this.props.profileid){
+      this.createFetch("/connections?fromUserID="+this.props.userid+"&toUserID"+this.props.profileid, 'GET',null)
+      .then((res) => res.json())
+      .then(
+        (result) => {
+          this.state.connection_id=result[1]?result[0][0].id:-1
+          this.setState({
+            connection_id: result[1]?result[0][0].id:-1
+          });
+        },
+        (error) => {
+          alert("error!");
+        }
+      );
+    }
+    return -1;
+  }
 
 
   // This is the function that draws the component to the screen.  It will get called every time the
@@ -225,11 +271,11 @@ export default class Profile extends React.Component {
             </div>)}
           {!this.state.profile && (this.state.connect ? 
           (
-            <button className={styles.disconnectButton} onClick={() => this.setState({ connect: false })}>
+            <button className={styles.disconnectButton} onClick={ this.disconnectionHandler}>
             Disconnect
             </button>
             ):(
-            <button className={styles.connectButton} onClick={() => this.setState({ connect: true })}>
+            <button className={styles.connectButton} onClick={this.connectionHandler}>
               Connect
             </button>)
             )}

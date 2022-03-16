@@ -68,6 +68,7 @@
   align-self: flex-start;
   display: flex;
   flex-direction: column;
+  margin-right: 63px;
 }
 
 .stars {
