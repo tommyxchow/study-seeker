@@ -156,7 +156,6 @@ export default class Profile extends React.Component {
   connectionHandler = (event) =>{
     this.setState({ connect: true });
     event.preventDefault();
-    this.checkConnection();
     const body = {
       "fromUserID": Number(this.props.userid),
       "toUserID": Number(this.props.profileid),
@@ -168,7 +167,8 @@ export default class Profile extends React.Component {
         (result) => {
           this.setState({
             responseMessage: result.Status,
-          });
+          }); 
+          this.checkConnection();
         },
         (error) => {
           alert("error");
@@ -201,14 +201,16 @@ export default class Profile extends React.Component {
   //gets the connection id
   checkConnection = () => {         
     if(this.props.userid != this.props.profileid){
-      this.createFetch("/connections?fromUserID="+this.props.userid+"&toUserID"+this.props.profileid, 'GET',null)
+      this.createFetch("/connections?fromUserID="+this.props.userid+"&toUserID="+this.props.profileid, 'GET',null)
       .then((res) => res.json())
       .then(
         (result) => {
-          this.state.connection_id=result[1]?result[0][0].id:-1
-          this.setState({
-            connection_id: result[1]?result[0][0].id:-1
-          });
+          if(result[1] != 0){
+            this.setState({
+              connection_id: result[0][0].id
+            });
+          }
+          else {this.setState({connection_id: -3});}
         },
         (error) => {
           alert("error!");
@@ -271,7 +273,7 @@ export default class Profile extends React.Component {
               {this.state.firstname} {this.state.lastname}</h1>
             </div>)}
           {!this.state.profile && (this.state.connect ? 
-          (
+          ( 
             <button className={styles.disconnectButton} onClick={ this.disconnectionHandler}>
             Disconnect
             </button>
