@@ -25,7 +25,11 @@ class Navigationbar extends React.Component {
           Connections
         </a>
         <div className={styles.spacer}></div>
-        <a href="/" className={styles.logouttext}>
+        <a
+          onClick={this.props.logout}
+          href="/login"
+          className={styles.logouttext}
+        >
           Logout
         </a>
       </div>
