@@ -257,8 +257,6 @@ const Posts = (props) => {
 
 const Connections = (props) => {
   const user_id = sessionStorage.getItem("user");
-  let { id } = useParams();
-  id = !id ? user_id:id;
 
   if (!sessionStorage.getItem("token")) {
     console.log("LOGGED OUT", );

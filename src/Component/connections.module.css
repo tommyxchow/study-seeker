@@ -49,6 +49,7 @@
   left: 372px;
   top: 42px;
   margin-left: 37px;
+  margin-top: 42px;
 
   font-family: Exo;
   font-style: normal;
@@ -70,15 +71,30 @@
   margin-left: 37px;
 }
 
+.topcontainer {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  margin-top: 30px;
+  margin-left: 37px;
+}
+
+.topdiv {
+  align-self: flex-start;
+  display: flex;
+  flex-direction: column;
+  margin-right: 63px;
+  margin-bottom: 30px;
+}
+
 .picture{
-  align-self: auto;
+  align-self:flex-start;
   width: 100px;
   height: 100px;
 }
 
 .name{
-  /* Ibn Khaldun */
-
   align-self: center;
   width: 65px;
   height: 24px;
@@ -159,4 +175,41 @@
   width: 100px;
   height: 100px;
   border-radius: 50%;
+}
+
+.rejectbutton{
+  background-color: #ff0000; /* Red */
+  width: 80px !important;
+  height: 30px !important;
+  border: none;
+  color: rgb(0, 0, 0);
+  text-align: center;
+  font-family: Exo;
+  font-weight: bold;
+  text-decoration: none;
+  font-size: 18px;
+  margin: 4px 2px;
+  cursor: pointer;
+  border-radius: 25px;
+  align-self: center;
+  display: inline-block;
+}
+
+.acceptbutton{
+  background-color: #56c73f; /* Green */
+  width: 80px !important;
+  height: 30px !important;
+  border: none;
+  color: rgb(0, 0, 0);
+  text-align: center;
+  font-family: Exo;
+  font-weight: bold;
+  text-decoration: none;
+  font-size: 18px;
+  margin: 4px 2px;
+  cursor: pointer;
+  border-radius: 25px;
+  align-self: center;
+  display: inline-block;
+  margin-top: 20px;
 }
