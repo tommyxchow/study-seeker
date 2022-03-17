@@ -39,6 +39,7 @@ export default class ConnectionRequest extends React.Component{
 
   componentDidMount(){
     this.fetchUserIDs();
+    this.findUserPicture();
   }
 
   fieldChangeHandler(field, e) {
@@ -51,13 +52,12 @@ export default class ConnectionRequest extends React.Component{
   removeHandler_Accept(givenName,givenID){                        //handle and remove connection after being accepted
     console.log('this is: ', givenName);
     const newList=this.state.names.filter(name => name[0] !== givenID);
-    const newConnectionList=this.state.connection_id_list.filter(v => v[0] !== this.state.connection_id);
+    const newConnectionList=this.state.connection_id_list.filter(id => id[0] !== this.state.connection_id);
     this.setState(prevState => ({
         accepted_friends: [givenName, ...prevState.accepted_friends]
       }))
     this.setState({names: newList});
-    // eslint-disable-next-line no-unused-expressions
-    // console.log('added: ', this.state.accepted_friends);
+    this.setState({connection_id: newConnectionList[0]});
     console.log(givenName[1]);
     this.forceUpdate();
     console.log('added: ', this.state.accepted_friends);
@@ -69,18 +69,22 @@ export default class ConnectionRequest extends React.Component{
   removeHandler_Reject(givenName,givenID){                        //handle and remove connection after being rejected
     console.log('this is: ', givenName);
     const newList=this.state.names.filter(name => name[0] !== givenID);
+    const newConnectionList=this.state.connection_id_list.filter(id => id[0] !== this.state.connection_id);
     this.setState({names: newList});
+    this.setState({connection_id: newConnectionList[0]});
+    this.forceUpdate();
     console.log('added: ', this.state.accepted_friends);
     console.log('names: ', this.state.names);
     console.log('connection-id:', this.state.connection_id);
     console.log('connection-id-list:', this.state.connection_id_list);
-    this.forceUpdate();
+    console.log('new connection-id-list:', newConnectionList);
   }
 
   fetchUserIDs(){
     const json = [];
     var arrConnections = [];
     var arrUserID = [];
+    var connectionToID = [];
     fetch("https://webdev.cse.buffalo.edu/hci/api/api/commitment/connections/?toUserID=" + sessionStorage.getItem("user"), requestOptionsGet)
       .then(response => response.json())
       .then(result => {
@@ -93,6 +97,7 @@ export default class ConnectionRequest extends React.Component{
           arrConnections.push(json[a].id);
           // console.log(json[a].fromUserID);
           arrUserID.push(json[a].fromUserID);
+          connectionToID.push([json[a].id,json[a].fromUserID]);
         }
         // console.log("arrConnections", arrConnections);
         // console.log("arrUserID" ,arrUserID);
@@ -105,7 +110,7 @@ export default class ConnectionRequest extends React.Component{
           .then(result => {
             console.log(result);
             this.setState({names: this.state.names.concat(result.fromUser.attributes.firstName + " " + result.fromUser.attributes.lastName[0] + ".")});
-            this.setState({connection_id: result.id})
+            this.setState({connection_id: result.id});
           })
           .catch(error => console.log('error', error));
         }
@@ -116,6 +121,19 @@ export default class ConnectionRequest extends React.Component{
     console.log("user:", sessionStorage.getItem("user"));
     console.log("arrConnections", arrConnections);
     console.log("connection_id", this.state.connection_id_list);
+    console.log("connection to ID", connectionToID);
+  }
+//test tommys image
+  findUserPicture(){
+    var path = "";
+    fetch("https://webdev.cse.buffalo.edu/hci/api/api/commitment/users/12", requestOptionsGet)
+      .then(response => response.json())
+      .then(result => {
+        path = (JSON.stringify(result.attributes.profilePicture));
+      })
+      .catch(error => console.log('error', error));
+      console.log(path)
+      return path;
   }
 
   render() {
@@ -133,7 +151,7 @@ export default class ConnectionRequest extends React.Component{
                   {this.state.names.map((name) => {
                     return(<div key={name}>
                       <div className={connections.topdiv}>
-                        <img className={connections.picturecircle} img src={lisaMoan} alt="default img"/> 
+                        <img className={connections.picturecircle} img src={"https://webdev.cse.buffalo.edu/hci/api/uploads/files/DOo1Ebbt8dYT4-plb6G6NP5jIc9_l_gNlaYwPW4SaBM.png"} alt="default img"/> 
                         <div className={connections.name}>{name}</div>
                         <div className={connections.stars}>
                           <img className={connections.star1} img src={starIcon} alt="star"/>
@@ -169,7 +187,7 @@ export default class ConnectionRequest extends React.Component{
                   {this.state.accepted_friends.map((name) => {
                     return(<div key={name}>
                       <div className={connections.div}>
-                          <img className={connections.picturecircle} img src={lisaMoan} alt="img of Lisa Moan"/> 
+                          <img className={connections.picturecircle} img src={"https://webdev.cse.buffalo.edu/hci/api/uploads/files/DOo1Ebbt8dYT4-plb6G6NP5jIc9_l_gNlaYwPW4SaBM.png"} alt="default img"/> 
                           <div className={connections.name}>{name}</div>
                           <div className={connections.stars}>
                               <img className={connections.star1} img src={litStarIcon} alt="star"/>
@@ -179,32 +197,11 @@ export default class ConnectionRequest extends React.Component{
                               <img className={connections.star5} img src={starIcon} alt="star"/>
                           </div>
                       </div>
-                      {/* <div className={connections.div}>
-                          <img className={connections.picturecircle} img src={jayHou} alt="img of Jay Hou"/> 
-                          <div className={connections.name}>Jay H.</div>
-                          <div className={connections.stars}>
-                              <img className={connections.star1} img src={litStarIcon} alt="star"/>
-                              <img className={connections.star2} img src={litStarIcon} alt="star"/>
-                              <img className={connections.star3} img src={starIcon} alt="star"/>
-                              <img className={connections.star4} img src={starIcon} alt="star"/>
-                              <img className={connections.star5} img src={starIcon} alt="star"/>
-                          </div>
-                      </div> */}
-                      {/* <div className={connections.div}>
-                          <img className={connections.picturecircle} img src={tommypic} alt="img of Tommy"/>
-                          <div className={connections.name}>Tommy</div>
-                          <div className={connections.stars}>
-                              <img className={connections.star1} img src={litStarIcon} alt="star"/>
-                              <img className={connections.star2} img src={litStarIcon} alt="star"/>
-                              <img className={connections.star3} img src={litStarIcon} alt="star"/>
-                              <img className={connections.star4} img src={litStarIcon} alt="star"/>
-                              <img className={connections.star5} img src={litStarIcon} alt="star"/>
-                          </div>
-                      </div> */}
                   </div>
                   )
                   })}
                   </div>
+                  <img className={connections.picturecircle} img src={"https://webdev.cse.buffalo.edu/hci/api/uploads/files/x9sRVcdg8C5vip7apFO5cuR1jus4w00_6oOtB2bFKqg.png"} alt="img of Lisa Moan" hidden />
           </div>
       );
     }
