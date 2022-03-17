@@ -94,6 +94,25 @@ export default class Profile extends React.Component {
         (error) => {
           alert("error!");
         }
+      )
+      .then((_) =>
+        fetch(
+          process.env.REACT_APP_API_PATH +
+            "/file-uploads?uploaderID=" +
+            this.props.profileid,
+          {
+            method: "GET",
+            headers: {
+              Authorization: "Bearer " + sessionStorage.getItem("token"),
+            },
+          }
+        )
+          .then((res) => res.json())
+          .then((result) =>
+            this.setState({
+              profilePicture: result[0][result[0].length - 1]["path"],
+            })
+          )
       );
   }
 
@@ -153,23 +172,39 @@ export default class Profile extends React.Component {
 
   handleUpload = (e, backgroundPicture = false) => {
     const newPic = e.target.files[0];
-    const reader = new FileReader();
+    console.log(newPic);
 
-    reader.addEventListener(
-      "load",
-      () => {
-        this.setState(
-          backgroundPicture
-            ? { backgroundPicture: reader.result }
-            : { profilePicture: reader.result }
-        );
+    const formData = new FormData();
+    console.log(this.props.profileid);
+    formData.append("uploaderID", this.props.profileid);
+    formData.append("attributes", "{}");
+    formData.append("file", newPic);
+
+    fetch(process.env.REACT_APP_API_PATH + "/file-uploads", {
+      method: "POST",
+      headers: {
+        Authorization: "Bearer " + sessionStorage.getItem("token"),
       },
-      false
+      body: formData,
+    }).then((_) =>
+      fetch(
+        process.env.REACT_APP_API_PATH +
+          "/file-uploads?uploaderID=" +
+          this.props.profileid,
+        {
+          method: "GET",
+          headers: {
+            Authorization: "Bearer " + sessionStorage.getItem("token"),
+          },
+        }
+      )
+        .then((res) => res.json())
+        .then((result) =>
+          this.setState({
+            profilePicture: result[0][result[0].length - 1]["path"],
+          })
+        )
     );
-
-    if (newPic) {
-      reader.readAsDataURL(newPic);
-    }
   };
 
   // This is the function that draws the component to the screen.  It will get called every time the
@@ -219,7 +254,7 @@ export default class Profile extends React.Component {
             src={
               this.state.profilePicture === ""
                 ? defaultProfilePicture
-                : this.state.profilePicture
+                : "https://webdev.cse.buffalo.edu" + this.state.profilePicture
             }
             className={styles.profilePicture}
             alt="Profile Pic"
