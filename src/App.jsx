@@ -141,7 +141,9 @@ class App extends React.Component {
                     }
                   />
                   <Route path="/reset-password" element={<ForgotPassword />} />
-                  <Route path="/connections" element={<Connections />} />
+                  <Route 
+                    path="/connections" 
+                    element={<Connections login={this.login}/>} />
                   <Route
                     path="/"
                     element={
@@ -254,7 +256,24 @@ const Posts = (props) => {
 };
 
 const Connections = (props) => {
-  return <ConnectionRequest />;
+  const user_id = sessionStorage.getItem("user");
+  let { id } = useParams();
+  id = !id ? user_id:id;
+
+  if (!sessionStorage.getItem("token")) {
+    console.log("LOGGED OUT", );
+    return (
+      <div>
+        <LoginPage login={props.login} />
+      </div>
+    );
+  } 
+  return (
+    <>
+      <ConnectionRequest userid={user_id}/>
+    </>
+  );
+  //return <ConnectionRequest />;
 };
 
 const ForgotPassword = (props) => {
