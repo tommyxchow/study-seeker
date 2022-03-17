@@ -177,7 +177,12 @@ export default class Profile extends React.Component {
     const formData = new FormData();
     console.log(this.props.profileid);
     formData.append("uploaderID", this.props.profileid);
-    formData.append("attributes", "{}");
+    formData.append(
+      "attributes",
+      JSON.stringify(
+        backgroundPicture ? { background: "true" } : { background: "false" }
+      )
+    );
     formData.append("file", newPic);
 
     fetch(process.env.REACT_APP_API_PATH + "/file-uploads", {
@@ -189,8 +194,21 @@ export default class Profile extends React.Component {
     }).then((_) =>
       fetch(
         process.env.REACT_APP_API_PATH +
-          "/file-uploads?uploaderID=" +
-          this.props.profileid,
+          `/file-uploads?uploaderID=${
+            this.props.profileid
+          }&${`attributes=${encodeURIComponent(
+            JSON.stringify(
+              backgroundPicture
+                ? {
+                    path: "background",
+                    equals: "true",
+                  }
+                : {
+                    path: "background",
+                    equals: "false",
+                  }
+            )
+          )}`}`,
         {
           method: "GET",
           headers: {
@@ -200,9 +218,15 @@ export default class Profile extends React.Component {
       )
         .then((res) => res.json())
         .then((result) =>
-          this.setState({
-            profilePicture: result[0][result[0].length - 1]["path"],
-          })
+          this.setState(
+            backgroundPicture
+              ? {
+                  backgroundPicture: result[0][result[0].length - 1]["path"],
+                }
+              : {
+                  profilePicture: result[0][result[0].length - 1]["path"],
+                }
+          )
         )
     );
   };
@@ -227,7 +251,7 @@ export default class Profile extends React.Component {
           src={
             this.state.backgroundPicture === ""
               ? defaultBackgroundPicture
-              : this.state.backgroundPicture
+              : "https://webdev.cse.buffalo.edu" + this.state.backgroundPicture
           }
           className={styles.backgroundPicture}
           alt="Cover"
