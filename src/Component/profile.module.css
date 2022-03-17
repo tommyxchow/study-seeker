@@ -5,19 +5,19 @@
   flex-direction: column;
   align-items: flex-start;
   height: 100vh;
-  width: 75vw;
+  width: 100vw;
 }
 
 .backgroundOverlay {
   position: absolute;
   height: 400px;
-  width: 75vw;
+  width: 100%;
   background-color: rgba(0, 0, 0, 0.5);
 }
 
 .backgroundPicture {
   height: 400px;
-  width: 75vw;
+  width: 100%;
   object-fit: cover;
   align-self: flex-start;
   color: white;
@@ -30,7 +30,7 @@
   position: absolute;
   align-items: stretch;
   top: 100px;
-  left: 350px;
+  left: 375px;
 }
 
 
