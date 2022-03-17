@@ -1,12 +1,10 @@
 import React from "react";
 import "../App.css";
-import defaultBackgroundPicture from "../assets/background.jpg";
 import majorLogo from "../assets/education.png";
 import emailLogo from "../assets/email.png";
 import settingsLogo from "../assets/gear.png";
 import yearLogo from "../assets/goal.png";
 import privacyLogo from "../assets/privacy.png";
-import defaultProfilePicture from "../assets/temp_profilepic.jpg";
 import styles from "./profile.module.css";
 
 // The Profile component shows data from the user table.  This is set up fairly generically to allow for you to customize
@@ -25,7 +23,8 @@ export default class Profile extends React.Component {
       favoritecolor: "",
       responseMessage: "",
       // NOTE : if you wanted to add another user attribute to the profile, you would add a corresponding state element here
-      profilePicture: "",
+      profilePicture:
+        "/hci/api/uploads/files/DOo1Ebbt8dYT4-plb6G6NP5jIc9_l_gNlaYwPW4SaBM.png",
       backgroundPicture: "",
       rating: "",
       major: "",
@@ -82,7 +81,9 @@ export default class Profile extends React.Component {
                 year: result.attributes.year || "Year",
                 contact: result.attributes.contact || "Contact",
                 privacy: result.attributes.privacy || "Everyone",
-                profilePicture: result.attributes.profilePicture || "",
+                profilePicture:
+                  result.attributes.profilePicture ||
+                  "/hci/api/uploads/files/DOo1Ebbt8dYT4-plb6G6NP5jIc9_l_gNlaYwPW4SaBM.png",
                 backgroundPicture: result.attributes.backgroundPicture || "",
                 rating: result.attributes.rating || "0",
                 edit: false,
@@ -194,9 +195,10 @@ export default class Profile extends React.Component {
     }).then((_) =>
       fetch(
         process.env.REACT_APP_API_PATH +
-          `/file-uploads?uploaderID=${
-            this.props.profileid
-          }&${`attributes=${encodeURIComponent(
+          "/file-uploads?uploaderID=" +
+          this.props.profileid +
+          "&attributes=" +
+          encodeURIComponent(
             JSON.stringify(
               backgroundPicture
                 ? {
@@ -208,7 +210,7 @@ export default class Profile extends React.Component {
                     equals: "false",
                   }
             )
-          )}`}`,
+          ),
         {
           method: "GET",
           headers: {
@@ -248,11 +250,7 @@ export default class Profile extends React.Component {
       <div className={styles.container}>
         <div className={styles.backgroundOverlay}></div>
         <img
-          src={
-            this.state.backgroundPicture === ""
-              ? defaultBackgroundPicture
-              : "https://webdev.cse.buffalo.edu" + this.state.backgroundPicture
-          }
+          src={"https://webdev.cse.buffalo.edu" + this.state.backgroundPicture}
           className={styles.backgroundPicture}
           alt="Cover"
         />
@@ -275,11 +273,7 @@ export default class Profile extends React.Component {
         )}
         <div className={styles.profileHeader}>
           <img
-            src={
-              this.state.profilePicture === ""
-                ? defaultProfilePicture
-                : "https://webdev.cse.buffalo.edu" + this.state.profilePicture
-            }
+            src={"https://webdev.cse.buffalo.edu" + this.state.profilePicture}
             className={styles.profilePicture}
             alt="Profile Pic"
           />

@@ -20,6 +20,7 @@
   width: 75vw;
   object-fit: cover;
   align-self: flex-start;
+  color: white;
 }
 
 .profileHeader {
