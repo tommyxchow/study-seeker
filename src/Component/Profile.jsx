@@ -34,8 +34,9 @@ export default class Profile extends React.Component {
       contact: "",
       privacy: "",
       edit: false,
-      connect: false,
-      profile: this.props.userid == this.props.profileid
+      connection_id: -1,
+      profile: this.props.userid === this.props.profileid,
+      blocked: false
     };
     this.fieldChangeHandler.bind(this);
   }
@@ -71,14 +72,11 @@ export default class Profile extends React.Component {
 
   componentDidMount() {
     console.log("In profile");
-    console.log(this.props);
-
     this.createFetch("/users/"+this.props.profileid, "get", null)
     .then((res) => res.json())
       .then(
         (result) => {
           if (result) {
-            console.log(result);
             if (result.attributes) {
               this.setState({
                 // IMPORTANT!  You need to guard against any of these values being null.  If they are, it will
@@ -96,7 +94,7 @@ export default class Profile extends React.Component {
                 backgroundPicture: result.attributes.backgroundPicture || "",
                 rating: result.attributes.rating || "0",
                 edit: false,
-                connect: false
+                blocked: false
               });
             }
           }
@@ -105,6 +103,7 @@ export default class Profile extends React.Component {
           alert("error!");
         }
       );
+      this.getConnection();
   }
 
   // This is the function that will get called when the submit button is clicked, and it stores
@@ -145,38 +144,71 @@ export default class Profile extends React.Component {
       );
   };
 
-  connectionHandler = (event) =>{
+getConnection = () => {
+    if(this.props.userid !== this.props.profileid){
+      this.createFetch("/connections?fromUserID="+this.props.userid+"&toUserID="+this.props.profileid, 'GET', null)
+      .then((res) => res.json())
+      .then(
+        (result) => {
+          console.log("connection",this.props.userid, this.props.profileid, result);
+          this.setState({
+            connection_id: result[1] ? result[0][0].id:-1,
+          });
+        },
+        (error) => {
+          alert("error! checkConnection");
+        }
+      );
+    }
+  }
+
+  connectionHandler = (event, status='pending') => {
     event.preventDefault();
+    console.log("Connection handler");
+    if(this.state.connection_id === -1){
     const body = {
       "fromUserID": Number(this.props.userid),
       "toUserID": Number(this.props.profileid),
       "attributes": {
-        "additionalProp1": {}}};
+        "additionalProp1": {
+          'status': status
+        }}
+      };
     this.createFetch("/connections", 'POST', body)
     .then((res) => res.json())
-      .then(
-        (result) => {
+      .then((result) => {
           this.setState({
-            responseMessage: result.Status,
+            connection_id: result.id, 
+            blocked: status == 'block'
           });
+
         },
         (error) => {
           alert("error");
         }
       );
+    }else{
+      console.log("/connections/"+this.state.connection_id);
+      this.createFetch("/connections/"+this.state.connection_id, 'DELETE', null)
+      .then((res) => res.text)
+      .then(
+          (result) => {
+            this.setState({
+              blocked: status != 'unblock'
+            });
+            this.getConnection()
+        },
+        (error) => {
+          alert(error);
+        }
+      );
+    }
   };
-
-  connectionButton(){
-
-  }
-
-
 
   // This is the function that draws the component to the screen.  It will get called every time the
   // state changes, automatically.  This is why you see the username and firstname change on the screen
   // as you type them.
   render() {
-    console.log("Testing", this.props);
     const profileFields = ["Major", "Year", "Contact", "Privacy", "Password"];
     const profileDetails = [
       this.state.major,
@@ -223,20 +255,22 @@ export default class Profile extends React.Component {
             <div className={styles.nameConnectButtonHeader}><h1 className={styles.profileName}>
               {this.state.firstname} {this.state.lastname}</h1>
             </div>)}
-          {!this.state.profile && (this.state.connect ? 
+          {!this.state.profile && (this.state.connection_id !== -1? 
           (
-            <button className={styles.disconnectButton} onClick={this.connectionHandler}>
+            <button className={styles.disconnectButton} onClick={(event)=> this.connectionHandler(event)}>
             Disconnect
             </button>
             ):(
-            <button className={styles.connectButton} onClick={this.connectionHandler}>
+            <button className={styles.connectButton} onClick={(event)=> this.connectionHandler(event)}>
               Connect
             </button>)
             )}
             {
-              !this.state.profile &&
-              <button className={styles.blockButton}>Block</button>
-            }
+              !this.state.profile && ( !this.state.blocked ? (
+              <button className={styles.blockButton} onClick={(event)=> this.connectionHandler(event, 'block')}>Block</button>
+            ):(
+              <button className={styles.blockButton} onClick={(event)=> this.connectionHandler(event, 'unblock')}>Unblock</button>
+            ))}
         </div>
         <div className={styles.body}>
           <div className={styles.profileDetails}>

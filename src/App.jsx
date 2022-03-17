@@ -170,6 +170,8 @@ class App extends React.Component {
 // with the latest version of react router, you need to define the contents of the route as an element.  The following define functional components
 // that will appear in the routes.
 
+
+
 const ProfilePage = (props) => {
   // if the user is not logged in, show the login form.  Otherwise, show the settings page
   const user_id = sessionStorage.getItem("user");
