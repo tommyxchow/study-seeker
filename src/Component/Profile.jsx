@@ -36,7 +36,7 @@ export default class Profile extends React.Component {
       edit: false,
       connection_id: -1,
       profile: this.props.userid === this.props.profileid,
-      blocked: false
+      status: ''
     };
     this.fieldChangeHandler.bind(this);
   }
@@ -94,7 +94,7 @@ export default class Profile extends React.Component {
                 backgroundPicture: result.attributes.backgroundPicture || "",
                 rating: result.attributes.rating || "0",
                 edit: false,
-                blocked: false
+                connection_status: 'Not sent'
               });
             }
           }
@@ -153,6 +153,7 @@ getConnection = () => {
           console.log("connection",this.props.userid, this.props.profileid, result);
           this.setState({
             connection_id: result[1] ? result[0][0].id:-1,
+            connection_status: result[1] ? result[0][0].attributes.additionalProp1.status: "Not sent"
           });
         },
         (error) => {
@@ -164,7 +165,6 @@ getConnection = () => {
 
   connectionHandler = (event, status='pending') => {
     event.preventDefault();
-    console.log("Connection handler");
     if(this.state.connection_id === -1){
     const body = {
       "fromUserID": Number(this.props.userid),
@@ -179,22 +179,42 @@ getConnection = () => {
       .then((result) => {
           this.setState({
             connection_id: result.id, 
-            blocked: status == 'block'
+            connection_status: status
           });
-
         },
         (error) => {
           alert("error");
         }
       );
-    }else{
+    }else if(status === "block"){
+      const body = {
+        "fromUserID": Number(this.props.userid),
+        "toUserID": Number(this.props.profileid),
+        "attributes": {
+          "additionalProp1": {
+            'status': status
+          }}
+        };
+      this.createFetch("/connections/"+this.state.connection_id, 'PATCH', body)
+      .then((res) => res.json())
+        .then((result) => {
+            this.setState({ 
+              connection_status: status
+            });
+          },
+          (error) => {
+            alert("error");
+          }
+        );
+    }
+    else{
       console.log("/connections/"+this.state.connection_id);
       this.createFetch("/connections/"+this.state.connection_id, 'DELETE', null)
       .then((res) => res.text)
       .then(
           (result) => {
             this.setState({
-              blocked: status != 'unblock'
+              blocked: status !== 'unblock'
             });
             this.getConnection()
         },
@@ -255,18 +275,18 @@ getConnection = () => {
             <div className={styles.nameConnectButtonHeader}><h1 className={styles.profileName}>
               {this.state.firstname} {this.state.lastname}</h1>
             </div>)}
-          {!this.state.profile && (this.state.connection_id !== -1? 
+          {(!this.state.profile && this.state.connection_status !== 'block') && (this.state.connection_status !== 'Not sent'  ? 
           (
             <button className={styles.disconnectButton} onClick={(event)=> this.connectionHandler(event)}>
-            Disconnect
+            Disconnect {this.state.connection_id}
             </button>
             ):(
-            <button className={styles.connectButton} onClick={(event)=> this.connectionHandler(event)}>
-              Connect
+            <button className={styles.connectButton} onClick={(event)=> this.connectionHandler(event, 'pending')}>
+              Connect{this.state.connection_id}
             </button>)
             )}
             {
-              !this.state.profile && ( !this.state.blocked ? (
+              !this.state.profile && ( this.state.connection_status !== 'block' ? (
               <button className={styles.blockButton} onClick={(event)=> this.connectionHandler(event, 'block')}>Block</button>
             ):(
               <button className={styles.blockButton} onClick={(event)=> this.connectionHandler(event, 'unblock')}>Unblock</button>
