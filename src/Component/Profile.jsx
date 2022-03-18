@@ -36,7 +36,7 @@ export default class Profile extends React.Component {
       edit: false,
       connection_id: -1,
       profile: this.props.userid === this.props.profileid,
-      status: ''
+      connection_status: ''
     };
     this.fieldChangeHandler.bind(this);
   }
@@ -243,6 +243,18 @@ getConnection = () => {
       passwordLogo,
     ];
 
+    const connectionStatus = {
+      'Not sent': 'Connect',
+      'pending': 'Pending',
+      'accepted': 'Disconnect'
+    };
+
+    const blockStatus = {
+      'Not sent': 'Block',
+      'pending': 'Block',
+      'block': 'Unblock'
+    };
+
     return (
       <div className={styles.container}>
         <div className={styles.backgroundOverlay}></div>
@@ -278,18 +290,22 @@ getConnection = () => {
           {(!this.state.profile && this.state.connection_status !== 'block') && (this.state.connection_status !== 'Not sent'  ? 
           (
             <button className={styles.disconnectButton} onClick={(event)=> this.connectionHandler(event)}>
-            Disconnect {this.state.connection_id}
+              {connectionStatus[this.state.connection_status]}
             </button>
             ):(
             <button className={styles.connectButton} onClick={(event)=> this.connectionHandler(event, 'pending')}>
-              Connect{this.state.connection_id}
+              {connectionStatus[this.state.connection_status]}
             </button>)
             )}
             {
               !this.state.profile && ( this.state.connection_status !== 'block' ? (
-              <button className={styles.blockButton} onClick={(event)=> this.connectionHandler(event, 'block')}>Block</button>
+              <button className={styles.blockButton} onClick={(event)=> this.connectionHandler(event, 'block')}>
+                {blockStatus[this.state.connection_status]}
+              </button>
             ):(
-              <button className={styles.blockButton} onClick={(event)=> this.connectionHandler(event, 'unblock')}>Unblock</button>
+              <button className={styles.blockButton} onClick={(event)=> this.connectionHandler(event, 'unblock')}>
+                {blockStatus[this.state.connection_status]}
+              </button>
             ))}
         </div>
         <div className={styles.body}>
