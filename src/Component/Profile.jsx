@@ -13,6 +13,14 @@ import styles from "./profile.module.css";
 // The Profile component shows data from the user table.  This is set up fairly generically to allow for you to customize
 // user data by adding it to the attributes for each user, which is just a set of name value pairs that you can add things to
 // in order to support your group specific functionality.  In this example, we store basic profile information for the user
+let deleteAccount = false;
+function confirmDeletePrompt() {
+  //deleteAccount = window.confirm("Delete your account?");
+  if(window.confirm("Delete your account?")){
+    this.deleteAccountHandler()
+    alert("account deleted")
+  }
+}
 
 export default class Profile extends React.Component {
   // The constructor will hold the default values for the state.  This is also where any props that are passed
@@ -154,6 +162,36 @@ export default class Profile extends React.Component {
       );
   };
 
+    // This is the function that will get called when the delete account button is clicked
+  deleteAccountHandler = (event) => {
+    //keep the form from actually submitting, since we are handling the action ourselves via
+    //the fetch calls to the API
+    event.preventDefault();
+    fetch(
+      process.env.REACT_APP_API_PATH +
+        "/users/" +
+        sessionStorage.getItem("user"),
+      {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + sessionStorage.getItem("token"),
+        },
+      }
+    )
+      .then((res) => res.json())
+      .then(
+        (result) => {
+          this.setState({
+            responseMessage: result.Status,
+          });
+        },
+        (error) => {
+          alert("error!");
+        }
+      );
+  };
+
   // This is the function that draws the component to the screen.  It will get called every time the
   // state changes, automatically.  This is why you see the username and firstname change on the screen
   // as you type them.
@@ -195,7 +233,16 @@ export default class Profile extends React.Component {
               <p className={styles.editPicture}>Click to Change</p>
             )}
             {this.state.edit && (
-              <button className={styles.deleteAccountButton}>
+              <button onClick= {() => {
+                confirmDeletePrompt();
+                //this.deleteAccountHandler()
+                alert("account ddeleted");
+                if(deleteAccount){
+                  this.deleteAccountHandler();
+                  alert("account deleted")
+                };
+              } }
+              className={styles.deleteAccountButton}>
               Delete Account
               </button>
             )}

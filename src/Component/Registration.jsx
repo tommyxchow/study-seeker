@@ -69,8 +69,9 @@ class Registration extends React.Component {
   submitHandler = event => {
     //keep the form from actually submitting
     event.preventDefault();
-
-    //make the api call to the authentication page
+    //checks if passowrds match
+    if(this.state.password == this.state.confirmPassword){
+          //make the api call to the authentication page
     fetch(process.env.REACT_APP_API_PATH+"/auth/signup", {
       method: "post",
       headers: {
@@ -78,7 +79,11 @@ class Registration extends React.Component {
       },
       body: JSON.stringify({
         email: this.state.email,
-        password: this.state.password
+        password: this.state.password,
+        attributes: {
+          firstName: this.state.firstName,
+          lastName: this.state.lastName
+        }
       })
     })
       .then(res => res.json())
@@ -117,6 +122,10 @@ class Registration extends React.Component {
           }
         }
       );
+    }else{
+      alert("Passwords do not match!")
+    }
+
   };
     render () {
         return (
