@@ -10,6 +10,14 @@ import styles from "./profile.module.css";
 // The Profile component shows data from the user table.  This is set up fairly generically to allow for you to customize
 // user data by adding it to the attributes for each user, which is just a set of name value pairs that you can add things to
 // in order to support your group specific functionality.  In this example, we store basic profile information for the user
+let deleteAccount = false;
+function confirmDeletePrompt() {
+  //deleteAccount = window.confirm("Delete your account?");
+  if(window.confirm("Delete your account?")){
+    this.deleteAccountHandler()
+    alert("account deleted")
+  }
+}
 
 export default class Profile extends React.Component {
   // The constructor will hold the default values for the state.  This is also where any props that are passed
@@ -171,6 +179,7 @@ export default class Profile extends React.Component {
       );
   };
 
+
   handleUpload = (e, backgroundPicture = false) => {
     const newPic = e.target.files[0];
     console.log(newPic);
@@ -272,6 +281,7 @@ export default class Profile extends React.Component {
           </>
         )}
         <div className={styles.profileHeader}>
+
           <img
             src={"https://webdev.cse.buffalo.edu" + this.state.profilePicture}
             className={styles.profilePicture}
