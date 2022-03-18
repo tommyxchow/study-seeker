@@ -412,41 +412,41 @@ export default class Profile extends React.Component {
               </h1>
             </div>
           )}
+          {!this.state.profile &&
+            this.state.connection_status !== "block" &&
+            (this.state.connection_status !== "Not sent" ? (
+              <button
+                className={styles.disconnectButton}
+                onClick={(event) => this.connectionHandler(event)}
+              >
+                {connectionStatus[this.state.connection_status]}
+              </button>
+            ) : (
+              <button
+                className={styles.connectButton}
+                onClick={(event) => this.connectionHandler(event, "pending")}
+              >
+                {connectionStatus[this.state.connection_status]}
+              </button>
+            ))}
+          {!this.state.profile &&
+            (this.state.connection_status !== "block" ? (
+              <button
+                className={styles.blockButton}
+                onClick={(event) => this.connectionHandler(event, "block")}
+              >
+                {blockStatus[this.state.connection_status]}
+              </button>
+            ) : (
+              <button
+                className={styles.blockButton}
+                onClick={(event) => this.connectionHandler(event, "unblock")}
+              >
+                {blockStatus[this.state.connection_status]}
+              </button>
+            ))}
         </div>
 
-        {!this.state.profile &&
-          this.state.connection_status !== "block" &&
-          (this.state.connection_status !== "Not sent" ? (
-            <button
-              className={styles.disconnectButton}
-              onClick={(event) => this.connectionHandler(event)}
-            >
-              {connectionStatus[this.state.connection_status]}
-            </button>
-          ) : (
-            <button
-              className={styles.connectButton}
-              onClick={(event) => this.connectionHandler(event, "pending")}
-            >
-              {connectionStatus[this.state.connection_status]}
-            </button>
-          ))}
-        {!this.state.profile &&
-          (this.state.connection_status !== "block" ? (
-            <button
-              className={styles.blockButton}
-              onClick={(event) => this.connectionHandler(event, "block")}
-            >
-              {blockStatus[this.state.connection_status]}
-            </button>
-          ) : (
-            <button
-              className={styles.blockButton}
-              onClick={(event) => this.connectionHandler(event, "unblock")}
-            >
-              {blockStatus[this.state.connection_status]}
-            </button>
-          ))}
         <div className={styles.body}>
           <div className={styles.profileDetails}>
             {this.state.edit ? (
