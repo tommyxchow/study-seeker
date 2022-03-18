@@ -181,6 +181,7 @@ class App extends React.Component {
 // with the latest version of react router, you need to define the contents of the route as an element.  The following define functional components
 // that will appear in the routes.
 
+
 const Register = (props) => {
   // show the study seeker registration form
   return <Registration />;
