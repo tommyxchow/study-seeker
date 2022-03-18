@@ -1,12 +1,9 @@
 import React from "react";
 import "../App.css";
-import settingsLogo from "../assets/gear.png";
-import defaultProfilePicture from "../assets/temp_profilepic.jpg";
-import defaultBackgroundPicture from "../assets/background.jpg";
-import emailLogo from "../assets/email.png";
-import yearLogo from "../assets/goal.png";
 import majorLogo from "../assets/education.png";
-import passwordLogo from "../assets/password.png";
+import emailLogo from "../assets/email.png";
+import settingsLogo from "../assets/gear.png";
+import yearLogo from "../assets/goal.png";
 import privacyLogo from "../assets/privacy.png";
 import styles from "./profile.module.css";
 
@@ -26,7 +23,8 @@ export default class Profile extends React.Component {
       favoritecolor: "",
       responseMessage: "",
       // NOTE : if you wanted to add another user attribute to the profile, you would add a corresponding state element here
-      profilePicture: "",
+      profilePicture:
+        "/hci/api/uploads/files/DOo1Ebbt8dYT4-plb6G6NP5jIc9_l_gNlaYwPW4SaBM.png",
       backgroundPicture: "",
       rating: "",
       major: "",
@@ -35,7 +33,7 @@ export default class Profile extends React.Component {
       privacy: "",
       edit: false,
       connect: false,
-      profile: this.props.userid == this.props.profileid
+      profile: this.props.userid === this.props.profileid,
     };
     this.fieldChangeHandler.bind(this);
   }
@@ -59,18 +57,13 @@ export default class Profile extends React.Component {
     console.log(this.props);
 
     // fetch the user data, and extract out the attributes to load and display
-    fetch(
-      process.env.REACT_APP_API_PATH +
-        "/users/" +
-        this.props.profileid,
-      {
-        method: "get",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: "Bearer " + sessionStorage.getItem("token"),
-        },
-      }
-    )
+    fetch(process.env.REACT_APP_API_PATH + "/users/" + this.props.profileid, {
+      method: "get",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + sessionStorage.getItem("token"),
+      },
+    })
       .then((res) => res.json())
       .then(
         (result) => {
@@ -83,17 +76,18 @@ export default class Profile extends React.Component {
                 username: result.attributes.username || "",
                 firstname: result.attributes.firstName || "First Name",
                 lastname: result.attributes.lastName || "Last Name",
-                favoritecolor: result.attributes.favoritecolor || "",
                 // new attributes
                 major: result.attributes.major || "Major",
                 year: result.attributes.year || "Year",
                 contact: result.attributes.contact || "Contact",
                 privacy: result.attributes.privacy || "Everyone",
-                profilePicture: result.attributes.profilePicture || "",
+                profilePicture:
+                  result.attributes.profilePicture ||
+                  "/hci/api/uploads/files/DOo1Ebbt8dYT4-plb6G6NP5jIc9_l_gNlaYwPW4SaBM.png",
                 backgroundPicture: result.attributes.backgroundPicture || "",
                 rating: result.attributes.rating || "0",
                 edit: false,
-                connect: false
+                connect: false,
               });
             }
           }
@@ -101,6 +95,25 @@ export default class Profile extends React.Component {
         (error) => {
           alert("error!");
         }
+      )
+      .then((_) =>
+        fetch(
+          process.env.REACT_APP_API_PATH +
+            "/file-uploads?uploaderID=" +
+            this.props.profileid,
+          {
+            method: "GET",
+            headers: {
+              Authorization: "Bearer " + sessionStorage.getItem("token"),
+            },
+          }
+        )
+          .then((res) => res.json())
+          .then((result) =>
+            this.setState({
+              profilePicture: result[0][result[0].length - 1]["path"],
+            })
+          )
       );
   }
 
@@ -110,6 +123,12 @@ export default class Profile extends React.Component {
     //keep the form from actually submitting, since we are handling the action ourselves via
     //the fetch calls to the API
     event.preventDefault();
+    this.setState({
+      edit: false,
+      year: event.target.year.value,
+      contact: event.target.contact.value,
+      privacy: event.target.privacy.value,
+    });
 
     //make the api call to the user controller, and update the user fields (username, firstname, lastname)
     fetch(
@@ -127,16 +146,14 @@ export default class Profile extends React.Component {
             username: this.state.username,
             firstName: this.state.firstname,
             lastName: this.state.lastname,
-            favoritecolor: this.state.favoritecolor,
 
             // new attributes
-            major: this.state.major,
-            year: this.state.year,
-            contact: this.state.contact,
-            privacy: this.state.privacy,
+            major: event.target.major.value,
+            year: event.target.year.value,
+            contact: event.target.contact.value,
+            privacy: event.target.privacy.value,
             profilePicture: this.state.profilePicture,
             backgroundPicture: this.state.backgroundPicture,
-            rating: this.state.backgroundPicture,
           },
         }),
       }
@@ -154,121 +171,187 @@ export default class Profile extends React.Component {
       );
   };
 
+  handleUpload = (e, backgroundPicture = false) => {
+    const newPic = e.target.files[0];
+    console.log(newPic);
+
+    const formData = new FormData();
+    console.log(this.props.profileid);
+    formData.append("uploaderID", this.props.profileid);
+    formData.append(
+      "attributes",
+      JSON.stringify(
+        backgroundPicture ? { background: "true" } : { background: "false" }
+      )
+    );
+    formData.append("file", newPic);
+
+    fetch(process.env.REACT_APP_API_PATH + "/file-uploads", {
+      method: "POST",
+      headers: {
+        Authorization: "Bearer " + sessionStorage.getItem("token"),
+      },
+      body: formData,
+    }).then((_) =>
+      fetch(
+        process.env.REACT_APP_API_PATH +
+          "/file-uploads?uploaderID=" +
+          this.props.profileid +
+          "&attributes=" +
+          encodeURIComponent(
+            JSON.stringify(
+              backgroundPicture
+                ? {
+                    path: "background",
+                    equals: "true",
+                  }
+                : {
+                    path: "background",
+                    equals: "false",
+                  }
+            )
+          ),
+        {
+          method: "GET",
+          headers: {
+            Authorization: "Bearer " + sessionStorage.getItem("token"),
+          },
+        }
+      )
+        .then((res) => res.json())
+        .then((result) =>
+          this.setState(
+            backgroundPicture
+              ? {
+                  backgroundPicture: result[0][result[0].length - 1]["path"],
+                }
+              : {
+                  profilePicture: result[0][result[0].length - 1]["path"],
+                }
+          )
+        )
+    );
+  };
+
   // This is the function that draws the component to the screen.  It will get called every time the
   // state changes, automatically.  This is why you see the username and firstname change on the screen
   // as you type them.
   render() {
     console.log("Testing", this.props);
-    const profileFields = ["Major", "Year", "Contact", "Privacy", "Password"];
+    const profileFields = ["Major", "Year", "Contact", "Privacy"];
     const profileDetails = [
       this.state.major,
       this.state.year,
       this.state.contact,
     ];
-    const profileDetailIcons = [
-      majorLogo,
-      yearLogo,
-      emailLogo,
-      privacyLogo,
-      passwordLogo,
-    ];
+    const profileDetailIcons = [majorLogo, yearLogo, emailLogo, privacyLogo];
 
     return (
       <div className={styles.container}>
         <div className={styles.backgroundOverlay}></div>
         <img
-          src={defaultBackgroundPicture}
+          src={"https://webdev.cse.buffalo.edu" + this.state.backgroundPicture}
           className={styles.backgroundPicture}
           alt="Cover"
         />
         {this.state.edit && (
-          <h2 className={styles.editBackground}>Click to Change</h2>
+          <>
+            <label
+              className={styles.uploadButtonBackground}
+              htmlFor="backgroundPic"
+            >
+              Click to Change
+            </label>
+            <input
+              type="file"
+              id="backgroundPic"
+              accept="image/*"
+              onChange={(e) => this.handleUpload(e, true)}
+              style={{ display: "none" }}
+            />
+          </>
         )}
         <div className={styles.profileHeader}>
-          <div>
-            <img
-              src={defaultProfilePicture}
-              className={styles.profilePicture}
-              alt="Profile Pic"
-            />
-            {this.state.edit && (
-              <p className={styles.editPicture}>Click to Change</p>
-            )}
-            {this.state.edit && (
-              <button className={styles.deleteAccountButton}>
+          <img
+            src={"https://webdev.cse.buffalo.edu" + this.state.profilePicture}
+            className={styles.profilePicture}
+            alt="Profile Pic"
+          />
+          {this.state.edit && (
+            <>
+              <label className={styles.uploadButton} htmlFor="profilePic">
+                Click to Change
+              </label>
+              <input
+                type="file"
+                id="profilePic"
+                accept="image/*"
+                onChange={this.handleUpload}
+                style={{ display: "none" }}
+              />
+            </>
+          )}
+          {this.state.edit && (
+            <button className={styles.deleteAccountButton}>
               Delete Account
-              </button>
-            )}
-          </div>
-          
-          {!this.state.edit && (
-            <div className={styles.nameConnectButtonHeader}><h1 className={styles.profileName}>
-              {this.state.firstname} {this.state.lastname}</h1>
-            </div>)}
-          {!this.state.profile && (this.state.connect ? 
-          (
-            <button className={styles.disconnectButton} onClick={() => this.setState({ connect: false })}>
-            Disconnect
             </button>
-            ):(
-            <button className={styles.connectButton} onClick={() => this.setState({ connect: true })}>
-              Connect
-            </button>)
-            )}
-            {
-              !this.state.profile &&
-              <button className={styles.blockButton}>Block</button>
-            }
+          )}
+
+          {!this.state.edit && (
+            <div className={styles.nameConnectButtonHeader}>
+              <h1 className={styles.profileName}>
+                {this.state.firstname} {this.state.lastname}
+              </h1>
+            </div>
+          )}
+          {!this.state.profile &&
+            (this.state.connect ? (
+              <button
+                className={styles.disconnectButton}
+                onClick={() => this.setState({ connect: false })}
+              >
+                Disconnect
+              </button>
+            ) : (
+              <button
+                className={styles.connectButton}
+                onClick={() => this.setState({ connect: true })}
+              >
+                Connect
+              </button>
+            ))}
+          {!this.state.profile && (
+            <button className={styles.blockButton}>Block</button>
+          )}
         </div>
         <div className={styles.body}>
           <div className={styles.profileDetails}>
             {this.state.edit ? (
               <>
-                <form className={styles.form} onSubmit={this.submitHandler}>
-                  {profileFields.map((e, index) => {
-                    if (e === "Password") {
-                      return (
-                        <>
-                          <label className={styles.formLabel}>
-                            <img
-                              src={passwordLogo}
-                              alt={e}
-                              className={styles.profileDetailIcon}
-                            />
-                            <input
-                              type="password"
-                              name={e.toLowerCase()}
-                              placeholder={e}
-                            />
-                          </label>
-                          <label className={styles.formLabel}>
-                            <input
-                              type="password"
-                              name={e.toLowerCase()}
-                              placeholder="Repeat Password"
-                            />
-                          </label>
-                        </>
-                      );
-                    }
-                    return (
-                      <label className={styles.formLabel}>
-                        <img
-                          src={profileDetailIcons[index]}
-                          alt={e}
-                          className={styles.profileDetailIcon}
-                        />
-                        <input
-                          type="text"
-                          name={e.toLowerCase()}
-                          placeholder={e}
-                        />
-                      </label>
-                    );
-                  })}
+                <form
+                  className={styles.form}
+                  onSubmit={this.submitHandler}
+                  id="edit"
+                >
+                  {profileFields.map((e, index) => (
+                    <label className={styles.formLabel}>
+                      <img
+                        src={profileDetailIcons[index]}
+                        alt={e}
+                        className={styles.profileDetailIcon}
+                      />
+                      <input
+                        type="text"
+                        defaultValue={this.state[e.toLowerCase()]}
+                        name={e.toLowerCase()}
+                        placeholder={e}
+                      />
+                    </label>
+                  ))}
                 </form>
                 <div className={styles.editButtons}>
                   <input
+                    form="edit"
                     className={styles.confirmButton}
                     type="submit"
                     value="Confirm"
@@ -293,15 +376,16 @@ export default class Profile extends React.Component {
                     {e}
                   </div>
                 ))}
-                {this.state.profile &&
-                (<div className={styles.profileDetailItem}>
-                  <img
-                    src={settingsLogo}
-                    className={styles.profileDetailIcon}
-                    alt="Settings"
-                    onClick={() => this.setState({ edit: true })}
-                  />
-                </div>)}
+                {this.state.profile && (
+                  <div className={styles.profileDetailItem}>
+                    <img
+                      src={settingsLogo}
+                      className={styles.profileDetailIcon}
+                      alt="Settings"
+                      onClick={() => this.setState({ edit: true })}
+                    />
+                  </div>
+                )}
               </>
             )}
           </div>
