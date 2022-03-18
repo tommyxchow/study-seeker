@@ -6,18 +6,24 @@
 
 import ConnectionRequest from "Component/ConnectionRequest";
 import React from "react";
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Route,
+  Routes,
+  useParams,
+} from "react-router-dom";
 import "./App.css";
 import ForgotPasswordPage from "./Component/ForgotPassword.jsx";
 import FriendForm from "./Component/FriendForm.jsx";
 import FriendList from "./Component/FriendList.jsx";
 import GroupList from "./Component/GroupList.jsx";
+import LandingPage from "./Component/LandingPage.jsx";
 import LoginPage from "./Component/LoginForm.jsx";
 import Modal from "./Component/Modal.jsx";
 import Navbar from "./Component/Navigationbar.jsx";
 import PostForm from "./Component/PostForm.jsx";
 import Profile from "./Component/Profile.jsx";
-import { useParams } from "react-router-dom";
+import Registration from "./Component/Registration.jsx";
 
 // toggleModal will both show and hide the modal dialog, depending on current state.  Note that the
 // contents of the modal dialog are set separately before calling toggle - this is just responsible
@@ -118,9 +124,9 @@ class App extends React.Component {
                     path="/profile"
                     element={<ProfilePage login={this.login} />}
                   />
-                  <Route 
+                  <Route
                     path="/profile/:id"
-                    element={<ProfilePage login={this.login}/>} 
+                    element={<ProfilePage login={this.login} />}
                   />
                   <Route
                     path="/friends"
@@ -140,6 +146,11 @@ class App extends React.Component {
                       />
                     }
                   />
+                  <Route
+                    path="/login"
+                    element={<LoginPage login={this.login} />}
+                  />
+                  <Route path="/register" element={<Register />} />
                   <Route path="/reset-password" element={<ForgotPassword />} />
                   <Route path="/connections" element={<Connections />} />
                   <Route
@@ -171,24 +182,28 @@ class App extends React.Component {
 // that will appear in the routes.
 
 
+const Register = (props) => {
+  // show the study seeker registration form
+  return <Registration />;
+};
 
 const ProfilePage = (props) => {
   // if the user is not logged in, show the login form.  Otherwise, show the settings page
   const user_id = sessionStorage.getItem("user");
   let { id } = useParams();
-  id = !id ? user_id:id;
+  id = !id ? user_id : id;
 
   if (!sessionStorage.getItem("token")) {
-    console.log("LOGGED OUT", );
+    console.log("LOGGED OUT");
     return (
       <div>
-        <LoginPage login={props.login} />
+        <LandingPage login={props.login} />
       </div>
     );
-  } 
+  }
   return (
     <div className="Profile">
-      <Profile userid={user_id} profileid={id}/>
+      <Profile userid={user_id} profileid={id} />
     </div>
   );
 };
@@ -199,7 +214,7 @@ const Friends = (props) => {
     console.log("LOGGED OUT");
     return (
       <div>
-        <LoginPage login={props.login} />
+        <LandingPage login={props.login} />
       </div>
     );
   }
@@ -218,7 +233,7 @@ const Groups = (props) => {
     console.log("LOGGED OUT");
     return (
       <div>
-        <LoginPage login={props.login} />
+        <LandingPage login={props.login} />
       </div>
     );
   }
@@ -241,7 +256,7 @@ const Posts = (props) => {
     console.log("LOGGED OUT");
     return (
       <div>
-        <LoginPage login={props.login} />
+        <LandingPage login={props.login} />
       </div>
     );
   } else {
