@@ -13,9 +13,9 @@ import styles from "./profile.module.css";
 let deleteAccount = false;
 function confirmDeletePrompt() {
   //deleteAccount = window.confirm("Delete your account?");
-  if(window.confirm("Delete your account?")){
-    this.deleteAccountHandler()
-    alert("account deleted")
+  if (window.confirm("Delete your account?")) {
+    this.deleteAccountHandler();
+    alert("account deleted");
   }
 }
 
@@ -42,7 +42,7 @@ export default class Profile extends React.Component {
       edit: false,
       connection_id: -1,
       profile: this.props.userid === this.props.profileid,
-      connection_status: ''
+      connection_status: "",
     };
     this.fieldChangeHandler.bind(this);
   }
@@ -62,15 +62,16 @@ export default class Profile extends React.Component {
   // This is the function that will get called the first time that the component gets rendered.  This is where we load the current
   // values from the database via the API, and put them in the state so that they can be rendered to the screen.
 
-  createFetch(path, method, body){
-    const supplyPath = process.env.REACT_APP_API_PATH+path;
+  createFetch(path, method, body) {
+    const supplyPath = process.env.REACT_APP_API_PATH + path;
     const supplyMethod = {
       method: method,
-      headers: {"Content-Type": "application/json",
-                Authorization: "Bearer " + sessionStorage.getItem("token")
-              }
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + sessionStorage.getItem("token"),
+      },
     };
-    if(body != null){
+    if (body != null) {
       supplyMethod.body = JSON.stringify(body);
     }
     return fetch(supplyPath, supplyMethod);
@@ -78,8 +79,8 @@ export default class Profile extends React.Component {
 
   componentDidMount() {
     console.log("In profile");
-    this.createFetch("/users/"+this.props.profileid, "get", null)
-    .then((res) => res.json())
+    this.createFetch("/users/" + this.props.profileid, "get", null)
+      .then((res) => res.json())
       .then(
         (result) => {
           if (result) {
@@ -101,7 +102,7 @@ export default class Profile extends React.Component {
                 backgroundPicture: result.attributes.backgroundPicture || "",
                 rating: result.attributes.rating || "0",
                 edit: false,
-                connection_status: 'Not sent'
+                connection_status: "Not sent",
               });
             }
           }
@@ -109,27 +110,8 @@ export default class Profile extends React.Component {
         (error) => {
           alert("error!");
         }
-      )
-      .then((_) =>
-        fetch(
-          process.env.REACT_APP_API_PATH +
-            "/file-uploads?uploaderID=" +
-            this.props.profileid,
-          {
-            method: "GET",
-            headers: {
-              Authorization: "Bearer " + sessionStorage.getItem("token"),
-            },
-          }
-        )
-          .then((res) => res.json())
-          .then((result) =>
-            this.setState({
-              profilePicture: result[0][result[0].length - 1]["path"],
-            })
-          )
       );
-      this.getConnection();
+    this.getConnection();
   }
 
   // This is the function that will get called when the submit button is clicked, and it stores
@@ -140,29 +122,33 @@ export default class Profile extends React.Component {
     event.preventDefault();
     this.setState({
       edit: false,
+      major: event.target.major.value,
       year: event.target.year.value,
       contact: event.target.contact.value,
       privacy: event.target.privacy.value,
     });
 
+    console.log(this.state.profilePicture);
+    console.log(this.state.backgroundPicture);
+
     //make the api call to the user controller, and update the user fields (username, firstname, lastname)
-    const body = {attributes: {
-      username: this.state.username,
-      firstName: this.state.firstname,
-      lastName: this.state.lastname,
-      favoritecolor: this.state.favoritecolor,
+    const body = {
+      attributes: {
+        username: this.state.username,
+        firstName: this.state.firstname,
+        lastName: this.state.lastname,
 
-      // new attributes
-      major: this.state.major,
-      year: this.state.year,
-      contact: this.state.contact,
-      privacy: this.state.privacy,
-      profilePicture: this.state.profilePicture,
-      backgroundPicture: this.state.backgroundPicture,
-      rating: this.state.backgroundPicture,
-    }};
+        // new attributes
+        major: event.target.major.value,
+        year: event.target.year.value,
+        contact: event.target.contact.value,
+        privacy: event.target.privacy.value,
+        profilePicture: this.state.profilePicture,
+        backgroundPicture: this.state.backgroundPicture,
+      },
+    };
 
-    this.createFetch("/users/"+sessionStorage.getItem("user"), 'PATCH', body)
+    this.createFetch("/users/" + sessionStorage.getItem("user"), "PATCH", body)
       .then((res) => res.json())
       .then(
         (result) => {
@@ -176,85 +162,111 @@ export default class Profile extends React.Component {
       );
   };
 
-getConnection = () => {
-    if(this.props.userid !== this.props.profileid){
-      this.createFetch("/connections?fromUserID="+this.props.userid+"&toUserID="+this.props.profileid, 'GET', null)
-      .then((res) => res.json())
-      .then(
-        (result) => {
-          console.log("connection",this.props.userid, this.props.profileid, result);
-          this.setState({
-            connection_id: result[1] ? result[0][0].id:-1,
-            connection_status: result[1] ? result[0][0].attributes.additionalProp1.status: "Not sent"
-          });
-        },
-        (error) => {
-          alert("error! checkConnection");
-        }
-      );
+  getConnection = () => {
+    if (this.props.userid !== this.props.profileid) {
+      this.createFetch(
+        "/connections?fromUserID=" +
+          this.props.userid +
+          "&toUserID=" +
+          this.props.profileid,
+        "GET",
+        null
+      )
+        .then((res) => res.json())
+        .then(
+          (result) => {
+            console.log(
+              "connection",
+              this.props.userid,
+              this.props.profileid,
+              result
+            );
+            this.setState({
+              connection_id: result[1] ? result[0][0].id : -1,
+              connection_status: result[1]
+                ? result[0][0].attributes.additionalProp1.status
+                : "Not sent",
+            });
+          },
+          (error) => {
+            alert("error! checkConnection");
+          }
+        );
     }
-  }
+  };
 
-  connectionHandler = (event, status='pending') => {
+  connectionHandler = (event, status = "pending") => {
     event.preventDefault();
-    if(this.state.connection_id === -1){
-    const body = {
-      "fromUserID": Number(this.props.userid),
-      "toUserID": Number(this.props.profileid),
-      "attributes": {
-        "additionalProp1": {
-          'status': status
-        }}
-      };
-    this.createFetch("/connections", 'POST', body)
-    .then((res) => res.json())
-      .then((result) => {
-          this.setState({
-            connection_id: result.id, 
-            connection_status: status
-          });
-        },
-        (error) => {
-          alert("error");
-        }
-      );
-    }else if(status === "block"){
+    if (this.state.connection_id === -1) {
       const body = {
-        "fromUserID": Number(this.props.userid),
-        "toUserID": Number(this.props.profileid),
-        "attributes": {
-          "additionalProp1": {
-            'status': status
-          }}
-        };
-      this.createFetch("/connections/"+this.state.connection_id, 'PATCH', body)
-      .then((res) => res.json())
-        .then((result) => {
-            this.setState({ 
-              connection_status: status
+        fromUserID: Number(this.props.userid),
+        toUserID: Number(this.props.profileid),
+        attributes: {
+          additionalProp1: {
+            status: status,
+          },
+        },
+      };
+      this.createFetch("/connections", "POST", body)
+        .then((res) => res.json())
+        .then(
+          (result) => {
+            this.setState({
+              connection_id: result.id,
+              connection_status: status,
             });
           },
           (error) => {
             alert("error");
           }
         );
-    }
-    else{
-      console.log("/connections/"+this.state.connection_id);
-      this.createFetch("/connections/"+this.state.connection_id, 'DELETE', null)
-      .then((res) => res.text)
-      .then(
+    } else if (status === "block") {
+      const body = {
+        fromUserID: Number(this.props.userid),
+        toUserID: Number(this.props.profileid),
+        attributes: {
+          additionalProp1: {
+            status: status,
+          },
+        },
+      };
+      this.createFetch(
+        "/connections/" + this.state.connection_id,
+        "PATCH",
+        body
+      )
+        .then((res) => res.json())
+        .then(
           (result) => {
             this.setState({
-              blocked: status !== 'unblock'
+              connection_status: status,
             });
-            this.getConnection()
-        },
-        (error) => {
-          alert(error);
-        }
-      );
+          },
+          (error) => {
+            alert("error");
+          }
+        );
+    } else {
+      console.log("/connections/" + this.state.connection_id);
+      this.createFetch(
+        "/connections/" + this.state.connection_id,
+        "DELETE",
+        null
+      )
+        .then((res) => res.text)
+        .then(
+          (result) => {
+            this.setState({
+              blocked: status !== "unblock",
+            });
+            this.getConnection();
+          },
+          (error) => {
+            alert(error);
+          }
+        );
     }
+  };
 
   handleUpload = (e, backgroundPicture = false) => {
     const newPic = e.target.files[0];
@@ -332,15 +344,15 @@ getConnection = () => {
     const profileDetailIcons = [majorLogo, yearLogo, emailLogo, privacyLogo];
 
     const connectionStatus = {
-      'Not sent': 'Connect',
-      'pending': 'Pending',
-      'accepted': 'Disconnect'
+      "Not sent": "Connect",
+      pending: "Pending",
+      accepted: "Disconnect",
     };
 
     const blockStatus = {
-      'Not sent': 'Block',
-      'pending': 'Block',
-      'block': 'Unblock'
+      "Not sent": "Block",
+      pending: "Block",
+      block: "Unblock",
     };
 
     return (
@@ -369,7 +381,6 @@ getConnection = () => {
           </>
         )}
         <div className={styles.profileHeader}>
-
           <img
             src={"https://webdev.cse.buffalo.edu" + this.state.profilePicture}
             className={styles.profilePicture}
@@ -392,35 +403,50 @@ getConnection = () => {
           {this.state.edit && (
             <button className={styles.deleteAccountButton}>
               Delete Account
-              </button>
-            )}
-          </div>
-          
-          {!this.state.edit && (
-            <div className={styles.nameConnectButtonHeader}><h1 className={styles.profileName}>
-              {this.state.firstname} {this.state.lastname}</h1>
-            </div>)}
-          {(!this.state.profile && this.state.connection_status !== 'block') && (this.state.connection_status !== 'Not sent'  ? 
-          (
-            <button className={styles.disconnectButton} onClick={(event)=> this.connectionHandler(event)}>
-              {connectionStatus[this.state.connection_status]}
             </button>
-            ):(
-            <button className={styles.connectButton} onClick={(event)=> this.connectionHandler(event, 'pending')}>
-              {connectionStatus[this.state.connection_status]}
-            </button>)
-            )}
-            {
-              !this.state.profile && ( this.state.connection_status !== 'block' ? (
-              <button className={styles.blockButton} onClick={(event)=> this.connectionHandler(event, 'block')}>
+          )}
+          {!this.state.edit && (
+            <div className={styles.nameConnectButtonHeader}>
+              <h1 className={styles.profileName}>
+                {this.state.firstname} {this.state.lastname}
+              </h1>
+            </div>
+          )}
+          {!this.state.profile &&
+            this.state.connection_status !== "block" &&
+            (this.state.connection_status !== "Not sent" ? (
+              <button
+                className={styles.disconnectButton}
+                onClick={(event) => this.connectionHandler(event)}
+              >
+                {connectionStatus[this.state.connection_status]}
+              </button>
+            ) : (
+              <button
+                className={styles.connectButton}
+                onClick={(event) => this.connectionHandler(event, "pending")}
+              >
+                {connectionStatus[this.state.connection_status]}
+              </button>
+            ))}
+          {!this.state.profile &&
+            (this.state.connection_status !== "block" ? (
+              <button
+                className={styles.blockButton}
+                onClick={(event) => this.connectionHandler(event, "block")}
+              >
                 {blockStatus[this.state.connection_status]}
               </button>
-            ):(
-              <button className={styles.blockButton} onClick={(event)=> this.connectionHandler(event, 'unblock')}>
+            ) : (
+              <button
+                className={styles.blockButton}
+                onClick={(event) => this.connectionHandler(event, "unblock")}
+              >
                 {blockStatus[this.state.connection_status]}
               </button>
             ))}
         </div>
+
         <div className={styles.body}>
           <div className={styles.profileDetails}>
             {this.state.edit ? (
