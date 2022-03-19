@@ -698,3 +698,9 @@ body{
   display: flex;
   flex-direction: row;
 }
+
+.maincontent {
+  width: 100%;
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
