@@ -330,6 +330,33 @@ export default class Profile extends React.Component {
     );
   };
 
+    // This is the function that will get called when the delete account button is clicked
+    deleteAccountHandler = event => {
+        //keep the form from actually submitting, since we are handling the action ourselves via
+        //the fetch calls to the API
+      event.preventDefault();
+      
+      fetch(
+        process.env.REACT_APP_API_PATH +
+          "/users/" +
+          sessionStorage.getItem("user") + "?relatedObjectsAction=delete",
+        {
+          method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: "Bearer " + sessionStorage.getItem("token"),
+          }
+        })
+        .then((res) => res.json())
+        .then(
+          result => {
+            //TODO there is an error with promise syntax, such that this is never reached
+            console.log(result)
+          }
+        );
+    };
+    
+
   // This is the function that draws the component to the screen.  It will get called every time the
   // state changes, automatically.  This is why you see the username and firstname change on the screen
   // as you type them.
@@ -401,8 +428,20 @@ export default class Profile extends React.Component {
             </>
           )}
           {this.state.edit && (
-            <button className={styles.deleteAccountButton}>
-              Delete Account
+            <button onClick= {(e) => {
+              if(window.confirm("Delete your account?")){
+                  this.deleteAccountHandler(e)
+                  alert("Your account has been deleted.")
+                  sessionStorage.removeItem("token");
+                  sessionStorage.removeItem("user");
+                  this.setState({sessiontoken: ""});
+                  window.location.replace(process.env.PUBLIC_URL +"/");
+                }else{
+                  alert("Your account is not deleted")
+                  }
+                } }
+                className={styles.deleteAccountButton}>
+                Delete Account
             </button>
           )}
           {!this.state.edit && (
