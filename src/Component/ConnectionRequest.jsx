@@ -15,20 +15,6 @@ var requestOptionsGet = {
   headers: myHeaders,
 };
 
-var raw = JSON.stringify({
-  "fromUserID": 10,
-  "toUserID": 2,
-  "attributes": {
-    "status": "accepted"
-  }
-});
-
-var requestOptionsPatch = {
-  method: 'PATCH',
-  headers: myHeaders,
-  body: raw,
-};
-
 var requestOptionsDelete = {
   method: 'DELETE',
   headers: myHeaders,
@@ -43,7 +29,8 @@ export default class ConnectionRequest extends React.Component{
       responseMessage: "",                                      //List of accepted friends( used for my connection list )
       connection_id: -1,
       connection_id_list: [],
-      fromUserID: "",
+      userID_list: [],
+      fromUserID: -1,
       profile: this.props.userid,
   }; 
   this.fieldChangeHandler.bind(this);
@@ -61,46 +48,75 @@ export default class ConnectionRequest extends React.Component{
     });
   }
 
-  removeHandler_Accept(givenName,givenID){                        //handle and remove connection after being accepted
+
+
+  removeHandler_Accept(givenName){       
     console.log('this is: ', givenName);
     console.log('userid: ', this.state.fromUserID);
     console.log('connectionid: ', this.state.connection_id);
-    const newList=this.state.names.filter(name => name[0] !== givenID);
-    const newConnectionList=this.state.connection_id_list.filter(id => id[0] !== this.state.connection_id);
+    const newList=this.state.names.filter(name => name !== givenName);
+    const newConnectionList=this.state.connection_id_list.filter(id => id !== this.state.connection_id);
+    const newUserList=this.state.userID_list.filter(id => id !== this.state.fromUserID);
     this.setState(prevState => ({
         accepted_friends: [givenName, ...prevState.accepted_friends]
-      }))
+      }));
     this.setState({names: newList});
-    this.setState({connection_id: newConnectionList[0]});
-    // fetch("https://webdev.cse.buffalo.edu/hci/api/api/commitment/connections/" + this.state.connection_id, requestOptionsPatch)
-    //   .then(response => response.text())
-    //   .then(result => console.log(result))
-    //   .catch(error => console.log('error', error));
+    this.setState({connection_id: newConnectionList});
+    this.setState({fromUserID: newUserList});
+    var raw = JSON.stringify({
+      "fromUserID": this.state.fromUserID,
+      "toUserID": this.state.profile,
+      "attributes": {
+        "status": "accepted"
+      }
+    });
+    var requestOptionsPatch = {
+      method: 'PATCH',
+      headers: myHeaders,
+      body: raw,
+    };
+    fetch("https://webdev.cse.buffalo.edu/hci/api/api/commitment/connections/" + this.state.connection_id, requestOptionsPatch)
+      .then(response => response.json())
+      .then(result => console.log(result))
+      .catch(error => console.log('error', error));
     this.forceUpdate();
-    console.log('added: ', this.state.accepted_friends);
-    console.log('connection-id:', this.state.connection_id);    
-    console.log('connection-id-list:', this.state.connection_id_list);
-    console.log('new connection-id-list:', newConnectionList);
+    // this.setState({names: newList});
+    // this.setState({connection_id: newConnectionList});
+    // this.setState({fromUserID: newUserList});
+    // console.log('list: ', newList[0]);
+    // console.log('connectionlist: ', newConnectionList);
+    // console.log('added: ', this.state.accepted_friends);
+    // console.log('connection-id:', this.state.connection_id);    
+    // console.log('connection-id-list:', this.state.connection_id_list);
+    // console.log('new connection-id-list:', newConnectionList);
   }
 
-  removeHandler_Reject(givenName,givenID){                        //handle and remove connection after being rejected
+  removeHandler_Reject(givenName){         
     console.log('this is: ', givenName);
     console.log('userid: ', this.state.fromUserID);
     console.log('connectionid: ', this.state.connection_id);
-    const newList=this.state.names.filter(name => name[0] !== givenID);
-    const newConnectionList=this.state.connection_id_list.filter(id => id[0] !== this.state.connection_id);
+    const newList=this.state.names.filter(name => name !== givenName);
+    const newConnectionList=this.state.connection_id_list.filter(id => id !== this.state.connection_id);
+    const newUserList=this.state.userID_list.filter(id => id !== this.state.fromUserID);
     this.setState({names: newList});
-    this.setState({connection_id: newConnectionList[0]});
-    // fetch("https://webdev.cse.buffalo.edu/hci/api/api/commitment/connections/" + this.state.connection_id, requestOptionsDelete)
-    //   .then(response => response.text())
-    //   .then(result => console.log(result))
-    //   .catch(error => console.log('error', error));
+    this.setState({connection_id: newConnectionList});
+    this.setState({fromUserID: newUserList});
+    fetch("https://webdev.cse.buffalo.edu/hci/api/api/commitment/connections/" + this.state.connection_id, requestOptionsDelete)
+      .then(response => response.json())
+      .then(result => console.log(result))
+      .catch(error => console.log('error', error));
     this.forceUpdate();
-    console.log('added: ', this.state.accepted_friends);
-    console.log('names: ', this.state.names);
-    console.log('connection-id:', this.state.connection_id);
-    console.log('connection-id-list:', this.state.connection_id_list);
-    console.log('new connection-id-list:', newConnectionList);
+    // this.setState({names: newList});
+    // this.setState({connection_id: newConnectionList});
+    // this.setState({fromUserID: newUserList});
+    // this.forceUpdate();
+    // console.log('list: ', newList);
+    // console.log('connectionlist: ', newConnectionList);
+    // console.log('added: ', this.state.accepted_friends);
+    // console.log('names: ', this.state.names);
+    // console.log('connection-id:', this.state.connection_id);
+    // console.log('connection-id-list:', this.state.connection_id_list);
+    // console.log('new connection-id-list:', newConnectionList);
   }
 
   fetchUserIDs(){
@@ -111,31 +127,49 @@ export default class ConnectionRequest extends React.Component{
     fetch("https://webdev.cse.buffalo.edu/hci/api/api/commitment/connections/?toUserID=" + sessionStorage.getItem("user"), requestOptionsGet)
       .then(response => response.json())
       .then(result => {
-        console.log(result);
+        console.log("fetch",result);
          for(var i = 0; i < result.length; i++){
-           json.push(result[0][i]);
+           if(result[0][i] === undefined){
+             break;
+           }
+           else{
+            json.push(result[0][i]);
+           }
          }
+        console.log(json.length);
         for (var a = 0; a < json.length; a++){
-          // console.log(json[a].id);
           arrConnections.push(json[a].id);
           // console.log(json[a].fromUserID);
           arrUserID.push(json[a].fromUserID);
           connectionToID.push([json[a].id,json[a].fromUserID]);
         }
-        console.log("arrConnections", arrConnections[0]);
-        console.log("arrUserID" ,arrUserID[0]);
+        // console.log("arrConnections", arrConnections[0]);
+        // console.log("arrUserID" ,arrUserID[0]);
         // this.setState({fromUserID: this.state.names.concat(arrUserID)});
-        this.setState({connection_id_list: this.state.connection_id_list.concat(arrConnections)});
+        // this.setState({connection_id_list: this.state.connection_id_list.concat(arrConnections)});
         for(var b = 0; b < arrConnections.length; b++){
-          this.setState({connection_id: arrConnections[b]});
-          this.setState({fromUserID: arrUserID[b]});
+          // this.setState({connection_id: arrConnections[b]});
+          // this.setState({fromUserID: arrUserID[b]});
           fetch("https://webdev.cse.buffalo.edu/hci/api/api/commitment/connections/" + arrConnections[b], requestOptionsGet)
           .then(response => response.json())
           .then(result => {
-            console.log(result);
+            console.log("result",result);
+            console.log("result.attributes.status",result.attributes.status);
+            if(result.attributes.status === "accepted"){
+              this.setState(prevState => ({
+                accepted_friends: [result.fromUser.attributes.firstName + " " + result.fromUser.attributes.lastName[0] + ".", ...prevState.accepted_friends]
+              }));
+            }
+            else {
             this.setState({names: this.state.names.concat(result.fromUser.attributes.firstName + " " + result.fromUser.attributes.lastName[0] + ".")});
-            // this.setState({connection_id: result.id});
-            // this.setState({fromUserID: result.fromUserID});
+            this.setState({connection_id_list: this.state.connection_id_list.concat(result.id)});
+            this.setState({userID_list: this.state.userID_list.concat(result.fromUserID)});
+            this.setState({connection_id: result.id});
+            this.setState({fromUserID: result.fromUserID});
+            console.log("names", this.state.names);
+            console.log("connection_id_list", this.state.connection_id_list);
+            console.log("fromUserID list" , this.state.userID_list);
+            }
           })
           .catch(error => console.log('error', error));
         }
@@ -143,12 +177,12 @@ export default class ConnectionRequest extends React.Component{
       .catch(error => console.log('error', error));
     // console.log("Testing", this.props);
     // console.log("Testing", this.state);
-    console.log("user:", sessionStorage.getItem("user"));
-    console.log("arrConnections", arrConnections);
-    console.log("connection_id_list", this.state.connection_id_list);
-    console.log("connection to ID", connectionToID);
-    console.log("fromUserID", this.state.fromUserID);
-    console.log("connection_id", this.state.connection_id);
+    // console.log("user:", sessionStorage.getItem("user"));
+    // console.log("arrConnections", arrConnections);
+    // console.log("connection_id_list", this.state.connection_id_list);
+    // console.log("connection to ID", connectionToID);
+    // console.log("fromUserID", this.state.fromUserID);
+    // console.log("connection_id", this.state.connection_id);
   }
 //test tommys image
   findUserPicture(){
@@ -187,23 +221,9 @@ export default class ConnectionRequest extends React.Component{
                           <img className={connections.star4} img src={starIcon} alt="star"/>
                           <img className={connections.star5} img src={starIcon} alt="star"/>
                         </div>
-                        <button className={connections.acceptbutton} onClick={() => this.removeHandler_Accept(name,name[0])}>Accept</button>
-                        <button className={connections.rejectbutton} onClick={() => this.removeHandler_Reject(name,name[0])}>Reject</button>
+                        <button className={connections.acceptbutton} onClick={() => this.removeHandler_Accept(name)}>Accept</button>
+                        <button className={connections.rejectbutton} onClick={() => this.removeHandler_Reject(name)}>Reject</button>
                       </div>
-
-                    {/* <div className={connections.topdiv}>
-                      <img className={connections.picturecircle} img src={lisaMoan} alt="default img"/> 
-                      <div className={connections.name}>Test</div>
-                      <div className={connections.stars}>
-                        <img className={connections.star1} img src={starIcon} alt="star"/>
-                        <img className={connections.star2} img src={starIcon} alt="star"/>
-                        <img className={connections.star3} img src={starIcon} alt="star"/>
-                        <img className={connections.star4} img src={starIcon} alt="star"/>
-                        <img className={connections.star5} img src={starIcon} alt="star"/>
-                      </div>
-                      <button className={connections.acceptbutton} onClick={this.sayHello}>Accept</button>
-                      <button className={connections.rejectbutton} onClick={this.sayHello}>Reject</button>
-                    </div> */}
                   
                   </div>)
                   })}
