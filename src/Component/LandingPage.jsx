@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import "../App.css";
 
 export function BackgroundImage(props) {
@@ -54,12 +55,12 @@ class LandingPage extends React.Component {
           <LandingPageBox>
             <LogoText subtitle={"SEEK FRIENDS TO STUDY"} />
             <div>
-              <a className="buttonSubmitForm" href="./register">
+              <Link className="buttonSubmitForm" to="/register">
                 Sign Up
-              </a>
-              <a className="buttonSubmitForm" href="./login">
+              </Link>
+              <Link className="buttonSubmitForm" to="/login">
                 Login
-              </a>
+              </Link>
             </div>
           </LandingPageBox>
         </BackgroundImage>
