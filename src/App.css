@@ -362,6 +362,7 @@
   border-radius: 30px;
   width: 125px;
   height: 40px;
+  font-weight: bold;
 
   display: flex;
   flex-direction: column;
@@ -420,8 +421,8 @@
       align-items: center;
   }
   .landing-page-box {
-      height: 300px;
-      width: 300px;
+      height: 315px;
+      width: 315px;
       left: 343px;
       top: 157px;
       justify-content: space-evenly;
@@ -481,6 +482,7 @@
       border-radius: 30px;
       width: 110px;
       height: 25px;
+      font-weight: bold;
 
       display: flex;
       flex-direction: column;

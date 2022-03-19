@@ -24,6 +24,7 @@ import Navbar from "./Component/Navigationbar.jsx";
 import PostForm from "./Component/PostForm.jsx";
 import Profile from "./Component/Profile.jsx";
 import Registration from "./Component/Registration.jsx";
+import StyleGuide from "./Component/StyleGuide.jsx";
 
 // toggleModal will both show and hide the modal dialog, depending on current state.  Note that the
 // contents of the modal dialog are set separately before calling toggle - this is just responsible
@@ -121,6 +122,10 @@ class App extends React.Component {
               <div className="maincontent" id="mainContent">
                 <Routes>
                   <Route
+                    path="/styleguide"
+                    element={<StyleGuide />}
+                    />
+                  <Route
                     path="/profile"
                     element={<ProfilePage login={this.login} />}
                   />
@@ -182,6 +187,7 @@ class App extends React.Component {
 /*  BEGIN ROUTE ELEMENT DEFINITIONS */
 // with the latest version of react router, you need to define the contents of the route as an element.  The following define functional components
 // that will appear in the routes.
+
 
 const Register = (props) => {
   // show the study seeker registration form
