@@ -118,12 +118,12 @@ export default class LoginForm extends React.Component {
                   onChange={this.passwordChangeHandler}
                   required
                 />
-                <a className={styles.forgotPassword} href="/reset-password">
+                <a className={styles.forgotPassword} href="./reset-password">
                   forgot password?
                 </a>
                 <input type="submit" value="Login" className={styles.button} />
               </form>
-              <a className={styles.noAccount} href="/register">
+              <a className={styles.noAccount} href="./register">
                 don't have an account?
               </a>
             </div>
