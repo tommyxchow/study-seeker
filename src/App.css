@@ -515,37 +515,42 @@
 }
 
 .reject-button{
-  background-color: #ff0000; /* Green */
-  width:75px !important;
-  height: 25px !important;
+  background-color: #ff0000; /* Red */
+  width:80px !important;
+  height: 30px !important;
   border: none;
   color: rgb(0, 0, 0);
   text-align: center;
   font-family: Exo;
   font-weight: bold;
   text-decoration: none;
-  font-size: 14px;
+  font-size: 18px;
   margin: 4px 2px;
   cursor: pointer;
   border-radius: 25px;
-  margin-left: 150px;
+  margin-left: 200px;
+  flex-direction: row;
+  display: inline-block;
 }
 
 .accept-button{
   background-color: #56c73f; /* Green */
-  width:75px !important;
-  height: 25px !important;
+  width: 80px !important;
+  height: 30px !important;
   border: none;
   color: rgb(0, 0, 0);
   text-align: center;
   font-family: Exo;
   font-weight: bold;
   text-decoration: none;
-  font-size: 14px;
+  font-size: 18px;
   margin: 4px 2px;
   cursor: pointer;
   border-radius: 25px;
-  margin-left: 150px;
+  margin-left: 200px;
+  align-self: baseline;
+  flex-direction: row;
+  display: inline-block;
 }
 
 .same-line{

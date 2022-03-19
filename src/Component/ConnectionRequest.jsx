@@ -1,124 +1,255 @@
-import React from "react";
+import React, { useState } from "react";
 import "../App.css";
 
-import personIcon from "../assets/Ibn_Khaldun.png";
 import litStarIcon from "../assets/litstar.svg";
 import starIcon from "../assets/unlitstar.svg";
-import personIcon2 from "../assets/zhuangzi.svg";
 import connections from "./connections.module.css";
-import lisaMoan from "../assets/lisamoan.png";
-import lisa from "./lisa.module.css";
-import jayHou from "../assets/jayhou.png";
-import jay from "./jay.module.css";
-import monaLia from "../assets/monalia.png";
-import mona from "./mona.module.css";
-import tommypic from "../assets/tommy.png";
-import tommy from "./tommy.module.css";
+
+var myHeaders = new Headers();
+myHeaders.append("accept", "*/*");
+myHeaders.append("Content-Type", "application/json");
+myHeaders.append("Authorization", "Bearer " + sessionStorage.getItem("token"))
+
+var requestOptionsGet = {
+  method: 'GET',
+  headers: myHeaders,
+};
+
+var requestOptionsDelete = {
+  method: 'DELETE',
+  headers: myHeaders,
+};
 
 export default class ConnectionRequest extends React.Component{
-    constructor(props) {
-        super(props);
+  constructor(props) {
+    super(props);
+    this.state = {
+      names: [],
+      accepted_friends:[],
+      responseMessage: "",                                      //List of accepted friends( used for my connection list )
+      connection_id: -1,
+      connection_id_list: [],
+      userID_list: [],
+      fromUserID: -1,
+      profile: this.props.userid,
+  }; 
+  this.fieldChangeHandler.bind(this);
+  }
 
-        this.state ={
-            names: [
-                [ 1,"Ibn Khaldun", personIcon],
-                [2,"Zhuangzi", personIcon2]
-        ],
-        accepted_friends:[]                                          //List of accepted friends( used for my connection list )
-        }; 
-        
-    }
+  componentDidMount(){
+    this.fetchUserIDs();
+    this.findUserPicture();
+  }
 
-
-
-    removeHandler_Accept(givenName,givenID){                        //handle and remove connection after being accepted
-        console.log('this is: ', givenName);
-        const newList=this.state.names.filter(name => name[0] !== givenID);
-        this.setState(prevState => ({
-            accepted_friends: [givenName, ...prevState.accepted_friends]
-          }))
-        this.state.names=newList;
-        console.log('added: ', this.state.accepted_friends);
-        this.forceUpdate();
-    }
-   
-
-
-    removeHandler_Reject(givenName,givenID){                        //handle and remove connection after being rejected
-        console.log('this is: ', givenName);
-        const newList=this.state.names.filter(name => name[0] !== givenID);
-        this.state.names=newList;
-        console.log('added: ', this.state.accepted_friends);
-        this.forceUpdate();
-    }
+  fieldChangeHandler(field, e) {
+    console.log("field change");
+    this.setState({
+      [field]: e.target.value,
+    });
+  }
 
 
 
-    render() {
-        return (
-            <div className="App">
-                    <div className="fixed">
-                    <h className={connections.requests}>Connection Requests</h>
-                    <div className={connections.line1}></div>
-                     
-                     {this.state.names.map((name) => {                //Connection Requests
-                         return(<p key={name}>
-                             <div>
-                             <table className="same-line">
+  removeHandler_Accept(givenName){       
+    console.log('this is: ', givenName);
+    console.log('userid: ', this.state.fromUserID);
+    console.log('connectionid: ', this.state.connection_id);
+    const newList=this.state.names.filter(name => name !== givenName);
+    const newConnectionList=this.state.connection_id_list.filter(id => id !== this.state.connection_id);
+    const newUserList=this.state.userID_list.filter(id => id !== this.state.fromUserID);
+    this.setState(prevState => ({
+        accepted_friends: [givenName, ...prevState.accepted_friends]
+      }));
+    this.setState({names: newList});
+    this.setState({connection_id: newConnectionList});
+    this.setState({fromUserID: newUserList});
+    var raw = JSON.stringify({
+      "fromUserID": this.state.fromUserID,
+      "toUserID": this.state.profile,
+      "attributes": {
+        "status": "accepted"
+      }
+    });
+    var requestOptionsPatch = {
+      method: 'PATCH',
+      headers: myHeaders,
+      body: raw,
+    };
+    fetch("https://webdev.cse.buffalo.edu/hci/api/api/commitment/connections/" + this.state.connection_id, requestOptionsPatch)
+      .then(response => response.json())
+      .then(result => console.log(result))
+      .catch(error => console.log('error', error));
+    this.forceUpdate();
+    // this.setState({names: newList});
+    // this.setState({connection_id: newConnectionList});
+    // this.setState({fromUserID: newUserList});
+    // console.log('list: ', newList[0]);
+    // console.log('connectionlist: ', newConnectionList);
+    // console.log('added: ', this.state.accepted_friends);
+    // console.log('connection-id:', this.state.connection_id);    
+    // console.log('connection-id-list:', this.state.connection_id_list);
+    // console.log('new connection-id-list:', newConnectionList);
+  }
 
-                                <tr className="same-line"><td>                          {/*contains profile picture, name and rating of the person who sent request (in a block on table row)*/}
-                                    <ul className="table">
-                                    <li><img src={name[2]} alt={name[1]} title={name[1]} className="person-image"/></li> 
-                                    <div className="text-center"><li> {name[1]}</li>
-                                    <li><img src={litStarIcon} className="star"/><img src={litStarIcon} className="star"/><img src={litStarIcon} className="star"/><img src={litStarIcon} className="star"/><img src={litStarIcon} className="star"/></li></div>
-                                    </ul>
-                                    </td></tr>
+  removeHandler_Reject(givenName){         
+    console.log('this is: ', givenName);
+    console.log('userid: ', this.state.fromUserID);
+    console.log('connectionid: ', this.state.connection_id);
+    const newList=this.state.names.filter(name => name !== givenName);
+    const newConnectionList=this.state.connection_id_list.filter(id => id !== this.state.connection_id);
+    const newUserList=this.state.userID_list.filter(id => id !== this.state.fromUserID);
+    this.setState({names: newList});
+    this.setState({connection_id: newConnectionList});
+    this.setState({fromUserID: newUserList});
+    fetch("https://webdev.cse.buffalo.edu/hci/api/api/commitment/connections/" + this.state.connection_id, requestOptionsDelete)
+      .then(response => response.json())
+      .then(result => console.log(result))
+      .catch(error => console.log('error', error));
+    this.forceUpdate();
+    // this.setState({names: newList});
+    // this.setState({connection_id: newConnectionList});
+    // this.setState({fromUserID: newUserList});
+    // this.forceUpdate();
+    // console.log('list: ', newList);
+    // console.log('connectionlist: ', newConnectionList);
+    // console.log('added: ', this.state.accepted_friends);
+    // console.log('names: ', this.state.names);
+    // console.log('connection-id:', this.state.connection_id);
+    // console.log('connection-id-list:', this.state.connection_id_list);
+    // console.log('new connection-id-list:', newConnectionList);
+  }
 
-                                <tr className="same-line"><td>                          {/*Accept and Reject button */}
-                                    <ul className="list-table">
-                                    <div className="text-center"><li><button className="accept-button" onClick={() => this.removeHandler_Accept(name,name[0])}>Accept</button></li>
-                                    <li><button className="reject-button" onClick={() => this.removeHandler_Reject(name,name[0])}>Reject</button></li></div>
-                                    </ul>
-                                    </td></tr>
-
-                            </table>
-                            </div>
-                         </p>)
-                     })}
-
-                    <h className={connections.connections}>Connections</h>
-                    <div className={connections.line2}> </div>
-                    <img className={lisa.picture} img src={lisaMoan} alt="img of Lisa Moan"/> 
-                    <text className={lisa.name}>Lisa Moan</text>
-                    <img className={lisa.star1} img src={litStarIcon} alt="star"/>
-                    <img className={lisa.star2} img src={litStarIcon} alt="star"/>
-                    <img className={lisa.star3} img src={starIcon} alt="star"/>
-                    <img className={lisa.star4} img src={starIcon} alt="star"/>
-                    <img className={lisa.star5} img src={starIcon} alt="star"/>
-                    <img className={jay.picture} img src={jayHou} alt="img of Jay Hou"/> 
-                    <text className={jay.name}>Jay Hou</text>
-                    <img className={jay.star1} img src={litStarIcon} alt="star"/>
-                    <img className={jay.star2} img src={litStarIcon} alt="star"/>
-                    <img className={jay.star3} img src={starIcon} alt="star"/>
-                    <img className={jay.star4} img src={starIcon} alt="star"/>
-                    <img className={jay.star5} img src={starIcon} alt="star"/>
-                    <img className={mona.picture} img src={monaLia} alt="img of Mona Lia" /> 
-                    <text className={mona.name}>Mona Lia</text>
-                    <img className={mona.star1} img src={litStarIcon} alt="star"/>
-                    <img className={mona.star2} img src={litStarIcon} alt="star"/>
-                    <img className={mona.star3} img src={litStarIcon} alt="star"/>
-                    <img className={mona.star4} img src={litStarIcon} alt="star"/>
-                    <img className={mona.star5} img src={starIcon} alt="star"/>
-                    <img className={tommy.picture} img src={tommypic} alt="img of Tommy"/>
-                    <text className={tommy.name}>Tommy</text>
-                    <img className={tommy.star1} img src={litStarIcon} alt="star"/>
-                    <img className={tommy.star2} img src={litStarIcon} alt="star"/>
-                    <img className={tommy.star3} img src={litStarIcon} alt="star"/>
-                    <img className={tommy.star4} img src={litStarIcon} alt="star"/>
-                    <img className={tommy.star5} img src={litStarIcon} alt="star"/>
-                     </div>
-
-            </div>
-        );
+  fetchUserIDs(){
+    const json = [];
+    var arrConnections = [];
+    var arrUserID = [];
+    var connectionToID = [];
+    fetch("https://webdev.cse.buffalo.edu/hci/api/api/commitment/connections/?toUserID=" + sessionStorage.getItem("user"), requestOptionsGet)
+      .then(response => response.json())
+      .then(result => {
+        console.log("fetch",result);
+         for(var i = 0; i < result.length; i++){
+           if(result[0][i] === undefined){
+             break;
+           }
+           else{
+            json.push(result[0][i]);
+           }
+         }
+        console.log(json.length);
+        for (var a = 0; a < json.length; a++){
+          arrConnections.push(json[a].id);
+          // console.log(json[a].fromUserID);
+          arrUserID.push(json[a].fromUserID);
+          connectionToID.push([json[a].id,json[a].fromUserID]);
+        }
+        // console.log("arrConnections", arrConnections[0]);
+        // console.log("arrUserID" ,arrUserID[0]);
+        // this.setState({fromUserID: this.state.names.concat(arrUserID)});
+        // this.setState({connection_id_list: this.state.connection_id_list.concat(arrConnections)});
+        for(var b = 0; b < arrConnections.length; b++){
+          // this.setState({connection_id: arrConnections[b]});
+          // this.setState({fromUserID: arrUserID[b]});
+          fetch("https://webdev.cse.buffalo.edu/hci/api/api/commitment/connections/" + arrConnections[b], requestOptionsGet)
+          .then(response => response.json())
+          .then(result => {
+            console.log("result",result);
+            console.log("result.attributes.status",result.attributes.status);
+            if(result.attributes.status === "accepted"){
+              this.setState(prevState => ({
+                accepted_friends: [result.fromUser.attributes.firstName + " " + result.fromUser.attributes.lastName[0] + ".", ...prevState.accepted_friends]
+              }));
+            }
+            else {
+            this.setState({names: this.state.names.concat(result.fromUser.attributes.firstName + " " + result.fromUser.attributes.lastName[0] + ".")});
+            this.setState({connection_id_list: this.state.connection_id_list.concat(result.id)});
+            this.setState({userID_list: this.state.userID_list.concat(result.fromUserID)});
+            this.setState({connection_id: result.id});
+            this.setState({fromUserID: result.fromUserID});
+            console.log("names", this.state.names);
+            console.log("connection_id_list", this.state.connection_id_list);
+            console.log("fromUserID list" , this.state.userID_list);
+            }
+          })
+          .catch(error => console.log('error', error));
+        }
+      })
+      .catch(error => console.log('error', error));
+    // console.log("Testing", this.props);
+    // console.log("Testing", this.state);
+    // console.log("user:", sessionStorage.getItem("user"));
+    // console.log("arrConnections", arrConnections);
+    // console.log("connection_id_list", this.state.connection_id_list);
+    // console.log("connection to ID", connectionToID);
+    // console.log("fromUserID", this.state.fromUserID);
+    // console.log("connection_id", this.state.connection_id);
+  }
+//test tommys image
+  findUserPicture(){
+    var path = "";
+    fetch("https://webdev.cse.buffalo.edu/hci/api/api/commitment/users/12", requestOptionsGet)
+      .then(response => response.json())
+      .then(result => {
+        path = (JSON.stringify(result.attributes.profilePicture));
+      })
+      .catch(error => console.log('error', error));
+      console.log(path)
+      return path;
+  }
+// Mona L. id = 35, connectionID = 193, Lisa M. id = 34, connectionID = 194
+  render() {
+    // console.log("arrUserID", arrUserID);
+    // this.setState({
+    //   names: [...this.state.names, arrUserID]
+    // })
+    // console.log("Testing", this.props);
+    // console.log("Testing", this.state);
+      return (
+          <div className="App">
+                  <div className={connections.requests}>Connection Requests</div>
+                  <div className={connections.line1}></div>
+                  <div className={connections.topcontainer}>
+                  {this.state.names.map((name) => {
+                    return(<div key={name}>
+                      <div className={connections.topdiv}>
+                        <img className={connections.picturecircle} img src={"https://webdev.cse.buffalo.edu/hci/api/uploads/files/DOo1Ebbt8dYT4-plb6G6NP5jIc9_l_gNlaYwPW4SaBM.png"} alt="default img"/> 
+                        <div className={connections.name}>{name}</div>
+                        <div className={connections.stars}>
+                          <img className={connections.star1} img src={starIcon} alt="star"/>
+                          <img className={connections.star2} img src={starIcon} alt="star"/>
+                          <img className={connections.star3} img src={starIcon} alt="star"/>
+                          <img className={connections.star4} img src={starIcon} alt="star"/>
+                          <img className={connections.star5} img src={starIcon} alt="star"/>
+                        </div>
+                        <button className={connections.acceptbutton} onClick={() => this.removeHandler_Accept(name)}>Accept</button>
+                        <button className={connections.rejectbutton} onClick={() => this.removeHandler_Reject(name)}>Reject</button>
+                      </div>
+                  
+                  </div>)
+                  })}
+                  </div>
+                  <div className={connections.connections}>Connections</div>
+                  <div className={connections.line2}> </div>
+                  <div className={connections.container}>
+                  {this.state.accepted_friends.map((name) => {
+                    return(<div key={name}>
+                      <div className={connections.div}>
+                          <img className={connections.picturecircle} img src={"https://webdev.cse.buffalo.edu/hci/api/uploads/files/DOo1Ebbt8dYT4-plb6G6NP5jIc9_l_gNlaYwPW4SaBM.png"} alt="default img"/> 
+                          <div className={connections.name}>{name}</div>
+                          <div className={connections.stars}>
+                              <img className={connections.star1} img src={starIcon} alt="star"/>
+                              <img className={connections.star2} img src={starIcon} alt="star"/>
+                              <img className={connections.star3} img src={starIcon} alt="star"/>
+                              <img className={connections.star4} img src={starIcon} alt="star"/>
+                              <img className={connections.star5} img src={starIcon} alt="star"/>
+                          </div>
+                      </div>
+                  </div>
+                  )
+                  })}
+                  </div>
+                  <img className={connections.picturecircle} img src={"https://webdev.cse.buffalo.edu/hci/api/uploads/files/x9sRVcdg8C5vip7apFO5cuR1jus4w00_6oOtB2bFKqg.png"} alt="img of Lisa Moan" hidden />
+          </div>
+      );
     }
 }
