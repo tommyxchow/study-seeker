@@ -23,13 +23,6 @@ export function LogoText(props) {
   );
 }
 
-export function ButtonSubmitForm(props) {
-  return (
-    <form action={props.link}>
-      <button className="buttonSubmitForm">{props.buttonText}</button>
-    </form>
-  );
-}
 /*
 function ButtonSubmitForm({link, buttonText}){
     return(
@@ -61,8 +54,12 @@ class LandingPage extends React.Component {
           <LandingPageBox>
             <LogoText subtitle={"SEEK FRIENDS TO STUDY"} />
             <div>
-              <ButtonSubmitForm link={"./register"} buttonText={"Sign Up"} />
-              <ButtonSubmitForm link={"./login"} buttonText={"Login"} />
+              <a className="buttonSubmitForm" href="./register">
+                Sign Up
+              </a>
+              <a className="buttonSubmitForm" href="./login">
+                Login
+              </a>
             </div>
           </LandingPageBox>
         </BackgroundImage>

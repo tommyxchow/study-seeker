@@ -85,7 +85,7 @@ export class ForgotPassword extends Component {
               />
               <input type="submit" value="Reset" className={styles.button} />
             </form>
-            <a className={styles.noAccount} href="/login">
+            <a className={styles.noAccount} href="./login">
               go back to login
             </a>
           </div>

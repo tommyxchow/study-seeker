@@ -352,7 +352,6 @@
   background-color: #907671;
   border: none;
   color: white;
-  padding: 20px;
   text-align: center;
   text-decoration: none;
   font-family: Exo, sans-serif;
@@ -472,7 +471,7 @@
       background-color: #907671;
       border: none;
       color: white;
-      padding: 20px;
+      padding: 5px;
       text-align: center;
       text-decoration: none;
       font-family: Exo, sans-serif;
