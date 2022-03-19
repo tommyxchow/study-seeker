@@ -69,6 +69,8 @@
   justify-content: flex-start;
   margin-top: 30px;
   margin-left: 37px;
+  height: 100vh;
+  width: 100%;
 }
 
 .topcontainer {
