@@ -1,0 +1,271 @@
+@import url('https://fonts.googleapis.com/css2?family=Exo:ital,wght@0,400;0,700;1,400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Sofia&display=swap');
+
+.connectButton, .disconnectButton, .blockButton, .deleteAccountButton{
+    border: 0;
+    border-radius: 10px;
+    height: 35px;
+    width: 100px;
+    background: #2ecc71;
+    font-family: Exo;
+    align-self: center;
+    font-size: large;
+    margin-left: 28vw;
+  }
+
+  .sidenavi {
+    /* need to specify some position other than static, so height can apply.
+       Fixed works since it will stay fixed to the side - 0 from both left and top. */
+    display: flex;
+    flex-direction: row;
+    background-size: 100%;
+    height:fit-content;
+    text-align: justify;
+    justify-content: center;
+    color: white;
+    background-color: rgb(144, 118, 113, 1);
+  }
+
+  .connectButton, .disconnectButton, .blockButton, .deleteAccountButton{
+    border: 0;
+    border-radius: 10px;
+    height: 35px;
+    width: 100px;
+    background: #2ecc71;
+    font-family: Exo;
+    font-size: large;
+    margin: 20px;
+
+    
+  }
+
+  .disconnectButton, .blockButton, .deleteAccountButton{
+    background: #ff0000;
+  }
+
+  .submitButton{
+    border: 0;
+    border-radius: 25px;
+    height: 35px;
+    width: 100px;
+    background: #907671;
+    font-family: Exo;
+    font-size: large;
+    margin: 20px;
+  }
+
+  .colorbox1, .colorbox2, .colorbox3, .colorbox4, .colorbox5, .colorbox6{
+    border: 2px solid #907671;
+    border-radius: 50%;
+    height: 100px;
+    width: 100px;
+    background-color: #907671;
+    font-family: Exo;
+    align-self: center;
+    font-size: large;
+    margin: 20px;
+  }
+  .colorbox2{
+    background-color: #ede5e5;
+  }
+  .colorbox3{
+    background-color: #000000;
+    color: white;
+  }
+  .colorbox4{
+    background-color: #ffffff;
+  }
+  .colorbox5{
+    background-color: #ff0000;
+  }
+  .colorbox6{
+    background-color: #2ecc71;
+  }
+
+  .box{
+    background-color: #ede5e5;
+    width:fit-content;
+    text-align:center;
+    margin: 20px;
+    padding: 10px;
+    border-radius: 25px;
+    margin-left:75px;
+    height: 940px;
+    padding-bottom: 50px;
+  }
+  
+  .box1{
+    background-color: #ede5e5;
+    width:fit-content;
+    margin: 20px;
+    padding: 10px;
+    border-radius: 25px;
+    margin: 25px;
+  }
+
+  .box4{
+    width:fit-content;
+    margin: 20px;
+    padding: 10px;
+    border-radius: 25px;
+    margin: 25px;
+    margin-left: 25px;
+    margin-top: 140px;
+  }
+
+  .box2{
+    background-color: #ede5e5;
+    width:100%;
+    text-align:center;
+    padding: 10px;
+    border-radius: 25px;
+    margin: 25px;
+    
+  } 
+
+  .box3{
+    
+    display: flex;
+    justify-content: center;
+  }
+  
+  .box5{
+    background-color: #ede5e5;
+    width:fit-content;
+    margin: 20px;
+    padding: 10px;
+    padding-left: 25px;
+    padding-right: 25px;
+    border-radius: 25px;
+    margin: 25px;
+    text-align: center;
+    justify-content: center ;
+  }
+
+  .text{
+    text-align: center;
+  }
+
+  .exo{
+    border: 1px solid #907671;
+    border-radius: 10px;
+    height: 100px;
+    width: 120px;
+    background-color: #ffffff;
+    font-family: Exo;
+    font-size: large;
+    margin: 20px;
+
+    display:grid;
+    justify-content: center;
+    align-items: center;
+    
+  }
+
+  .sofia{
+    border: 1px solid #907671;
+    border-radius: 10px;
+    height: 100px;
+    width: 120px;
+    background-color: #ffffff;
+    font-family: Sofia;
+    align-self: center;
+    font-size: large;
+    margin: 20px;
+
+    display:grid;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .logo{
+    width: 440px;
+    height: 360px;
+  }
+
+  .table{
+    display: flex;
+  }
+  .td{
+    width: 500px;
+  }
+  .td1{
+    width: 500px;
+    
+  }
+
+  .list{
+    list-style-type: none;
+  }
+
+  .size1{
+    margin:0;
+    font-size: 70px;
+  }
+  .size2{
+    margin:0;
+    font-size: 48px;
+  }
+  .size3{
+    margin:0;
+    font-size: 36px;
+  }
+  .size4{
+    margin:0;
+    font-size: 30px;
+  }
+  .size5{
+    margin:0;
+    font-size: 24px;
+  }
+  .size6{
+    margin:0;
+    font-size: 18px;
+  }
+  .size7{
+    margin:0;
+    font-size: 14px;
+  }
+
+  .size8{
+    font-size: 16px;
+    margin:0;
+    padding-bottom: 30px;
+    line-height: 1;
+  }
+
+  .size9{
+    margin:0;
+    line-height: 1.5;
+  }
+
+ .size10{
+   margin:0;
+   line-height: 1;
+   margin-bottom: 20px;
+ }
+
+  .layout{
+    width: 80%;
+    margin: 25px;
+  }
+
+  .layout1{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .mobile{
+    width: 80%;
+    margin: 25px;
+  }
+
+  .center{
+    text-align: center;
+    justify-content: center;
+  }
+
+  .margin{
+    margin-top: 15px;
+  }
