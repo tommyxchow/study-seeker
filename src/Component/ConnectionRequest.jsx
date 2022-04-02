@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import "../App.css";
 
 import litStarIcon from "../assets/litstar.svg";
@@ -19,6 +20,8 @@ var requestOptionsDelete = {
   method: 'DELETE',
   headers: myHeaders,
 };
+
+var user_id_map = {};
 
 export default class ConnectionRequest extends React.Component{
   constructor(props) {
@@ -142,7 +145,9 @@ export default class ConnectionRequest extends React.Component{
           // console.log(json[a].fromUserID);
           arrUserID.push(json[a].fromUserID);
           connectionToID.push([json[a].id,json[a].fromUserID]);
+          user_id_map[json[a].fromUser.attributes.firstName + " " + json[a].fromUser.attributes.lastName[0] + "."] = json[a].fromUserID;
         }
+        
         // console.log("arrConnections", arrConnections[0]);
         // console.log("arrUserID" ,arrUserID[0]);
         // this.setState({fromUserID: this.state.names.concat(arrUserID)});
@@ -153,7 +158,7 @@ export default class ConnectionRequest extends React.Component{
           fetch("https://webdev.cse.buffalo.edu/hci/api/api/commitment/connections/" + arrConnections[b], requestOptionsGet)
           .then(response => response.json())
           .then(result => {
-            console.log("result",result);
+            console.log("result__",result);
             console.log("result.attributes.status",result.attributes.status);
             if(result.attributes.status === "accepted"){
               this.setState(prevState => ({
@@ -213,7 +218,7 @@ export default class ConnectionRequest extends React.Component{
                     return(<div key={name}>
                       <div className={connections.topdiv}>
                         <img className={connections.picturecircle} img src={"https://webdev.cse.buffalo.edu/hci/api/uploads/files/DOo1Ebbt8dYT4-plb6G6NP5jIc9_l_gNlaYwPW4SaBM.png"} alt="default img"/> 
-                        <div className={connections.name}>{name}</div>
+                        <Link to={"/profile/"+user_id_map[name]} className={connections.name} >{name}</Link>
                         <div className={connections.stars}>
                           <img className={connections.star1} img src={starIcon} alt="star"/>
                           <img className={connections.star2} img src={starIcon} alt="star"/>
@@ -235,7 +240,7 @@ export default class ConnectionRequest extends React.Component{
                     return(<div key={name}>
                       <div className={connections.div}>
                           <img className={connections.picturecircle} img src={"https://webdev.cse.buffalo.edu/hci/api/uploads/files/DOo1Ebbt8dYT4-plb6G6NP5jIc9_l_gNlaYwPW4SaBM.png"} alt="default img"/> 
-                          <div className={connections.name}>{name}</div>
+                          <Link to={"/profile/"+user_id_map[name]} className={connections.name} >{name}</Link>
                           <div className={connections.stars}>
                               <img className={connections.star1} img src={starIcon} alt="star"/>
                               <img className={connections.star2} img src={starIcon} alt="star"/>
