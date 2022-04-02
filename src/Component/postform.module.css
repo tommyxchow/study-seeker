@@ -34,16 +34,16 @@
     font-weight: 700;
     font-size: 24px;
 }
-.aboutHeader{
+.aboutHeader, .studentHeader{
     display: flex;
     flex-direction:column;
 }
-.aboutLine{
+.aboutLine, .studentLine{
     display: flex;
     justify-content: space-between;
     align-items:baseline;
 }
-.about{
+.about, .student{
     font-style: normal;
     font-weight: 400;
     font-size: 36px;
@@ -56,12 +56,35 @@
 }
 .instructorLine{
     display: flex;
-    padding-bottom: 4vh;
+    padding-bottom: 2vh;
 }
 .instructor{}
+
 .instructorName{
     margin-left: 2vh;
 }
 .classDiscription{
     margin-bottom: 5vh;
+}
+
+.allStudents{
+    display: flex;
+    gap: 20px 50px;
+    flex-wrap: wrap;
+    margin-bottom: 5vh;
+}
+.studentCard{
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+.studentImage{
+    height: 30px;
+    width: 30px;
+    border-radius: 100%;
+}
+.studentName{
+    font-style: normal;
+    font-weight: 500;
+    font-size: 18px;
 }

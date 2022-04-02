@@ -2,6 +2,8 @@ import React from "react";
 import "../App.css";
 import PostingList from "./PostingList.jsx";
 import style from "./postform.module.css";
+import yearLogo from "../assets/goal.png";
+
 
 // The post form component holds both a form for posting, and also the list of current posts in your feed.  This is primarily to 
 // make updating the list simpler.  If the post form was contained entirely in a separate component, you would have to do a lot of calling around
@@ -114,18 +116,62 @@ export default class PostForm extends React.Component {
           </div>
         </div>
 
-        <div className={style.aboutHeader}>
-          <div className={style.aboutLine}>
-            <div className={style.about}>Student</div>
+        <div className={style.studentHeader}>
+          <div className={style.studentLine}>
+            <div className={style.student}>Students (Spring 2022)</div>
             <div className={style.arrow}>&#x2191;</div>
           </div>
           <hr className={style.horizontalLine}/>
           <div className={style.allStudents}>
+
             <div className={style.studentCard}>
-              <image className={style.studentImage}></image>
+              <img className={style.studentImage} src={yearLogo}></img>
+              <div className={style.studentName}>
+                Swastik Naik
+              </div>
             </div>
-            <div className={style.studentName}>
-              Swastik Naik
+
+            <div className={style.studentCard}>
+              <img className={style.studentImage} src={yearLogo}></img>
+              <div className={style.studentName}>
+                Swastik Naik
+              </div>
+            </div>
+            <div className={style.studentCard}>
+              <img className={style.studentImage} src={yearLogo}></img>
+              <div className={style.studentName}>
+                Swastik Naik
+              </div>
+            </div>
+            <div className={style.studentCard}>
+              <img className={style.studentImage} src={yearLogo}></img>
+              <div className={style.studentName}>
+                Swastik Naik
+              </div>
+            </div>
+            <div className={style.studentCard}>
+              <img className={style.studentImage} src={yearLogo}></img>
+              <div className={style.studentName}>
+                Swastik Naik
+              </div>
+            </div>
+            <div className={style.studentCard}>
+              <img className={style.studentImage} src={yearLogo}></img>
+              <div className={style.studentName}>
+                Swastik Naik
+              </div>
+            </div>
+            <div className={style.studentCard}>
+              <img className={style.studentImage} src={yearLogo}></img>
+              <div className={style.studentName}>
+                Swastik Naik
+              </div>
+            </div>
+            <div className={style.studentCard}>
+              <img className={style.studentImage} src={yearLogo}></img>
+              <div className={style.studentName}>
+                Swastik Naik
+              </div>
             </div>
           </div>
         </div>
