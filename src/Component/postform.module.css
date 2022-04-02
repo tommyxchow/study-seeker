@@ -1,0 +1,67 @@
+.container{
+    display: flex;
+    flex-direction:column;
+    padding: 4vh;
+}
+.classHeader{
+    padding-bottom: 2vh;
+    display: flex;
+    flex-direction:column;
+}
+.classNameLine{
+    display: flex;
+    align-items:center;
+}
+.className{
+    font-style: normal;
+    font-weight: 500;
+    font-size: 72px;
+    line-height: 96px;
+}
+.classJoin{
+    width: 80px;
+    height: 30px;
+    margin-left: 3vh;
+    font-style: normal;
+    font-weight: 700;
+    font-size: 18px;
+    background: #2ECC71;
+    border-radius: 25px;
+}
+.classSmallDiscription{
+    color: rgba(0, 0, 0, 0.5);
+    font-style: normal;
+    font-weight: 700;
+    font-size: 24px;
+}
+.aboutHeader{
+    display: flex;
+    flex-direction:column;
+}
+.aboutLine{
+    display: flex;
+    justify-content: space-between;
+    align-items:baseline;
+}
+.about{
+    font-style: normal;
+    font-weight: 400;
+    font-size: 36px;
+}
+.arrow{
+    font-weight: 1000;
+}
+.horizontalLine{
+    width: 75vw;
+}
+.instructorLine{
+    display: flex;
+    padding-bottom: 4vh;
+}
+.instructor{}
+.instructorName{
+    margin-left: 2vh;
+}
+.classDiscription{
+    margin-bottom: 5vh;
+}

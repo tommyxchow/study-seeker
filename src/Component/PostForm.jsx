@@ -1,6 +1,7 @@
 import React from "react";
 import "../App.css";
 import PostingList from "./PostingList.jsx";
+import style from "./postform.module.css";
 
 // The post form component holds both a form for posting, and also the list of current posts in your feed.  This is primarily to 
 // make updating the list simpler.  If the post form was contained entirely in a separate component, you would have to do a lot of calling around
@@ -75,20 +76,59 @@ export default class PostForm extends React.Component {
       console.log("Rendering postings ",this.props.refresh);
     }
     return (
-      <div>
-        <form onSubmit={this.submitHandler}>
-          <label>
-            Post Something!
-            <br />
-            <textarea rows="10" cols="70" onChange={this.myChangeHandler} />
-          </label>
-          <br />
+      <div className={style.container}>
+      {/* //   <form onSubmit={this.submitHandler}>
+      //     <label>
+      //       Post Something!
+      //       <br />
+      //       <textarea rows="10" cols="70" onChange={this.myChangeHandler} />
+      //     </label>
+      //     <br />
 
-          <input type="submit" value="submit" />
-          <br />
-          {this.state.postmessage}
-        </form>
-        <PostingList ref={this.postListing} refresh={this.props.refresh} type="postlist" />
+      //     <input type="submit" value="submit" />
+      //     <br />
+      //     {this.state.postmessage}
+      //   </form>
+      //   <PostingList ref={this.postListing} refresh={this.props.refresh} type="postlist" /> */}
+        <div className={style.classHeader}>
+          <div className={style.classNameLine}>
+            <div className={style.className}>
+              CSE 370
+            </div>
+            <input className={style.classJoin} type='button' value='Join'></input>
+          </div>
+          <div className={style.classSmallDiscription}>Applied Human Computer Interaction and Interface Design</div>
+        </div>
+        <div className={style.aboutHeader}>
+          <div className={style.aboutLine}>
+            <div className={style.about}>About</div>
+            <div className={style.arrow}>&#x2191;</div>
+          </div>
+          <hr className={style.horizontalLine}/>
+          <div className={style.instructorLine}>
+            <div className={style.instructor}>Instructor:</div>
+            <div className={style.instructorName}>Alan Hunt</div>
+          </div>
+          <div className={style.classDiscription}>
+            This is an undergraduate-level course intended for junior and senior-level students that will teach them introductory concepts of human computer interaction. The main topics covered in this course will be interface and experience design, interface development in a variety of environments, and evaluation of design via multiple methods including usability studies.
+          </div>
+        </div>
+
+        <div className={style.aboutHeader}>
+          <div className={style.aboutLine}>
+            <div className={style.about}>Student</div>
+            <div className={style.arrow}>&#x2191;</div>
+          </div>
+          <hr className={style.horizontalLine}/>
+          <div className={style.allStudents}>
+            <div className={style.studentCard}>
+              <image className={style.studentImage}></image>
+            </div>
+            <div className={style.studentName}>
+              Swastik Naik
+            </div>
+          </div>
+        </div>
       </div>
     );
   }
