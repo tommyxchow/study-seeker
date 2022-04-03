@@ -23,13 +23,10 @@
 }
 
 .postText {
-  margin-right: 5rem;
-  width: 50%;
+  font-size: 30px;
 }
 
 .postInput {
-  height: 5rem;
-  width: 50%;
   margin-right: 5rem;
   resize: none;
   border-radius: 2rem;

@@ -21,11 +21,60 @@ export default class ClassPosts extends Component {
       });
   }
 
+  submitHandler = (event) => {
+    event.preventDefault();
+    event.target.post.value = "";
+
+    //make the api call to post
+    fetch(process.env.REACT_APP_API_PATH + "/posts", {
+      method: "post",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + sessionStorage.getItem("token"),
+      },
+      body: JSON.stringify({
+        authorID: sessionStorage.getItem("user"),
+        content: event.target.post.value,
+      }),
+    })
+      .then((res) => res.json())
+      .then((result) =>
+        this.setState({ posts: [result, ...this.state.posts] })
+      );
+  };
+
   render() {
     console.log(this.state.posts);
     return (
       <>
-        <CreatePost />
+        <div className={styles.container}>
+          <div className={styles.profileContainer}>
+            <img
+              className={styles.profilePicture}
+              src={testPic}
+              alt="Profile Pic"
+            ></img>
+            Tommy Chow
+          </div>
+          <form onSubmit={this.submitHandler} id="postForm">
+            <textarea
+              name="post"
+              form="postForm"
+              className={styles.postInput}
+              placeholder="Create a post"
+              rows={5}
+              cols={70}
+            ></textarea>
+          </form>
+          <button
+            form="postForm"
+            type="submit"
+            value="submit"
+            className={styles.postButton}
+          >
+            Post
+          </button>
+        </div>
         {this.state.posts.map((postInfo) => (
           <Post
             id={postInfo.authorID}
@@ -35,39 +84,6 @@ export default class ClassPosts extends Component {
           />
         ))}
       </>
-    );
-  }
-}
-
-class CreatePost extends Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      name: "",
-      profilePicture:
-        "/hci/api/uploads/files/DOo1Ebbt8dYT4-plb6G6NP5jIc9_l_gNlaYwPW4SaBM.png",
-      content: "",
-    };
-  }
-
-  render() {
-    return (
-      <div className={styles.container}>
-        <div className={styles.profileContainer}>
-          <img
-            className={styles.profilePicture}
-            src={testPic}
-            alt="Profile Pic"
-          ></img>
-          Tommy Chow
-        </div>
-        <textarea
-          className={styles.postInput}
-          placeholder="Create a post"
-        ></textarea>
-        <button className={styles.postButton}>Post</button>
-      </div>
     );
   }
 }
