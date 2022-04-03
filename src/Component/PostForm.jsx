@@ -18,8 +18,25 @@ export default class PostForm extends React.Component {
       Alumni:false,
       Fall_2021:false,
       Spring_2021:false,
+      join: false
     };
     this.postListing = React.createRef();
+  }
+
+
+  createFetch(path, method, body) {
+    const supplyPath = process.env.REACT_APP_API_PATH + path;
+    const supplyMethod = {
+      method: method,
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + sessionStorage.getItem("token"),
+      },
+    };
+    if (body != null) {
+      supplyMethod.body = JSON.stringify(body);
+    }
+    return fetch(supplyPath, supplyMethod);
   }
 
   // the handler for submitting a new post.  This will call the API to create a new post.
@@ -72,6 +89,36 @@ export default class PostForm extends React.Component {
 
   // the login check here is redundant, since the top level routing also is checking,
   // but this could catch tokens that were removed while still on this page, perhaps due to a timeout?
+  handleJoin = event =>{
+
+    const path = "/groups/"+2;
+    const method = "PATCH";
+      this.createFetch(path, "get", null)
+      .then(res => res.json())
+      .then(
+        result => {
+          result.attributes.additionalProp1.member_ids.push(sessionStorage.getItem("user"));
+          delete result.id;
+          this.createFetch(path, method, result)
+          .then((res) => res.json())
+          .then(
+            (result) => {
+              this.setState({
+                responseMessage: result.Status,
+                join: true
+              });
+            },
+            (error) => {
+              alert(error);
+            }
+          );
+        },
+        error => {
+          alert("error in get");
+        }
+      );
+  }
+
   render() {
     if (!sessionStorage.getItem("token")) {
       console.log("NO TOKEN");
@@ -87,8 +134,11 @@ export default class PostForm extends React.Component {
           <div className={style.classNameLine}>
             <div className={style.className}>
               CSE 370
-            </div>
-            <input className={style.classJoin} type='button' value='Join'></input>
+            </div>{!this.state.join?
+            <input className={style.classJoin} type='button' value='Join' onClick={this.handleJoin}></input>
+            :
+            <input className={style.classLeave} type='button' value='Leave' onClick={()=>this.setState({join:!this.state.join})}></input>
+            }
           </div>
           <div className={style.classSmallDiscription}>Applied Human Computer Interaction and Interface Design</div>
         </div>
