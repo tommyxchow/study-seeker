@@ -142,7 +142,7 @@ class App extends React.Component {
                     element={<Groups login={this.login} />}
                   />
                   <Route
-                    path="/posts"
+                    path="/class/:id"
                     element={
                       <Posts
                         doRefreshPosts={this.doRefreshPosts}
@@ -270,7 +270,6 @@ const Posts = (props) => {
     console.log("LOGGED IN");
     return (
       <div>
-        <p>CSE 370 Social Media Test Harness</p>
         <PostForm refresh={props.apprefresh} />
       </div>
     );
