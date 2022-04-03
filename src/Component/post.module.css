@@ -10,6 +10,9 @@
   flex-direction: column;
   align-items: center;
   margin-right: 5rem;
+  text-decoration: none;
+  text-align: center;
+  width: 10%;
 }
 
 .profilePicture {
@@ -25,6 +28,7 @@
 }
 
 .postInput {
+  height: 5rem;
   width: 50%;
   margin-right: 5rem;
   resize: none;

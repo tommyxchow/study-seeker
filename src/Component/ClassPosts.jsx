@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
 import testPic from "../assets/tommy.png";
 import styles from "./post.module.css";
 
@@ -27,6 +28,7 @@ export default class ClassPosts extends Component {
         <CreatePost />
         {this.state.posts.map((postInfo) => (
           <Post
+            id={postInfo.authorID}
             name={`${postInfo.author.attributes.firstName} ${postInfo.author.attributes.lastName}`}
             profilePicture={postInfo.author.attributes.profilePicture}
             content={postInfo.content}
@@ -74,7 +76,10 @@ class Post extends Component {
   render() {
     return (
       <div className={styles.container}>
-        <div className={styles.profileContainer}>
+        <Link
+          to={"/profile/" + this.props.id}
+          className={styles.profileContainer}
+        >
           <img
             className={styles.profilePicture}
             src={
@@ -85,7 +90,7 @@ class Post extends Component {
             alt="Profile Pic"
           ></img>
           {this.props.name}
-        </div>
+        </Link>
         <div className={styles.postText}>{this.props.content}</div>
       </div>
     );
