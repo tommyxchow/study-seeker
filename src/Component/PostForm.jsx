@@ -82,19 +82,7 @@ export default class PostForm extends React.Component {
     }
     return (
       <div className={style.container}>
-      {/* //   <form onSubmit={this.submitHandler}>
-      //     <label>
-      //       Post Something!
-      //       <br />
-      //       <textarea rows="10" cols="70" onChange={this.myChangeHandler} />
-      //     </label>
-      //     <br />
-
-      //     <input type="submit" value="submit" />
-      //     <br />
-      //     {this.state.postmessage}
-      //   </form>
-      //   <PostingList ref={this.postListing} refresh={this.props.refresh} type="postlist" /> */}
+  
         <div className={style.classHeader}>
           <div className={style.classNameLine}>
             <div className={style.className}>
