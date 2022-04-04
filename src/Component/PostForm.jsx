@@ -18,8 +18,26 @@ export default class PostForm extends React.Component {
       Alumni:false,
       Fall_2021:false,
       Spring_2021:false,
+      join: false,
+      current_members: []
     };
     this.postListing = React.createRef();
+  }
+
+
+  createFetch(path, method, body) {
+    const supplyPath = process.env.REACT_APP_API_PATH + path;
+    const supplyMethod = {
+      method: method,
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + sessionStorage.getItem("token"),
+      },
+    };
+    if (body != null) {
+      supplyMethod.body = JSON.stringify(body);
+    }
+    return fetch(supplyPath, supplyMethod);
   }
 
   // the handler for submitting a new post.  This will call the API to create a new post.
@@ -72,6 +90,61 @@ export default class PostForm extends React.Component {
 
   // the login check here is redundant, since the top level routing also is checking,
   // but this could catch tokens that were removed while still on this page, perhaps due to a timeout?
+  handleJoin = event =>{
+
+    const path = "/groups/"+5;
+    const method = "PATCH";
+      this.createFetch(path, "get", null)
+      .then(res => res.json())
+      .then(
+        result => {
+          result.attributes.additionalProp1.member_ids.push(sessionStorage.getItem("user"));
+          delete result.id;
+          this.createFetch(path, method, result)
+          .then((res) => res.json())
+          .then(
+            (result) => {
+              this.setState({
+                responseMessage: result.Status,
+                join: true
+              });
+            },
+            (error) => {
+              alert(error);
+            }
+          );
+        },
+        error => {
+          alert("error in get");
+        }
+      );
+  }
+  componentDidMount(){
+    this.createFetch('/groups/'+5, 'get', null)
+    .then(res => res.json())
+    .then(
+      result => {
+        console.log("Groups in mount", result);
+        const members = result.attributes.additionalProp1.member_ids;
+        console.log("members", members);
+        members.map((id)=>{
+          this.createFetch('/users/'+id, 'get', null)
+          .then((res) => res.json())
+          .then(result_user=>{
+            console.log("member", result_user);
+            this.setState({current_members:[[result_user.id, 
+                                            result_user.attributes.firstName, 
+                                            result_user.attributes.lastName,
+                                            result_user.attributes.profilePicture]
+                                            ,...this.state.current_members
+                                            ]});
+          }, error=>{alert("get user error")});
+        });
+      },
+      error =>{alert("error in get (mount)")}
+    );
+  }
+
   render() {
     if (!sessionStorage.getItem("token")) {
       console.log("NO TOKEN");
@@ -87,8 +160,11 @@ export default class PostForm extends React.Component {
           <div className={style.classNameLine}>
             <div className={style.className}>
               CSE 370
-            </div>
-            <input className={style.classJoin} type='button' value='Join'></input>
+            </div>{!this.state.join?
+            <input className={style.classJoin} type='button' value='Join' onClick={this.handleJoin}></input>
+            :
+            <input className={style.classLeave} type='button' value='Leave' onClick={()=>this.setState({join:!this.state.join})}></input>
+            }
           </div>
           <div className={style.classSmallDiscription}>Applied Human Computer Interaction and Interface Design</div>
         </div>
@@ -120,61 +196,20 @@ export default class PostForm extends React.Component {
             </div>
           </div>
           <hr className={style.horizontalLine}/>
-          
-            {this.state.students && <><div className={style.allStudents}>
-            <div className={style.studentCard}>
-              <img className={style.studentImage} src={yearLogo}></img>
-              <div className={style.studentName}>
-                Swastik Naik
+            {this.state.students && 
+            <div className={style.allStudents}>{
+            this.state.current_members.map((member)=>(
+            <>
+              <div className={style.studentCard}>
+                <img className={style.studentImage} src={"https://webdev.cse.buffalo.edu/"+member[3]}></img>
+                <div className={style.studentName}>
+                  {member[1]+" "+member[2][0]+"."}
+                </div>
               </div>
-            </div>
-
-            <div className={style.studentCard}>
-              <img className={style.studentImage} src={yearLogo}></img>
-              <div className={style.studentName}>
-                Swastik Naik
-              </div>
-            </div>
-            <div className={style.studentCard}>
-              <img className={style.studentImage} src={yearLogo}></img>
-              <div className={style.studentName}>
-                Swastik Naik
-              </div>
-            </div>
-            <div className={style.studentCard}>
-              <img className={style.studentImage} src={yearLogo}></img>
-              <div className={style.studentName}>
-                Swastik Naik
-              </div>
-            </div>
-            <div className={style.studentCard}>
-              <img className={style.studentImage} src={yearLogo}></img>
-              <div className={style.studentName}>
-                Swastik Naik
-              </div>
-            </div>
-            <div className={style.studentCard}>
-              <img className={style.studentImage} src={yearLogo}></img>
-              <div className={style.studentName}>
-                Swastik Naik
-              </div>
-            </div>
-            <div className={style.studentCard}>
-              <img className={style.studentImage} src={yearLogo}></img>
-              <div className={style.studentName}>
-                Swastik Naik
-              </div>
-            </div>
-            <div className={style.studentCard}>
-              <img className={style.studentImage} src={yearLogo}></img>
-              <div className={style.studentName}>
-                Swastik Naik
-              </div>
-            </div> 
-          </div>
-          </>}
+            </>
+          ))}
+          </div>}
         </div>
-
         <div className={style.alumniHeader}>
           <div className={style.alumniLine}>
             <div className={style.alumni}>Alumni</div>
@@ -262,7 +297,6 @@ export default class PostForm extends React.Component {
           </div>
           </>}
         </div>
-
       </div>
     );
   }

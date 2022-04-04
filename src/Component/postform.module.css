@@ -18,7 +18,7 @@
     font-size: 72px;
     line-height: 96px;
 }
-.classJoin{
+.classJoin, .classLeave{
     width: 80px;
     height: 30px;
     margin-left: 3vh;
@@ -27,6 +27,9 @@
     font-size: 18px;
     background: #2ECC71;
     border-radius: 25px;
+}
+.classLeave{
+    background: #FF0000;
 }
 .classSmallDiscription{
     color: rgba(0, 0, 0, 0.5);
