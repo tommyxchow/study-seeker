@@ -2,6 +2,7 @@ import React from "react";
 import "../App.css";
 import blockIcon from "../assets/block_white_216x216.png";
 import unblockIcon from "../assets/thumbsup.png";
+import groupcss from "./group.module.css";
 
 export default class GroupList extends React.Component {
   constructor(props) {
@@ -38,7 +39,7 @@ export default class GroupList extends React.Component {
               groups: result[0]
             });
           }
-          fetch(process.env.REACT_APP_API_PATH+"/group-members?userID="+sessionStorage.getItem("user"), {
+          fetch(process.env.REACT_APP_API_PATH+"/groups/?attributes.members", {
             method: "get",
             headers: {
               'Content-Type': 'application/json',
@@ -49,22 +50,53 @@ export default class GroupList extends React.Component {
             .then(
               result2 => {
                 if (result2) {
-                  let memberships = [];
-                  let membershipIDs = [];
-                  if (Array.isArray(result2)){
-                    console.log("GOT MEMBERS ", result2[0]);
-                    membershipIDs = result2[0].map(groupmember => groupmember.groupID);
-                    memberships = result2[0];
-                    console.log("GROUP LIST", memberships);
-                  }else{
-                    membershipIDs.push(result2.groupID);
-                    memberships.push(result2);
+                  console.log("result2", result2);
+                  console.log("result2[0]", result2[0]);
+                  for(var i = 0; i < result2[0].length; i++) {
+                    console.log(i);
+                    console.log(result2[0][i].attributes.status)
+                    if(result2[0][i].attributes.status === "public" && result2[0][i].attributes.members[0] === 10){
+                      console.log("YOOOO", result2[0][i].name);
+                      // if(result2[0][i].attributes.members[0] === 10){
+                      //   console.log("YesOOOO");
+                      // }
+                      console.log("result2[0][0]", result2[0][0].attributes.status);
+                      let memberships = [];
+                      let membershipIDs = [];
+                      if (Array.isArray(result2)){
+                        console.log("GOT MEMBERS ", result2[0]);
+                        // membershipIDs = result2[0].map(groupmember => groupmember.groupID);
+                        // memberships = result2[0];
+                        console.log("GROUP LIST", memberships);
+                      }else{
+                        console.log("else statement");
+                        membershipIDs.push(result2.groupID);
+                        memberships.push(result2);
+                      }
+                      this.setState({
+                        isLoaded: true,
+                        mygroupIDs: membershipIDs,
+                        mygroups: memberships
+                      });
+                    }
                   }
-                  this.setState({
-                    isLoaded: true,
-                    mygroupIDs: membershipIDs,
-                    mygroups:memberships
-                  });
+                  // console.log("result2[0][0]", result2[0][0].attributes.status);
+                  // let memberships = [];
+                  // let membershipIDs = [];
+                  // if (Array.isArray(result2)){
+                  //   console.log("GOT MEMBERS ", result2[0]);
+                  //   membershipIDs = result2[0].map(groupmember => groupmember.groupID);
+                  //   memberships = result2[0];
+                  //   console.log("GROUP LIST", memberships);
+                  // }else{
+                  //   membershipIDs.push(result2.groupID);
+                  //   memberships.push(result2);
+                  // }
+                  // this.setState({
+                  //   isLoaded: true,
+                  //   mygroupIDs: membershipIDs,
+                  //   mygroups:memberships
+                  // });
                 }
               },
               error => {
@@ -101,7 +133,7 @@ export default class GroupList extends React.Component {
   updateConnection(id, status){
     //make the api call to the user controller
     if (status === "inactive"){
-      fetch(process.env.REACT_APP_API_PATH+"/group-members/"+this.getGroupMemberId(id), {
+      fetch(process.env.REACT_APP_API_PATH+"/group-members/?userID="+this.getGroupMemberId(id), {
         method: "DELETE",
         headers: {
           'Content-Type': 'application/json',
@@ -184,13 +216,14 @@ export default class GroupList extends React.Component {
     } else {
       return (
         <div className="post">
+        <div className={groupcss.mygroups}>My Groups</div>
           <ul>
             {groups.map(group => (
-              <div key={group.id} className="userlist">
+              <div key={group.id} className={groupcss.grouplist}>
+              {console.log("react",this.state.groups)}
+              {console.log("react2",this.state.mygroups)}
+              {console.log("react3",this.state.mygroupIDs)}
                 {group.name} 
-                <div className="deletePost">
-                  {this.conditionalAction(group.id)}
-                </div>
               </div>
             ))}
           </ul>

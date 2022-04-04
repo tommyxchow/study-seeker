@@ -12,15 +12,19 @@ class Navigationbar extends React.Component {
         <a href="./" className={styles.home}>
           Home
         </a>
+        <div className={styles.between}/>
         <a href="./" className={styles.search}>
           Search
         </a>
+        <div className={styles.between}/>
         <a href="./profile" className={styles.profile}>
           Profile
         </a>
-        <a href="./" className={styles.groups}>
+        <div className={styles.between}/>
+        <a href="./groups" className={styles.groups}>
           Groups
         </a>
+        <div className={styles.between}/>
         <a href="./connections" className={styles.connections}>
           Connections
         </a>

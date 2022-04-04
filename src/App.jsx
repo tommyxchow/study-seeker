@@ -25,6 +25,7 @@ import PostForm from "./Component/PostForm.jsx";
 import Profile from "./Component/Profile.jsx";
 import Registration from "./Component/Registration.jsx";
 import StyleGuide from "./Component/StyleGuide.jsx";
+import group from "./Component/group.module.css";
 
 // toggleModal will both show and hide the modal dialog, depending on current state.  Note that the
 // contents of the modal dialog are set separately before calling toggle - this is just responsible
@@ -246,7 +247,6 @@ const Groups = (props) => {
   }
   return (
     <div>
-      <p>Join a Group!</p>
       <GroupList userid={sessionStorage.getItem("user")} />
     </div>
   );
