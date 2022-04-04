@@ -12,7 +12,7 @@ class Navigationbar extends React.Component {
         <a href="./" className={styles.home}>
           Home
         </a>
-        <a href="./" className={styles.search}>
+        <a href="./search" className={styles.search}>
           Search
         </a>
         <a href="./profile" className={styles.profile}>

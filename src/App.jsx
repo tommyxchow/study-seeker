@@ -25,6 +25,7 @@ import PostForm from "./Component/PostForm.jsx";
 import Profile from "./Component/Profile.jsx";
 import Registration from "./Component/Registration.jsx";
 import StyleGuide from "./Component/StyleGuide.jsx";
+import SearchForm from "./Component/SearchForm.jsx";
 
 // toggleModal will both show and hide the modal dialog, depending on current state.  Note that the
 // contents of the modal dialog are set separately before calling toggle - this is just responsible
@@ -138,6 +139,10 @@ class App extends React.Component {
                     element={<Friends login={this.login} />}
                   />
                   <Route
+                    path="/search"
+                    element={<Search login={this.login} />}
+                  />
+                  <Route
                     path="/groups"
                     element={<Groups login={this.login} />}
                   />
@@ -230,6 +235,23 @@ const Friends = (props) => {
       <p>Friends</p>
       <FriendForm userid={sessionStorage.getItem("user")} />
       <FriendList userid={sessionStorage.getItem("user")} />
+    </div>
+  );
+};
+
+const Search = (props) => {
+  // if the user is not logged in, show the login form.  Otherwise, show the friends page
+  if (!sessionStorage.getItem("token")) {
+    console.log("LOGGED OUT");
+    return (
+      <div>
+        <LandingPage login={props.login} />
+      </div>
+    );
+  }
+  return (
+    <div>
+      <SearchForm userid={sessionStorage.getItem("user")} />
     </div>
   );
 };
