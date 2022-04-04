@@ -12,9 +12,15 @@ export default class ClassPosts extends Component {
   }
 
   componentDidMount() {
-    fetch(process.env.REACT_APP_API_PATH + "/posts", {
-      method: "GET",
-    })
+    console.log(this.props.classId);
+    fetch(
+      process.env.REACT_APP_API_PATH +
+        "/posts?recipientGroupID=" +
+        this.props.classId,
+      {
+        method: "GET",
+      }
+    )
       .then((res) => res.json())
       .then((result) => {
         this.setState({ posts: result[0] });
@@ -23,7 +29,6 @@ export default class ClassPosts extends Component {
 
   submitHandler = (event) => {
     event.preventDefault();
-    event.target.post.value = "";
 
     //make the api call to post
     fetch(process.env.REACT_APP_API_PATH + "/posts", {
@@ -35,12 +40,15 @@ export default class ClassPosts extends Component {
       body: JSON.stringify({
         authorID: sessionStorage.getItem("user"),
         content: event.target.post.value,
+        recipientGroupID: this.props.classId,
       }),
     })
       .then((res) => res.json())
       .then((result) =>
         this.setState({ posts: [result, ...this.state.posts] })
       );
+
+    event.target.post.value = "";
   };
 
   render() {

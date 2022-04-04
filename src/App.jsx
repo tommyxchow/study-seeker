@@ -159,7 +159,10 @@ class App extends React.Component {
                     path="/connections"
                     element={<Connections login={this.login} />}
                   />
-                  <Route path="/class" element={<Class login={this.login} />} />
+                  <Route
+                    path="/class/:id"
+                    element={<Class login={this.login} />}
+                  />
                   <Route
                     path="/"
                     element={
@@ -298,6 +301,8 @@ const Connections = (props) => {
 const Class = (props) => {
   const user_id = sessionStorage.getItem("user");
 
+  let { id } = useParams();
+
   if (!sessionStorage.getItem("token")) {
     console.log("LOGGED OUT");
     return (
@@ -308,7 +313,7 @@ const Class = (props) => {
   }
   return (
     <>
-      <ClassPosts userid={user_id} />
+      <ClassPosts classId={id} userid={user_id} />
     </>
   );
   //return <ConnectionRequest />;
