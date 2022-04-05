@@ -24,6 +24,7 @@
 
 .postText {
   font-size: 30px;
+  word-break: break-word;
 }
 
 .postInput {
