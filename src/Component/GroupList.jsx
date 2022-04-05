@@ -12,7 +12,12 @@ export default class GroupList extends React.Component {
       userid: props.userid,
       groups: [],
       mygroups: [],
-      mygroupIDs: []
+      mygroupIDs: [],
+      name: "",
+      members: [],
+      rating: 0,
+      membercount: 0,
+      status: ""
     };
   }
 
@@ -59,16 +64,24 @@ export default class GroupList extends React.Component {
                     console.log(result2[0][i].attributes.status)
                     if(result2[0][i].attributes.status === "private"){
                       console.log("YOOOO", result2[0][i].name);
-                      if(result2[0][i].attributes.members[0] === 10){
-                        console.log("YesOOOO");
-                        console.log("hello its me", result2[0][i]);
-                        holdergroup.push(result2[0][i]);
-                        console.log(result[0][2]);
-                        // holdergroup.push(result2[0][2]);
-                        console.log(holdergroup);
-                        this.setState({
-                          groups: holdergroup
-                        });
+                      console.log("attributes.members length", result2[0][i].attributes.members.length)
+                      for(var j = 0; j < result2[0][i].attributes.members.length; j++){
+                        if(result2[0][i].attributes.members[j] === Number(this.state.userid)){
+                          console.log("YesOOOO");
+                          console.log("hello its me", result2[0][i]);
+                          this.setState({id: result2[0][i].id});
+                          this.setState({name: result2[0][i].name});
+                          this.setState({members: result2[0][i].attributes.members});
+                          this.setState({membercount: this.state.members.length});
+                          this.setState({rating: result2[0][i].attributes.rating});
+                          this.setState({status: result2[0][i].attributes.status});
+                          console.log("id: ", this.state.id, ", name: ", this.state.name, ", members: ", this.state.members, ", membercount: ", this.state.membercount, ", rating: ", this.state.rating, ", status: ", this.state.status);
+                          holdergroup.push(result2[0][i]);
+                          console.log(holdergroup);
+                          this.setState({
+                            groups: holdergroup,
+                          });
+                        }
                       }
                       // console.log("result2[0][0]", result2[0][0].attributes.status);
                       // let memberships = [];
@@ -91,16 +104,23 @@ export default class GroupList extends React.Component {
                     }
                     else if(result2[0][i].attributes.status === "public"){
                       console.log("YOOOO", result2[0][i].name);
-                      if(result2[0][i].attributes.members[0] === 10){
-                        console.log("YesOOOO");
-                        console.log("hello its me", result2[0][i]);
-                        holdergroup.push(result2[0][i]);
-                        console.log(result[0][2]);
-                        // holdergroup.push(result2[0][2]);
-                        console.log(holdergroup);
-                        this.setState({
-                          groups: holdergroup
-                        });
+                      console.log("attributes.members length", result2[0][i].attributes.members.length)
+                      for(var k = 0; k < result2[0][i].attributes.members.length; k++){
+                        if(result2[0][i].attributes.members[k] === Number(this.state.userid)){
+                          console.log("YesOOOO");
+                          console.log("hello its me", result2[0][i]);
+                          this.setState({id: result2[0][i].id});
+                          this.setState({name: result2[0][i].name});
+                          this.setState({members: result2[0][i].attributes.members});
+                          this.setState({membercount: this.state.members.length});
+                          this.setState({rating: result2[0][i].attributes.rating});
+                          this.setState({status: result2[0][i].attributes.status});
+                          holdergroup.push(result2[0][i]);
+                          console.log(holdergroup);
+                          this.setState({
+                            groups: holdergroup
+                          });
+                        }
                       }
                     }
                   }
@@ -205,6 +225,34 @@ export default class GroupList extends React.Component {
     }
   }
 
+  removeHandler_Leave(id, name){
+    console.log(id);
+    console.log(name);
+    const newList = this.state.members.filter(userid => userid !== Number(this.state.userid));
+    console.log(newList);
+    fetch("https://webdev.cse.buffalo.edu/hci/api/api/commitment/groups/" + id, {
+      method: "PATCH",
+      headers: {
+        "accept": "*/*",
+        'Authorization': 'Bearer '+sessionStorage.getItem("token"),
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        id: id,
+        name: name,
+        attributes: {
+          members: newList,
+          status: this.state.status,
+          membercount: this.state.membercount
+        }
+      })
+    })
+      .then(response => response.json())
+      .then(result => console.log(result))
+      .catch(error => console.log('error', error));
+    this.forceUpdate();
+  }
+
   conditionalAction(id){
     if (this.state.mygroupIDs.includes(id)){
       return(
@@ -245,32 +293,36 @@ export default class GroupList extends React.Component {
               <>
               <p className={groupcss.groupname}>{group.name}</p>
               <div className={groupcss.line}></div>
-              <div key={group.id} className={groupcss.grouplist}>
+              <a key={group.id} id="group" href={"./groups/" + group.id} className={groupcss.grouplist} onClick={() => this.setState({name: group.name})}>
               {console.log("react", this.state.groups)}
               {console.log("react2",this.state.mygroups)}
               {console.log("react3",this.state.mygroupIDs)}
+              {console.log("userid",this.state.userid)}
               <div className={groupcss.container}>
                 <p className={groupcss.name}>{group.name}</p>
-                <p className={groupcss.membercount}>X Student(s)</p>
+                <p className={groupcss.membercount}>{this.state.membercount} Student(s)</p>
               </div>
               <div className={groupcss.container}>
                 <p className={groupcss.students}>Student(s)</p>
               </div>
               <div className={groupcss.container}>
                 <p className={groupcss.rating}>Average Rating</p>
-                <img className={groupcss.star} src={starIcon} alt="star"/>
-                <img className={groupcss.star} src={starIcon} alt="star"/>
-                <img className={groupcss.star} src={starIcon} alt="star"/>
-                <img className={groupcss.star} src={starIcon} alt="star"/>
-                <img className={groupcss.star} src={starIcon} alt="star"/>
+                <div className={groupcss.stardiv}>
+                  <img className={groupcss.star} src={starIcon} alt="star"/>
+                  <img className={groupcss.star} src={starIcon} alt="star"/>
+                  <img className={groupcss.star} src={starIcon} alt="star"/>
+                  <img className={groupcss.star} src={starIcon} alt="star"/>
+                  <img className={groupcss.star} src={starIcon} alt="star"/>
+                </div>
               </div>
               <div className={groupcss.container} hidden>
                 {"groupid: " + group.id} <br/>
                 {"status: " + group.attributes.status} <br/>
                 {"members: " + group.attributes.members}
+                {"name: " + group.name}
               </div>
-              </div>
-              <button className={groupcss.leavebutton}>Leave</button>
+              </a>
+              <button className={groupcss.leavebutton} onClick={() => this.removeHandler_Leave(group.id, group.name)}>Leave</button>
               </>
             ))}
         </div>

@@ -11,6 +11,8 @@
   flex-direction: row;
   justify-content: space-between;
   border-width: 2px;
+  text-decoration: none;
+  color: #000000;
 }
 
 .line {
@@ -28,6 +30,7 @@
   font-size: 48px;
   line-height: 64px;
   margin-left: 50px;
+  margin-top: 29px;
   margin-bottom: 41px;
 }
 
@@ -127,4 +130,32 @@
   height: 14px;
 
   box-sizing: border-box;
+}
+
+.stardiv {
+  margin-top: 6.58px;
+}
+
+.groupdetailname {
+  font-family: 'Exo';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 48px;
+  line-height: 64px;
+  margin-left: 38px;
+  margin-top: 29px;
+
+  color: #000000;
+}
+
+.text {
+  font-family: 'Exo';
+  font-style: italic;
+  font-weight: 400;
+  font-size: 24px;
+  line-height: 32px;
+  margin-left: 38px;
+  margin-top: 31px;
+
+  color: #000000;
 }

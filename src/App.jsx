@@ -25,7 +25,7 @@ import PostForm from "./Component/PostForm.jsx";
 import Profile from "./Component/Profile.jsx";
 import Registration from "./Component/Registration.jsx";
 import StyleGuide from "./Component/StyleGuide.jsx";
-import group from "./Component/group.module.css";
+import GroupsDetails from "./Component/GroupDetails.jsx";
 
 // toggleModal will both show and hide the modal dialog, depending on current state.  Note that the
 // contents of the modal dialog are set separately before calling toggle - this is just responsible
@@ -143,6 +143,10 @@ class App extends React.Component {
                     element={<Groups login={this.login} />}
                   />
                   <Route
+                    path="/groups/:id"
+                    element={<GroupDetails login={this.login} />}
+                  />
+                  <Route
                     path="/posts"
                     element={
                       <Posts
@@ -248,6 +252,23 @@ const Groups = (props) => {
   return (
     <div>
       <GroupList userid={sessionStorage.getItem("user")} />
+    </div>
+  );
+};
+
+const GroupDetails = (props) => {
+  // if the user is not logged in, show the login form.  Otherwise, show the groups form
+  if (!sessionStorage.getItem("token")) {
+    console.log("LOGGED OUT");
+    return (
+      <div>
+        <LandingPage login={props.login} />
+      </div>
+    );
+  }
+  return (
+    <div>
+      <GroupsDetails userid={sessionStorage.getItem("user")} />
     </div>
   );
 };
