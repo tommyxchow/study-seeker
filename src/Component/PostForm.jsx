@@ -60,7 +60,7 @@ export default class PostForm extends React.Component {
         'Authorization': 'Bearer '+sessionStorage.getItem("token")
       },
       body: JSON.stringify({
-        authorID: sessionStorage.getItem("user"),
+        authorID: this.props.userid,
         content: this.state.post_text
       })
     })
@@ -98,7 +98,7 @@ export default class PostForm extends React.Component {
       .then(res => res.json())
       .then(
         result => {
-          result.attributes.additionalProp1.member_ids.push(sessionStorage.getItem("user"));
+          result.attributes.additionalProp1.member_ids.push(this.props.userid);
           delete result.id;
           this.createFetch(path, method, result)
           .then((res) => res.json())
@@ -124,20 +124,20 @@ export default class PostForm extends React.Component {
     .then(res => res.json())
     .then(
       result => {
-        console.log("Groups in mount", result);
         const members = result.attributes.additionalProp1.member_ids;
-        console.log("members", members);
         members.map((id)=>{
           this.createFetch('/users/'+id, 'get', null)
           .then((res) => res.json())
           .then(result_user=>{
-            console.log("member", result_user);
             this.setState({current_members:[[result_user.id, 
                                             result_user.attributes.firstName, 
                                             result_user.attributes.lastName,
                                             result_user.attributes.profilePicture]
                                             ,...this.state.current_members
                                             ]});
+            if(this.props.userid === result_user.id){
+              this.setState({join:true});
+            }
           }, error=>{alert("get user error")});
         });
       },
