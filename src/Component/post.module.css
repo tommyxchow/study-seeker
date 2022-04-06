@@ -1,0 +1,50 @@
+.container {
+  display: flex;
+  align-items: center;
+  font-size: large;
+  margin: 3rem;
+}
+
+.profileContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-right: 5rem;
+  text-decoration: none;
+  text-align: center;
+  width: 10%;
+}
+
+.profilePicture {
+  width: 100px;
+  height: 100px;
+  border: 5px solid #fff9f9;
+  border-radius: 100%;
+}
+
+.postText {
+  font-size: 30px;
+  word-break: break-word;
+}
+
+.postInput {
+  margin-right: 5rem;
+  resize: none;
+  border-radius: 2rem;
+  border-width: thick;
+  border-color: black;
+  padding: 1rem;
+  font-family: 'Exo';
+  font-size: large;
+}
+
+.postButton {
+  background: #0CAF30;
+  border: none;
+  border-radius: 50px;
+  padding: 0.5rem;
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+  font-weight: bold;
+  font-family: 'Exo';
+}

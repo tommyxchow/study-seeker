@@ -4,6 +4,7 @@
   sibling components at a lower level.  It holds the basic structural components of navigation, content, and a modal dialog.
 */
 
+import ClassPosts from "Component/ClassPosts";
 import ConnectionRequest from "Component/ConnectionRequest";
 import React from "react";
 import {
@@ -121,10 +122,7 @@ class App extends React.Component {
 
               <div className="maincontent" id="mainContent">
                 <Routes>
-                  <Route
-                    path="/styleguide"
-                    element={<StyleGuide />}
-                    />
+                  <Route path="/styleguide" element={<StyleGuide />} />
                   <Route
                     path="/profile"
                     element={<ProfilePage login={this.login} />}
@@ -157,9 +155,14 @@ class App extends React.Component {
                   />
                   <Route path="/register" element={<Register />} />
                   <Route path="/reset-password" element={<ForgotPassword />} />
-                  <Route 
-                    path="/connections" 
-                    element={<Connections login={this.login}/>} />
+                  <Route
+                    path="/connections"
+                    element={<Connections login={this.login} />}
+                  />
+                  <Route
+                    path="/class/:id"
+                    element={<Class login={this.login} />}
+                  />
                   <Route
                     path="/"
                     element={
@@ -187,7 +190,6 @@ class App extends React.Component {
 /*  BEGIN ROUTE ELEMENT DEFINITIONS */
 // with the latest version of react router, you need to define the contents of the route as an element.  The following define functional components
 // that will appear in the routes.
-
 
 const Register = (props) => {
   // show the study seeker registration form
@@ -270,7 +272,7 @@ const Posts = (props) => {
     console.log("LOGGED IN");
     return (
       <div>
-        <PostForm refresh={props.apprefresh} />
+        <PostForm refresh={props.apprefresh} userid={Number (sessionStorage.getItem("user"))}/>
       </div>
     );
   }
@@ -280,16 +282,37 @@ const Connections = (props) => {
   const user_id = sessionStorage.getItem("user");
 
   if (!sessionStorage.getItem("token")) {
-    console.log("LOGGED OUT", );
+    console.log("LOGGED OUT");
     return (
       <div>
         <LoginPage login={props.login} />
       </div>
     );
-  } 
+  }
   return (
     <>
-      <ConnectionRequest userid={user_id}/>
+      <ConnectionRequest userid={user_id} />
+    </>
+  );
+  //return <ConnectionRequest />;
+};
+
+const Class = (props) => {
+  const user_id = sessionStorage.getItem("user");
+
+  let { id } = useParams();
+
+  if (!sessionStorage.getItem("token")) {
+    console.log("LOGGED OUT");
+    return (
+      <div>
+        <LoginPage login={props.login} />
+      </div>
+    );
+  }
+  return (
+    <>
+      <ClassPosts classId={id} userid={user_id} />
     </>
   );
   //return <ConnectionRequest />;
