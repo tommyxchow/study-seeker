@@ -91,7 +91,6 @@ export default class PostForm extends React.Component {
   // the login check here is redundant, since the top level routing also is checking,
   // but this could catch tokens that were removed while still on this page, perhaps due to a timeout?
   handleJoin = event =>{
-
     const path = "/groups/"+5;
     const method = "PATCH";
       this.createFetch(path, "get", null)
@@ -116,6 +115,35 @@ export default class PostForm extends React.Component {
         },
         error => {
           alert("error in get");
+        }
+      );
+  }
+
+  handleLeave = event =>{
+    const path = "/groups/"+5;
+    const method = "PATCH";
+      this.createFetch(path, "get", null)
+      .then(res => res.json())
+      .then(
+        result => {
+          result.attributes.additionalProp1.member_ids = result.attributes.additionalProp1.member_ids.filter((id)=>{return id!=this.props.userid});
+          delete result.id;
+          this.createFetch(path, method, result)
+          .then((res) => res.json())
+          .then(
+            (result) => {
+              this.setState({
+                responseMessage: result.Status,
+                join: false
+              });
+            },
+            (error) => {
+              alert(error);
+            }
+          );
+        },
+        error => {
+          alert("error in remove get");
         }
       );
   }
@@ -163,7 +191,7 @@ export default class PostForm extends React.Component {
             </div>{!this.state.join?
             <input className={style.classJoin} type='button' value='Join' onClick={this.handleJoin}></input>
             :
-            <input className={style.classLeave} type='button' value='Leave' onClick={()=>this.setState({join:!this.state.join})}></input>
+            <input className={style.classLeave} type='button' value='Leave' onClick={this.handleLeave}></input>
             }
           </div>
           <div className={style.classSmallDiscription}>Applied Human Computer Interaction and Interface Design</div>
