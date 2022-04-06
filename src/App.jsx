@@ -272,7 +272,7 @@ const Posts = (props) => {
     console.log("LOGGED IN");
     return (
       <div>
-        <PostForm refresh={props.apprefresh} />
+        <PostForm refresh={props.apprefresh} userid={Number (sessionStorage.getItem("user"))}/>
       </div>
     );
   }

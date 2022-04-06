@@ -60,7 +60,7 @@ export default class PostForm extends React.Component {
         'Authorization': 'Bearer '+sessionStorage.getItem("token")
       },
       body: JSON.stringify({
-        authorID: sessionStorage.getItem("user"),
+        authorID: this.props.userid,
         content: this.state.post_text
       })
     })
@@ -91,14 +91,13 @@ export default class PostForm extends React.Component {
   // the login check here is redundant, since the top level routing also is checking,
   // but this could catch tokens that were removed while still on this page, perhaps due to a timeout?
   handleJoin = event =>{
-
     const path = "/groups/"+5;
     const method = "PATCH";
       this.createFetch(path, "get", null)
       .then(res => res.json())
       .then(
         result => {
-          result.attributes.additionalProp1.member_ids.push(sessionStorage.getItem("user"));
+          result.attributes.additionalProp1.member_ids.push(this.props.userid);
           delete result.id;
           this.createFetch(path, method, result)
           .then((res) => res.json())
@@ -119,25 +118,54 @@ export default class PostForm extends React.Component {
         }
       );
   }
+
+  handleLeave = event =>{
+    const path = "/groups/"+5;
+    const method = "PATCH";
+      this.createFetch(path, "get", null)
+      .then(res => res.json())
+      .then(
+        result => {
+          result.attributes.additionalProp1.member_ids = result.attributes.additionalProp1.member_ids.filter((id)=>{return id!=this.props.userid});
+          delete result.id;
+          this.createFetch(path, method, result)
+          .then((res) => res.json())
+          .then(
+            (result) => {
+              this.setState({
+                responseMessage: result.Status,
+                join: false
+              });
+            },
+            (error) => {
+              alert(error);
+            }
+          );
+        },
+        error => {
+          alert("error in remove get");
+        }
+      );
+  }
   componentDidMount(){
     this.createFetch('/groups/'+5, 'get', null)
     .then(res => res.json())
     .then(
       result => {
-        console.log("Groups in mount", result);
         const members = result.attributes.additionalProp1.member_ids;
-        console.log("members", members);
         members.map((id)=>{
           this.createFetch('/users/'+id, 'get', null)
           .then((res) => res.json())
           .then(result_user=>{
-            console.log("member", result_user);
             this.setState({current_members:[[result_user.id, 
                                             result_user.attributes.firstName, 
                                             result_user.attributes.lastName,
                                             result_user.attributes.profilePicture]
                                             ,...this.state.current_members
                                             ]});
+            if(this.props.userid === result_user.id){
+              this.setState({join:true});
+            }
           }, error=>{alert("get user error")});
         });
       },
@@ -163,7 +191,7 @@ export default class PostForm extends React.Component {
             </div>{!this.state.join?
             <input className={style.classJoin} type='button' value='Join' onClick={this.handleJoin}></input>
             :
-            <input className={style.classLeave} type='button' value='Leave' onClick={()=>this.setState({join:!this.state.join})}></input>
+            <input className={style.classLeave} type='button' value='Leave' onClick={this.handleLeave}></input>
             }
           </div>
           <div className={style.classSmallDiscription}>Applied Human Computer Interaction and Interface Design</div>
