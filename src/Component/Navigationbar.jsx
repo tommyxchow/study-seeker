@@ -1,6 +1,7 @@
 import React from "react";
 import "../App.css";
 import styles from "./nav.module.css";
+import {Link} from "react-router-dom";
 
 /* The Navbar class provides navigation through react router anks.  Note the callback
    to the parent app class in the last entry... this is an example of calang a function
@@ -9,33 +10,44 @@ class Navigationbar extends React.Component {
   render() {
     return (
       <div className={styles.sidenav}>
-        <a href="./" className={styles.home}>
-          Home
+        {/* <Link to= "/"> */}
+          <a href="/" className={styles.home}>
+            Home
+          </a>
+        {/* </Link> */}
+        <div className={styles.between}/>
+        <Link to= "./">
+          <div className={styles.search}>
+            Search
+          </div>
+        </Link>
+        <div className={styles.between}/>
+        <a href="/profile">
+          <div className={styles.profile}>
+            Profile
+          </div>
         </a>
         <div className={styles.between}/>
-        <a href="./" className={styles.search}>
-          Search
-        </a>
+        <Link to="/groups">
+          <div className={styles.groups}>
+            Groups
+          </div>
+        </Link>
         <div className={styles.between}/>
-        <a href="./profile" className={styles.profile}>
-          Profile
-        </a>
-        <div className={styles.between}/>
-        <a href="./groups" className={styles.groups}>
-          Groups
-        </a>
-        <div className={styles.between}/>
-        <a href="./connections" className={styles.connections}>
-          Connections
-        </a>
+        <Link to="/connections">
+          <div className={styles.connections}>
+            Connections
+          </div>
+        </Link>
         <div className={styles.spacer}></div>
-        <a
-          onClick={this.props.logout}
-          href="./login"
-          className={styles.logouttext}
-        >
-          Logout
-        </a>
+        <Link to="/login">
+          <div
+            onClick={this.props.logout}
+            className={styles.logouttext}
+          >
+            Logout
+          </div>
+        </Link>
       </div>
     );
   }

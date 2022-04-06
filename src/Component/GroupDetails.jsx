@@ -109,6 +109,7 @@ export default class GroupDetails extends React.Component {
           .then(result => console.log(result))
           .catch(error => console.log('error', error));
         this.forceUpdate();
+        window.location.reload();
       }
 
       updateStatus_public(id, name){
@@ -133,6 +134,7 @@ export default class GroupDetails extends React.Component {
           .then(result => console.log(result))
           .catch(error => console.log('error', error));
         this.forceUpdate();
+        window.location.reload();
       }
 
 
