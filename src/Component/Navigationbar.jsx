@@ -10,61 +10,42 @@ class Navigationbar extends React.Component {
   render() {
     return (
       <div className={styles.sidenav}>
-<<<<<<< HEAD
-        {/* <Link to= "/"> */}
-          <a href="/" className={styles.home}>
-            Home
-          </a>
-        {/* </Link> */}
+        <a href="/" className={styles.home}>
+          Home
+        </a>
         <div className={styles.between}/>
-        <Link to= "./">
+        <a href= "/">
           <div className={styles.search}>
             Search
           </div>
-        </Link>
+        </a>
         <div className={styles.between}/>
         <a href="/profile">
           <div className={styles.profile}>
             Profile
           </div>
-=======
-        <a href="./" className={styles.home}>
-          Home
-        </a>
-        <a href="./" className={styles.search}>
-          Search
-        </a>
-        <a href="./profile" className={styles.profile}>
-          Profile
-        </a>
-        <a href="./posts" className={styles.groups}>
-          Groups
-        </a>
-        <a href="./connections" className={styles.connections}>
-          Connections
->>>>>>> dev
         </a>
         <div className={styles.between}/>
-        <Link to="/groups">
+        <a href="/groups">
           <div className={styles.groups}>
             Groups
           </div>
-        </Link>
+        </a>
         <div className={styles.between}/>
-        <Link to="/connections">
+        <a href="/connections">
           <div className={styles.connections}>
             Connections
           </div>
-        </Link>
+        </a>
         <div className={styles.spacer}></div>
-        <Link to="/login">
+        <a href="/login">
           <div
             onClick={this.props.logout}
             className={styles.logouttext}
           >
             Logout
           </div>
-        </Link>
+        </a>
       </div>
     );
   }

@@ -174,57 +174,6 @@ export default class GroupList extends React.Component {
     return -1;
   }
 
-  updateConnection(id, status){
-    //make the api call to the user controller
-    if (status === "inactive"){
-      fetch(process.env.REACT_APP_API_PATH+"/group-members/?userID="+this.getGroupMemberId(id), {
-        method: "DELETE",
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': 'Bearer '+sessionStorage.getItem("token")
-        },
-        
-      })
-        .then(response => {
-          if (response.status === 204){
-            //alert("deleted");
-          }else if (response.status === 404){
-            //alert("membership not found");
-          }
-          this.setState({
-            responseMessage: response.Status
-          });
-          console.log("LOADING GROUPS");
-          this.loadGroups();
-        }
-        );
-    }else{
-      fetch(process.env.REACT_APP_API_PATH+"/group-members", {
-        method: "POST",
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': 'Bearer '+sessionStorage.getItem("token")
-        },
-        body: JSON.stringify({
-          userID:sessionStorage.getItem("user"),
-          groupID:id
-        })
-      })
-        .then(res => res.json())
-        .then(
-          result => {
-            this.setState({
-              responseMessage: result.Status
-            });
-            this.loadGroups();
-          },
-          error => {
-            alert("error!");
-          }
-        );
-    }
-  }
-
   removeHandler_Leave(id, name){
     console.log(id);
     console.log(name);
@@ -251,31 +200,6 @@ export default class GroupList extends React.Component {
       .then(result => console.log(result))
       .catch(error => console.log('error', error));
     this.forceUpdate();
-  }
-
-  conditionalAction(id){
-    if (this.state.mygroupIDs.includes(id)){
-      return(
-
-      <img
-        src={blockIcon}
-        className="sidenav-icon deleteIcon"
-        alt="Block User"
-        title="Block User"
-        onClick={e => this.updateConnection(id, "inactive")}
-      />
-    )
-    }else{
-      return(
-      <img
-        src={unblockIcon}
-        className="sidenav-icon deleteIcon"
-        alt="Unblock User"
-        title="Unblock User"
-        onClick={e => this.updateConnection(id, "active")}
-      />
-    )
-    }
   }
 
   render() {

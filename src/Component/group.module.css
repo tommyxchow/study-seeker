@@ -79,7 +79,8 @@
 .rating {
   width: 111.24px;
   height: 16.42px;
-  
+  margin-bottom: 0px;
+
   font-family: 'Exo';
   font-style: normal;
   font-weight: 500;
@@ -128,6 +129,7 @@
   align-self: center;
   width: 15px;
   height: 14px;
+  margin-bottom: 10px;
 
   box-sizing: border-box;
 }
