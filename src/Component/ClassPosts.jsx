@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-import testPic from "../assets/tommy.png";
 import styles from "./post.module.css";
 
 export default class ClassPosts extends Component {
@@ -8,6 +7,9 @@ export default class ClassPosts extends Component {
     super(props);
     this.state = {
       posts: [],
+      profilePicture:
+        "/hci/api/uploads/files/DOo1Ebbt8dYT4-plb6G6NP5jIc9_l_gNlaYwPW4SaBM.png",
+      name: "",
     };
   }
 
@@ -24,6 +26,22 @@ export default class ClassPosts extends Component {
       .then((res) => res.json())
       .then((result) => {
         this.setState({ posts: result[0] });
+      });
+
+    fetch(
+      process.env.REACT_APP_API_PATH +
+        "/users/" +
+        sessionStorage.getItem("user"),
+      {
+        method: "GET",
+      }
+    )
+      .then((res) => res.json())
+      .then((result) => {
+        this.setState({
+          profilePicture: result.attributes.profilePicture,
+          name: result.attributes.firstName + " " + result.attributes.lastName,
+        });
       });
   }
 
@@ -52,19 +70,22 @@ export default class ClassPosts extends Component {
   };
 
   render() {
-    console.log(this.state.posts);
     return (
       <>
         <div className={styles.container}>
           <div className={styles.profileContainer}>
             <img
               className={styles.profilePicture}
-              src={testPic}
+              src={"https://webdev.cse.buffalo.edu" + this.state.profilePicture}
               alt="Profile Pic"
             ></img>
-            Tommy Chow
+            {this.state.name}
           </div>
-          <form onSubmit={this.submitHandler} id="postForm">
+          <form
+            onSubmit={this.submitHandler}
+            id="postForm"
+            className={styles.form}
+          >
             <textarea
               name="post"
               form="postForm"
@@ -72,7 +93,7 @@ export default class ClassPosts extends Component {
               placeholder="Create a post"
               rows={5}
               cols={70}
-            ></textarea>
+            />
           </form>
           <button
             form="postForm"
