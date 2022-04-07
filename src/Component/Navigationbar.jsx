@@ -10,6 +10,7 @@ class Navigationbar extends React.Component {
   render() {
     return (
       <div className={styles.sidenav}>
+<<<<<<< HEAD
         {/* <Link to= "/"> */}
           <a href="/" className={styles.home}>
             Home
@@ -26,6 +27,22 @@ class Navigationbar extends React.Component {
           <div className={styles.profile}>
             Profile
           </div>
+=======
+        <a href="./" className={styles.home}>
+          Home
+        </a>
+        <a href="./" className={styles.search}>
+          Search
+        </a>
+        <a href="./profile" className={styles.profile}>
+          Profile
+        </a>
+        <a href="./posts" className={styles.groups}>
+          Groups
+        </a>
+        <a href="./connections" className={styles.connections}>
+          Connections
+>>>>>>> dev
         </a>
         <div className={styles.between}/>
         <Link to="/groups">
