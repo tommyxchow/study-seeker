@@ -2,18 +2,17 @@
   display: flex;
   align-items: center;
   font-size: large;
-  
+  margin-top: 5rem;
+  margin-bottom: 5rem;
 }
 
 .profileContainer {
-  flex-grow: 1;
   display: flex;
   flex-direction: column;
   align-items: center;
   margin-right: 5rem;
   text-decoration: none;
   text-align: center;
-  width: 10%;
 }
 
 .profilePicture {
@@ -26,6 +25,7 @@
 .postText {
   font-size: 30px;
   word-break: break-word;
+  width: 100%;
 }
 
 .postInput {

@@ -62,11 +62,13 @@ export default class ClassPosts extends Component {
               src={testPic}
               alt="Profile Pic"
             ></img>
-            <span>
-              Tommy Chow
-            </span>
+            <span>Tommy Chow</span>
           </div>
-          <form onSubmit={this.submitHandler} id="postForm" className={styles.form}>
+          <form
+            onSubmit={this.submitHandler}
+            id="postForm"
+            className={styles.form}
+          >
             <textarea
               name="post"
               form="postForm"
@@ -122,4 +124,3 @@ class Post extends Component {
     );
   }
 }
-
