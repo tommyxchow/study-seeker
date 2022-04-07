@@ -37,16 +37,16 @@
     font-weight: 700;
     font-size: 24px;
 }
-.aboutHeader, .studentHeader, .alumniHeader{
+.aboutHeader, .studentHeader, .alumniHeader, .postsHeader{
     display: flex;
     flex-direction:column;
 }
-.aboutLine, .studentLine, .alumniLine{
+.aboutLine, .studentLine, .alumniLine, .postsLine{
     display: flex;
     justify-content: space-between;
     align-items:baseline;
 }
-.about, .student, .alumni{
+.about, .student, .alumni, .posts{
     font-style: normal;
     font-weight: 400;
     font-size: 36px;
@@ -118,4 +118,8 @@
 }
 .alumniClassArrow{
     padding-bottom: 5px;
+}
+
+.allClassPosts{
+    display: flex;
 }

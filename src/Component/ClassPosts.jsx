@@ -62,9 +62,11 @@ export default class ClassPosts extends Component {
               src={testPic}
               alt="Profile Pic"
             ></img>
-            Tommy Chow
+            <span>
+              Tommy Chow
+            </span>
           </div>
-          <form onSubmit={this.submitHandler} id="postForm">
+          <form onSubmit={this.submitHandler} id="postForm" className={styles.form}>
             <textarea
               name="post"
               form="postForm"
@@ -72,7 +74,7 @@ export default class ClassPosts extends Component {
               placeholder="Create a post"
               rows={5}
               cols={70}
-            ></textarea>
+            />
           </form>
           <button
             form="postForm"
@@ -120,3 +122,4 @@ class Post extends Component {
     );
   }
 }
+

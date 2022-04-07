@@ -159,10 +159,7 @@ class App extends React.Component {
                     path="/connections"
                     element={<Connections login={this.login} />}
                   />
-                  <Route
-                    path="/class/:id"
-                    element={<Class login={this.login} />}
-                  />
+                  
                   <Route
                     path="/"
                     element={
@@ -259,6 +256,7 @@ const Posts = (props) => {
   console.log(typeof props.doRefreshPosts);
 
   console.log("TEST COMPLETE");
+  let { id } = useParams();
 
   // if the user is not logged in, show the login form.  Otherwise, show the post form
   if (!sessionStorage.getItem("token")) {
@@ -272,7 +270,7 @@ const Posts = (props) => {
     console.log("LOGGED IN");
     return (
       <div>
-        <PostForm refresh={props.apprefresh} userid={Number (sessionStorage.getItem("user"))}/>
+        <PostForm refresh={props.apprefresh} userid={Number(sessionStorage.getItem("user"))} classId={id}/>
       </div>
     );
   }

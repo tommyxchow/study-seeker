@@ -3,6 +3,7 @@ import "../App.css";
 import PostingList from "./PostingList.jsx";
 import style from "./postform.module.css";
 import yearLogo from "../assets/goal.png";
+import ClassPosts from "./ClassPosts";
 
 
 // The post form component holds both a form for posting, and also the list of current posts in your feed.  This is primarily to 
@@ -18,6 +19,7 @@ export default class PostForm extends React.Component {
       Alumni:false,
       Fall_2021:false,
       Spring_2021:false,
+      post: false,
       join: false,
       current_members: []
     };
@@ -324,6 +326,18 @@ export default class PostForm extends React.Component {
             
           </div>
           </>}
+        </div>
+        <div className={style.postsHeader}>
+          <div className={style.postsLine}>
+            <div className={style.posts}>Posts</div>
+            <div className={style.arrow} onClick={()=>this.setState({post:!this.state.post})}>
+              {this.state.post?<>&#x2191;</>:<>&#x2193;</>}
+            </div>
+          </div>
+          <hr className={style.horizontalLine}/>{this.state.post && 
+          <div className={style.allClassPosts}>
+            <ClassPosts classId={this.props.classId} userid={this.props.userid}/>
+          </div>}
         </div>
       </div>
     );
