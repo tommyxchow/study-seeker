@@ -137,16 +137,26 @@ export default class GroupDetails extends React.Component {
         window.location.reload();
       }
 
-
     render(){
         const groups = this.state;
         console.log("groups:" ,groups);
         console.log(window.location.pathname);
         return(
             <>
-            <div className={groupcss.groupdetailname}>{groups.name}</div>
-            <button className={groupcss.leavebutton} onClick={() => this.removeHandler_Leave(groups.id, groups.name)}>Leave</button>
-            <div className={groupcss.text}>Average Rating</div>
+            <div className={groupcss.div1}>
+              <div className={groupcss.groupdetailname}>{groups.name}</div>
+              <button className={groupcss.leavebutton} onClick={() => this.removeHandler_Leave(groups.id, groups.name)}>Leave</button>
+            </div>
+            <div className={groupcss.div2}>
+              <div className={groupcss.text}>Average Rating</div>
+              <div className={groupcss.stardivgroupdetails}>
+                  <img className={groupcss.stargroupdetails} src={starIcon} alt="star"/>
+                  <img className={groupcss.stargroupdetails} src={starIcon} alt="star"/>
+                  <img className={groupcss.stargroupdetails} src={starIcon} alt="star"/>
+                  <img className={groupcss.stargroupdetails} src={starIcon} alt="star"/>
+                  <img className={groupcss.stargroupdetails} src={starIcon} alt="star"/>
+              </div>
+            </div>
             <div className={groupcss.text}>Status:</div>{groups.status}
             <br/>
             <button onClick={() => this.updateStatus_public(groups.id, groups.name)}>Public</button>

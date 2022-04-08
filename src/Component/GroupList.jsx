@@ -1,7 +1,5 @@
 import React from "react";
 import "../App.css";
-import blockIcon from "../assets/block_white_216x216.png";
-import unblockIcon from "../assets/thumbsup.png";
 import groupcss from "./group.module.css";
 import starIcon from "../assets/unlitstar.svg";
 
@@ -42,7 +40,6 @@ export default class GroupList extends React.Component {
             
             this.setState({
               isLoaded: true,
-              // groups: result[0]
             });
           }
           fetch(process.env.REACT_APP_API_PATH+"/groups/?attributes.members", {
@@ -83,24 +80,6 @@ export default class GroupList extends React.Component {
                           });
                         }
                       }
-                      // console.log("result2[0][0]", result2[0][0].attributes.status);
-                      // let memberships = [];
-                      // let membershipIDs = [];
-                      // if (Array.isArray(result2)){
-                      //   console.log("GOT MEMBERS ", result2[0]);
-                      //   // membershipIDs = result2[0].map(groupmember => groupmember.groupID);
-                      //   // memberships = result2[0];
-                      //   console.log("GROUP LIST", memberships);
-                      // }else{
-                      //   console.log("else statement");
-                      //   membershipIDs.push(result2.groupID);
-                      //   memberships.push(result2);
-                      // }
-                      // this.setState({
-                      //   isLoaded: true,
-                      //   mygroupIDs: membershipIDs,
-                      //   mygroups: memberships
-                      // });
                     }
                     else if(result2[0][i].attributes.status === "public"){
                       console.log("YOOOO", result2[0][i].name);
@@ -124,23 +103,6 @@ export default class GroupList extends React.Component {
                       }
                     }
                   }
-                  // console.log("result2[0][0]", result2[0][0].attributes.status);
-                  // let memberships = [];
-                  // let membershipIDs = [];
-                  // if (Array.isArray(result2)){
-                  //   console.log("GOT MEMBERS ", result2[0]);
-                  //   membershipIDs = result2[0].map(groupmember => groupmember.groupID);
-                  //   memberships = result2[0];
-                  //   console.log("GROUP LIST", memberships);
-                  // }else{
-                  //   membershipIDs.push(result2.groupID);
-                  //   memberships.push(result2);
-                  // }
-                  // this.setState({
-                  //   isLoaded: true,
-                  //   mygroupIDs: membershipIDs,
-                  //   mygroups:memberships
-                  // });
                 }
               },
               error => {
