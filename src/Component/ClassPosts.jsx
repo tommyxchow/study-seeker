@@ -10,6 +10,8 @@ export default class ClassPosts extends Component {
       profilePicture:
         "/hci/api/uploads/files/DOo1Ebbt8dYT4-plb6G6NP5jIc9_l_gNlaYwPW4SaBM.png",
       name: "",
+      postcount: 0,
+      classbody: {},
     };
   }
 
@@ -43,6 +45,35 @@ export default class ClassPosts extends Component {
           name: result.attributes.firstName + " " + result.attributes.lastName,
         });
       });
+
+//mel's code
+      fetch(
+        process.env.REACT_APP_API_PATH +
+          "/posts?recipientGroupID=" +
+          this.props.classId,
+        {
+          method: "GET",
+        }
+      )
+        .then((res) => res.json())
+        .then((result) => {
+          this.setState({ postcount: result[1] });
+        });
+        
+  
+        fetch(
+          process.env.REACT_APP_API_PATH +
+            "/groups/" +
+            this.props.classId,
+          {
+            method: "GET",
+          }
+        )
+          .then((res) => res.json())
+          .then((result) => {
+            this.setState({ classbody: result});
+          });
+
   }
 
   submitHandler = (event) => {
@@ -67,6 +98,27 @@ export default class ClassPosts extends Component {
       );
 
     event.target.post.value = "";
+
+    //everytime someone post update the postcount in the class
+    console.log("TEST ........................")
+    
+      console.log(this.state.postcount);
+
+      
+      this.state.classbody.attributes.postcounter = this.state.postcount + 1;
+      this.setState({ classbody: this.state.classbody});
+      console.log(this.state.classbody);
+
+      fetch(process.env.REACT_APP_API_PATH + "/groups/" + this.props.classId, {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + sessionStorage.getItem("token"),
+        },
+        body: JSON.stringify(this.state.classbody),
+      })
+        
+
   };
 
   render() {
