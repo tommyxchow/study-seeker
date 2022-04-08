@@ -29,7 +29,6 @@
 }
 
 .postInput {
-  margin-right: 5rem;
   resize: none;
   border-radius: 2rem;
   border-width: thick;
@@ -37,9 +36,11 @@
   padding: 1rem;
   font-family: 'Exo';
   font-size: large;
+  width: 100%;
 }
 
 .postButton {
+  margin-left: 5rem;
   background: #0CAF30;
   border: none;
   border-radius: 50px;
