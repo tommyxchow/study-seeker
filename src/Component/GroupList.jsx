@@ -14,7 +14,8 @@ export default class GroupList extends React.Component {
       members: [],
       rating: 0,
       membercount: 0,
-      status: ""
+      status: "",
+      profilePicture: []
     };
   }
 
@@ -52,6 +53,7 @@ export default class GroupList extends React.Component {
             .then(
               result2 => {
                 if (result2) {
+                  let holderProfilePictures = [];
                   let holdergroup = [];
                   console.log("result2", result2);
                   console.log("result2[0] length", result2[0].length);
@@ -80,6 +82,42 @@ export default class GroupList extends React.Component {
                             groups: holdergroup,
                           });
                         }
+                        if(this.state.membercount !== 0){
+                          console.log("we in business private");
+                          console.log(this.state.membercount);
+                          for(var a = 0; a < this.state.membercount; a++){
+                            console.log(this.state.members[a]);
+                            fetch(process.env.REACT_APP_API_PATH+"/users/"+this.state.members[a], {
+                              method: "GET",
+                              headers: {
+                                "accept": "*/*",
+                                'Authorization': 'Bearer '+sessionStorage.getItem("token"),
+                              }
+                            })
+                            .then(response => response.json())
+                            .then(result => {
+                              if(!result.attributes.profilePicture && !holderProfilePictures.includes("/hci/api/uploads/files/DOo1Ebbt8dYT4-plb6G6NP5jIc9_l_gNlaYwPW4SaBM.png")){
+                                holderProfilePictures.push("/hci/api/uploads/files/DOo1Ebbt8dYT4-plb6G6NP5jIc9_l_gNlaYwPW4SaBM.png");
+                                console.log("conditional 1");
+                                console.log(holderProfilePictures);
+                                this.setState({
+                                  profilePicture: holderProfilePictures
+                                })
+                              }
+                              if(result.attributes.profilePicture && !holderProfilePictures.includes(result.attributes.profilePicture)){
+                                console.log(this.state.members);
+                                holderProfilePictures.push(result.attributes.profilePicture);
+                                console.log("conditional 2");
+                                console.log(holderProfilePictures);
+                                this.setState({
+                                  profilePicture: holderProfilePictures
+                                })
+                              }
+                              console.log("UPDATED HOLDERPFP", this.state.profilePicture)
+                            })
+                            .catch(error => console.log('error', error));
+                          }
+                        }
                       }
                     }
                     else if(result2[0][i].attributes.groups.status === "public"){
@@ -99,6 +137,44 @@ export default class GroupList extends React.Component {
                             groups: holdergroup
                           });
                         }
+                        if(this.state.membercount !== 0){
+                          console.log("we in business public");
+                          console.log(this.state.membercount);
+                          for(var b = 0; b < this.state.membercount; b++){
+                            console.log(this.state.members[b]);
+                            fetch(process.env.REACT_APP_API_PATH+"/users/"+this.state.members[b], {
+                              method: "GET",
+                              headers: {
+                                "accept": "*/*",
+                                'Authorization': 'Bearer '+sessionStorage.getItem("token"),
+                              }
+                            })
+                            .then(response => response.json())
+                            .then(result => {
+                              if(!result.attributes.profilePicture && !holderProfilePictures.includes("/hci/api/uploads/files/DOo1Ebbt8dYT4-plb6G6NP5jIc9_l_gNlaYwPW4SaBM.png")){
+                                console.log(this.state.members);
+                                holderProfilePictures.push("/hci/api/uploads/files/DOo1Ebbt8dYT4-plb6G6NP5jIc9_l_gNlaYwPW4SaBM.png");
+                                console.log("conditional 3");
+                                console.log(holderProfilePictures);
+                                this.setState({
+                                  profilePicture: holderProfilePictures
+                                })
+                              }
+                              if(result.attributes.profilePicture && !holderProfilePictures.includes(result.attributes.profilePicture)){
+                                console.log(this.state.members);
+                                holderProfilePictures.push(result.attributes.profilePicture);
+                                console.log("conditional 4");
+                                console.log(holderProfilePictures);
+                                this.setState({
+                                  profilePicture: holderProfilePictures
+                                })
+                              }
+                              console.log("UPDATED HOLDERPFP", this.state.profilePicture)
+
+                            })
+                            .catch(error => console.log('error', error));
+                          }
+                        }
                       }
                     }
                   }
@@ -110,7 +186,7 @@ export default class GroupList extends React.Component {
                   error
                 });
               }
-            );
+            )
         },
         error => {
           this.setState({
@@ -152,6 +228,7 @@ export default class GroupList extends React.Component {
   render() {
     //this.loadPosts();
     const {error, isLoaded, groups} = this.state;
+    const count = this.state.membercount;
     if (error) {
       return <div> Error: {error.message} </div>;
     } else if (!isLoaded) {
@@ -166,8 +243,7 @@ export default class GroupList extends React.Component {
               <div className={groupcss.line}></div>
               <a key={group.id} id="group" href={"./groups/" + group.id} className={groupcss.grouplist} onClick={() => this.setState({name: group.name})}>
               {console.log("react", this.state)}
-              {console.log("react2",this.state.mygroups)}
-              {console.log("react3",this.state.mygroupIDs)}
+              {console.log("react2",this.state.profilePicture)}
               {console.log("userid",this.state.userid)}
               {console.log("groupname", this.state.groupname)}
               <div className={groupcss.container}>
@@ -176,6 +252,15 @@ export default class GroupList extends React.Component {
               </div>
               <div className={groupcss.container}>
                 <p className={groupcss.students}>Student(s)</p>
+                  {count >= 1 &&
+                    <img className={groupcss.profilepicture} src={"https://webdev.cse.buffalo.edu"+ this.state.profilePicture[0]} alt="user profile 1"/>
+                  }
+                  {count >= 2 &&
+                    <img className={groupcss.profilepicture} src={"https://webdev.cse.buffalo.edu"+ this.state.profilePicture[1]} alt="user profile 2"/>
+                  }
+                  {count >= 3 &&
+                    <img className={groupcss.profilepicture} src={"https://webdev.cse.buffalo.edu"+ this.state.profilePicture[2]} alt="user profile 3"/>
+                  }
               </div>
               <div className={groupcss.container}>
                 <p className={groupcss.rating}>Average Rating</p>

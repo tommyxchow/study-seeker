@@ -73,6 +73,7 @@
   font-weight: 500;
   font-size: 14px;
   line-height: 19px;
+  margin-bottom: 6px;
 
   color: #C4C4C4;
 }
@@ -108,6 +109,11 @@
 
 .container {
   flex-direction: row;
+}
+
+.container2 {
+  display: inline-flex;
+
 }
 
 .leavebutton{
@@ -199,4 +205,13 @@
   margin-left: 38px;
 
   color: #000000;
+}
+
+.profilepicture {
+  align-self: center;
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  margin-right: 5px;
+  display: inline-flex;
 }
