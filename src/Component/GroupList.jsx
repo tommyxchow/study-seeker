@@ -9,9 +9,8 @@ export default class GroupList extends React.Component {
     this.state = {
       userid: props.userid,
       groups: [],
-      mygroups: [],
-      mygroupIDs: [],
       name: "",
+      groupname: "",
       members: [],
       rating: 0,
       membercount: 0,
@@ -55,24 +54,26 @@ export default class GroupList extends React.Component {
                 if (result2) {
                   let holdergroup = [];
                   console.log("result2", result2);
-                  console.log("result2[0]", result2[0]);
+                  console.log("result2[0] length", result2[0].length);
                   for(var i = 0; i < result2[0].length; i++) {
                     console.log(i);
-                    console.log(result2[0][i].attributes.status)
-                    if(result2[0][i].attributes.status === "private"){
-                      console.log("YOOOO", result2[0][i].name);
-                      console.log("attributes.members length", result2[0][i].attributes.members.length)
-                      for(var j = 0; j < result2[0][i].attributes.members.length; j++){
-                        if(result2[0][i].attributes.members[j] === Number(this.state.userid)){
-                          console.log("YesOOOO");
-                          console.log("hello its me", result2[0][i]);
+                    // console.log("result2[0][i].attributes.groups.status",result2[0][i].attributes.groups.status)
+                    if(result2[0][i].attributes.groups === undefined){
+                      console.log("incorrect format")
+                      console.log("api call", result2[0][i])
+                      continue
+                    }
+                    if(result2[0][i].attributes.groups.status === "private"){
+                      for(var j = 0; j < result2[0][i].attributes.groups.members.length; j++){
+                        if(result2[0][i].attributes.groups.members[j] === Number(this.state.userid)){
                           this.setState({id: result2[0][i].id});
+                          this.setState({groupname: result2[0][i].attributes.groups.name})
                           this.setState({name: result2[0][i].name});
-                          this.setState({members: result2[0][i].attributes.members});
+                          this.setState({members: result2[0][i].attributes.groups.members});
                           this.setState({membercount: this.state.members.length});
-                          this.setState({rating: result2[0][i].attributes.rating});
-                          this.setState({status: result2[0][i].attributes.status});
-                          console.log("id: ", this.state.id, ", name: ", this.state.name, ", members: ", this.state.members, ", membercount: ", this.state.membercount, ", rating: ", this.state.rating, ", status: ", this.state.status);
+                          this.setState({rating: result2[0][i].attributes.groups.rating});
+                          this.setState({status: result2[0][i].attributes.groups.status});
+                          console.log("id: ", this.state.id, ", name: ", this.state.name, ", members: ", this.state.members, ", membercount: ", this.state.membercount, ", rating: ", this.state.rating, ", status: ", this.state.status, ", groupname: ", this.state.groupname);
                           holdergroup.push(result2[0][i]);
                           console.log(holdergroup);
                           this.setState({
@@ -81,20 +82,18 @@ export default class GroupList extends React.Component {
                         }
                       }
                     }
-                    else if(result2[0][i].attributes.status === "public"){
-                      console.log("YOOOO", result2[0][i].name);
-                      console.log("attributes.members length", result2[0][i].attributes.members.length)
-                      for(var k = 0; k < result2[0][i].attributes.members.length; k++){
-                        if(result2[0][i].attributes.members[k] === Number(this.state.userid)){
-                          console.log("YesOOOO");
-                          console.log("hello its me", result2[0][i]);
+                    else if(result2[0][i].attributes.groups.status === "public"){
+                      for(var k = 0; k < result2[0][i].attributes.groups.members.length; k++){
+                        if(result2[0][i].attributes.groups.members[k] === Number(this.state.userid)){
                           this.setState({id: result2[0][i].id});
+                          this.setState({groupname: result2[0][i].attributes.groups.name})
                           this.setState({name: result2[0][i].name});
-                          this.setState({members: result2[0][i].attributes.members});
+                          this.setState({members: result2[0][i].attributes.groups.members});
                           this.setState({membercount: this.state.members.length});
-                          this.setState({rating: result2[0][i].attributes.rating});
-                          this.setState({status: result2[0][i].attributes.status});
+                          this.setState({rating: result2[0][i].attributes.groups.rating});
+                          this.setState({status: result2[0][i].attributes.groups.status});
                           holdergroup.push(result2[0][i]);
+                          console.log("id: ", this.state.id, ", name: ", this.state.name, ", members: ", this.state.members, ", membercount: ", this.state.membercount, ", rating: ", this.state.rating, ", status: ", this.state.status, ", groupname: ", this.state.groupname);
                           console.log(holdergroup);
                           this.setState({
                             groups: holdergroup
@@ -120,20 +119,6 @@ export default class GroupList extends React.Component {
           });
         }
       );
-  }
-
-  getGroupMemberId = (groupid) => {
-    console.log("LOOKING FOR GROUP", groupid);
-    for (const membership of this.state.mygroups) {
-      console.log("MEMBERSHIP",membership);
-      if(membership.groupID === groupid){
-        console.log("returning ", membership.id);
-        return membership.id;
-      }else{
-        console.log(membership.groupID, "is not ", groupid)
-      }
-    };
-    return -1;
   }
 
   removeHandler_Leave(id, name){
@@ -180,12 +165,13 @@ export default class GroupList extends React.Component {
               <p className={groupcss.groupname}>{group.name}</p>
               <div className={groupcss.line}></div>
               <a key={group.id} id="group" href={"./groups/" + group.id} className={groupcss.grouplist} onClick={() => this.setState({name: group.name})}>
-              {console.log("react", this.state.groups)}
+              {console.log("react", this.state)}
               {console.log("react2",this.state.mygroups)}
               {console.log("react3",this.state.mygroupIDs)}
               {console.log("userid",this.state.userid)}
+              {console.log("groupname", this.state.groupname)}
               <div className={groupcss.container}>
-                <p className={groupcss.name}>{group.name}</p>
+                <p className={groupcss.name}>{group.name+ ": " + this.state.groupname}</p>
                 <p className={groupcss.membercount}>{this.state.membercount} Student(s)</p>
               </div>
               <div className={groupcss.container}>
@@ -203,8 +189,8 @@ export default class GroupList extends React.Component {
               </div>
               <div className={groupcss.container} hidden>
                 {"groupid: " + group.id} <br/>
-                {"status: " + group.attributes.status} <br/>
-                {"members: " + group.attributes.members}
+                {"status: " + group.attributes.groups.status} <br/>
+                {"members: " + group.attributes.groups.members}
                 {"name: " + group.name}
               </div>
               </a>

@@ -189,3 +189,14 @@
   flex-direction: column;
   display: flex;
 }
+
+.buttondiv {
+  font-family: 'Exo';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 19px;
+  margin-left: 38px;
+
+  color: #000000;
+}

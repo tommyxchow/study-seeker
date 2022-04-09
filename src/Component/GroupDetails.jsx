@@ -11,13 +11,14 @@ export default class GroupDetails extends React.Component {
     this.state = {
       userid: props.userid,
       groups: [],
-      mygroups: [],
-      mygroupIDs: [],
       name: "",
+      groupname: "",
       members: [],
       rating: 0,
       membercount: 0,
-      status: ""
+      status: "",
+      postcounter: 0,
+      groupid: 0
     };
   }
 
@@ -43,11 +44,15 @@ export default class GroupDetails extends React.Component {
             this.setState({
                 isLoaded: true,
                 name: result.name,
-                status: result.attributes.status,
-                membercount: result.attributes.membercount,
-                members: result.attributes.members,
-                id: result.id
+                status: result.attributes.groups.status,
+                membercount: result.attributes.groups.membercount,
+                members: result.attributes.groups.members,
+                id: result.id,
+                postcounter: result.attributes.groups.postcounter,
+                groupid: result.attributes.groups.groupid,
+                groupname: result.attributes.groups.name
             });
+            console.log("this.state", this.state);
             }
         },
         error => {
@@ -75,9 +80,13 @@ export default class GroupDetails extends React.Component {
             id: id,
             name: name,
             attributes: {
-              members: newList,
-              status: this.state.status,
-              membercount: this.state.membercount
+              groups: {
+                groupid: this.state.groupid,
+                name: this.state.groupname,
+                members: this.state.members,
+                status: this.state.status,
+                membercount: this.state.membercount,
+                postcounter: this.state.postcounter}
             }
           })
         })
@@ -85,6 +94,7 @@ export default class GroupDetails extends React.Component {
           .then(result => console.log(result))
           .catch(error => console.log('error', error));
         this.forceUpdate();
+        window.location.reload();
       }
 
       updateStatus_private(id, name){
@@ -99,11 +109,14 @@ export default class GroupDetails extends React.Component {
             id: id,
             name: name,
             attributes: {
-              members: this.state.members,
-              status: "private",
-              membercount: this.state.membercount
-            }
-          })
+              groups: {
+                groupid: this.state.groupid,
+                name: this.state.groupname,
+                members: this.state.members,
+                status: "private",
+                membercount: this.state.membercount,
+                postcounter: this.state.postcounter}
+            }})
         })
           .then(response => response.json())
           .then(result => console.log(result))
@@ -124,11 +137,14 @@ export default class GroupDetails extends React.Component {
             id: id,
             name: name,
             attributes: {
-              members: this.state.members,
-              status: "public",
-              membercount: this.state.membercount
-            }
-          })
+              groups: {
+                groupid: this.state.groupid,
+                name: this.state.groupname,
+                members: this.state.members,
+                status: "public",
+                membercount: this.state.membercount,
+                postcounter: this.state.postcounter}
+            }})
         })
           .then(response => response.json())
           .then(result => console.log(result))
@@ -144,7 +160,7 @@ export default class GroupDetails extends React.Component {
         return(
             <>
             <div className={groupcss.div1}>
-              <div className={groupcss.groupdetailname}>{groups.name}</div>
+              <div className={groupcss.groupdetailname}>{this.state.name+ ": " + this.state.groupname}</div>
               <button className={groupcss.leavebutton} onClick={() => this.removeHandler_Leave(groups.id, groups.name)}>Leave</button>
             </div>
             <div className={groupcss.div2}>
@@ -157,11 +173,10 @@ export default class GroupDetails extends React.Component {
                   <img className={groupcss.stargroupdetails} src={starIcon} alt="star"/>
               </div>
             </div>
-            <div className={groupcss.text}>Status:</div>{groups.status}
-            <br/>
-            <button onClick={() => this.updateStatus_public(groups.id, groups.name)}>Public</button>
-            <button onClick={() => this.updateStatus_private(groups.id, groups.name)}>Private</button>
-            <div className={groupcss.text}>Members: {groups.members+""}</div>
+            <div className={groupcss.text}>Status: {groups.status}</div>
+            <button className={groupcss.buttondiv} onClick={() => this.updateStatus_public(groups.id, groups.name)}>Public</button>
+            <button className={groupcss.buttondiv} onClick={() => this.updateStatus_private(groups.id, groups.name)}>Private</button>
+            <div className={groupcss.text}>{"Members (" +groups.membercount + ")"} {groups.members+""} {this.state.userid}</div>
             </>
         )
     }
