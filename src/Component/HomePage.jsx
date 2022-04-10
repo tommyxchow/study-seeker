@@ -1,6 +1,7 @@
 import React from "react";
 import "../App.css";
-
+import style from "./HomePage.module.css";
+import img from '../assets/monalia.png'
 // the login form will display if there is no session token stored.  This will display
 // the login form, and call the API to authenticate the user and store the token in
 // the session.
@@ -17,45 +18,74 @@ export default class LoginForm extends React.Component {
   render() {
 
     return (
-        <div className="container">
-            <div className="seekerContainer">
-                <div className="header">
+        <div className={style.container}>
+            <div className={style.seekerContainer}>
+                <div className={style.header}>
                     Top Study Seekers
                 </div>
-                <div className="outterBox">
-                    <div className="leftArrow">&#8592;</div>
-                    <div className="classCard">
-                        <div className="imageContainer">
-                            <img src="" alt="" />
-                            <div className="nameContainer">
-                                <span className="name">Mona Lisa</span>
-                                <div className="stars">&#9733;&#9733;&#9733;&#9733;&#9733;(4)</div>
+                <div className={style.outterBox}>
+                    <div className={style.leftArrow}>&#8592;</div>
+                    <div className={style.classCard}>
+                        <div className={style.imageContainer}>
+                            <img src={img} alt="" className={style.profilePicture}/>
+                            <div className={style.nameContainer}>
+                                <span className={style.name}>Mona Lisa</span>
+                                <div className={style.stars}>&#9733;&#9733;&#9733;&#9733;&#9733;(4)</div>
                             </div>  
                         </div>
-                        <div className="infoContainer">
-                            <div className="schoolContainer">
-                                <span className="schoolLabel">SCHOOL</span>
-                                <span className="schoolName">University at Buffalo</span>
+                        <div className={style.infoContainer}>
+                            <div className={style.schoolContainer}>
+                                <span className={style.schoolLabel}>SCHOOL</span>
+                                <span className={style.schoolName}>University at Buffalo</span>
                             </div>
-                            <div className="majorContainer">
-                                <span className="majorLabel">MAJOR</span>
-                                <span className="majorName">Computer Scinece</span>
+                            <div className={style.majorContainer}>
+                                <span className={style.majorLabel}>MAJOR</span>
+                                <span className={style.majorName}>Computer Scinece</span>
                             </div>
-                            <div className="yearContainer">
-                                <span className="yearLabel">YEAR</span>
-                                <span className="yearName">Junior</span>
+                            <div className={style.yearContainer}>
+                                <span className={style.yearLabel}>YEAR</span>
+                                <span className={style.yearName}>Junior</span>
                             </div>
                         </div>
-                        <div className="buttonContainer">
-                            <button className="connect">Connect</button>
-                            <button className="viewProfile">View Profile</button>
+                        <div className={style.buttonContainer}>
+                            <button className={style.connect}>Connect</button>
+                            <button className={style.viewProfile}>View Profile</button>
                         </div>
                     </div>
-                    <div className="rightArrow">&#8594;</div>
+
+                    <div className={style.classCard}>
+                        <div className={style.imageContainer}>
+                            <img src={img} alt="" className={style.profilePicture}/>
+                            <div className={style.nameContainer}>
+                                <span className={style.name}>Mona Lisa</span>
+                                <div className={style.stars}>&#9733;&#9733;&#9733;&#9733;&#9733;(4)</div>
+                            </div>  
+                        </div>
+                        <div className={style.infoContainer}>
+                            <div className={style.schoolContainer}>
+                                <span className={style.schoolLabel}>SCHOOL</span>
+                                <span className={style.schoolName}>University at Buffalo</span>
+                            </div>
+                            <div className={style.majorContainer}>
+                                <span className={style.majorLabel}>MAJOR</span>
+                                <span className={style.majorName}>Computer Scinece</span>
+                            </div>
+                            <div className={style.yearContainer}>
+                                <span className={style.yearLabel}>YEAR</span>
+                                <span className={style.yearName}>Junior</span>
+                            </div>
+                        </div>
+                        <div className={style.buttonContainer}>
+                            <button className={style.connect}>Connect</button>
+                            <button className={style.viewProfile}>View Profile</button>
+                        </div>
+                    </div>
+                    
+                    <div className={style.rightArrow}>&#8594;</div>
                 </div>
             </div>
 
-            <div className="classContainer">
+            <div className={style.classContainer}>
 
             </div>
 

@@ -1,0 +1,114 @@
+.container{
+    display: flex;
+    justify-content: center;
+    /* border-style: dotted; */
+}
+.seekerContainer{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    /* border-style: dotted; */
+    width: 100%;
+}
+.header{
+font-weight: 400;
+font-size: 48px;
+/* border-style: dotted; */
+align-self: center;
+}
+.outterBox{
+    /* border-style: dotted; */
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-self: center;
+    width: 80%;
+    margin: 1rem;
+    align-items: center;
+    background-color: #907671;
+    border-radius: 20px;
+}
+.leftArrow{}
+.rightArrow{}
+.classCard{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    /* border-style: dotted; */
+    row-gap: 10px;
+    height: 22vw;
+    width: 22vw;
+    background-color: #EDE5E5;
+    border-radius: 25px;
+    margin: 1.8rem 1rem 1.8rem 1rem;
+}
+.imageContainer{
+    /* border-style: dotted; */
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+.profilePicture{
+    height: 7vw;
+    width: 7vw;
+    margin: 0rem 1rem 0rem 1rem;
+}
+.nameContainer{
+    flex-grow: 2;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+.name{
+    font-family: 'Exo';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 1.8vw;
+}
+.stars{}
+.infoContainer{
+    /* border-style: dotted; */
+    display: flex;
+    flex-direction: column;
+    row-gap: 10px;
+    padding: 0rem 1.5rem 0rem 1.5rem;
+}
+.schoolContainer, .majorContainer, .yearContainer{
+    /* border-style: dotted; */
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+.schoolLabel, .schoolName, .majorLabel, .majorName, .yearLabel, .yearName{
+    font-family: 'Exo';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 1.3vw;
+    color: rgba(0, 0, 0, 0.5);
+}
+.schoolName, .majorName, .yearName{
+    color: #000;
+    font-size: 1.1vw;
+}
+
+.buttonContainer{
+    /* border-style: dotted; */
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+.connect, .viewProfile{
+    background: #2ECC71;
+    color: #FFFFFF;
+    border: 0;
+    border-radius: 10px;
+    height: 5vh;
+    width: 8vw;
+    font-family: 'Exo';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 1.1vw;
+}
+.viewProfile{
+    background: #3498DB;
+}
