@@ -1,0 +1,10 @@
+.container {
+  padding: 3rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.form {
+  display: flex;
+  flex-direction: row;
+}

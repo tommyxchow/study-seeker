@@ -110,8 +110,7 @@
 }
 
 .profileDetails {
-  margin-left: 80px;
-  margin-top: 50px;
+  padding: 3rem;
   display: flex;
   flex-direction: row;
   align-items: center;
