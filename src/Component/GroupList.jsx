@@ -113,7 +113,7 @@ export default class GroupList extends React.Component {
                                   profilePicture: holderProfilePictures
                                 })
                               }
-                              console.log("UPDATED HOLDERPFP", this.state.profilePicture)
+                              console.log("UPDATED HOLDERPFP1", this.state.profilePicture)
                             })
                             .catch(error => console.log('error', error));
                           }
@@ -169,8 +169,7 @@ export default class GroupList extends React.Component {
                                   profilePicture: holderProfilePictures
                                 })
                               }
-                              console.log("UPDATED HOLDERPFP", this.state.profilePicture)
-
+                              console.log("UPDATED HOLDERPFP2", this.state.profilePicture)
                             })
                             .catch(error => console.log('error', error));
                           }
@@ -228,7 +227,8 @@ export default class GroupList extends React.Component {
   render() {
     //this.loadPosts();
     const {error, isLoaded, groups} = this.state;
-    const count = this.state.membercount;
+    const count = this.state.members.length;
+    console.log("4TGWEJKLNASDJK ASJKLNASDNASLKD", groups);
     if (error) {
       return <div> Error: {error.message} </div>;
     } else if (!isLoaded) {

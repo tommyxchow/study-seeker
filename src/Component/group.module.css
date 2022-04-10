@@ -215,3 +215,38 @@
   margin-right: 5px;
   display: inline-flex;
 }
+
+.profilepicturegroupdetails {
+  align-self: center;
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  margin-bottom: 5px;
+  display: inline-flex;
+
+  box-sizing: border-box;
+  filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+}
+
+.membersdiv {
+  flex-direction: column;
+  display: flex;
+  margin-left: 38px;
+}
+
+.membernames {
+  font-family: 'Exo';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 24px;
+
+  margin-top: 5px;
+
+  color: #000000;
+}
+
+.memberstardiv {
+  align-self: center;
+  margin-top: -15px;
+}
