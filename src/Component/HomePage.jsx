@@ -24,7 +24,7 @@ export default class LoginForm extends React.Component {
                     Top Study Seekers
                 </div>
                 <div className={style.outterBox}>
-                    <div className={style.leftArrow}>&#8592;</div>
+                    <div className={style.leftArrowContainer}><div className={style.leftArrow}></div></div>
                     <div className={style.studentCard}>
                         <div className={style.imageContainer}>
                             <img src={img} alt="" className={style.profilePicture}/>
@@ -80,16 +80,16 @@ export default class LoginForm extends React.Component {
                             <button className={style.viewProfile}>View Profile</button>
                         </div>
                     </div>
-                    <div className={style.rightArrow}>&#8594;</div>
+                    <div className={style.rightArrowContainer}><div className={style.rightArrow}></div></div>
                 </div>
             </div>
 
-            <div className={style.seekerContainer}>
+            <div className={style.topClassContainer}>
                 <div className={style.header}>
                     Trending Classes
                 </div>
                 <div className={style.outterBox}>
-                    <div className={style.leftArrow}>&#8592;</div>
+                    <div className={style.leftArrowContainer}><div className={style.leftArrow}></div></div>
                     <div className={style.classCard}>
                         <div className={style.className}>
                             CSE 370
@@ -100,14 +100,54 @@ export default class LoginForm extends React.Component {
                         <div className={style.studentCount}>
                             60 students
                         </div>
-                        <div className={style.studentPicture}>
+                        <div className={style.studentPictures}>
                             <img src={img} alt="" className={style.classStudentPicture}/>
                             <img src={img} alt="" className={style.classStudentPicture}/>
                             <img src={img} alt="" className={style.classStudentPicture}/>
                         </div>
-                        <button className={style.viewProfile}></button>
+                        <button className={style.viewClass}>
+                            View Class
+                        </button>
                     </div>
-                    <div className={style.rightArrow}>&#8594;</div>
+                    <div className={style.classCard}>
+                        <div className={style.className}>
+                            CSE 370
+                        </div>
+                        <div className={style.universityName}>
+                            University at Buffalo
+                        </div>
+                        <div className={style.studentCount}>
+                            60 students
+                        </div>
+                        <div className={style.studentPictures}>
+                            <img src={img} alt="" className={style.classStudentPicture}/>
+                            <img src={img} alt="" className={style.classStudentPicture}/>
+                            <img src={img} alt="" className={style.classStudentPicture}/>
+                        </div>
+                        <button className={style.viewClass}>
+                            View Class
+                        </button>
+                    </div>
+                    <div className={style.classCard}>
+                        <div className={style.className}>
+                            CSE 370
+                        </div>
+                        <div className={style.universityName}>
+                            University at Buffalo
+                        </div>
+                        <div className={style.studentCount}>
+                            60 students
+                        </div>
+                        <div className={style.studentPictures}>
+                            <img src={img} alt="" className={style.classStudentPicture}/>
+                            <img src={img} alt="" className={style.classStudentPicture}/>
+                            <img src={img} alt="" className={style.classStudentPicture}/>
+                        </div>
+                        <button className={style.viewClass}>
+                            View Class
+                        </button>
+                    </div>
+                    <div className={style.rightArrowContainer}><div className={style.rightArrow}></div></div>
                 </div>
             </div>
 

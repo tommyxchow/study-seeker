@@ -4,7 +4,7 @@
     flex-direction: column;
     /* border-style: dotted; */
 }
-.seekerContainer{
+.seekerContainer, .topClassContainer{
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -25,12 +25,35 @@
     align-self: center;
     width: 80%;
     margin: 1rem;
+    padding-left: 10px;
+    padding-right: 10px;
     align-items: center;
     background-color: #907671;
     border-radius: 20px;
 }
-.leftArrow{}
-.rightArrow{}
+
+
+.leftArrowContainer, .rightArrowContainer{
+    background-color: #EDE5E5;
+    height: 50px;
+    width: 50px;
+    border-radius: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.leftArrow, .rightArrow{
+    border: solid black;
+    border-width: 0 3px 3px 0;
+    display: inline-block;
+    padding: 3px;
+    transform: rotate(135deg);
+    -webkit-transform: rotate(135deg);
+}
+.rightArrow{
+    transform: rotate(-45deg);
+    -webkit-transform: rotate(-45deg);
+}
 .studentCard, .classCard{
     display: flex;
     flex-direction: column;
@@ -113,3 +136,53 @@
 .viewProfile{
     background: #3498DB;
 }
+
+
+.classCard{
+    height: 170px;
+    width: 160px;
+    row-gap: 5px;
+    padding: 10px 20px 10px 20px;
+    justify-content: center;
+}
+.className{
+    font-family: 'Exo';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 24px;
+}
+.universityName{
+    font-family: 'Exo';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    color: rgba(0, 0, 0, 0.5)
+}
+.studentCount{
+    font-family: 'Exo';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    color: rgba(0, 0, 0, 0.5)
+}
+.studentPictures{
+    display: flex;
+    flex-direction: row;
+    gap: 10px; 
+}
+.classStudentPicture{
+    height: 25px;
+    width: 25px;
+}
+.viewClass{
+    font-family: 'Exo';
+    font-style: normal;
+    font-size: 14px;
+    height: 35px;
+    width: 100%;
+    color: #FFFFFF;
+    background-color: #3498DB;
+    border: 0;
+    border-radius: 10px;
+}
+
