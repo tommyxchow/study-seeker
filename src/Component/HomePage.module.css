@@ -1,6 +1,7 @@
 .container{
     display: flex;
     justify-content: center;
+    flex-direction: column;
     /* border-style: dotted; */
 }
 .seekerContainer{
@@ -11,10 +12,10 @@
     width: 100%;
 }
 .header{
-font-weight: 400;
-font-size: 48px;
-/* border-style: dotted; */
-align-self: center;
+    font-weight: 400;
+    font-size: 48px;
+    /* border-style: dotted; */
+    align-self: center;
 }
 .outterBox{
     /* border-style: dotted; */
@@ -30,7 +31,7 @@ align-self: center;
 }
 .leftArrow{}
 .rightArrow{}
-.classCard{
+.studentCard, .classCard{
     display: flex;
     flex-direction: column;
     justify-content: center;
