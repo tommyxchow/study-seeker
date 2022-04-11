@@ -554,8 +554,8 @@ export default class Profile extends React.Component {
               </>
             )}
           </div>
-          {!this.state.profile && <Reviews userId={this.props.profileid} />}
         </div>
+        {!this.state.profile && <Reviews userId={this.props.profileid} />}
       </div>
     );
   }
