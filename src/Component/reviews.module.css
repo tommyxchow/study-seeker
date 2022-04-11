@@ -2,16 +2,24 @@
   padding: 3rem;
   display: flex;
   flex-direction: column;
+  width: 100%;
 }
 
 .form {
   display: flex;
   flex-direction: row;
+  align-items: center;
+}
+
+.profilePicture {
+  width: 50px;
+  margin-left: 1rem;
 }
 
 .input {
   margin-left: 1rem;
   width: 100%;
+  border-width: 3px;
 }
 
 .postButton {
@@ -20,8 +28,7 @@
   color: white;
   font-family: 'Exo';
   font-weight: bold;
-  padding-left: 2rem;
-  padding-right: 2rem;
+  padding: 0.5rem 2rem 0.5rem 2rem;
   border-radius: 10px;
   margin-left: 1rem;
 }

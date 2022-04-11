@@ -10,10 +10,28 @@ export default class Reviews extends Component {
     this.state = {
       existingReview: null,
       rating: 5,
+      profilePicture:
+        "/hci/api/uploads/files/DOo1Ebbt8dYT4-plb6G6NP5jIc9_l_gNlaYwPW4SaBM.png",
     };
   }
 
   componentDidMount() {
+    fetch(
+      process.env.REACT_APP_API_PATH +
+        "/users/" +
+        sessionStorage.getItem("user"),
+      {
+        method: "GET",
+        headers: {
+          Authorization: "Bearer " + sessionStorage.getItem("token"),
+        },
+      }
+    )
+      .then((res) => res.json())
+      .then((result) =>
+        this.setState({ profilePicture: result.attributes.profilePicture })
+      );
+
     fetch(
       process.env.REACT_APP_API_PATH +
         "/posts?recipientUserID=" +
@@ -98,6 +116,11 @@ export default class Reviews extends Component {
               }
             />
           ))}
+          <img
+            className={styles.profilePicture}
+            src={"https://webdev.cse.buffalo.edu" + this.state.profilePicture}
+            alt="Profile Pic"
+          />
           <input
             className={styles.input}
             name="review"
