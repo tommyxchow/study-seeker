@@ -23,6 +23,10 @@
   text-decoration: none;
 }
 
+.between {
+  margin-bottom: 15px;
+}
+
 .home {
   font-family: Exo;
   font-style: normal;

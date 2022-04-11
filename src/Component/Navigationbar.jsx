@@ -1,6 +1,7 @@
 import React from "react";
 import "../App.css";
 import styles from "./nav.module.css";
+import {Link} from "react-router-dom";
 
 /* The Navbar class provides navigation through react router anks.  Note the callback
    to the parent app class in the last entry... this is an example of calang a function
@@ -9,28 +10,41 @@ class Navigationbar extends React.Component {
   render() {
     return (
       <div className={styles.sidenav}>
-        <a href="./" className={styles.home}>
+        <a href="/" className={styles.home}>
           Home
         </a>
-        <a href="./" className={styles.search}>
-          Search
+        <div className={styles.between}/>
+        <a href= "/">
+          <div className={styles.search}>
+            Search
+          </div>
         </a>
-        <a href="./profile" className={styles.profile}>
-          Profile
+        <div className={styles.between}/>
+        <a href="/profile">
+          <div className={styles.profile}>
+            Profile
+          </div>
         </a>
-        <a href="./posts" className={styles.groups}>
-          Groups
+        <div className={styles.between}/>
+        <a href="/groups">
+          <div className={styles.groups}>
+            Groups
+          </div>
         </a>
-        <a href="./connections" className={styles.connections}>
-          Connections
+        <div className={styles.between}/>
+        <a href="/connections">
+          <div className={styles.connections}>
+            Connections
+          </div>
         </a>
         <div className={styles.spacer}></div>
-        <a
-          onClick={this.props.logout}
-          href="./login"
-          className={styles.logouttext}
-        >
-          Logout
+        <a href="/login">
+          <div
+            onClick={this.props.logout}
+            className={styles.logouttext}
+          >
+            Logout
+          </div>
         </a>
       </div>
     );
