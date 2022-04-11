@@ -3,7 +3,7 @@ import starEmpty from "../assets/star-empty.png";
 import starFilled from "../assets/star-filled.png";
 import styles from "./reviews.module.css";
 
-export default class Reviews extends Component {
+export default class ReviewForm extends Component {
   constructor(props) {
     super(props);
 
@@ -35,7 +35,7 @@ export default class Reviews extends Component {
     fetch(
       process.env.REACT_APP_API_PATH +
         "/posts?recipientUserID=" +
-        this.props.userId +
+        this.props.profileId +
         "&attributes=" +
         encodeURIComponent(
           JSON.stringify({
@@ -83,7 +83,7 @@ export default class Reviews extends Component {
         body: JSON.stringify({
           authorID: sessionStorage.getItem("user"),
           content: event.target.review.value,
-          recipientUserID: this.props.userId,
+          recipientUserID: this.props.profileId,
           attributes: {
             review: true,
             rating: this.state.rating,
@@ -92,7 +92,8 @@ export default class Reviews extends Component {
       }
     )
       .then((res) => res.json())
-      .then((result) => this.setState({ existingReview: result }));
+      .then((result) => this.setState({ existingReview: result }))
+      .then(this.props.refreshPosts);
   };
 
   render() {

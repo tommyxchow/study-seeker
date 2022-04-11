@@ -17,6 +17,7 @@ import "./App.css";
 import ForgotPasswordPage from "./Component/ForgotPassword.jsx";
 import FriendForm from "./Component/FriendForm.jsx";
 import FriendList from "./Component/FriendList.jsx";
+import GroupsDetails from "./Component/GroupDetails.jsx";
 import GroupList from "./Component/GroupList.jsx";
 import LandingPage from "./Component/LandingPage.jsx";
 import LoginPage from "./Component/LoginForm.jsx";
@@ -26,8 +27,6 @@ import PostForm from "./Component/PostForm.jsx";
 import Profile from "./Component/Profile.jsx";
 import Registration from "./Component/Registration.jsx";
 import StyleGuide from "./Component/StyleGuide.jsx";
-import DisplyReviews from "./Component/DisplayReviews.jsx";
-import GroupsDetails from "./Component/GroupDetails.jsx";
 
 // toggleModal will both show and hide the modal dialog, depending on current state.  Note that the
 // contents of the modal dialog are set separately before calling toggle - this is just responsible
@@ -165,7 +164,7 @@ class App extends React.Component {
                     path="/connections"
                     element={<Connections login={this.login} />}
                   />
-                  
+
                   <Route
                     path="/"
                     element={
@@ -216,8 +215,6 @@ const ProfilePage = (props) => {
   return (
     <div className="Profile">
       <Profile userid={user_id} profileid={id} />
-      <p className="reviewtextalign">Reviews</p>
-      <DisplyReviews userid={user_id} profileid={id} />
     </div>
   );
 };
@@ -294,7 +291,11 @@ const Posts = (props) => {
     console.log("LOGGED IN");
     return (
       <div>
-        <PostForm refresh={props.apprefresh} userid={Number(sessionStorage.getItem("user"))} classId={id}/>
+        <PostForm
+          refresh={props.apprefresh}
+          userid={Number(sessionStorage.getItem("user"))}
+          classId={id}
+        />
       </div>
     );
   }

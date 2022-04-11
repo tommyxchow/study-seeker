@@ -5,8 +5,8 @@ import emailLogo from "../assets/email.png";
 import settingsLogo from "../assets/gear.png";
 import yearLogo from "../assets/goal.png";
 import privacyLogo from "../assets/privacy.png";
+import Reviews from "./DisplayReviews";
 import styles from "./profile.module.css";
-import Reviews from "./Reviews";
 
 // The Profile component shows data from the user table.  This is set up fairly generically to allow for you to customize
 // user data by adding it to the attributes for each user, which is just a set of name value pairs that you can add things to
@@ -555,7 +555,7 @@ export default class Profile extends React.Component {
             )}
           </div>
         </div>
-        {!this.state.profile && <Reviews userId={this.props.profileid} />}
+        {!this.state.profile && <Reviews profileId={this.props.profileid} />}
       </div>
     );
   }
