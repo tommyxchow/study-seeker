@@ -50,9 +50,10 @@ export default class GroupDetails extends React.Component {
                 membercount: result.attributes.groups.membercount,
                 members: result.attributes.groups.members,
                 id: result.id,
-                postcounter: result.attributes.groups.postcounter,
+                postcounter: result.attributes.postcounter,
                 groupid: result.attributes.groups.groupid,
-                groupname: result.attributes.groups.name
+                groupname: result.attributes.groups.name,
+                rating: result.attributes.groups.rating
             });
             console.log("this.state", this.state);
             }
@@ -115,7 +116,7 @@ export default class GroupDetails extends React.Component {
         console.log(name);
         const newList = this.state.members.filter(userid => userid !== Number(this.state.userid));
         console.log(newList);
-        fetch(process.env.REACT_APP_API_PATH + window.location.pathname, {
+        fetch("https://webdev.cse.buffalo.edu/hci/api/api/commitment/groups/" + id, {
           method: "PATCH",
           headers: {
             "accept": "*/*",
@@ -129,10 +130,11 @@ export default class GroupDetails extends React.Component {
               groups: {
                 groupid: this.state.groupid,
                 name: this.state.groupname,
-                members: this.state.members,
+                members: newList,
                 status: this.state.status,
-                membercount: this.state.membercount,
-                postcounter: this.state.postcounter}
+                membercount: this.state.membercount - 1
+              },
+                postcounter: this.state.postcounter
             }
           })
         })
@@ -161,7 +163,8 @@ export default class GroupDetails extends React.Component {
                 members: this.state.members,
                 status: "private",
                 membercount: this.state.membercount,
-                postcounter: this.state.postcounter}
+                },
+                postcounter: this.state.postcounter
             }})
         })
           .then(response => response.json())
@@ -188,8 +191,9 @@ export default class GroupDetails extends React.Component {
                 name: this.state.groupname,
                 members: this.state.members,
                 status: "public",
-                membercount: this.state.membercount,
-                postcounter: this.state.postcounter}
+                membercount: this.state.membercount
+              },
+                postcounter: this.state.postcounter
             }})
         })
           .then(response => response.json())

@@ -15,7 +15,10 @@ export default class GroupList extends React.Component {
       rating: 0,
       membercount: 0,
       status: "",
-      profilePicture: []
+      postcounter: 0,
+      publicProfilePicture: [],
+      privateProfilePicture: [],
+      groupid: 0
     };
   }
 
@@ -53,28 +56,29 @@ export default class GroupList extends React.Component {
             .then(
               result2 => {
                 if (result2) {
-                  let holderProfilePictures = [];
                   let holdergroup = [];
-                  console.log("result2", result2);
-                  console.log("result2[0] length", result2[0].length);
+                  console.log("result212312321", result2);
                   for(var i = 0; i < result2[0].length; i++) {
                     console.log(i);
                     // console.log("result2[0][i].attributes.groups.status",result2[0][i].attributes.groups.status)
                     if(result2[0][i].attributes.groups === undefined){
                       console.log("incorrect format")
-                      console.log("api call", result2[0][i])
                       continue
                     }
                     if(result2[0][i].attributes.groups.status === "private"){
                       for(var j = 0; j < result2[0][i].attributes.groups.members.length; j++){
                         if(result2[0][i].attributes.groups.members[j] === Number(this.state.userid)){
-                          this.setState({id: result2[0][i].id});
-                          this.setState({groupname: result2[0][i].attributes.groups.name})
-                          this.setState({name: result2[0][i].name});
-                          this.setState({members: result2[0][i].attributes.groups.members});
-                          this.setState({membercount: this.state.members.length});
-                          this.setState({rating: result2[0][i].attributes.groups.rating});
-                          this.setState({status: result2[0][i].attributes.groups.status});
+                          this.setState({
+                            name: result2[0][i].name,
+                            status: result2[0][i].attributes.groups.status,
+                            membercount: result2[0][i].attributes.groups.membercount,
+                            members: result2[0][i].attributes.groups.members,
+                            id: result2[0][i].id,
+                            postcounter: result2[0][i].attributes.postcounter,
+                            groupid: result2[0][i].attributes.groups.groupid,
+                            groupname: result2[0][i].attributes.groups.name,
+                            rating: result2[0][i].attributes.groups.rating
+                          });
                           console.log("id: ", this.state.id, ", name: ", this.state.name, ", members: ", this.state.members, ", membercount: ", this.state.membercount, ", rating: ", this.state.rating, ", status: ", this.state.status, ", groupname: ", this.state.groupname);
                           holdergroup.push(result2[0][i]);
                           console.log(holdergroup);
@@ -85,6 +89,7 @@ export default class GroupList extends React.Component {
                         if(this.state.membercount !== 0){
                           console.log("we in business private");
                           console.log(this.state.membercount);
+                          let holderPrivatePictures = [];
                           for(var a = 0; a < this.state.membercount; a++){
                             console.log(this.state.members[a]);
                             fetch(process.env.REACT_APP_API_PATH+"/users/"+this.state.members[a], {
@@ -96,24 +101,26 @@ export default class GroupList extends React.Component {
                             })
                             .then(response => response.json())
                             .then(result => {
-                              if(!result.attributes.profilePicture && !holderProfilePictures.includes("/hci/api/uploads/files/DOo1Ebbt8dYT4-plb6G6NP5jIc9_l_gNlaYwPW4SaBM.png")){
-                                holderProfilePictures.push("/hci/api/uploads/files/DOo1Ebbt8dYT4-plb6G6NP5jIc9_l_gNlaYwPW4SaBM.png");
+                              if(!result.attributes.profilePicture && !holderPrivatePictures.includes("/hci/api/uploads/files/DOo1Ebbt8dYT4-plb6G6NP5jIc9_l_gNlaYwPW4SaBM.png")){
+                                holderPrivatePictures.push("/hci/api/uploads/files/DOo1Ebbt8dYT4-plb6G6NP5jIc9_l_gNlaYwPW4SaBM.png");
                                 console.log("conditional 1");
-                                console.log(holderProfilePictures);
+                                console.log(holderPrivatePictures);
                                 this.setState({
-                                  profilePicture: holderProfilePictures
+                                  privateProfilePicture: holderPrivatePictures
                                 })
+                                this.forceUpdate();
                               }
-                              if(result.attributes.profilePicture && !holderProfilePictures.includes(result.attributes.profilePicture)){
+                              else if(result.attributes.profilePicture && !holderPrivatePictures.includes(result.attributes.profilePicture)){
                                 console.log(this.state.members);
-                                holderProfilePictures.push(result.attributes.profilePicture);
+                                holderPrivatePictures.push(result.attributes.profilePicture);
                                 console.log("conditional 2");
-                                console.log(holderProfilePictures);
+                                console.log(holderPrivatePictures);
                                 this.setState({
-                                  profilePicture: holderProfilePictures
+                                  privateProfilePicture: holderPrivatePictures
                                 })
+                                this.forceUpdate();
                               }
-                              console.log("UPDATED HOLDERPFP1", this.state.profilePicture)
+                              console.log("UPDATED HOLDERPFP1", this.state.privateProfilePicture)
                             })
                             .catch(error => console.log('error', error));
                           }
@@ -123,13 +130,17 @@ export default class GroupList extends React.Component {
                     else if(result2[0][i].attributes.groups.status === "public"){
                       for(var k = 0; k < result2[0][i].attributes.groups.members.length; k++){
                         if(result2[0][i].attributes.groups.members[k] === Number(this.state.userid)){
-                          this.setState({id: result2[0][i].id});
-                          this.setState({groupname: result2[0][i].attributes.groups.name})
-                          this.setState({name: result2[0][i].name});
-                          this.setState({members: result2[0][i].attributes.groups.members});
-                          this.setState({membercount: this.state.members.length});
-                          this.setState({rating: result2[0][i].attributes.groups.rating});
-                          this.setState({status: result2[0][i].attributes.groups.status});
+                          this.setState({
+                            name: result2[0][i].name,
+                            status: result2[0][i].attributes.groups.status,
+                            membercount: result2[0][i].attributes.groups.membercount,
+                            members: result2[0][i].attributes.groups.members,
+                            id: result2[0][i].id,
+                            postcounter: result2[0][i].attributes.postcounter,
+                            groupid: result2[0][i].attributes.groups.groupid,
+                            groupname: result2[0][i].attributes.groups.name,
+                            rating: result2[0][i].attributes.groups.rating
+                          });
                           holdergroup.push(result2[0][i]);
                           console.log("id: ", this.state.id, ", name: ", this.state.name, ", members: ", this.state.members, ", membercount: ", this.state.membercount, ", rating: ", this.state.rating, ", status: ", this.state.status, ", groupname: ", this.state.groupname);
                           console.log(holdergroup);
@@ -138,6 +149,7 @@ export default class GroupList extends React.Component {
                           });
                         }
                         if(this.state.membercount !== 0){
+                          let holderPublicPictures = [];
                           console.log("we in business public");
                           console.log(this.state.membercount);
                           for(var b = 0; b < this.state.membercount; b++){
@@ -151,25 +163,27 @@ export default class GroupList extends React.Component {
                             })
                             .then(response => response.json())
                             .then(result => {
-                              if(!result.attributes.profilePicture && !holderProfilePictures.includes("/hci/api/uploads/files/DOo1Ebbt8dYT4-plb6G6NP5jIc9_l_gNlaYwPW4SaBM.png")){
+                              if(!result.attributes.profilePicture && !holderPublicPictures.includes("/hci/api/uploads/files/DOo1Ebbt8dYT4-plb6G6NP5jIc9_l_gNlaYwPW4SaBM.png")){
                                 console.log(this.state.members);
-                                holderProfilePictures.push("/hci/api/uploads/files/DOo1Ebbt8dYT4-plb6G6NP5jIc9_l_gNlaYwPW4SaBM.png");
+                                holderPublicPictures.push("/hci/api/uploads/files/DOo1Ebbt8dYT4-plb6G6NP5jIc9_l_gNlaYwPW4SaBM.png");
                                 console.log("conditional 3");
-                                console.log(holderProfilePictures);
+                                console.log(holderPublicPictures);
                                 this.setState({
-                                  profilePicture: holderProfilePictures
-                                })
+                                  publicProfilePicture: holderPublicPictures
+                                });
+                                this.forceUpdate();
                               }
-                              if(result.attributes.profilePicture && !holderProfilePictures.includes(result.attributes.profilePicture)){
+                              else if(result.attributes.profilePicture && !holderPublicPictures.includes(result.attributes.profilePicture)){
                                 console.log(this.state.members);
-                                holderProfilePictures.push(result.attributes.profilePicture);
+                                holderPublicPictures.push(result.attributes.profilePicture);
                                 console.log("conditional 4");
-                                console.log(holderProfilePictures);
+                                console.log(holderPublicPictures);
                                 this.setState({
-                                  profilePicture: holderProfilePictures
-                                })
+                                  publicProfilePicture: holderPublicPictures
+                                });
+                                this.forceUpdate();
                               }
-                              console.log("UPDATED HOLDERPFP2", this.state.profilePicture)
+                              console.log("UPDATED HOLDERPFP2", this.state.publicProfilePicture)
                             })
                             .catch(error => console.log('error', error));
                           }
@@ -212,9 +226,14 @@ export default class GroupList extends React.Component {
         id: id,
         name: name,
         attributes: {
-          members: newList,
-          status: this.state.status,
-          membercount: this.state.membercount
+          groups: {
+            groupid: this.state.groupid,
+            name: this.state.groupname,
+            members: newList,
+            status: this.state.status,
+            membercount: this.state.membercount -1
+          },
+          postcounter: this.state.postcounter
         }
       })
     })
@@ -222,6 +241,7 @@ export default class GroupList extends React.Component {
       .then(result => console.log(result))
       .catch(error => console.log('error', error));
     this.forceUpdate();
+    window.location.reload();
   }
 
   render() {
@@ -229,6 +249,7 @@ export default class GroupList extends React.Component {
     const {error, isLoaded, groups} = this.state;
     const count = this.state.members.length;
     console.log("4TGWEJKLNASDJK ASJKLNASDNASLKD", groups);
+    console.log("count", count);
     if (error) {
       return <div> Error: {error.message} </div>;
     } else if (!isLoaded) {
@@ -242,24 +263,47 @@ export default class GroupList extends React.Component {
               <p className={groupcss.groupname}>{group.name}</p>
               <div className={groupcss.line}></div>
               <a key={group.id} id="group" href={"./groups/" + group.id} className={groupcss.grouplist} onClick={() => this.setState({name: group.name})}>
-              {console.log("react", this.state)}
-              {console.log("react2",this.state.profilePicture)}
+              {console.log("react", group)}
+              {console.log("pfp",this.state.privateProfilePicture)}
               {console.log("userid",this.state.userid)}
               {console.log("groupname", this.state.groupname)}
               <div className={groupcss.container}>
                 <p className={groupcss.name}>{group.name+ ": " + this.state.groupname}</p>
-                <p className={groupcss.membercount}>{this.state.membercount} Student(s)</p>
+                <p className={groupcss.membercount}>{group.attributes.groups.membercount} Student(s)</p>
               </div>
               <div className={groupcss.container}>
                 <p className={groupcss.students}>Student(s)</p>
-                  {count >= 1 &&
-                    <img className={groupcss.profilepicture} src={"https://webdev.cse.buffalo.edu"+ this.state.profilePicture[0]} alt="user profile 1"/>
+                  {group.attributes.groups.status === "public" && group.attributes.groups.membercount === 1 &&
+                    <img className={groupcss.profilepicture} src={"https://webdev.cse.buffalo.edu"+ this.state.publicProfilePicture[0]} alt="user profile 1"/>
                   }
-                  {count >= 2 &&
-                    <img className={groupcss.profilepicture} src={"https://webdev.cse.buffalo.edu"+ this.state.profilePicture[1]} alt="user profile 2"/>
+                  {group.attributes.groups.status === "public" && group.attributes.groups.membercount === 2 &&
+                    <>
+                      <img className={groupcss.profilepicture} src={"https://webdev.cse.buffalo.edu"+ this.state.publicProfilePicture[0]} alt="user profile 1"/>
+                      <img className={groupcss.profilepicture} src={"https://webdev.cse.buffalo.edu"+ this.state.publicProfilePicture[1]} alt="user profile 2"/>
+                    </>
                   }
-                  {count >= 3 &&
-                    <img className={groupcss.profilepicture} src={"https://webdev.cse.buffalo.edu"+ this.state.profilePicture[2]} alt="user profile 3"/>
+                  {group.attributes.groups.status === "public" && (group.attributes.groups.membercount === 3 || group.attributes.groups.membercount > 3) &&
+                  <>
+                    <img className={groupcss.profilepicture} src={"https://webdev.cse.buffalo.edu"+ this.state.publicProfilePicture[0]} alt="user profile 2"/>
+                    <img className={groupcss.profilepicture} src={"https://webdev.cse.buffalo.edu"+ this.state.publicProfilePicture[1]} alt="user profile 2"/>
+                    <img className={groupcss.profilepicture} src={"https://webdev.cse.buffalo.edu"+ this.state.publicProfilePicture[2]} alt="user profile 3"/>
+                  </>
+                  }
+                  {group.attributes.groups.status === "private" && group.attributes.groups.membercount === 1 &&
+                    <img className={groupcss.profilepicture} src={"https://webdev.cse.buffalo.edu"+ this.state.privateProfilePicture[0]} alt="user profile 1"/>
+                  }
+                  {group.attributes.groups.status === "private" && group.attributes.groups.membercount === 2 &&
+                    <>
+                      <img className={groupcss.profilepicture} src={"https://webdev.cse.buffalo.edu"+ this.state.privateProfilePicture[0]} alt="user profile 1"/>
+                      <img className={groupcss.profilepicture} src={"https://webdev.cse.buffalo.edu"+ this.state.privateProfilePicture[1]} alt="user profile 2"/>
+                    </>
+                  }
+                  {group.attributes.groups.status === "private" && (group.attributes.groups.membercount === 3 || group.attributes.groups.membercount > 3) &&
+                  <>
+                    <img className={groupcss.profilepicture} src={"https://webdev.cse.buffalo.edu"+ this.state.privateProfilePicture[0]} alt="user profile 2"/>
+                    <img className={groupcss.profilepicture} src={"https://webdev.cse.buffalo.edu"+ this.state.privateProfilePicture[1]} alt="user profile 2"/>
+                    <img className={groupcss.profilepicture} src={"https://webdev.cse.buffalo.edu"+ this.state.privateProfilePicture[2]} alt="user profile 3"/>
+                  </>
                   }
               </div>
               <div className={groupcss.container}>
