@@ -37,16 +37,16 @@
     font-weight: 700;
     font-size: 24px;
 }
-.aboutHeader, .studentHeader, .alumniHeader, .postsHeader{
+.aboutHeader, .studentHeader, .alumniHeader, .postsHeader, .groupsHeader{
     display: flex;
     flex-direction:column;
 }
-.aboutLine, .studentLine, .alumniLine, .postsLine{
+.aboutLine, .studentLine, .alumniLine, .postsLine, .groupsLine{
     display: flex;
     justify-content: space-between;
     align-items:baseline;
 }
-.about, .student, .alumni, .posts{
+.about, .student, .alumni, .posts, .groups{
     font-style: normal;
     font-weight: 400;
     font-size: 36px;

@@ -21,6 +21,7 @@ export default class PostForm extends React.Component {
       Spring_2021:false,
       post: false,
       join: false,
+      groups: false,
       current_members: []
     };
     this.postListing = React.createRef();
@@ -337,6 +338,17 @@ export default class PostForm extends React.Component {
           <hr className={style.horizontalLine}/>{this.state.post && 
             <ClassPosts classId={this.props.classId} userid={this.props.userid}/>
           }
+        </div>
+
+        <div className={style.groupsHeader}>
+          <div className={style.groupsLine}>
+            <div className={style.groups}>Groups</div>
+          <div className={style.arrow} onClick={()=>this.setState({groups:!this.state.groups})}>
+              {this.state.groups?<>&#x2191;</>:<>&#x2193;</>}
+            </div>
+          </div>
+          <hr className={style.horizontalLine}/>{this.state.groups 
+            }
         </div>
       </div>
     );
