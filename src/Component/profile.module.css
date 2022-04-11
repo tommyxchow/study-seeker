@@ -37,6 +37,7 @@
 
 
 .profilePicture {
+  object-fit: cover;
   width: 150px;
   height: 150px;
   border: 5px solid #ffffff;
@@ -110,8 +111,7 @@
 }
 
 .profileDetails {
-  margin-left: 80px;
-  margin-top: 50px;
+  padding: 3rem;
   display: flex;
   flex-direction: row;
   align-items: center;
