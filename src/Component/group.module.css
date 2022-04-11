@@ -132,7 +132,7 @@
   border-radius: 25px;
   display: inline-block;
   align-self: center;
-  margin-top: 31px;
+  margin-bottom: 55px;
 }
 
 .star{
@@ -250,4 +250,9 @@
 .memberstardiv {
   align-self: center;
   margin-top: -15px;
+}
+
+.groupdiv {
+  flex-direction: row;
+  display: flex;
 }

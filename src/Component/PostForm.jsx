@@ -4,6 +4,7 @@ import PostingList from "./PostingList.jsx";
 import style from "./postform.module.css";
 import yearLogo from "../assets/goal.png";
 import ClassPosts from "./ClassPosts";
+import Groups from "./ClassGroups";
 
 
 // The post form component holds both a form for posting, and also the list of current posts in your feed.  This is primarily to 
@@ -26,7 +27,6 @@ export default class PostForm extends React.Component {
     };
     this.postListing = React.createRef();
   }
-
 
   createFetch(path, method, body) {
     const supplyPath = process.env.REACT_APP_API_PATH + path;
@@ -347,7 +347,8 @@ export default class PostForm extends React.Component {
               {this.state.groups?<>&#x2191;</>:<>&#x2193;</>}
             </div>
           </div>
-          <hr className={style.horizontalLine}/>{this.state.groups 
+          <hr className={style.horizontalLine}/>{this.state.groups &&
+            <Groups userid={this.props.userid}/>
             }
         </div>
       </div>

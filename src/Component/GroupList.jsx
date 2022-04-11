@@ -262,6 +262,7 @@ export default class GroupList extends React.Component {
               <>
               <p className={groupcss.groupname}>{group.name}</p>
               <div className={groupcss.line}></div>
+              <div className= {groupcss.groupdiv}>
               <a key={group.id} id="group" href={"./groups/" + group.id} className={groupcss.grouplist} onClick={() => this.setState({name: group.name})}>
               {console.log("react", group)}
               {console.log("pfp",this.state.privateProfilePicture)}
@@ -324,6 +325,9 @@ export default class GroupList extends React.Component {
               </div>
               </a>
               <button className={groupcss.leavebutton} onClick={() => this.removeHandler_Leave(group.id, group.name)}>Leave</button>
+
+              </div>
+              {/* <button className={groupcss.leavebutton} onClick={() => this.removeHandler_Leave(group.id, group.name)}>Leave</button> */}
               </>
             ))}
         </div>
