@@ -703,3 +703,9 @@ body{
   overflow-y: scroll;
   overflow-x: hidden;
 }
+
+/*-------mel's code for review UI--------*/
+.reviewtextalign{
+  margin-left: 50px;
+  font-size: xx-large;
+}

@@ -26,6 +26,7 @@ import PostForm from "./Component/PostForm.jsx";
 import Profile from "./Component/Profile.jsx";
 import Registration from "./Component/Registration.jsx";
 import StyleGuide from "./Component/StyleGuide.jsx";
+import DisplyReviews from "./Component/DisplayReviews.jsx";
 
 // toggleModal will both show and hide the modal dialog, depending on current state.  Note that the
 // contents of the modal dialog are set separately before calling toggle - this is just responsible
@@ -210,6 +211,8 @@ const ProfilePage = (props) => {
   return (
     <div className="Profile">
       <Profile userid={user_id} profileid={id} />
+      <p className="reviewtextalign">Reviews</p>
+      <DisplyReviews userid={user_id} profileid={id} />
     </div>
   );
 };
