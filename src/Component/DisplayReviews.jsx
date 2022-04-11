@@ -62,17 +62,17 @@ export default class Reviews extends Component {
     this.setState({
       star: [],
     });
-    if (rating == 1) {
+    if (rating === 1) {
       this.setState({
         star: [litStar, starIcon, starIcon, starIcon, starIcon],
       });
-    } else if (rating == 2) {
+    } else if (rating === 2) {
       this.setState({ star: [litStar, litStar, starIcon, starIcon, starIcon] });
-    } else if (rating == 3) {
+    } else if (rating === 3) {
       this.setState({ star: [litStar, litStar, litStar, starIcon, starIcon] });
-    } else if (rating == 4) {
+    } else if (rating === 4) {
       this.setState({ star: [litStar, litStar, litStar, litStar, starIcon] });
-    } else if (rating == 5) {
+    } else if (rating === 5) {
       this.setState({ star: [litStar, litStar, litStar, litStar, litStar] });
     } else {
       this.setState({
@@ -137,7 +137,15 @@ export default class Reviews extends Component {
     if (error) {
       return <div> Error: {error.message} </div>;
     } else if (!isLoaded) {
-      return <div> Loading... </div>;
+      return (
+        <div>
+          <ReviewForm
+            profileId={this.props.profileId}
+            refreshPosts={() => this.loadFriends()}
+          />
+          <div style={{ padding: "3rem" }}>No reviews yet!</div>
+        </div>
+      );
     } else {
       return (
         <div>
@@ -153,7 +161,7 @@ export default class Reviews extends Component {
                     <div className={styles.maincontainer}>
                       <div>
                         <div className={styles.stars}>
-                          {post.attributes.rating == 0 && (
+                          {post.attributes.rating === 0 && (
                             <>
                               <img
                                 className={styles.star1}
@@ -182,7 +190,7 @@ export default class Reviews extends Component {
                               />
                             </>
                           )}
-                          {post.attributes.rating == 1 && (
+                          {post.attributes.rating === 1 && (
                             <>
                               <img
                                 className={styles.star1}
@@ -211,7 +219,7 @@ export default class Reviews extends Component {
                               />
                             </>
                           )}
-                          {post.attributes.rating == 2 && (
+                          {post.attributes.rating === 2 && (
                             <>
                               <img
                                 className={styles.star1}
@@ -240,7 +248,7 @@ export default class Reviews extends Component {
                               />
                             </>
                           )}
-                          {post.attributes.rating == 3 && (
+                          {post.attributes.rating === 3 && (
                             <>
                               <img
                                 className={styles.star1}
@@ -269,7 +277,7 @@ export default class Reviews extends Component {
                               />
                             </>
                           )}
-                          {post.attributes.rating == 4 && (
+                          {post.attributes.rating === 4 && (
                             <>
                               <img
                                 className={styles.star1}
@@ -298,7 +306,7 @@ export default class Reviews extends Component {
                               />
                             </>
                           )}
-                          {post.attributes.rating == 5 && (
+                          {post.attributes.rating === 5 && (
                             <>
                               <img
                                 className={styles.star1}
@@ -336,6 +344,7 @@ export default class Reviews extends Component {
                             post.author.attributes.profilePicture
                           }
                           className={styles.picturecircle}
+                          alt="Reviewer Profile Pic"
                         ></img>
                       </div>
                       <div>
