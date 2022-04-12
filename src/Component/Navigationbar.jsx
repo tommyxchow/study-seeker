@@ -14,8 +14,8 @@ class Navigationbar extends React.Component {
 
         <Link to="/home" className={styles.home}>
           Home
-        </Link>
-        <a href="./" className={styles.search}>
+        </a>
+        <a href="./search" className={styles.search}>
           Search
 
         <a href="/" className={styles.home}>
