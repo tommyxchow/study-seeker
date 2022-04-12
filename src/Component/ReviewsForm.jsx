@@ -99,7 +99,6 @@ export default class ReviewForm extends Component {
   render() {
     return (
       <div className={styles.container}>
-        <p>Reviews</p>
         <form className={styles.form} onSubmit={this.submitHandler}>
           {[...Array(this.state.rating)].map((x, i) => (
             <img

@@ -139,20 +139,26 @@ export default class Reviews extends Component {
     } else if (!isLoaded) {
       return (
         <div>
-          <ReviewForm
-            profileId={this.props.profileId}
-            refreshPosts={() => this.loadFriends()}
-          />
+          <p className={styles.reviewtextalign}>Reviews</p>
+          {this.state.userid !== this.props.profileId && (
+            <ReviewForm
+              profileId={this.props.profileId}
+              refreshPosts={() => this.loadFriends()}
+            />
+          )}
           <div style={{ padding: "3rem" }}>No reviews yet!</div>
         </div>
       );
     } else {
       return (
         <div>
-          <ReviewForm
-            profileId={this.props.profileId}
-            refreshPosts={() => this.loadFriends()}
-          />
+          <p className={styles.reviewtextalign}>Reviews</p>
+          {this.state.userid !== this.props.profileId && (
+            <ReviewForm
+              profileId={this.props.profileId}
+              refreshPosts={() => this.loadFriends()}
+            />
+          )}
           <ul>
             {posts.map((post) => (
               <div key={post.id} className={styles.userlist}>
