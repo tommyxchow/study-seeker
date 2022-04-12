@@ -100,6 +100,9 @@ export default class HomePage extends React.Component {
     this.setState({display_classes: [this.state.display_classes[1], this.state.display_classes[2], this.state.display_classes[2]+1]});
   }
 
+
+  
+
   render() {
     return (
         <div className={style.container}>

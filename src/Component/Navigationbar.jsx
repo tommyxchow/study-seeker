@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import "../App.css";
 import styles from "./nav.module.css";
 
@@ -9,9 +10,9 @@ class Navigationbar extends React.Component {
   render() {
     return (
       <div className={styles.sidenav}>
-        <a href="./" className={styles.home}>
+        <Link to="/home" className={styles.home}>
           Home
-        </a>
+        </Link>
         <a href="./" className={styles.search}>
           Search
         </a>
