@@ -16,6 +16,7 @@ export default class GroupList extends React.Component {
       membercount: 0,
       status: "",
       postcounter: 0,
+      classmembercounter: 0,
       publicProfilePicture: [],
       privateProfilePicture: [],
       groupid: 0
@@ -58,7 +59,7 @@ export default class GroupList extends React.Component {
                 if (result2) {
                   let holdergroup = [];
                   for(var i = 0; i < result2[0].length; i++) {
-                    if(result2[0][i].attributes.groups === undefined){
+                    if(result2[0][i].attributes.groups === undefined || result2[0][i].attributes.groups === null){
                       continue
                     }
                     if(result2[0][i].attributes.groups.status === "private"){
@@ -70,10 +71,11 @@ export default class GroupList extends React.Component {
                             membercount: result2[0][i].attributes.groups.membercount,
                             members: result2[0][i].attributes.groups.members,
                             id: result2[0][i].id,
-                            postcounter: result2[0][i].attributes.postcounter,
+                            postcounter: result2[0][i].attributes.classpostcount,
                             groupid: result2[0][i].attributes.groups.groupid,
                             groupname: result2[0][i].attributes.groups.name,
-                            rating: result2[0][i].attributes.groups.rating
+                            rating: result2[0][i].attributes.groups.rating,
+                            classmembercounter: result2[0][i].attributes.classmembercounter
                           });
                           holdergroup.push(result2[0][i]);
                           this.setState({
@@ -106,6 +108,7 @@ export default class GroupList extends React.Component {
                                 })
                                 this.forceUpdate();
                               }
+                              console.log("private pics",holderPrivatePictures);
                             })
                             .catch(error => console.log('error', error));
                           }
@@ -121,10 +124,11 @@ export default class GroupList extends React.Component {
                             membercount: result2[0][i].attributes.groups.membercount,
                             members: result2[0][i].attributes.groups.members,
                             id: result2[0][i].id,
-                            postcounter: result2[0][i].attributes.postcounter,
+                            postcounter: result2[0][i].attributes.classpostcount,
                             groupid: result2[0][i].attributes.groups.groupid,
                             groupname: result2[0][i].attributes.groups.name,
-                            rating: result2[0][i].attributes.groups.rating
+                            rating: result2[0][i].attributes.groups.rating,
+                            classmembercounter: result2[0][i].attributes.classmembercounter
                           });
                           holdergroup.push(result2[0][i]);
                           this.setState({
@@ -157,6 +161,7 @@ export default class GroupList extends React.Component {
                                 });
                                 this.forceUpdate();
                               }
+                              console.log("public pics",holderPublicPictures);
                             })
                             .catch(error => console.log('error', error));
                           }
@@ -196,14 +201,15 @@ export default class GroupList extends React.Component {
         id: id,
         name: name,
         attributes: {
+          classpostcounter: this.state.postcounter,
+          classmembercount: this.state.classmembercounter,
           groups: {
             groupid: this.state.groupid,
             name: this.state.groupname,
             members: newList,
             status: this.state.status,
             membercount: this.state.membercount -1
-          },
-          postcounter: this.state.postcounter
+          }
         }
       })
     })

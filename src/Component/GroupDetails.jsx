@@ -21,6 +21,7 @@ export default class GroupDetails extends React.Component {
       profilePicture: "",
       username: "",
       usernameList: [],
+      classmembercounter: 0,
     };
   }
 
@@ -53,7 +54,8 @@ export default class GroupDetails extends React.Component {
                 postcounter: result.attributes.postcounter,
                 groupid: result.attributes.groups.groupid,
                 groupname: result.attributes.groups.name,
-                rating: result.attributes.groups.rating
+                rating: result.attributes.groups.rating,
+                classmembercounter: result.attributes.classmembercounter
             });
             console.log("this.state", this.state);
             }
@@ -127,14 +129,15 @@ export default class GroupDetails extends React.Component {
             id: id,
             name: name,
             attributes: {
+              classpostcounter: this.state.postcounter,
+              classmembercount: this.state.classmembercounter,
               groups: {
                 groupid: this.state.groupid,
                 name: this.state.groupname,
                 members: newList,
                 status: this.state.status,
                 membercount: this.state.membercount - 1
-              },
-                postcounter: this.state.postcounter
+              }
             }
           })
         })
@@ -143,6 +146,39 @@ export default class GroupDetails extends React.Component {
           .catch(error => console.log('error', error));
         this.forceUpdate();
         window.location.reload();
+      }
+
+      removeHandler_Join(id, name){
+        const newList = this.state.members
+        newList.push(this.props.userid);
+        console.log(newList);
+        fetch("https://webdev.cse.buffalo.edu/hci/api/api/commitment/groups/" + id, {
+          method: "PATCH",
+          headers: {
+            "accept": "*/*",
+            'Authorization': 'Bearer '+sessionStorage.getItem("token"),
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            id: id,
+            name: name,
+            attributes: {
+              classpostcounter: this.state.postcounter,
+              classmembercount: this.state.classmembercounter,
+              groups: {
+                groupid: this.state.groupid,
+                name: this.state.groupname,
+                members: newList,
+                status: this.state.status,
+                membercount: this.state.membercount + 1
+              }
+            }
+          })
+        })
+          .then(response => response.json())
+          .then(result => console.log(result))
+          .catch(error => console.log('error', error));
+        this.forceUpdate();
       }
 
       updateStatus_private(id, name){
@@ -157,14 +193,15 @@ export default class GroupDetails extends React.Component {
             id: id,
             name: name,
             attributes: {
+              classpostcounter: this.state.postcounter,
+              classmembercount: this.state.classmembercounter,
               groups: {
                 groupid: this.state.groupid,
                 name: this.state.groupname,
                 members: this.state.members,
                 status: "private",
                 membercount: this.state.membercount,
-                },
-                postcounter: this.state.postcounter
+                }
             }})
         })
           .then(response => response.json())
@@ -186,14 +223,15 @@ export default class GroupDetails extends React.Component {
             id: id,
             name: name,
             attributes: {
+              classpostcounter: this.state.postcounter,
+              classmembercount: this.state.classmembercounter,
               groups: {
                 groupid: this.state.groupid,
                 name: this.state.groupname,
                 members: this.state.members,
                 status: "public",
                 membercount: this.state.membercount
-              },
-                postcounter: this.state.postcounter
+              }
             }})
         })
           .then(response => response.json())
@@ -205,12 +243,12 @@ export default class GroupDetails extends React.Component {
 
     render(){
         const groups = this.state;
-        console.log("groups:" ,this.state.usernameList);
         return(
             <>
             <div className={groupcss.div1}>
               <div className={groupcss.groupdetailname}>{this.state.name+ ": " + this.state.groupname}</div>
-              <button className={groupcss.groupleavebutton} onClick={() => this.removeHandler_Leave(groups.id, groups.name)}>Leave</button>
+              {groups.members.includes(Number(this.props.userid)) && <button className={groupcss.groupleavebutton} onClick={() => this.removeHandler_Leave(groups.id, groups.name)}>Leave</button>}
+              {!groups.members.includes(Number(this.props.userid)) && <button className={groupcss.groupjoinbutton} onClick={() => this.removeHandler_Join(groups.id, groups.name)}>Join</button>}
             </div>
             <div className={groupcss.div2}>
               <div className={groupcss.text}>Average Rating</div>

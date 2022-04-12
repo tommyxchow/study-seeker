@@ -74,14 +74,15 @@ export default class ClassPosts extends Component {
         id: id,
         name: name,
         attributes: {
+					classpostcounter: this.state.postcounter,
+          classmembercount: this.state.classmembercounter,
           groups: {
             groupid: this.state.groupid,
             name: this.state.groupname,
             members: newList,
             status: this.state.status,
             membercount: this.state.membercount -1
-          },
-          postcounter: this.state.postcounter
+          }
         }
       })
     })
@@ -137,14 +138,15 @@ export default class ClassPosts extends Component {
         id: id,
         name: name,
         attributes: {
+					classpostcounter: this.state.postcounter,
+          classmembercount: this.state.classmembercounter,
           groups: {
             groupid: this.state.groupid + 1,
             name: this.state.createGroupName,
             members: [this.props.userID],
             status: this.state.createStatus,
             membercount: 1
-          },
-          postcounter: this.state.postcounter
+          }
         }
       })
     })
@@ -253,15 +255,9 @@ export default class ClassPosts extends Component {
 								<img className={styles.star} src={starIcon} alt="star"/>
 							</div>
 						</div>
-						<div className={styles.container} hidden>
-							{"groupid: " + group.id} <br/>
-							{"status: " + group.attributes.groups.status} <br/>
-							{"members: " + group.attributes.groups.members}
-							{"name: " + group.name}
-						</div>
 						</a>
-						{group.attributes.groups.members.includes(this.props.userid) && <button className={styles.leavebutton} onClick={() => this.removeHandler_Leave(group.id, group.name)}>Leave</button>}
-						{!group.attributes.groups.members.includes(this.props.userid) && <button className={styles.joinbutton} onClick={() => this.removeHandler_Join(group.id, group.name)}>Join</button>}
+						{group.attributes.groups.members.includes(Number(this.props.userid)) && <button className={styles.leavebutton} onClick={() => this.removeHandler_Leave(group.id, group.name)}>Leave</button>}
+						{!group.attributes.groups.members.includes(Number(this.props.userid)) && <button className={styles.joinbutton} onClick={() => this.removeHandler_Join(group.id, group.name)}>Join</button>}
 						</div>
 						</>
 					))}

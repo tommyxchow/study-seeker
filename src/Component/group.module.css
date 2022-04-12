@@ -275,3 +275,22 @@
   align-self: center;
   margin-top: 29px;
 }
+
+.groupjoinbutton{
+  background-color: #0CAF30; /* Green */
+  width: 80px !important;
+  height: 30px !important;
+  border: none;
+  color: rgb(0, 0, 0);
+  text-align: center;
+  font-family: Exo;
+  font-weight: bold;
+  text-decoration: none;
+  font-size: 18px;
+  margin-left: 18px;
+  cursor: pointer;
+  border-radius: 25px;
+  display: inline-block;
+  align-self: center;
+  margin-top: 29px;
+}
