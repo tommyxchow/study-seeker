@@ -192,6 +192,7 @@ class Registration extends React.Component {
             className="buttonSubmitForm"
             type="submit"
             defaultValue="Sign Up"
+            value="Sign Up"
           />
         </form>
       </div>

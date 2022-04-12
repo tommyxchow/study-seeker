@@ -1,7 +1,6 @@
-import React, { Component, useState } from "react";
+import React, { Component } from "react";
 import "../App.css";
 import styles from "./classgroup.module.css"
-import styles2 from "./group.module.css"
 import starIcon from "../assets/unlitstar.svg";
 
 export default class ClassPosts extends Component {
@@ -20,6 +19,7 @@ export default class ClassPosts extends Component {
 				groupid: 0,
 				createStatus: "public",
 				createGroupName: "",
+				classmembercounter: 0,
 				profilePicture:
 					"/hci/api/uploads/files/DOo1Ebbt8dYT4-plb6G6NP5jIc9_l_gNlaYwPW4SaBM.png",
 			};
@@ -31,12 +31,11 @@ export default class ClassPosts extends Component {
 	}
 
 	fetchGroups () {
-
 		fetch(process.env.REACT_APP_API_PATH+"/groups/"+this.props.classId,{
         method: "GET",
 				headers: {
 					'accept': '*/*'
-				}
+				}	
       })
 		.then((res) => res.json())
 		.then((result) => {
@@ -49,9 +48,10 @@ export default class ClassPosts extends Component {
 				id: result.id,
 				members: result.attributes.groups.members,
 				status: result.attributes.groups.status,
-				postcounter: result.attributes.postcounter,
+				postcounter: result.attributes.classpostcounter,
 				groupname: result.attributes.groups.name,
-				rating: result.attributes.groups.rating
+				rating: result.attributes.groups.rating,
+				classmembercounter: result.attributes.classmembercounter
 			});
 			holdergroup.push(result);
 			this.setState({
@@ -91,6 +91,68 @@ export default class ClassPosts extends Component {
     this.forceUpdate();
     window.location.reload();
   }
+
+	removeHandler_Join(id, name){
+		const newList = this.state.members
+		newList.push(this.props.userid);
+		console.log(newList);
+    fetch("https://webdev.cse.buffalo.edu/hci/api/api/commitment/groups/" + id, {
+      method: "PATCH",
+      headers: {
+        "accept": "*/*",
+        'Authorization': 'Bearer '+sessionStorage.getItem("token"),
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        id: id,
+        name: name,
+        attributes: {
+					classpostcounter: this.state.postcounter,
+					classmembercount: this.state.classmembercounter,
+          groups: {
+            groupid: this.state.groupid,
+            name: this.state.groupname,
+            members: newList,
+            status: this.state.status,
+            membercount: this.state.membercount + 1
+          }
+        }
+      })
+    })
+      .then(response => response.json())
+      .then(result => console.log(result))
+      .catch(error => console.log('error', error));
+    this.forceUpdate();
+  }
+
+	createGroup (id, name) {
+		fetch("https://webdev.cse.buffalo.edu/hci/api/api/commitment/groups/" + id, {
+      method: "PATCH",
+      headers: {
+        "accept": "*/*",
+        'Authorization': 'Bearer '+sessionStorage.getItem("token"),
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        id: id,
+        name: name,
+        attributes: {
+          groups: {
+            groupid: this.state.groupid + 1,
+            name: this.state.createGroupName,
+            members: [this.props.userID],
+            status: this.state.createStatus,
+            membercount: 1
+          },
+          postcounter: this.state.postcounter
+        }
+      })
+    })
+      .then(response => response.json())
+      .then(result => console.log(result))
+      .catch(error => console.log('error', error));
+    this.forceUpdate();
+	}
 
 
 	render () {
@@ -135,7 +197,7 @@ export default class ClassPosts extends Component {
 							</div>
 						</div>
 						</div>
-						<button className={styles.createbutton} onClick={() => console.log(this.state.createGroupName, this.state.createStatus)}>Create</button>
+						<button className={styles.createbutton} onClick={() => this.createGroup(this.state.groupid, this.state.groupname)}>Create</button>
 
 						</div>
 					{groups.map(group => (
@@ -198,16 +260,12 @@ export default class ClassPosts extends Component {
 							{"name: " + group.name}
 						</div>
 						</a>
-						<button className={styles.leavebutton} onClick={() => this.removeHandler_Leave(group.id, group.name)}>Leave</button>
-
+						{group.attributes.groups.members.includes(this.props.userid) && <button className={styles.leavebutton} onClick={() => this.removeHandler_Leave(group.id, group.name)}>Leave</button>}
+						{!group.attributes.groups.members.includes(this.props.userid) && <button className={styles.joinbutton} onClick={() => this.removeHandler_Join(group.id, group.name)}>Join</button>}
 						</div>
 						</>
 					))}
 			</div>
 		)
 	}
-}
-
-class Groups extends Component {
-    
 }
