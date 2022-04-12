@@ -15,6 +15,7 @@ export default class SearchForm extends React.Component {
       users: [],
       people: [],
       userInput: "",
+      nextUserInput: "",
       userFound: true,
       filter: false
     };
@@ -149,7 +150,8 @@ export default class SearchForm extends React.Component {
             }
             else{
               this.setState({
-                userFound:false
+                userFound:false,
+                nextUserInput:this.state.userInput
               });
             }
             console.log(people_search);
@@ -298,7 +300,7 @@ export default class SearchForm extends React.Component {
                 }))}
               {!this.state.userFound && (
                 <div>
-                  <p><i>No students matching "{this.state.userInput}"</i> </p>
+                  <p><i>No students matching "{this.state.nextUserInput}"</i> </p>
                 </div>
               )}
             </div>
