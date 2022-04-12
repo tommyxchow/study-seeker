@@ -210,7 +210,7 @@ export default class GroupDetails extends React.Component {
             <>
             <div className={groupcss.div1}>
               <div className={groupcss.groupdetailname}>{this.state.name+ ": " + this.state.groupname}</div>
-              <button className={groupcss.leavebutton} onClick={() => this.removeHandler_Leave(groups.id, groups.name)}>Leave</button>
+              <button className={groupcss.groupleavebutton} onClick={() => this.removeHandler_Leave(groups.id, groups.name)}>Leave</button>
             </div>
             <div className={groupcss.div2}>
               <div className={groupcss.text}>Average Rating</div>
