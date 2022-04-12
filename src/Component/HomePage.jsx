@@ -3,6 +3,7 @@ import "../App.css";
 import style from "./HomePage.module.css";
 import img from '../assets/monalia.png'
 import { render } from "react-dom";
+import { Link, useNavigate } from "react-router-dom";
 // the login form will display if there is no session token stored.  This will display
 // the login form, and call the API to authenticate the user and store the token in
 // the session.
@@ -22,45 +23,6 @@ const createFetch=(path, method, body)=>{
     return fetch(supplyPath, supplyMethod);
   }
 
-
-class ClassUserPictures extends React.Component {
-    constructor(props) {
-      super(props);
-      this.state = {
-          picture:[],
-      };
-        
-    };
-    componentDidMount(){
-        this.getPictures();
-    }
-    getPictures(){
-        console.log("getting pictures");
-        if(this.props.members === undefined || this.props.members.length == 0){
-            this.setState({picture: [<div className={style.noMemberPics}>No members yet</div>]});
-            return 
-        }
-        const length = Math.min(this.props.members.length, 3);
-        for(var i=0; i < length; i++){
-            createFetch('/users/'+this.props.members[i], 'get', null)
-            .then((res)=>res.json())
-            .then((result)=>{
-                this.setState({picture: [...this.state.picture, <img className={style.classStudentPicture} src={"https://webdev.cse.buffalo.edu/"+result.attributes.profilePicture}/>]});
-            },(error)=>{
-                alert('In class user picture');
-            });
-        }
-
-        if(length > 2){
-            this.setState({picture: [...this.state.picture, <div className={style.moreMemberPics}>+{length-3}</div>]});
-        }
-    }
-
-    render(){
-        return(<>{this.state.picture}</>)
-    }
-}
-
 export default class HomePage extends React.Component {
   constructor(props) {
     super(props);
@@ -71,12 +33,12 @@ export default class HomePage extends React.Component {
         display_students:[],
         profile_pictures:{}
     };
-
+    
     this.add_all_users();
     this.add_all_classes();
-
+    
   }
-
+  
   add_all_users=()=>{
     createFetch('/users', 'get', null)
     .then((res)=>res.json())
@@ -113,8 +75,10 @@ export default class HomePage extends React.Component {
             display = [];
         }else if(result[0].length === 1){
             display  = [0];
-        }else{
+        }else if(result[0].length === 2){
             display  = [0, 1];
+        }else{
+            display  = [0, 1, 2];
         }
         this.setState({display_classes: display});
         console.log("allClasses", result[0]);
@@ -130,14 +94,13 @@ export default class HomePage extends React.Component {
     this.setState({display_students: [this.state.display_students[1], this.state.display_students[1]+1]});
   }
   moveLeftClass=()=>{
-    this.setState({display_classes: [this.state.display_classes[0]-1, this.state.display_classes[0]]});
+    this.setState({display_classes: [this.state.display_classes[0]-1, this.state.display_classes[0], this.state.display_classes[1]]});
   }
   moveRightClass=()=>{
-    this.setState({display_classes: [this.state.display_classes[1], this.state.display_classes[1]+1]});
+    this.setState({display_classes: [this.state.display_classes[1], this.state.display_classes[2], this.state.display_classes[2]+1]});
   }
 
   render() {
-
     return (
         <div className={style.container}>
             <div className={style.seekerContainer}>
@@ -174,7 +137,9 @@ export default class HomePage extends React.Component {
                         </div>
                         <div className={style.buttonContainer}>
                             <button className={style.connect}>Connect</button>
-                            <button className={style.viewProfile}>View Profile</button>
+                            <Link to={"/profile/"+this.state.all_students[idx].id}>
+                                <button className={style.viewProfile}>View Profile</button>
+                            </Link>
                         </div>
                     </div>  
 
@@ -191,7 +156,7 @@ export default class HomePage extends React.Component {
                 </div>
                 <div className={style.outterBox}>
                     { 
-                        this.state.display_classes.length >= 2 && this.state.display_classes[0] !== 0 &&
+                        this.state.display_classes.length >= 3 && this.state.display_classes[0] !== 0 &&
                         <div onClick={this.moveLeftClass} className={style.leftArrowContainer}><div className={style.leftArrow}></div></div>
                     }
                     {this.state.display_classes.map((idx)=>(
@@ -211,17 +176,22 @@ export default class HomePage extends React.Component {
                             this.state.all_classes[idx].attributes.classmemberids.slice(0,3).map((class_member)=>(
                             <>
                             {/* this.state.profile_pictures[class_member] */}
-                                <img className={style.classStudentPicture} src={img} />
+                                <img className={style.classStudentPicture} src={this.state.profile_pictures[class_member]} />
                             </>)):
                             <div className={style.noMemberPics}>No members yet</div>
+                            }{
+                            this.state.all_classes[idx].attributes.classmemberids.length>3?
+                            <div className={style.moreMemberPics}>+{this.state.all_classes[idx].attributes.classmemberids.length-3}</div>:<></>
                             }
                         </div>
+                        <Link to={"/class/"+this.state.all_classes[idx].id}>
                         <button className={style.viewClass}>
                             View Class
                         </button>
+                        </Link>
                     </div>
                     ))}
-                    { this.state.display_classes.length >= 2 && this.state.display_classes[1] !== this.state.all_classes.length-1 &&
+                    { this.state.display_classes.length >= 3 && this.state.display_classes[2] !== this.state.all_classes.length-1 &&
                         <div onClick={this.moveRightClass} className={style.rightArrowContainer}><div className={style.rightArrow}></div></div>
                     }
                 </div>
