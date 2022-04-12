@@ -36,6 +36,8 @@ export default class ReviewForm extends Component {
       process.env.REACT_APP_API_PATH +
         "/posts?recipientUserID=" +
         this.props.profileId +
+        "&authorID=" +
+        sessionStorage.getItem("user") +
         "&attributes=" +
         encodeURIComponent(
           JSON.stringify({
