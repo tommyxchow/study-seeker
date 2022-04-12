@@ -1,7 +1,7 @@
 import React from "react";
 import "../App.css";
 import style from "./HomePage.module.css";
-import img from '../assets/monalia.png'
+import star from '../assets/star.png'
 import { render } from "react-dom";
 import { Link, useNavigate } from "react-router-dom";
 // the login form will display if there is no session token stored.  This will display
@@ -108,9 +108,11 @@ export default class HomePage extends React.Component {
                     Top Study Seekers
                 </div>
                 <div className={style.outterBox}>
+                    <div className={style.arrowContainer}>
                     { this.state.display_students.length >= 2 && this.state.display_students[0] !== 0 &&
                         <div onClick={this.moveLeftStudents} className={style.leftArrowContainer}><div className={style.leftArrow}></div></div>
                     }
+                    </div>  
                     {this.state.display_students.map((idx) =>(
 
                     <div className={style.studentCard}>
@@ -118,7 +120,10 @@ export default class HomePage extends React.Component {
                             <img src={"https://webdev.cse.buffalo.edu/"+this.state.all_students[idx].attributes.profilePicture} alt="" className={style.profilePicture}/>
                             <div className={style.nameContainer}>
                                 <span className={style.name}>{this.state.all_students[idx].attributes.firstName+" " + this.state.all_students[idx].attributes.lastName[0]+"."}</span>
-                                <div className={style.stars}>{[...Array(Number(this.state.all_students[idx].attributes.rating))].map(()=><>&#9733;</>)}({this.state.all_students[idx].attributes.rating})</div>
+                                <div className={style.startContainer}>
+                                    {[...Array(Number(this.state.all_students[idx].attributes.rating))].map(()=><img className={style.stars} src={star}/>)}
+                                    <div className={style.numberOfStar}>({this.state.all_students[idx].attributes.rating})</div>
+                                </div>
                             </div>  
                         </div>
                         <div className={style.infoContainer}>
@@ -144,9 +149,10 @@ export default class HomePage extends React.Component {
                     </div>  
 
                     ))}
+                    <div className={style.arrowContainer}>
                     { this.state.display_students.length >= 2 && this.state.display_students[1] !== this.state.all_students.length-1 &&
                         <div onClick={this.moveRightStudents} className={style.rightArrowContainer}><div className={style.rightArrow}></div></div>
-                    }
+                    }</div>
                 </div>
             </div>
 
@@ -155,10 +161,12 @@ export default class HomePage extends React.Component {
                     Trending Classes
                 </div>
                 <div className={style.outterBox}>
+                    <div className={style.arrowContainer}>
                     { 
                         this.state.display_classes.length >= 3 && this.state.display_classes[0] !== 0 &&
                         <div onClick={this.moveLeftClass} className={style.leftArrowContainer}><div className={style.leftArrow}></div></div>
                     }
+                    </div>
                     {this.state.display_classes.map((idx)=>(
                     <div className={style.classCard}>
                         <div className={style.className}>
@@ -168,7 +176,7 @@ export default class HomePage extends React.Component {
                             University at Buffalo
                         </div>
                         <div className={style.studentCount}>
-                             {this.state.all_classes[idx].attributes.membercount} students
+                             {this.state.all_classes[idx].attributes.classmembercount} students
                         </div>
                         <div className={style.studentPictures}>
                             {
@@ -191,9 +199,11 @@ export default class HomePage extends React.Component {
                         </Link>
                     </div>
                     ))}
+                    <div className={style.arrowContainer}>
                     { this.state.display_classes.length >= 3 && this.state.display_classes[2] !== this.state.all_classes.length-1 &&
                         <div onClick={this.moveRightClass} className={style.rightArrowContainer}><div className={style.rightArrow}></div></div>
                     }
+                    </div>
                 </div>
             </div>
 
