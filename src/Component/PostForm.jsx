@@ -95,6 +95,23 @@ export default class PostForm extends React.Component {
 
   // the login check here is redundant, since the top level routing also is checking,
   // but this could catch tokens that were removed while still on this page, perhaps due to a timeout?
+
+  addUser =(id)=>{
+    this.createFetch('/users/'+id, 'get', null)
+    .then((res) => res.json())
+    .then(result_user=>{
+      this.setState({current_members:[[result_user.id, 
+                                      result_user.attributes.firstName, 
+                                      result_user.attributes.lastName,
+                                      result_user.attributes.profilePicture]
+                                      ,...this.state.current_members
+                                      ]});
+      if(this.props.userid === result_user.id){
+        this.setState({join:true});
+      }
+    }, error=>{alert("get user error")});
+  }
+
   handleJoin = event =>{
     const path = "/groups/"+this.props.classId;
     const method = "PATCH";
@@ -110,8 +127,9 @@ export default class PostForm extends React.Component {
             (result) => {
               this.setState({
                 responseMessage: result.Status,
-                join: true
+                join: true,
               });
+              this.addUser(this.props.userid);
             },
             (error) => {
               alert(error);
@@ -139,7 +157,8 @@ export default class PostForm extends React.Component {
             (result) => {
               this.setState({
                 responseMessage: result.Status,
-                join: false
+                join: false,
+                current_members: this.state.current_members.filter((item)=>item[0]!=this.props.userid)
               });
             },
             (error) => {
@@ -152,6 +171,7 @@ export default class PostForm extends React.Component {
         }
       );
   }
+
   componentDidMount(){
     this.createFetch('/groups/'+this.props.classId, 'get', null)
     .then(res => res.json())
@@ -160,21 +180,7 @@ export default class PostForm extends React.Component {
         this.setState({"name":result.name, "instructor": result.attributes.instructor,
                       "about": result.attributes.about})
         const members = result.attributes.classmemberids;
-        members.map((id)=>{
-          this.createFetch('/users/'+id, 'get', null)
-          .then((res) => res.json())
-          .then(result_user=>{
-            this.setState({current_members:[[result_user.id, 
-                                            result_user.attributes.firstName, 
-                                            result_user.attributes.lastName,
-                                            result_user.attributes.profilePicture]
-                                            ,...this.state.current_members
-                                            ]});
-            if(this.props.userid === result_user.id){
-              this.setState({join:true});
-            }
-          }, error=>{alert("get user error")});
-        });
+        members.map(this.addUser);
       },
       error =>{alert("error in get (mount)")}
     );
