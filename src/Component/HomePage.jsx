@@ -2,26 +2,12 @@ import React from "react";
 import "../App.css";
 import style from "./HomePage.module.css";
 import img from '../assets/monalia.png'
+import { render } from "react-dom";
 // the login form will display if there is no session token stored.  This will display
 // the login form, and call the API to authenticate the user and store the token in
 // the session.
 
-export default class LoginForm extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-        all_classes:[],
-        all_students:[],
-        display_classes:[],
-        display_students:[]
-    };
-
-    this.add_all_users();
-    this.add_all_classes();
-
-  }
-
-  createFetch(path, method, body) {
+const createFetch=(path, method, body)=>{
     const supplyPath = process.env.REACT_APP_API_PATH + path;
     const supplyMethod = {
       method: method,
@@ -36,13 +22,71 @@ export default class LoginForm extends React.Component {
     return fetch(supplyPath, supplyMethod);
   }
 
-  add_all_users(){
-    this.createFetch('/users', 'get', null)
+
+class ClassUserPictures extends React.Component {
+    constructor(props) {
+      super(props);
+      this.state = {
+          picture:[],
+      };
+        
+    };
+    componentDidMount(){
+        this.getPictures();
+    }
+    getPictures(){
+        console.log("getting pictures");
+        if(this.props.members === undefined || this.props.members.length == 0){
+            this.setState({picture: [<div className={style.noMemberPics}>No members yet</div>]});
+            return 
+        }
+        const length = Math.min(this.props.members.length, 3);
+        for(var i=0; i < length; i++){
+            createFetch('/users/'+this.props.members[i], 'get', null)
+            .then((res)=>res.json())
+            .then((result)=>{
+                this.setState({picture: [...this.state.picture, <img className={style.classStudentPicture} src={"https://webdev.cse.buffalo.edu/"+result.attributes.profilePicture}/>]});
+            },(error)=>{
+                alert('In class user picture');
+            });
+        }
+
+        if(length > 2){
+            this.setState({picture: [...this.state.picture, <div className={style.moreMemberPics}>+{length-3}</div>]});
+        }
+    }
+
+    render(){
+        return(<>{this.state.picture}</>)
+    }
+}
+
+export default class HomePage extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+        all_classes:[],
+        all_students:[],
+        display_classes:[],
+        display_students:[],
+        profile_pictures:{}
+    };
+
+    this.add_all_users();
+    this.add_all_classes();
+
+  }
+
+  add_all_users=()=>{
+    createFetch('/users', 'get', null)
     .then((res)=>res.json())
     .then((result)=>{
         result[0] = result[0].filter((user)=>user.attributes && user.attributes.rating);
         result[0].sort((a,b)=>Number(b.attributes.rating)-Number(a.attributes.rating));
-        this.setState({all_students: result[0]});
+        var current_pictures = {};
+        for(const student of result[0]){
+            current_pictures[student.id] = "https://webdev.cse.buffalo.edu/"+student.attributes.profilePicture;
+        }
         var display = [];
         if(result.length === 0){
             display = [];
@@ -51,18 +95,18 @@ export default class LoginForm extends React.Component {
         }else{
             display  = [0, 1];
         }
-        this.setState({display_students: display});
+        this.setState({display_students: display, profile_pictures: current_pictures, all_students: result[0]});
     }, (error)=>{
         alert('get all users failed');
     })
   }
 
-  add_all_classes(){
-    this.createFetch('/groups', 'get', null)
+  add_all_classes=()=>{
+    createFetch('/groups', 'get', null)
     .then((res)=>res.json())    
     .then((result)=>{
-        result[0] = result[0].filter((class_) => class_.attributes && class_.attributes.postcounter);
-        result[0].sort((a,b)=>Number(b.attributes.postcounter)-Number(a.attributes.postcounter));
+        result[0] = result[0].filter((class_) => class_.attributes && class_.attributes.classpostcounter !== undefined);
+        result[0].sort((a,b)=>Number(b.attributes.classpostcounter)-Number(a.attributes.classpostcounter));
         this.setState({all_classes: result[0]});
         var display = [];
         if(result[0].length === 0){
@@ -73,12 +117,24 @@ export default class LoginForm extends React.Component {
             display  = [0, 1];
         }
         this.setState({display_classes: display});
-        console.log(display);
+        console.log("allClasses", result[0]);
     }, (error)=>{
         alert('get all classes failed');
     })
   }
 
+  moveLeftStudents=()=>{
+      this.setState({display_students: [this.state.display_students[0]-1, this.state.display_students[0]]});
+  }
+  moveRightStudents=()=>{
+    this.setState({display_students: [this.state.display_students[1], this.state.display_students[1]+1]});
+  }
+  moveLeftClass=()=>{
+    this.setState({display_classes: [this.state.display_classes[0]-1, this.state.display_classes[0]]});
+  }
+  moveRightClass=()=>{
+    this.setState({display_classes: [this.state.display_classes[1], this.state.display_classes[1]+1]});
+  }
 
   render() {
 
@@ -89,8 +145,8 @@ export default class LoginForm extends React.Component {
                     Top Study Seekers
                 </div>
                 <div className={style.outterBox}>
-                    { this.state.display_students.length > 2 && this.state.display_students[0] !== 0 &&
-                        <div className={style.leftArrowContainer}><div className={style.leftArrow}></div></div>
+                    { this.state.display_students.length >= 2 && this.state.display_students[0] !== 0 &&
+                        <div onClick={this.moveLeftStudents} className={style.leftArrowContainer}><div className={style.leftArrow}></div></div>
                     }
                     {this.state.display_students.map((idx) =>(
 
@@ -123,8 +179,8 @@ export default class LoginForm extends React.Component {
                     </div>  
 
                     ))}
-                    { this.state.display_students.length > 2 && this.state.display_students[1] !== this.state.all_students.length-1 &&
-                        <div className={style.rightArrowContainer}><div className={style.rightArrow}></div></div>
+                    { this.state.display_students.length >= 2 && this.state.display_students[1] !== this.state.all_students.length-1 &&
+                        <div onClick={this.moveRightStudents} className={style.rightArrowContainer}><div className={style.rightArrow}></div></div>
                     }
                 </div>
             </div>
@@ -134,8 +190,9 @@ export default class LoginForm extends React.Component {
                     Trending Classes
                 </div>
                 <div className={style.outterBox}>
-                    { this.state.display_classes.length > 2 && this.state.display_classes[0] !== 0 &&
-                        <div className={style.leftArrowContainer}><div className={style.leftArrow}></div></div>
+                    { 
+                        this.state.display_classes.length >= 2 && this.state.display_classes[0] !== 0 &&
+                        <div onClick={this.moveLeftClass} className={style.leftArrowContainer}><div className={style.leftArrow}></div></div>
                     }
                     {this.state.display_classes.map((idx)=>(
                     <div className={style.classCard}>
@@ -146,20 +203,26 @@ export default class LoginForm extends React.Component {
                             University at Buffalo
                         </div>
                         <div className={style.studentCount}>
-                             students
+                             {this.state.all_classes[idx].attributes.membercount} students
                         </div>
                         <div className={style.studentPictures}>
-                            <img src={img} alt="" className={style.classStudentPicture}/>
-                            <img src={img} alt="" className={style.classStudentPicture}/>
-                            <img src={img} alt="" className={style.classStudentPicture}/>
+                            {
+                            this.state.all_classes[idx].attributes.classmemberids.length?
+                            this.state.all_classes[idx].attributes.classmemberids.slice(0,3).map((class_member)=>(
+                            <>
+                            {/* this.state.profile_pictures[class_member] */}
+                                <img className={style.classStudentPicture} src={img} />
+                            </>)):
+                            <div className={style.noMemberPics}>No members yet</div>
+                            }
                         </div>
                         <button className={style.viewClass}>
                             View Class
                         </button>
                     </div>
                     ))}
-                    { this.state.display_classes.length > 2 && this.state.display_classes[1] !== this.state.all_classes.length-1 &&
-                        <div className={style.rightArrowContainer}><div className={style.rightArrow}></div></div>
+                    { this.state.display_classes.length >= 2 && this.state.display_classes[1] !== this.state.all_classes.length-1 &&
+                        <div onClick={this.moveRightClass} className={style.rightArrowContainer}><div className={style.rightArrow}></div></div>
                     }
                 </div>
             </div>
