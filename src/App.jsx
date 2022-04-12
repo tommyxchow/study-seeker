@@ -27,6 +27,7 @@ import PostForm from "./Component/PostForm.jsx";
 import Profile from "./Component/Profile.jsx";
 import Registration from "./Component/Registration.jsx";
 import StyleGuide from "./Component/StyleGuide.jsx";
+import HomePage from './Component/HomePage.jsx';
 
 // toggleModal will both show and hide the modal dialog, depending on current state.  Note that the
 // contents of the modal dialog are set separately before calling toggle - this is just responsible
@@ -123,6 +124,10 @@ class App extends React.Component {
 
               <div className="maincontent" id="mainContent">
                 <Routes>
+                  <Route
+                    path="/home"
+                    element={<Home login={this.login} />}
+                  />
                   <Route path="/styleguide" element={<StyleGuide />} />
                   <Route
                     path="/profile"
@@ -140,6 +145,7 @@ class App extends React.Component {
                     path="/groups"
                     element={<Groups login={this.login} />}
                   />
+
                   <Route
                     path="/groups/:id"
                     element={<GroupDetails login={this.login} />}
@@ -152,6 +158,7 @@ class App extends React.Component {
                         login={this.login}
                         apprefresh={this.state.refreshPosts}
                       />
+                    
                     }
                   />
                   <Route
@@ -336,6 +343,27 @@ const Class = (props) => {
   return (
     <>
       <ClassPosts classId={id} userid={user_id} />
+    </>
+  );
+  //return <ConnectionRequest />;
+};
+
+const Home = (props) => {
+  const user_id = sessionStorage.getItem("user");
+
+  let { id } = useParams();
+
+  if (!sessionStorage.getItem("token")) {
+    console.log("LOGGED OUT");
+    return (
+      <div>
+        <LoginPage login={props.login} />
+      </div>
+    );
+  }
+  return (
+    <>
+      <HomePage classId={id} userid={user_id} />
     </>
   );
   //return <ConnectionRequest />;

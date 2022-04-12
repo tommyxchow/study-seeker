@@ -14,7 +14,10 @@ export default class PostForm extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      about:false,
+      name: "",
+      instructor: "",
+      about: "",
+      about_bool:false,
       students:false,
       Alumni:false,
       Fall_2021:false,
@@ -92,14 +95,31 @@ export default class PostForm extends React.Component {
 
   // the login check here is redundant, since the top level routing also is checking,
   // but this could catch tokens that were removed while still on this page, perhaps due to a timeout?
+
+  addUser =(id)=>{
+    this.createFetch('/users/'+id, 'get', null)
+    .then((res) => res.json())
+    .then(result_user=>{
+      this.setState({current_members:[[result_user.id, 
+                                      result_user.attributes.firstName, 
+                                      result_user.attributes.lastName,
+                                      result_user.attributes.profilePicture]
+                                      ,...this.state.current_members
+                                      ]});
+      if(this.props.userid === result_user.id){
+        this.setState({join:true});
+      }
+    }, error=>{alert("get user error")});
+  }
+
   handleJoin = event =>{
-    const path = "/groups/"+5;
+    const path = "/groups/"+this.props.classId;
     const method = "PATCH";
       this.createFetch(path, "get", null)
       .then(res => res.json())
       .then(
         result => {
-          result.attributes.additionalProp1.member_ids.push(this.props.userid);
+          result.attributes.classmemberids.push(this.props.userid);
           delete result.id;
           this.createFetch(path, method, result)
           .then((res) => res.json())
@@ -107,8 +127,9 @@ export default class PostForm extends React.Component {
             (result) => {
               this.setState({
                 responseMessage: result.Status,
-                join: true
+                join: true,
               });
+              this.addUser(this.props.userid);
             },
             (error) => {
               alert(error);
@@ -122,13 +143,13 @@ export default class PostForm extends React.Component {
   }
 
   handleLeave = event =>{
-    const path = "/groups/"+5;
+    const path = "/groups/"+this.props.classId;
     const method = "PATCH";
       this.createFetch(path, "get", null)
       .then(res => res.json())
       .then(
         result => {
-          result.attributes.additionalProp1.member_ids = result.attributes.additionalProp1.member_ids.filter((id)=>{return id!=this.props.userid});
+          result.attributes.classmemberids = result.attributes.classmemberids.filter((id)=>{return id!=this.props.userid});
           delete result.id;
           this.createFetch(path, method, result)
           .then((res) => res.json())
@@ -136,7 +157,8 @@ export default class PostForm extends React.Component {
             (result) => {
               this.setState({
                 responseMessage: result.Status,
-                join: false
+                join: false,
+                current_members: this.state.current_members.filter((item)=>item[0]!=this.props.userid)
               });
             },
             (error) => {
@@ -149,27 +171,16 @@ export default class PostForm extends React.Component {
         }
       );
   }
+
   componentDidMount(){
-    this.createFetch('/groups/'+5, 'get', null)
+    this.createFetch('/groups/'+this.props.classId, 'get', null)
     .then(res => res.json())
     .then(
-      result => {
-        const members = result.attributes.additionalProp1.member_ids;
-        members.map((id)=>{
-          this.createFetch('/users/'+id, 'get', null)
-          .then((res) => res.json())
-          .then(result_user=>{
-            this.setState({current_members:[[result_user.id, 
-                                            result_user.attributes.firstName, 
-                                            result_user.attributes.lastName,
-                                            result_user.attributes.profilePicture]
-                                            ,...this.state.current_members
-                                            ]});
-            if(this.props.userid === result_user.id){
-              this.setState({join:true});
-            }
-          }, error=>{alert("get user error")});
-        });
+      (result) => {
+        this.setState({"name":result.name, "instructor": result.attributes.instructor,
+                      "about": result.attributes.about})
+        const members = result.attributes.classmemberids;
+        members.map(this.addUser);
       },
       error =>{alert("error in get (mount)")}
     );
@@ -189,7 +200,7 @@ export default class PostForm extends React.Component {
         <div className={style.classHeader}>
           <div className={style.classNameLine}>
             <div className={style.className}>
-              CSE 370
+              {this.state.name}
             </div>{!this.state.join?
             <input className={style.classJoin} type='button' value='Join' onClick={this.handleJoin}></input>
             :
@@ -201,18 +212,18 @@ export default class PostForm extends React.Component {
         <div className={style.aboutHeader}>
           <div className={style.aboutLine}>
             <div className={style.about}>About</div>
-            <div className={style.arrow} onClick={()=>this.setState({about:!this.state.about})}>
-              {this.state.about?<>&#x2191;</>:<>&#x2193;</>}
+            <div className={style.arrow} onClick={()=>this.setState({about_bool:!this.state.about_bool})}>
+              {this.state.about_bool?<>&#x2191;</>:<>&#x2193;</>}
             </div>
           </div>
           <hr className={style.horizontalLine}/>
-          {this.state.about && <>
+          {this.state.about_bool && <>
             <div className={style.instructorLine}>
               <div className={style.instructor}>Instructor:</div>
-              <div className={style.instructorName}>Alan Hunt</div>
+              <div className={style.instructorName}>{this.state.instructor}</div>
             </div>
             <div className={style.classDiscription}>
-              This is an undergraduate-level course intended for junior and senior-level students that will teach them introductory concepts of human computer interaction. The main topics covered in this course will be interface and experience design, interface development in a variety of environments, and evaluation of design via multiple methods including usability studies.
+              {this.state.about}
             </div>
           </>
           }
@@ -220,7 +231,7 @@ export default class PostForm extends React.Component {
 
         <div className={style.studentHeader}>
           <div className={style.studentLine}>
-            <div className={style.student}>Students (Spring 2022)</div>
+            <div className={style.student}>Students</div>
             <div className={style.arrow} onClick={()=>this.setState({students:!this.state.students})}>
               {this.state.students?<>&#x2191;</>:<>&#x2193;</>}
             </div>
