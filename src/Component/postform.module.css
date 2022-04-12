@@ -53,6 +53,7 @@
 }
 .arrow{
     font-weight: 1000;
+    cursor: pointer;
 }
 .horizontalLine{
     width: 75vw;

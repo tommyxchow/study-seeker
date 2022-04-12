@@ -17,6 +17,7 @@ import "./App.css";
 import ForgotPasswordPage from "./Component/ForgotPassword.jsx";
 import FriendForm from "./Component/FriendForm.jsx";
 import FriendList from "./Component/FriendList.jsx";
+import GroupsDetails from "./Component/GroupDetails.jsx";
 import GroupList from "./Component/GroupList.jsx";
 import LandingPage from "./Component/LandingPage.jsx";
 import LoginPage from "./Component/LoginForm.jsx";
@@ -146,6 +147,10 @@ class App extends React.Component {
                   />
 
                   <Route
+                    path="/groups/:id"
+                    element={<GroupDetails login={this.login} />}
+                  />
+                  <Route
                     path="/class/:id"
                     element={
                       <Posts
@@ -166,7 +171,7 @@ class App extends React.Component {
                     path="/connections"
                     element={<Connections login={this.login} />}
                   />
-                  
+
                   <Route
                     path="/"
                     element={
@@ -252,8 +257,24 @@ const Groups = (props) => {
   }
   return (
     <div>
-      <p>Join a Group!</p>
       <GroupList userid={sessionStorage.getItem("user")} />
+    </div>
+  );
+};
+
+const GroupDetails = (props) => {
+  // if the user is not logged in, show the login form.  Otherwise, show the groups form
+  if (!sessionStorage.getItem("token")) {
+    console.log("LOGGED OUT");
+    return (
+      <div>
+        <LandingPage login={props.login} />
+      </div>
+    );
+  }
+  return (
+    <div>
+      <GroupsDetails userid={sessionStorage.getItem("user")} />
     </div>
   );
 };
@@ -277,7 +298,11 @@ const Posts = (props) => {
     console.log("LOGGED IN");
     return (
       <div>
-        <PostForm refresh={props.apprefresh} userid={Number(sessionStorage.getItem("user"))} classId={id}/>
+        <PostForm
+          refresh={props.apprefresh}
+          userid={Number(sessionStorage.getItem("user"))}
+          classId={id}
+        />
       </div>
     );
   }
