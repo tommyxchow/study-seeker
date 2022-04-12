@@ -1,0 +1,123 @@
+.container{
+    display: flex;
+    flex-direction:column;
+    padding: 4vh;
+}
+.classHeader{
+    padding-bottom: 2vh;
+    display: flex;
+    flex-direction:column;
+}
+.classNameLine{
+    display: flex;
+    align-items:center;
+}
+.className{
+    font-style: normal;
+    font-weight: 500;
+    font-size: 72px;
+    line-height: 96px;
+}
+.classJoin, .classLeave{
+    width: 80px;
+    height: 30px;
+    margin-left: 3vh;
+    font-style: normal;
+    font-weight: 700;
+    font-size: 18px;
+    background: #2ECC71;
+    border-radius: 25px;
+}
+.classLeave{
+    background: #FF0000;
+}
+.classSmallDiscription{
+    color: rgba(0, 0, 0, 0.5);
+    font-style: normal;
+    font-weight: 700;
+    font-size: 24px;
+}
+.aboutHeader, .studentHeader, .alumniHeader, .postsHeader{
+    display: flex;
+    flex-direction:column;
+}
+.aboutLine, .studentLine, .alumniLine, .postsLine{
+    display: flex;
+    justify-content: space-between;
+    align-items:baseline;
+}
+.about, .student, .alumni, .posts{
+    font-style: normal;
+    font-weight: 400;
+    font-size: 36px;
+}
+.arrow{
+    font-weight: 1000;
+    cursor: pointer;
+}
+.horizontalLine{
+    width: 75vw;
+}
+.instructorLine{
+    display: flex;
+    padding-bottom: 2vh;
+}
+.instructor{}
+
+.instructorName{
+    margin-left: 2vh;
+}
+.classDiscription{
+    margin-bottom: 5vh;
+}
+
+.allStudents{
+    display: flex;
+    gap: 20px 40px;
+    flex-wrap: wrap;
+    margin-bottom: 5vh;
+}
+.studentCard{
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+.studentImage{
+    height: 30px;
+    width: 30px;
+    border-radius: 100%;
+}
+.studentName{
+    font-style: normal;
+    font-weight: 500;
+    font-size: 18px;
+}
+.allClasses{
+    display: flex;
+    flex-direction:column;
+    gap: 20px
+}
+.class{
+    display: flex;
+    flex-direction:column;
+}
+.alumniClassLine{
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    
+}
+.alumniClassStudent{
+    display: flex;
+    gap: 20px 40px;
+    flex-wrap: wrap;
+}
+.alumniClassName{
+    font-style: normal;
+    font-weight: 400;
+    font-size: 24px;
+}
+.alumniClassArrow{
+    padding-bottom: 5px;
+}
+

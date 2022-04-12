@@ -4,6 +4,7 @@
   sibling components at a lower level.  It holds the basic structural components of navigation, content, and a modal dialog.
 */
 
+import ClassPosts from "Component/ClassPosts";
 import ConnectionRequest from "Component/ConnectionRequest";
 import React from "react";
 import {
@@ -16,6 +17,7 @@ import "./App.css";
 import ForgotPasswordPage from "./Component/ForgotPassword.jsx";
 import FriendForm from "./Component/FriendForm.jsx";
 import FriendList from "./Component/FriendList.jsx";
+import GroupsDetails from "./Component/GroupDetails.jsx";
 import GroupList from "./Component/GroupList.jsx";
 import LandingPage from "./Component/LandingPage.jsx";
 import LoginPage from "./Component/LoginForm.jsx";
@@ -26,6 +28,7 @@ import Profile from "./Component/Profile.jsx";
 import Registration from "./Component/Registration.jsx";
 import StyleGuide from "./Component/StyleGuide.jsx";
 import SearchForm from "./Component/SearchForm.jsx";
+import HomePage from './Component/HomePage.jsx';
 
 // toggleModal will both show and hide the modal dialog, depending on current state.  Note that the
 // contents of the modal dialog are set separately before calling toggle - this is just responsible
@@ -123,9 +126,10 @@ class App extends React.Component {
               <div className="maincontent" id="mainContent">
                 <Routes>
                   <Route
-                    path="/styleguide"
-                    element={<StyleGuide />}
-                    />
+                    path="/home"
+                    element={<Home login={this.login} />}
+                  />
+                  <Route path="/styleguide" element={<StyleGuide />} />
                   <Route
                     path="/profile"
                     element={<ProfilePage login={this.login} />}
@@ -146,14 +150,20 @@ class App extends React.Component {
                     path="/groups"
                     element={<Groups login={this.login} />}
                   />
+
                   <Route
-                    path="/posts"
+                    path="/groups/:id"
+                    element={<GroupDetails login={this.login} />}
+                  />
+                  <Route
+                    path="/class/:id"
                     element={
                       <Posts
                         doRefreshPosts={this.doRefreshPosts}
                         login={this.login}
                         apprefresh={this.state.refreshPosts}
                       />
+                    
                     }
                   />
                   <Route
@@ -162,9 +172,11 @@ class App extends React.Component {
                   />
                   <Route path="/register" element={<Register />} />
                   <Route path="/reset-password" element={<ForgotPassword />} />
-                  <Route 
-                    path="/connections" 
-                    element={<Connections login={this.login}/>} />
+                  <Route
+                    path="/connections"
+                    element={<Connections login={this.login} />}
+                  />
+
                   <Route
                     path="/"
                     element={
@@ -192,7 +204,6 @@ class App extends React.Component {
 /*  BEGIN ROUTE ELEMENT DEFINITIONS */
 // with the latest version of react router, you need to define the contents of the route as an element.  The following define functional components
 // that will appear in the routes.
-
 
 const Register = (props) => {
   // show the study seeker registration form
@@ -268,8 +279,24 @@ const Groups = (props) => {
   }
   return (
     <div>
-      <p>Join a Group!</p>
       <GroupList userid={sessionStorage.getItem("user")} />
+    </div>
+  );
+};
+
+const GroupDetails = (props) => {
+  // if the user is not logged in, show the login form.  Otherwise, show the groups form
+  if (!sessionStorage.getItem("token")) {
+    console.log("LOGGED OUT");
+    return (
+      <div>
+        <LandingPage login={props.login} />
+      </div>
+    );
+  }
+  return (
+    <div>
+      <GroupsDetails userid={sessionStorage.getItem("user")} />
     </div>
   );
 };
@@ -279,6 +306,7 @@ const Posts = (props) => {
   console.log(typeof props.doRefreshPosts);
 
   console.log("TEST COMPLETE");
+  let { id } = useParams();
 
   // if the user is not logged in, show the login form.  Otherwise, show the post form
   if (!sessionStorage.getItem("token")) {
@@ -292,8 +320,11 @@ const Posts = (props) => {
     console.log("LOGGED IN");
     return (
       <div>
-        <p>CSE 370 Social Media Test Harness</p>
-        <PostForm refresh={props.apprefresh} />
+        <PostForm
+          refresh={props.apprefresh}
+          userid={Number(sessionStorage.getItem("user"))}
+          classId={id}
+        />
       </div>
     );
   }
@@ -303,16 +334,58 @@ const Connections = (props) => {
   const user_id = sessionStorage.getItem("user");
 
   if (!sessionStorage.getItem("token")) {
-    console.log("LOGGED OUT", );
+    console.log("LOGGED OUT");
     return (
       <div>
         <LoginPage login={props.login} />
       </div>
     );
-  } 
+  }
   return (
     <>
-      <ConnectionRequest userid={user_id}/>
+      <ConnectionRequest userid={user_id} />
+    </>
+  );
+  //return <ConnectionRequest />;
+};
+
+const Class = (props) => {
+  const user_id = sessionStorage.getItem("user");
+
+  let { id } = useParams();
+
+  if (!sessionStorage.getItem("token")) {
+    console.log("LOGGED OUT");
+    return (
+      <div>
+        <LoginPage login={props.login} />
+      </div>
+    );
+  }
+  return (
+    <>
+      <ClassPosts classId={id} userid={user_id} />
+    </>
+  );
+  //return <ConnectionRequest />;
+};
+
+const Home = (props) => {
+  const user_id = sessionStorage.getItem("user");
+
+  let { id } = useParams();
+
+  if (!sessionStorage.getItem("token")) {
+    console.log("LOGGED OUT");
+    return (
+      <div>
+        <LoginPage login={props.login} />
+      </div>
+    );
+  }
+  return (
+    <>
+      <HomePage classId={id} userid={user_id} />
     </>
   );
   //return <ConnectionRequest />;
