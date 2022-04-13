@@ -109,7 +109,7 @@ export default class PostForm extends React.Component {
       if(this.props.userid === result_user.id){
         this.setState({join:true});
       }
-    }, error=>{alert("get user error")});
+    }, error=>{console.log("get user error")});
   }
 
   handleJoin = event =>{
