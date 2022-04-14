@@ -1,8 +1,9 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import "../App.css";
-import styles from "./search.module.css";
-import starIcon from "../assets/unlitstar.svg";
 import filterImg from "../assets/filter.png";
+import starIcon from "../assets/unlitstar.svg";
+import styles from "./search.module.css";
 
 
 export default class SearchForm extends React.Component {
@@ -179,7 +180,7 @@ export default class SearchForm extends React.Component {
   }
 
   gotoProfile = dict =>{
-    return "./profile/"+dict.id
+    return "/profile/"+dict.id
   }
 
   getProfilePic = dict =>{
@@ -288,7 +289,7 @@ export default class SearchForm extends React.Component {
                           <div className={styles.innercontent3}>
                           <button className={styles.connectbutton} type="button" value="connect">Connect</button>
                           <div className={styles.space}>
-                          <a href={this.gotoProfile(dict)} className={styles.profile}><button className={styles.profilebutton} type="button" value="profile">View Profile</button></a>
+                          <Link to={this.gotoProfile(dict)} className={styles.profile}><button className={styles.profilebutton} type="button" value="profile">View Profile</button></Link>
                           </div>
                           </div>
                         </div>
