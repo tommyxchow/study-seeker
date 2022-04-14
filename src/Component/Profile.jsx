@@ -73,7 +73,7 @@ export default class Profile extends React.Component {
         Authorization: "Bearer " + sessionStorage.getItem("token"),
       },
     };
-    if (body != null) {
+    if (body !== null) {
       supplyMethod.body = JSON.stringify(body);
     }
     return fetch(supplyPath, supplyMethod);
@@ -340,14 +340,8 @@ export default class Profile extends React.Component {
     //keep the form from actually submitting, since we are handling the action ourselves via
     //the fetch calls to the API
     event.preventDefault();
-    // const data = {
-    //   "email": "string",
-    //   "attributes": {
-    //     "additionalProp1": {}
-    //   }
-    // };
     this.createFetch('/users/'+this.props.userid+"?relatedObjectsAction=anonymize", 'delete', null)
-      .then((res) => res.json())
+      .then((res) => res.text())
       .then((result) => {
         console.log(result);
       }, (error) =>{alert(error)});

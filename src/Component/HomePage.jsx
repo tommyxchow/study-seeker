@@ -2,8 +2,7 @@ import React from "react";
 import "../App.css";
 import style from "./HomePage.module.css";
 import star from '../assets/star.png'
-import { render } from "react-dom";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 // the login form will display if there is no session token stored.  This will display
 // the login form, and call the API to authenticate the user and store the token in
 // the session.
@@ -43,11 +42,12 @@ export default class HomePage extends React.Component {
     createFetch('/users', 'get', null)
     .then((res)=>res.json())
     .then((result)=>{
-        result[0] = result[0].filter((user)=>user.attributes && user.attributes.rating);
+        result[0] = result[0].filter((user)=>user.attributes && user.attributes.rating !== undefined);
         result[0].sort((a,b)=>Number(b.attributes.rating)-Number(a.attributes.rating));
         var current_pictures = {};
         for(const student of result[0]){
-            current_pictures[student.id] = "https://webdev.cse.buffalo.edu/"+student.attributes.profilePicture;
+            current_pictures[student.id] = "https://webdev.cse.buffalo.edu"+(student.attributes.profilePicture?student.attributes.profilePicture:"/hci/api/uploads/files/DOo1Ebbt8dYT4-plb6G6NP5jIc9_l_gNlaYwPW4SaBM.png");
+            console.log("student Id picture:",student.id, current_pictures[student.id]);
         }
         var display = [];
         if(result.length === 0){
@@ -67,7 +67,7 @@ export default class HomePage extends React.Component {
     createFetch('/groups', 'get', null)
     .then((res)=>res.json())    
     .then((result)=>{
-        result[0] = result[0].filter((class_) => class_.attributes && class_.attributes.classpostcounter !== undefined);
+        result[0] = result[0].filter((class_) => class_.attributes && class_.attributes.classpostcounter !== undefined && class_.attributes.isClass);
         result[0].sort((a,b)=>Number(b.attributes.classpostcounter)-Number(a.attributes.classpostcounter));
         this.setState({all_classes: result[0]});
         var display = [];
@@ -120,7 +120,8 @@ export default class HomePage extends React.Component {
 
                     <div className={style.studentCard}>
                         <div className={style.imageContainer}>
-                            <img src={"https://webdev.cse.buffalo.edu/"+this.state.all_students[idx].attributes.profilePicture} alt="" className={style.profilePicture}/>
+                            <img src={"https://webdev.cse.buffalo.edu/"+(this.state.all_students[idx].attributes.profilePicture?this.state.all_students[idx].attributes.profilePicture:"/hci/api/uploads/files/DOo1Ebbt8dYT4-plb6G6NP5jIc9_l_gNlaYwPW4SaBM.png")} alt="" className={style.profilePicture}/>
+                            
                             <div className={style.nameContainer}>
                                 <span className={style.name}>{this.state.all_students[idx].attributes.firstName+" " + this.state.all_students[idx].attributes.lastName[0]+"."}</span>
                                 <div className={style.startContainer}>
@@ -179,21 +180,24 @@ export default class HomePage extends React.Component {
                             University at Buffalo
                         </div>
                         <div className={style.studentCount}>
-                             {this.state.all_classes[idx].attributes.classmembercount} students
+                             {this.state.all_classes[idx].attributes.classmemberids.length} students
                         </div>
                         <div className={style.studentPictures}>
                             {
                             this.state.all_classes[idx].attributes.classmemberids.length?
                             this.state.all_classes[idx].attributes.classmemberids.slice(0,3).map((class_member)=>(
                             <>
-                            {/* this.state.profile_pictures[class_member] */}
-                                <img className={style.classStudentPicture} src={this.state.profile_pictures[class_member]} />
+                                <img className={style.classStudentPicture} src={
+                                    this.state.profile_pictures[class_member]
+                                }/>
                             </>)):
                             <div className={style.noMemberPics}>No members yet</div>
                             }{
                             this.state.all_classes[idx].attributes.classmemberids.length>3?
                             <div className={style.moreMemberPics}>+{this.state.all_classes[idx].attributes.classmemberids.length-3}</div>:<></>
+                            
                             }
+                            
                         </div>
                         <Link to={"/class/"+this.state.all_classes[idx].id}>
                         <button className={style.viewClass}>
