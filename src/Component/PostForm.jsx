@@ -150,11 +150,7 @@ export default class PostForm extends React.Component {
       .then(res => res.json())
       .then(
         result => {
-<<<<<<< HEAD
-          result.attributes.additionalProp1.member_ids = result.attributes.additionalProp1.member_ids.filter((id)=>{return id!==this.props.userid});
-=======
           result.attributes.classmemberids = result.attributes.classmemberids.filter((id)=>{return id!=this.props.userid});
->>>>>>> dev
           delete result.id;
           this.createFetch(path, method, result)
           .then((res) => res.json())

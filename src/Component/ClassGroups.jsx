@@ -5,25 +5,24 @@ import starIcon from "../assets/unlitstar.svg";
 
 export default class ClassPosts extends Component {
 	constructor(props) {
-			super(props);
-			this.state = {
-				userid: props.userid,
-				groups: [],
-				name: "",
-				groupname: "",
-				members: [],
-				rating: 0,
-				membercount: 0,
-				status: "",
-				postcounter: 0,
-				groupid: 0,
-				createStatus: "public",
-				createGroupName: "",
-				classmembercounter: 0,
-				profilePicture:
-					"/hci/api/uploads/files/DOo1Ebbt8dYT4-plb6G6NP5jIc9_l_gNlaYwPW4SaBM.png",
-			};
-		}
+    super(props);
+      this.state = {
+        userid: props.userid,
+        groups: [],
+        name: "",
+        groupname: "",
+        members: [],
+        rating: 0,
+        membercount: 0,
+        status: "",
+        postcounter: 0,
+        groupid: -1,
+        createStatus: "public",
+        createGroupName: "",
+        profilePicture:
+          "/hci/api/uploads/files/DOo1Ebbt8dYT4-plb6G6NP5jIc9_l_gNlaYwPW4SaBM.png",
+      };
+    }
 
 	componentDidMount() {
 		console.log("hey hey", this.props.classId);
@@ -31,29 +30,54 @@ export default class ClassPosts extends Component {
 	}
 
 	fetchGroups () {
-		fetch(process.env.REACT_APP_API_PATH+"/groups/"+this.props.classId,{
+		fetch(process.env.REACT_APP_API_PATH+"/groups/", {
         method: "GET",
 				headers: {
-					'accept': '*/*'
-				}	
+					'accept': '*/*',
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer '+sessionStorage.getItem("token")
+				}
       })
 		.then((res) => res.json())
 		.then((result) => {
-			let holdergroup = [];
-			console.log("result",result);
-			this.setState({
-				groupid: result.attributes.groups.groupid,
-				membercount: result.attributes.groups.membercount,
-				name: result.name,
-				id: result.id,
-				members: result.attributes.groups.members,
-				status: result.attributes.groups.status,
-				postcounter: result.attributes.classpostcounter,
-				groupname: result.attributes.groups.name,
-				rating: result.attributes.groups.rating,
-				classmembercounter: result.attributes.classmembercounter
-			});
-			holdergroup.push(result);
+      let holdergroup = [];
+      for(var i = 0; i < result[0].length; i++) {
+        // console.log(result[0][i])
+        if(!result[0][i].attributes.isClass){
+          if(result[0][i].attributes.id == this.props.classId){
+            console.log("this is it dawg");
+            this.setState({
+              groupname: result[0][i].name,
+              status: result[0][i].attributes.status,
+              membercount: result[0][i].attributes.members.length,
+              members: result[0][i].attributes.members,
+              groupid: result[0][i].id,
+              postcounter: result[0][i].attributes.postcounter,
+              classid: result[0][i].attributes.id,
+              rating: result[0][i].attributes.rating,
+            });
+            if(this.state.classid !== -1){
+              fetch(process.env.REACT_APP_API_PATH+"/groups/"+this.state.classid, {
+                method: "get",
+                headers: {
+                  'Content-Type': 'application/json',
+                  'Authorization': 'Bearer '+sessionStorage.getItem("token")
+                }
+               })
+              .then(res => res.json())
+              .then(result => {
+                this.setState({
+                  name: result.name
+                });
+                this.forceUpdate();
+                console.log(this.state.name);
+              })
+            }
+            console.log(this.state);
+            holdergroup.push(result[0][i]);
+          }
+        }
+      }
 			this.setState({
 				groups: holdergroup
 			});
@@ -158,7 +182,8 @@ export default class ClassPosts extends Component {
 
 
 	render () {
-		const {groups} = this.state;
+		const {error, groups} = this.state;
+    console.log("groups" ,groups);
 		const handleChange = (event) => {
 			this.setState({createStatus: event.target.value});
 		}
@@ -204,40 +229,42 @@ export default class ClassPosts extends Component {
 						</div>
 					{groups.map(group => (
 						<>
+            {console.log(groups)}
+            {console.log(group)}
 						<div className= {styles.groupdiv}>
 						<a key={group.id} id="group" href={"/groups/" + group.id} className={styles.classgrouplist} onClick={() => this.setState({name: group.name})}>
 						<div className={styles.container}>
-							<p className={styles.name}>{group.name+ ": " + this.state.groupname}</p>
-							<p className={styles.membercount}>{group.attributes.groups.membercount} Student(s)</p>
+							<p className={styles.name}>{this.state.name+ ": " + group.name}</p>
+							<p className={styles.membercount}>{group.attributes.members.length} Student(s)</p>
 						</div>
 						<div className={styles.container}>
 							<p className={styles.students}>Student(s)</p>
-								{/* {group.attributes.groups.status === "public" && group.attributes.groups.membercount === 1 &&
+								{/* {group.attributes.status === "public" && group.attributes.membercount === 1 &&
 									<img className={styles.profilepicture} src={"https://webdev.cse.buffalo.edu"+ this.state.publicProfilePicture[0]} alt="user profile 1"/>
 								}
-								{group.attributes.groups.status === "public" && group.attributes.groups.membercount === 2 &&
+								{group.attributes.status === "public" && group.attributes.membercount === 2 &&
 									<>
 										<img className={styles.profilepicture} src={"https://webdev.cse.buffalo.edu"+ this.state.publicProfilePicture[0]} alt="user profile 1"/>
 										<img className={styles.profilepicture} src={"https://webdev.cse.buffalo.edu"+ this.state.publicProfilePicture[1]} alt="user profile 2"/>
 									</>
 								}
-								{group.attributes.groups.status === "public" && (group.attributes.groups.membercount === 3 || group.attributes.groups.membercount > 3) &&
+								{group.attributes.status === "public" && (group.attributes.membercount === 3 || group.attributes.membercount > 3) &&
 								<>
 									<img className={styles.profilepicture} src={"https://webdev.cse.buffalo.edu"+ this.state.publicProfilePicture[0]} alt="user profile 2"/>
 									<img className={styles.profilepicture} src={"https://webdev.cse.buffalo.edu"+ this.state.publicProfilePicture[1]} alt="user profile 2"/>
 									<img className={styles.profilepicture} src={"https://webdev.cse.buffalo.edu"+ this.state.publicProfilePicture[2]} alt="user profile 3"/>
 								</>
 								}
-								{group.attributes.groups.status === "private" && group.attributes.groups.membercount === 1 &&
+								{group.attributes.status === "private" && group.attributes.membercount === 1 &&
 									<img className={styles.profilepicture} src={"https://webdev.cse.buffalo.edu"+ this.state.privateProfilePicture[0]} alt="user profile 1"/>
 								}
-								{group.attributes.groups.status === "private" && group.attributes.groups.membercount === 2 &&
+								{group.attributes.status === "private" && group.attributes.membercount === 2 &&
 									<>
 										<img className={styles.profilepicture} src={"https://webdev.cse.buffalo.edu"+ this.state.privateProfilePicture[0]} alt="user profile 1"/>
 										<img className={styles.profilepicture} src={"https://webdev.cse.buffalo.edu"+ this.state.privateProfilePicture[1]} alt="user profile 2"/>
 									</>
 								}
-								{group.attributes.groups.status === "private" && (group.attributes.groups.membercount === 3 || group.attributes.groups.membercount > 3) &&
+								{group.attributes.status === "private" && (group.attributes.membercount === 3 || group.attributes.membercount > 3) &&
 								<>
 									<img className={styles.profilepicture} src={"https://webdev.cse.buffalo.edu"+ this.state.privateProfilePicture[0]} alt="user profile 2"/>
 									<img className={styles.profilepicture} src={"https://webdev.cse.buffalo.edu"+ this.state.privateProfilePicture[1]} alt="user profile 2"/>
@@ -256,8 +283,8 @@ export default class ClassPosts extends Component {
 							</div>
 						</div>
 						</a>
-						{group.attributes.groups.members.includes(Number(this.props.userid)) && <button className={styles.leavebutton} onClick={() => this.removeHandler_Leave(group.id, group.name)}>Leave</button>}
-						{!group.attributes.groups.members.includes(Number(this.props.userid)) && <button className={styles.joinbutton} onClick={() => this.removeHandler_Join(group.id, group.name)}>Join</button>}
+						{group.members.includes(Number(this.props.userid)) && <button className={styles.leavebutton} onClick={() => this.removeHandler_Leave(group.id, group.name)}>Leave</button>}
+						{!group.members.includes(Number(this.props.userid)) && <button className={styles.joinbutton} onClick={() => this.removeHandler_Join(group.id, group.name)}>Join</button>}
 						</div>
 						</>
 					))}
