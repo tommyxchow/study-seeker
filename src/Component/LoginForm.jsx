@@ -1,4 +1,5 @@
 import React from "react";
+import { Link, Navigate } from "react-router-dom";
 import "../App.css";
 import styles from "./auth.module.css";
 
@@ -118,25 +119,20 @@ export default class LoginForm extends React.Component {
                   onChange={this.passwordChangeHandler}
                   required
                 />
-                <a className={styles.forgotPassword} href="./reset-password">
+                <Link className={styles.forgotPassword} to="/reset-password">
                   forgot password?
-                </a>
+                </Link>
                 <input type="submit" value="Login" className={styles.button} />
               </form>
-              <a className={styles.noAccount} href="./register">
+              <Link className={styles.noAccount} to="/register">
                 don't have an account?
-              </a>
+              </Link>
             </div>
           </div>
         </div>
       );
     } else {
-      console.log("Returning welcome message");
-      if (this.state.username) {
-        return <p>Welcome, {this.state.username}</p>;
-      } else {
-        return <p>{this.state.alanmessage}</p>;
-      }
+      return <Navigate to="/" />;
     }
   }
 }

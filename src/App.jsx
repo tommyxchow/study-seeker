@@ -4,7 +4,6 @@
   sibling components at a lower level.  It holds the basic structural components of navigation, content, and a modal dialog.
 */
 
-import ClassPosts from "Component/ClassPosts";
 import ConnectionRequest from "Component/ConnectionRequest";
 import React from "react";
 import {
@@ -19,6 +18,7 @@ import FriendForm from "./Component/FriendForm.jsx";
 import FriendList from "./Component/FriendList.jsx";
 import GroupsDetails from "./Component/GroupDetails.jsx";
 import GroupList from "./Component/GroupList.jsx";
+import HomePage from "./Component/HomePage.jsx";
 import LandingPage from "./Component/LandingPage.jsx";
 import LoginPage from "./Component/LoginForm.jsx";
 import Modal from "./Component/Modal.jsx";
@@ -26,9 +26,8 @@ import Navbar from "./Component/Navigationbar.jsx";
 import PostForm from "./Component/PostForm.jsx";
 import Profile from "./Component/Profile.jsx";
 import Registration from "./Component/Registration.jsx";
-import StyleGuide from "./Component/StyleGuide.jsx";
 import SearchForm from "./Component/SearchForm.jsx";
-import HomePage from './Component/HomePage.jsx';
+import StyleGuide from "./Component/StyleGuide.jsx";
 
 // toggleModal will both show and hide the modal dialog, depending on current state.  Note that the
 // contents of the modal dialog are set separately before calling toggle - this is just responsible
@@ -125,10 +124,6 @@ class App extends React.Component {
 
               <div className="maincontent" id="mainContent">
                 <Routes>
-                  <Route
-                    path="/home"
-                    element={<Home login={this.login} />}
-                  />
                   <Route path="/styleguide" element={<StyleGuide />} />
                   <Route
                     path="/profile"
@@ -163,7 +158,6 @@ class App extends React.Component {
                         login={this.login}
                         apprefresh={this.state.refreshPosts}
                       />
-                    
                     }
                   />
                   <Route
@@ -176,17 +170,7 @@ class App extends React.Component {
                     path="/connections"
                     element={<Connections login={this.login} />}
                   />
-
-                  <Route
-                    path="/"
-                    element={
-                      <Posts
-                        doRefreshPosts={this.doRefreshPosts}
-                        login={this.login}
-                        apprefresh={this.state.refreshPosts}
-                      />
-                    }
-                  />
+                  <Route path="/" element={<Home login={this.login} />} />
                 </Routes>
               </div>
             </div>
@@ -349,27 +333,6 @@ const Connections = (props) => {
   //return <ConnectionRequest />;
 };
 
-const Class = (props) => {
-  const user_id = sessionStorage.getItem("user");
-
-  let { id } = useParams();
-
-  if (!sessionStorage.getItem("token")) {
-    console.log("LOGGED OUT");
-    return (
-      <div>
-        <LoginPage login={props.login} />
-      </div>
-    );
-  }
-  return (
-    <>
-      <ClassPosts classId={id} userid={user_id} />
-    </>
-  );
-  //return <ConnectionRequest />;
-};
-
 const Home = (props) => {
   const user_id = sessionStorage.getItem("user");
 
@@ -377,17 +340,9 @@ const Home = (props) => {
 
   if (!sessionStorage.getItem("token")) {
     console.log("LOGGED OUT");
-    return (
-      <div>
-        <LoginPage login={props.login} />
-      </div>
-    );
+    return <LandingPage login={props.login} />;
   }
-  return (
-    <>
-      <HomePage classId={id} userid={user_id} />
-    </>
-  );
+  return <HomePage classId={id} userid={user_id} />;
   //return <ConnectionRequest />;
 };
 
