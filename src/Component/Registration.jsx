@@ -1,16 +1,10 @@
 import React from "react";
+import { Navigate } from "react-router-dom";
 import "../App.css";
 import { BackgroundImage, LogoText } from "./LandingPage.jsx";
 
-
-
-
-  function UserCredentialsBox(props){
-    return(
-        <div className="user-credentials-box">
-            {props.children}
-        </div>
-    );
+function UserCredentialsBox(props) {
+  return <div className="user-credentials-box">{props.children}</div>;
 }
 
 class Registration extends React.Component {
@@ -23,14 +17,15 @@ class Registration extends React.Component {
       password: "",
       confirmPassword: "",
       alanmessage: "",
-      sessiontoken: ""
+      sessiontoken: "",
+      registered: false,
     };
     this.refreshPostsFromLogin = this.refreshPostsFromLogin.bind(this);
   }
   // once a user has successfully logged in, we want to refresh the post
   // listing that is displayed.  To do that, we'll call the callback passed in
   // from the parent.
-  refreshPostsFromLogin(){
+  refreshPostsFromLogin() {
     console.log("CALLING LOGIN IN LOGINFORM");
     this.props.login();
   }
@@ -38,64 +33,57 @@ class Registration extends React.Component {
   // change handlers keep the state current with the values as you type them, so
   // the submit handler can read from the state to hit the API layer
 
-  firstNameChangeHandler = event => {
+  firstNameChangeHandler = (event) => {
     this.setState({
-      firstName: event.target.value
+      firstName: event.target.value,
     });
   };
-  lastNameChangeHandler = event => {
+  lastNameChangeHandler = (event) => {
     this.setState({
-      lastName: event.target.value
+      lastName: event.target.value,
     });
   };
-  emailChangeHandler = event => {
+  emailChangeHandler = (event) => {
     this.setState({
-      email: event.target.value
+      email: event.target.value,
     });
   };
-  passwordChangeHandler = event => {
+  passwordChangeHandler = (event) => {
     this.setState({
-      password: event.target.value
+      password: event.target.value,
     });
   };
-  confirmPasswordChangeHandler = event => {
+  confirmPasswordChangeHandler = (event) => {
     this.setState({
-      confirmPassword: event.target.value
+      confirmPassword: event.target.value,
     });
   };
-
 
   // when the user hits submit, process the login through the API
-  submitHandler = event => {
+  submitHandler = (event) => {
     //keep the form from actually submitting
     event.preventDefault();
     //checks if passowrds match
-    if(this.state.password == this.state.confirmPassword){
-          //make the api call to the authentication page
-    fetch(process.env.REACT_APP_API_PATH+"/auth/signup", {
-      method: "post",
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        email: this.state.email,
-        password: this.state.password,
-        attributes: {
-          firstName: this.state.firstName,
-          lastName: this.state.lastName
-        }
+    if (this.state.password === this.state.confirmPassword) {
+      //make the api call to the authentication page
+      fetch(process.env.REACT_APP_API_PATH + "/auth/signup", {
+        method: "post",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email: this.state.email,
+          password: this.state.password,
+          attributes: {
+            firstName: this.state.firstName,
+            lastName: this.state.lastName,
+          },
+        }),
       })
-    })
-      .then(res => res.json())
-      .then(
-        result => {
+        .then((res) => res.json())
+        .then((result) => {
           console.log(result);
           if (result.userID) {
-
-            // set the auth token and user ID in the session state
-            sessionStorage.setItem("token", result.token);
-            sessionStorage.setItem("user", result.userID);
-
             this.setState({
               firstName: result.firstName,
               lastName: result.lastName,
@@ -103,12 +91,10 @@ class Registration extends React.Component {
               password: result.password,
               confirmPassword: result.confirmPassword,
               sessiontoken: result.token,
-              alanmessage: result.token
+              alanmessage: result.token,
             });
             alert("You have registered successfully.");
-
-            //todo: call refresh on the posting list?
-            //this.refreshPostsFromLogin();
+            this.setState({ registered: true });
           } else {
             alert("error!");
 
@@ -117,16 +103,15 @@ class Registration extends React.Component {
             sessionStorage.removeItem("user");
             this.setState({
               sessiontoken: "",
-              alanmessage: result.message
+              alanmessage: result.message,
             });
           }
-        }
-      );
-    }else{
-      alert("Passwords do not match!")
+        });
+    } else {
+      alert("Passwords do not match!");
     }
-
   };
+<<<<<<< HEAD
     render () {
         return (
             <>
@@ -202,6 +187,87 @@ class Registration extends React.Component {
         );
 
     }
+=======
+>>>>>>> dev
 
+  render() {
+    if (this.state.registered) return <Navigate to="/login" />;
+
+    return (
+      <>
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="stylesheet" type="text/css" href="styleStudy.css" />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link
+          rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossOrigin=""
+        />
+        <link
+          href="https://fonts.googleapis.com/css2?family=Exo:wght@700&family=Sofia&display=swap"
+          rel="stylesheet"
+        />
+
+        <BackgroundImage>
+          <UserCredentialsBox>
+            <LogoText subtitle="SIGN UP TO FIND YOUR NEXT STUDY BUDDY" />
+            <div className="formMargin">
+              <form className="registrationForm" onSubmit={this.submitHandler}>
+                <div>
+                  <input
+                    className="textBox"
+                    type="text"
+                    id="fname"
+                    name="firstname"
+                    placeholder="First Name"
+                    onChange={this.firstNameChangeHandler}
+                  />
+                  <input
+                    className="textBox"
+                    type="text"
+                    id="lname"
+                    name="lastname"
+                    placeholder="Last Name"
+                    onChange={this.lastNameChangeHandler}
+                  />
+                </div>
+                <input
+                  className="emailTextbox"
+                  type="email"
+                  id="email"
+                  name="email"
+                  placeholder="Email Address"
+                  onChange={this.emailChangeHandler}
+                />
+                <div className="passwordRow">
+                  <input
+                    className="textBox"
+                    type="password"
+                    id="password"
+                    name="password"
+                    placeholder="Password"
+                    onChange={this.passwordChangeHandler}
+                  />
+                  <input
+                    className="textBox"
+                    type="password"
+                    id="confirmPass"
+                    name="password"
+                    placeholder="Confirm Password"
+                    onChange={this.confirmPasswordChangeHandler}
+                  />
+                </div>
+                <input
+                  className="buttonSubmitForm"
+                  type="submit"
+                  defaultValue="Sign Up"
+                />
+              </form>
+            </div>
+          </UserCredentialsBox>
+        </BackgroundImage>
+      </>
+    );
+  }
 }
-export default Registration
+export default Registration;
