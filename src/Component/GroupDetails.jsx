@@ -8,6 +8,7 @@ export default class GroupDetails extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      isLoaded: false,
       userid: props.userid,
       groups: [],
       name: "",
@@ -17,11 +18,11 @@ export default class GroupDetails extends React.Component {
       membercount: 0,
       status: "",
       postcounter: 0,
-      groupid: 0,
+      groupid: -1,
       profilePicture: "",
       username: "",
       usernameList: [],
-      classmembercounter: 0,
+      classid: -1
     };
   }
 
@@ -46,17 +47,31 @@ export default class GroupDetails extends React.Component {
             console.log("result", result);
             this.setState({
                 isLoaded: true,
-                name: result.name,
-                status: result.attributes.groups.status,
-                membercount: result.attributes.groups.membercount,
-                members: result.attributes.groups.members,
+                groupname: result.name,
+                status: result.attributes.status,
+                members: result.attributes.members,
+                membercount: result.attributes.members.length,
                 id: result.id,
                 postcounter: result.attributes.postcounter,
-                groupid: result.attributes.groups.groupid,
-                groupname: result.attributes.groups.name,
-                rating: result.attributes.groups.rating,
-                classmembercounter: result.attributes.classmembercounter
+                classid: result.attributes.id,
+                rating: result.attributes.rating,
             });
+            if(this.state.classid !== -1){
+              fetch(process.env.REACT_APP_API_PATH+"/groups/"+this.state.classid, {
+                method: "get",
+                headers: {
+                  'Content-Type': 'application/json',
+                  'Authorization': 'Bearer '+sessionStorage.getItem("token")
+                }
+               })
+               .then(res => res.json())
+               .then(result => {
+                 this.setState({
+                   name: result.name
+                 });
+                 console.log(this.state.name);
+                })
+            }
             console.log("this.state", this.state);
             }
         },
@@ -113,31 +128,58 @@ export default class GroupDetails extends React.Component {
         ;
     }
 
-    removeHandler_Leave(id, name){
-        console.log(id);
-        console.log(name);
-        const newList = this.state.members.filter(userid => userid !== Number(this.state.userid));
+    async removeHandler_Leave(id, name){
+      const newList = this.state.members.filter(userid => userid !== Number(this.state.userid));
+      console.log(newList);
+      await fetch(process.env.REACT_APP_API_PATH+"/groups/" + id, {
+        method: 'PATCH',
+        headers: {
+          "accept": "*/*",
+          "Authorization": "Bearer "+sessionStorage.getItem("token"),
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          id: id,
+          name: name,
+          attributes: {
+            isClass: false,
+            members: newList,
+            status: this.state.status,
+            postcounter: this.state.postcounter,
+            rating: this.state.rating,
+            id: this.state.classid
+          }
+        })
+      })
+        .then(response => response.json())
+        .then(result => console.log(result))
+        .catch(error => console.log('error', error));
+      this.forceUpdate();
+      window.location.reload();
+    }
+
+      async removeHandler_Join(id, name){
+        const newList = this.state.members
+        newList.push(Number(this.props.userid));
         console.log(newList);
-        fetch("https://webdev.cse.buffalo.edu/hci/api/api/commitment/groups/" + id, {
-          method: "PATCH",
+        this.setState({members: newList});
+        await fetch(process.env.REACT_APP_API_PATH+"/groups/" + id, {
+          method: 'PATCH',
           headers: {
             "accept": "*/*",
-            'Authorization': 'Bearer '+sessionStorage.getItem("token"),
-            'Content-Type': 'application/json'
+            "Authorization": "Bearer "+sessionStorage.getItem("token"),
+            "Content-Type": "application/json"
           },
           body: JSON.stringify({
             id: id,
             name: name,
             attributes: {
-              classpostcounter: this.state.postcounter,
-              classmembercount: this.state.classmembercounter,
-              groups: {
-                groupid: this.state.groupid,
-                name: this.state.groupname,
-                members: newList,
-                status: this.state.status,
-                membercount: this.state.membercount - 1
-              }
+              isClass: false,
+              members: newList,
+              status: this.state.status,
+              postcounter: this.state.postcounter,
+              rating: this.state.rating,
+              id: this.state.classid
             }
           })
         })
@@ -148,97 +190,70 @@ export default class GroupDetails extends React.Component {
         window.location.reload();
       }
 
-      removeHandler_Join(id, name){
-        const newList = this.state.members
-        newList.push(this.props.userid);
-        console.log(newList);
-        fetch("https://webdev.cse.buffalo.edu/hci/api/api/commitment/groups/" + id, {
-          method: "PATCH",
-          headers: {
-            "accept": "*/*",
-            'Authorization': 'Bearer '+sessionStorage.getItem("token"),
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({
-            id: id,
-            name: name,
-            attributes: {
-              classpostcounter: this.state.postcounter,
-              classmembercount: this.state.classmembercounter,
-              groups: {
-                groupid: this.state.groupid,
-                name: this.state.groupname,
-                members: newList,
-                status: this.state.status,
-                membercount: this.state.membercount + 1
-              }
-            }
-          })
-        })
-          .then(response => response.json())
-          .then(result => console.log(result))
-          .catch(error => console.log('error', error));
-        this.forceUpdate();
-      }
-
-      updateStatus_private(id, name){
-        fetch(process.env.REACT_APP_API_PATH + window.location.pathname, {
-          method: "PATCH",
-          headers: {
-            "accept": "*/*",
-            'Authorization': 'Bearer '+sessionStorage.getItem("token"),
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({
-            id: id,
-            name: name,
-            attributes: {
-              classpostcounter: this.state.postcounter,
-              classmembercount: this.state.classmembercounter,
-              groups: {
-                groupid: this.state.groupid,
-                name: this.state.groupname,
+      async updateStatus_private(id, name){
+        if (this.state.members.includes(Number(this.props.userid))){
+          await fetch(process.env.REACT_APP_API_PATH+"/groups/" + id, {
+            method: 'PATCH',
+            headers: {
+              "accept": "*/*",
+              "Authorization": "Bearer "+sessionStorage.getItem("token"),
+              "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+              id: id,
+              name: name,
+              attributes: {
+                isClass: false,
                 members: this.state.members,
                 status: "private",
-                membercount: this.state.membercount,
-                }
-            }})
-        })
-          .then(response => response.json())
-          .then(result => console.log(result))
-          .catch(error => console.log('error', error));
-        this.forceUpdate();
-        window.location.reload();
+                postcounter: this.state.postcounter,
+                rating: this.state.rating,
+                id: this.state.classid
+              }
+            })
+          })
+            .then(response => response.json())
+            .then(result => console.log(result))
+            .catch(error => console.log('error', error));
+          this.forceUpdate();
+          window.location.reload();
+        }
+        else {
+          alert("You are not in the group! Please join before changing privacy settings.")
+        }
       }
 
-      updateStatus_public(id, name){
-        fetch(process.env.REACT_APP_API_PATH + window.location.pathname, {
-          method: "PATCH",
-          headers: {
-            "accept": "*/*",
-            'Authorization': 'Bearer '+sessionStorage.getItem("token"),
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({
-            id: id,
-            name: name,
-            attributes: {
-              classpostcounter: this.state.postcounter,
-              classmembercount: this.state.classmembercounter,
-              groups: {
-                groupid: this.state.groupid,
-                name: this.state.groupname,
+      async updateStatus_public(id, name){
+        if (this.state.members.includes(Number(this.props.userid))){
+          await fetch(process.env.REACT_APP_API_PATH+"/groups/" + id, {
+            method: 'PATCH',
+            headers: {
+              "accept": "*/*",
+              "Authorization": "Bearer "+sessionStorage.getItem("token"),
+              "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+              id: id,
+              name: name,
+              attributes: {
+                isClass: false,
                 members: this.state.members,
                 status: "public",
-                membercount: this.state.membercount
+                postcounter: this.state.postcounter,
+                rating: this.state.rating,
+                id: this.state.classid
               }
-            }})
-        })
-          .then(response => response.json())
-          .then(result => console.log(result))
-          .catch(error => console.log('error', error));
-        this.forceUpdate();
-        window.location.reload();
+            })
+          })
+            .then(response => response.json())
+            .then(result => console.log(result))
+            .catch(error => console.log('error', error));
+          this.forceUpdate();
+          window.location.reload();
+        }
+        else {
+          alert("You are not in the group! Please join before changing privacy settings.")
+        }
       }
 
     render(){
@@ -247,8 +262,8 @@ export default class GroupDetails extends React.Component {
             <>
             <div className={groupcss.div1}>
               <div className={groupcss.groupdetailname}>{this.state.name+ ": " + this.state.groupname}</div>
-              {groups.members.includes(Number(this.props.userid)) && <button className={groupcss.groupleavebutton} onClick={() => this.removeHandler_Leave(groups.id, groups.name)}>Leave</button>}
-              {!groups.members.includes(Number(this.props.userid)) && <button className={groupcss.groupjoinbutton} onClick={() => this.removeHandler_Join(groups.id, groups.name)}>Join</button>}
+              {groups.members.includes(Number(this.props.userid)) && <button className={groupcss.groupleavebutton} onClick={() => this.removeHandler_Leave(groups.id, groups.groupname)}>Leave</button>}
+              {!groups.members.includes(Number(this.props.userid)) && <button className={groupcss.groupjoinbutton} onClick={() => this.removeHandler_Join(groups.id, groups.groupname)}>Join</button>}
             </div>
             <div className={groupcss.div2}>
               <div className={groupcss.text}>Average Rating</div>
@@ -261,8 +276,8 @@ export default class GroupDetails extends React.Component {
               </div>
             </div>
             <div className={groupcss.text}>Status: {groups.status}</div>
-            <button className={groupcss.buttondiv} onClick={() => this.updateStatus_public(groups.id, groups.name)}>Public</button>
-            <button className={groupcss.buttondiv} onClick={() => this.updateStatus_private(groups.id, groups.name)}>Private</button>
+            <button className={groupcss.buttondiv} onClick={() => this.updateStatus_public(groups.id, groups.groupname)}>Public</button>
+            <button className={groupcss.buttondiv} onClick={() => this.updateStatus_private(groups.id, groups.groupname)}>Private</button>
             <div className={groupcss.text}>{"Members (" +groups.membercount + ")"}</div>
             <div className={groupcss.div1}>
             {this.state.usernameList.map(names => {

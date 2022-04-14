@@ -7,6 +7,7 @@ export default class GroupList extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      isLoaded: false,
       userid: props.userid,
       groups: [],
       name: "",
@@ -240,7 +241,7 @@ export default class GroupList extends React.Component {
               <p className={styles.groupname}>{this.state.name}</p>
               <div className={styles.line}></div>
               <div className= {styles.groupdiv}>
-              <a key={group.id} id="group" href={"/groups/" + group.classid} className={styles.grouplist} onClick={() => this.setState({name: group.name})}>
+              <a key={group.id} id="group" href={"/groups/" + group.id} className={styles.grouplist} onClick={() => this.setState({name: group.name})}>
               <div className={styles.container}>
                 <p className={styles.name}>{this.state.name + ": " + group.name}</p>
                 <p className={styles.membercount}>{group.attributes.members.length} Student(s)</p>
