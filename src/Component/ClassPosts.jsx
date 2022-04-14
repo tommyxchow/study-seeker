@@ -25,7 +25,7 @@ export default class ClassPosts extends Component {
     )
       .then((res) => res.json())
       .then((result) => {
-        this.setState({ posts: result[0] });
+        this.setState({ posts: result[0].filter((item)=>item.authorID !== null) });
       });
 
     fetch(
