@@ -179,7 +179,7 @@ export default class HomePage extends React.Component {
                             University at Buffalo
                         </div>
                         <div className={style.studentCount}>
-                             {this.state.all_classes[idx].attributes.classmembercount} students
+                             {this.state.all_classes[idx].attributes.classmemberids.length} students
                         </div>
                         <div className={style.studentPictures}>
                             {

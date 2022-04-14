@@ -40,7 +40,7 @@ export default class ClassPosts extends Component {
     )
       .then((res) => res.json())
       .then((result) => {
-        this.setState({ posts: result[0].filter((item)=>item.authorID !== null) });
+        this.setState({ posts: result[0] });
       });
 
     fetch(
@@ -132,8 +132,8 @@ export default class ClassPosts extends Component {
         {this.state.posts.map((postInfo) => (
           <Post
             id={postInfo.authorID}
-            name={`${postInfo.author.attributes.firstName} ${postInfo.author.attributes.lastName}`}
-            profilePicture={postInfo.author.attributes.profilePicture}
+            name={`${postInfo.author?postInfo.author.attributes.firstName: "DELETED"} ${postInfo.author?postInfo.author.attributes.lastName: ""}`}
+            profilePicture={postInfo.author?postInfo.author.attributes.profilePicture:null}
             content={postInfo.content}
           />
         ))}
