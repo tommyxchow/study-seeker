@@ -138,7 +138,7 @@ export default class ClassPosts extends Component {
         id: id,
         name: name,
         attributes: {
-					classpostcounter: this.state.postcounter,
+			    classpostcounter: this.state.postcounter,
           classmembercount: this.state.classmembercounter,
           groups: {
             groupid: this.state.groupid + 1,
