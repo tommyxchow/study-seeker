@@ -11,36 +11,31 @@ class Navigationbar extends React.Component {
     const navStyle = ({ isActive }) =>
       isActive
         ? { textDecoration: "underline", textDecorationColor: "white" }
-        : { color: "red" };
+        : undefined;
 
     return (
       <div className={styles.sidenav}>
-        {/* <NavLink to= "/"> */}
         <NavLink to="/" style={navStyle}>
-          <div className={styles.home}>Home</div>
+          <div className={styles.navItem}>Home</div>
         </NavLink>
-        {/* </NavLink> */}
-        <div className={styles.between} />
         <NavLink to="/search" style={navStyle}>
-          <div className={styles.search}>Search</div>
+          <div className={styles.navItem}>Search</div>
         </NavLink>
-        <div className={styles.between} />
         <NavLink to="/profile" style={navStyle}>
-          <div className={styles.profile}>Profile</div>
+          <div className={styles.navItem}>Profile</div>
         </NavLink>
-        <div className={styles.between} />
         <NavLink to="/groups" style={navStyle}>
-          <div className={styles.groups}>Groups</div>
+          <div className={styles.navItem}>Groups</div>
         </NavLink>
-        <div className={styles.between} />
         <NavLink to="/connections" style={navStyle}>
-          <div className={styles.connections}>Connections</div>
+          <div className={styles.navItem}>Connections</div>
         </NavLink>
         <div className={styles.spacer}></div>
-        <NavLink to="/" style={navStyle}>
-          <div onClick={this.props.logout} className={styles.logouttext}>
-            Logout
-          </div>
+        <NavLink to="/styleguide" style={navStyle} className={styles.navItem}>
+          Style Guide
+        </NavLink>
+        <NavLink to="/" onClick={this.props.logout} className={styles.navItem}>
+          Logout
         </NavLink>
       </div>
     );
