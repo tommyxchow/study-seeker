@@ -61,7 +61,6 @@ export default class GroupList extends React.Component {
                         rating: result[0][i].attributes.rating,
                       });
                       if(this.state.classid !== -1){
-                        console.log("asduonasdjnasdjklnadsjkads")
                         fetch(process.env.REACT_APP_API_PATH+"/groups/"+this.state.classid, {
                           method: "get",
                           headers: {
@@ -108,7 +107,6 @@ export default class GroupList extends React.Component {
                             })
                             this.forceUpdate();
                           }
-                          console.log("private pics",holderPrivatePictures);
                         })
                         .catch(error => console.log('error', error));
                       }
@@ -197,14 +195,15 @@ export default class GroupList extends React.Component {
     }
   
 
-  removeHandler_Leave(id, name){
+  async removeHandler_Leave(id, name){
     const newList = this.state.members.filter(userid => userid !== Number(this.state.userid));
-    fetch("https://webdev.cse.buffalo.edu/hci/api/api/commitment/groups/" + id, {
-      method: "PATCH",
+    console.log(newList);
+    await fetch(process.env.REACT_APP_API_PATH+"/groups/" + id, {
+      method: 'PATCH',
       headers: {
         "accept": "*/*",
-        'Authorization': 'Bearer '+sessionStorage.getItem("token"),
-        'Content-Type': 'application/json'
+        "Authorization": "Bearer "+sessionStorage.getItem("token"),
+        "Content-Type": "application/json"
       },
       body: JSON.stringify({
         id: id,
@@ -214,7 +213,8 @@ export default class GroupList extends React.Component {
           members: newList,
           status: this.state.status,
           postcounter: this.state.postcounter,
-          rating: this.state.rating
+          rating: this.state.rating,
+          id: this.state.classid
         }
       })
     })
@@ -227,7 +227,6 @@ export default class GroupList extends React.Component {
 
   render() {
     const {error, isLoaded, groups} = this.state;
-    console.log("groups",groups);
     if (error) {
       return <div> Error: {error.message} </div>;
     } else if (!isLoaded) {
@@ -243,7 +242,7 @@ export default class GroupList extends React.Component {
               <div className= {styles.groupdiv}>
               <a key={group.id} id="group" href={"/groups/" + group.classid} className={styles.grouplist} onClick={() => this.setState({name: group.name})}>
               <div className={styles.container}>
-                <p className={styles.name}>{this.state.name + ":" + group.name}</p>
+                <p className={styles.name}>{this.state.name + ": " + group.name}</p>
                 <p className={styles.membercount}>{group.attributes.members.length} Student(s)</p>
               </div>
               <div className={styles.container}>
@@ -291,7 +290,7 @@ export default class GroupList extends React.Component {
                   <img className={styles.star} src={starIcon} alt="star"/>
                 </div>
               </div>
-              <div className={styles.container}>
+              <div className={styles.container} hidden>
                 {"id: " + group.id} <br/>
                 {"status: " + group.attributes.status} <br/>
                 {"members: " + group.attributes.members}
