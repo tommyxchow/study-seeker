@@ -4,7 +4,6 @@
   sibling components at a lower level.  It holds the basic structural components of navigation, content, and a modal dialog.
 */
 
-import ClassPosts from "Component/ClassPosts";
 import ConnectionRequest from "Component/ConnectionRequest";
 import React from "react";
 import {
@@ -125,7 +124,6 @@ class App extends React.Component {
 
               <div className="maincontent" id="mainContent">
                 <Routes>
-                  <Route path="/" element={<Home login={this.login} />} />
                   <Route path="/styleguide" element={<StyleGuide />} />
                   <Route
                     path="/profile"
@@ -172,17 +170,7 @@ class App extends React.Component {
                     path="/connections"
                     element={<Connections login={this.login} />}
                   />
-
-                  <Route
-                    path="/"
-                    element={
-                      <Posts
-                        doRefreshPosts={this.doRefreshPosts}
-                        login={this.login}
-                        apprefresh={this.state.refreshPosts}
-                      />
-                    }
-                  />
+                  <Route path="/" element={<Home login={this.login} />} />
                 </Routes>
               </div>
             </div>
@@ -345,27 +333,6 @@ const Connections = (props) => {
   //return <ConnectionRequest />;
 };
 
-const Class = (props) => {
-  const user_id = sessionStorage.getItem("user");
-
-  let { id } = useParams();
-
-  if (!sessionStorage.getItem("token")) {
-    console.log("LOGGED OUT");
-    return (
-      <div>
-        <LoginPage login={props.login} />
-      </div>
-    );
-  }
-  return (
-    <>
-      <ClassPosts classId={id} userid={user_id} />
-    </>
-  );
-  //return <ConnectionRequest />;
-};
-
 const Home = (props) => {
   const user_id = sessionStorage.getItem("user");
 
@@ -373,17 +340,9 @@ const Home = (props) => {
 
   if (!sessionStorage.getItem("token")) {
     console.log("LOGGED OUT");
-    return (
-      <div>
-        <LoginPage login={props.login} />
-      </div>
-    );
+    return <LandingPage login={props.login} />;
   }
-  return (
-    <>
-      <HomePage classId={id} userid={user_id} />
-    </>
-  );
+  return <HomePage classId={id} userid={user_id} />;
   //return <ConnectionRequest />;
 };
 
