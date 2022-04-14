@@ -131,6 +131,55 @@ export default class Reviews extends Component {
     }
   }
 
+  upvote(post) {
+    console.log(post);
+    if (!post.attributes.upvoted.includes(sessionStorage.getItem("user"))) {
+      fetch(process.env.REACT_APP_API_PATH + "/posts/" + post.id, {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + sessionStorage.getItem("token"),
+        },
+        body: JSON.stringify({
+          attributes: {
+            ...post.attributes,
+            downvoted: post.attributes.downvoted.filter(
+              (item) => item !== sessionStorage.getItem("user")
+            ),
+            upvoted: [
+              ...post.attributes.upvoted,
+              sessionStorage.getItem("user"),
+            ],
+          },
+        }),
+      }).then(() => this.loadFriends());
+    }
+  }
+
+  downvote(post) {
+    if (!post.attributes.downvoted.includes(sessionStorage.getItem("user"))) {
+      fetch(process.env.REACT_APP_API_PATH + "/posts/" + post.id, {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + sessionStorage.getItem("token"),
+        },
+        body: JSON.stringify({
+          attributes: {
+            ...post.attributes,
+            upvoted: post.attributes.upvoted.filter(
+              (item) => item !== sessionStorage.getItem("user")
+            ),
+            downvoted: [
+              ...post.attributes.downvoted,
+              sessionStorage.getItem("user"),
+            ],
+          },
+        }),
+      }).then(() => this.loadFriends());
+    }
+  }
+
   render() {
     //this.loadPosts();
     const { error, isLoaded, posts } = this.state;
@@ -369,15 +418,17 @@ export default class Reviews extends Component {
                           className={styles.uparrow}
                           src={uparrow}
                           alt="uparrow"
+                          onClick={() => this.upvote(post)}
                         />
-                        <p>0</p>
+                        <p>{post.attributes.upvoted.length}</p>
                       </div>
                       <div className={styles.innercontent2}>
-                        <p>0</p>
+                        <p>{post.attributes.downvoted.length}</p>
                         <img
                           className={styles.uparrow}
                           src={downarrow}
                           alt="downarrow"
+                          onClick={() => this.downvote(post)}
                         />
                       </div>
                     </div>
