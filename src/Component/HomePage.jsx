@@ -67,7 +67,7 @@ export default class HomePage extends React.Component {
     createFetch('/groups', 'get', null)
     .then((res)=>res.json())    
     .then((result)=>{
-        result[0] = result[0].filter((class_) => class_.attributes && class_.attributes.classpostcounter !== undefined);
+        result[0] = result[0].filter((class_) => class_.attributes && class_.attributes.classpostcounter !== undefined && class_.attributes.isClass);
         result[0].sort((a,b)=>Number(b.attributes.classpostcounter)-Number(a.attributes.classpostcounter));
         this.setState({all_classes: result[0]});
         var display = [];
