@@ -165,3 +165,13 @@
 
   color: #000000;
 }
+
+.profilepicture {
+  align-self: center;
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  margin-right: 5px;
+  margin-bottom: 6px;
+  display: inline-flex;
+}
