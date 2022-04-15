@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
 import blockIcon from "../assets/block_white_216x216.png";
 import downarrow from "../assets/cse370downarrow.png";
 import uparrow from "../assets/cse370uparrow.png";
@@ -203,7 +204,7 @@ export default class Reviews extends Component {
       return (
         <div>
           <p className={styles.reviewtextalign}>Reviews</p>
-          {this.state.userid !== this.props.profileId && (
+          {this.props.showForm && (
             <ReviewForm
               profileId={this.props.profileId}
               refreshPosts={() => this.loadFriends()}
@@ -394,20 +395,31 @@ export default class Reviews extends Component {
                         </div>
                       </div>
                       <div>
-                        <img
-                          src={
-                            "https://webdev.cse.buffalo.edu" +
-                            (post.author !== null ?post.author.attributes.profilePicture:
-                            "/hci/api/uploads/files/DOo1Ebbt8dYT4-plb6G6NP5jIc9_l_gNlaYwPW4SaBM.png")
+                        <Link
+                          to={
+                            post.author?.id != null &&
+                            "/profile/" + post.author.id
                           }
-                          className={styles.picturecircle}
-                          alt="Reviewer Profile Pic"
-                        ></img>
+                          state={{ timestamp: new Date().toString() }}
+                        >
+                          <img
+                            src={
+                              "https://webdev.cse.buffalo.edu" +
+                              (post.author !== null
+                                ? post.author.attributes.profilePicture
+                                : "/hci/api/uploads/files/DOo1Ebbt8dYT4-plb6G6NP5jIc9_l_gNlaYwPW4SaBM.png")
+                            }
+                            className={styles.picturecircle}
+                            alt="Reviewer Profile Pic"
+                          ></img>
+                        </Link>
                       </div>
                       <div>
                         <p className={styles.textsize}>
-                          {post.author? post.author.attributes.firstName: "DELETED"}{" "}
-                          {post.author? post.author.attributes.lastName: ""}
+                          {post.author
+                            ? post.author.attributes.firstName
+                            : "DELETED"}{" "}
+                          {post.author ? post.author.attributes.lastName : ""}
                         </p>
                         <p className={styles.reviewsize}>
                           <i>{'"' + post.content + '"'}</i>
