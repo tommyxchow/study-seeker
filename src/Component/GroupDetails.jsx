@@ -18,7 +18,7 @@ export default class GroupDetails extends React.Component {
       membercount: 0,
       status: "",
       postcounter: 0,
-      groupid: 0,
+      groupid: -1,
       profilePicture: "",
       username: "",
       usernameList: [],

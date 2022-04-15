@@ -20,7 +20,7 @@ export default class GroupList extends React.Component {
       postcounter: 0,
       publicProfilePicture: [],
       privateProfilePicture: [],
-      groupid: 0,
+      groupid: -1,
       classid: -1
     };
   }
