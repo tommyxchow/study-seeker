@@ -189,7 +189,7 @@ export default class Profile extends React.Component {
               connection_id: result[1] ? result[0][0].id : -1,
               connection_status: result[1]
                 ? result[0][0].attributes.status ??
-                  result[0][0].attributes.additionalProp1.status
+                  result[0][0].attributes.status
                 : "Not sent",
             });
           },
@@ -207,9 +207,7 @@ export default class Profile extends React.Component {
         fromUserID: Number(this.props.userid),
         toUserID: Number(this.props.profileid),
         attributes: {
-          additionalProp1: {
             status: status,
-          },
         },
       };
       this.createFetch("/connections", "POST", body)
@@ -230,9 +228,7 @@ export default class Profile extends React.Component {
         fromUserID: Number(this.props.userid),
         toUserID: Number(this.props.profileid),
         attributes: {
-          additionalProp1: {
             status: status,
-          },
         },
       };
       this.createFetch(
