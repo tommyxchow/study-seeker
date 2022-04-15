@@ -32,7 +32,7 @@ export default class GroupDetails extends React.Component {
 
 
   loadGroups() {
-    fetch(process.env.REACT_APP_API_PATH+window.location.pathname, {
+    fetch(process.env.REACT_APP_API_PATH+"/groups/"+ window.location.pathname.split("/").pop(), {
       method: "GET",
       headers: {
       'accept': '*/*',

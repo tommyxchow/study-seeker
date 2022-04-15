@@ -53,8 +53,7 @@
 .inputs{
     display: block;
     border-radius: 10px !important;
-    width: 100%;
-    padding-right: 40vw;
+    width: 50vw;
   }
 
 .container {
@@ -106,6 +105,17 @@
   margin: 2%;
 }
 
+.background2 {
+  height: 250px;
+  max-height: 900px;
+  width: 300px;
+  max-width: 1000px;
+  border-radius: 0px;
+  border: 1px solid black;
+  padding: 1rem;
+  margin: 2%;
+}
+
 .checklistcontainer{
   display: flex;
   flex-direction: row;
@@ -137,6 +147,23 @@
   justify-content: center;
 }
 
+.content2 {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  margin-left: 15px;
+}
+
+.content3 {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content:flex-start;
+}
+
 .outtercontent1{
   display: flex;
   flex-direction: row;
@@ -153,6 +180,16 @@
   display: flex;
   flex-direction: column;
   margin-top: 10px;
+}
+
+.outtercontent4{
+  line-height: 8px;
+}
+
+.outtercontent5{
+  display: flex;
+  align-items: flex-start;
+  
 }
 
 .innercontent1{
@@ -174,6 +211,11 @@
 .innercontent3{
   display: flex;
   flex-direction: row;
+  align-items: center;
+}
+.innercontent4{
+  display: flex;
+  flex-direction: column;
   align-items: center;
 }
 
@@ -198,6 +240,8 @@
   height: 100%;
   width: 100%;
 }
+
+
 
 
 
@@ -259,6 +303,17 @@
   font-size: small;
 }
 
+.classbutton{
+  color:white;
+  border: 0;
+  border-radius: 10px;
+  height: 30px;
+  width: 220px;
+  background: #3498DB;
+  font-family: Exo;
+  font-size: small;
+}
+
 .filteralign{
   margin-left: 10px;
   display: flex;
@@ -296,6 +351,14 @@
 
 .size3{
   font-size:large;
+}
+
+.size4{
+  font-size:xx-large;
+}
+
+.size5{
+  font-size:small;
 }
 
 .stars {
@@ -348,6 +411,13 @@
   align-self: auto;
   width: 80px;
   height: 80px;
+  border-radius: 50%;
+}
+
+.picturecircle1 {
+  align-self: auto;
+  width: 30px;
+  height: 30px;
   border-radius: 50%;
 }
 

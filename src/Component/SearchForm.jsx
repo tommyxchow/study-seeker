@@ -18,7 +18,12 @@ export default class SearchForm extends React.Component {
       userInput: "",
       nextUserInput: "",
       userFound: true,
-      filter: false
+      filter: false,
+      classFound: true,
+      classes:[],
+      groupFound: true,
+      groups: [],
+      getpic:""
     };
     this.fieldChangeHandler.bind(this);
   }
@@ -84,6 +89,8 @@ export default class SearchForm extends React.Component {
           alert("error!");
         }
       );
+
+
   }
 
   submitHandler = event => {
@@ -162,6 +169,67 @@ export default class SearchForm extends React.Component {
           }
         );
 
+        this.createFetch("/groups","GET",null)
+        .then((res) => res.json())
+            .then(
+              (result) => {
+                let class_search = [];
+    
+                result[0].forEach(element => {if ("attributes" in element && element.attributes != null )
+                                                {if ( "isClass" in element.attributes && element.attributes.isClass && "name" in element)
+                                                { 
+                                                  if ( (element.name.toLowerCase().indexOf(this.state.userInput.toLowerCase())) > -1)
+                                                    {class_search.push(element)}}}});
+                if(class_search.length!=0){
+    
+                  this.setState({
+                    classFound: true,
+                    classes:class_search
+                  });
+                }
+                else{
+                  this.setState({
+                    classFound:false,
+                    nextUserInput:this.state.userInput
+                  });
+                }
+                console.log(class_search);
+              },
+              (error) => {
+                alert(error);
+              }
+            );
+
+            this.createFetch("/groups","GET",null)
+        .then((res) => res.json())
+            .then(
+              (result) => {
+                let group_search = [];
+    
+                result[0].forEach(element => {if ("attributes" in element && element.attributes != null )
+                                                {if ( "isClass" in element.attributes && element.attributes.isClass==false && "name" in element)
+                                                { 
+                                                  if ( (element.name.toLowerCase().indexOf(this.state.userInput.toLowerCase())) > -1)
+                                                    {group_search.push(element)}}}});
+                if(group_search.length!=0){
+    
+                  this.setState({
+                    groupFound: true,
+                    groups:group_search
+                  });
+                }
+                else{
+                  this.setState({
+                    groupFound: false,
+                    nextUserInput:this.state.userInput
+                  });
+                }
+                console.log(group_search);
+              },
+              (error) => {
+                alert(error);
+              }
+            );
     
     
   };
@@ -191,6 +259,7 @@ export default class SearchForm extends React.Component {
       return "https://webdev.cse.buffalo.edu/hci/api/uploads/files/DOo1Ebbt8dYT4-plb6G6NP5jIc9_l_gNlaYwPW4SaBM.png"
     }
   }
+
 
   
 
@@ -305,6 +374,93 @@ export default class SearchForm extends React.Component {
                 </div>
               )}
             </div>
+            {/*---------------------------------------------------------- */}
+            <p className={styles.textsize}>Classes</p>
+            <div className={styles.maincontainer}>
+              {this.state.classFound && (
+                this.state.classes.map((dict)=> {
+                  return (
+              
+                    <div className={styles.background}>
+                      <div key={dict} className={styles.content2}>
+                        <div className={styles.outtercontent4}>
+                          {/*<div>
+                            <img className={styles.picturecircle} src={this.getProfilePic(dict)} alt={dict.attributes.firstName}/>
+                          </div>*/}
+                            <p className={styles.size4}>{ dict.name}</p>
+                            <p className={styles.headersize}>University at Buffalo</p>
+                            <p className={styles.headersize}>{dict.attributes.classmemberids.length + " students"}</p>
+                        </div>
+                        
+                        <div className={styles.outtercontent5}>
+                          {dict.attributes.classmemberids.length > 0 && (
+                            <img className={styles.picturecircle1} src={this.getProfilePic(dict)} alt={dict.attributes.firstName}/>
+                          )}
+                          {dict.attributes.classmemberids.length <= 0 && (
+                            <p className={styles.size5}>no members yet!!</p>
+                          )}
+                          
+                          
+                        </div>
+                        
+
+                        <div className={styles.outtercontent3}>
+                          <button className={styles.classbutton} type="button" value="profile">View Class</button>
+                          
+                        </div>
+                        
+
+
+                      </div> 
+                    </div>
+                  )
+                }))}
+              {!this.state.classFound && (
+                <div>
+                  <p><i>No classes matching "{this.state.nextUserInput}"</i> </p>
+                </div>
+              )}
+            </div>
+
+            <p className={styles.textsize}>Groups</p>
+            <div className={styles.maincontainer}>
+              {this.state.groupFound && (
+                this.state.groups.map((dict)=> {
+                  return (
+              
+                    <div className={styles.background2}>
+                      <div key={dict} className={styles.content3}>
+                        <div className={styles.outtercontent4}>
+                          {/*<div>
+                            <img className={styles.picturecircle} src={this.getProfilePic(dict)} alt={dict.attributes.firstName}/>
+                          </div>*/}
+                            <p className={styles.size4}>{ dict.name}</p>
+                        </div>
+                        <div className={styles.innercontent4}>
+                        <img className={styles.picturecircle} src="https://webdev.cse.buffalo.edu/hci/api/uploads/files/DOo1Ebbt8dYT4-plb6G6NP5jIc9_l_gNlaYwPW4SaBM.png" />
+                        <p>member name</p>
+                        <div className={styles.stars}>
+                                  <img className={styles.star1}  src={starIcon} alt="star"/>
+                                  <img className={styles.star2}  src={starIcon} alt="star"/>
+                                  <img className={styles.star3}  src={starIcon} alt="star"/>
+                                  <img className={styles.star4}  src={starIcon} alt="star"/>
+                                  <img className={styles.star5}  src={starIcon} alt="star"/>
+                            </div>
+                        </div>
+                        
+                        
+    
+                      </div> 
+                    </div>
+                  )
+                }))}
+              {!this.state.groupFound && (
+                <div>
+                  <p><i>No groups matching "{this.state.nextUserInput}"</i> </p>
+                </div>
+              )}
+            </div>
+
           </div>
             
             <div className={styles.fixlayout}>
