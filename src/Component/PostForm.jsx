@@ -26,7 +26,8 @@ export default class PostForm extends React.Component {
       post: false,
       join: false,
       groups: false,
-      current_members: []
+      current_members: [],
+      alumni_members: []
     };
     this.postListing = React.createRef();
   }
@@ -113,6 +114,20 @@ export default class PostForm extends React.Component {
     }, error=>{console.log("get user error")});
   }
 
+  addUserAlumni = (id) =>{
+    this.createFetch('/users/'+id, 'get', null)
+    .then((res) => res.json())
+    .then(result_user=>{
+      this.setState({alumni_members:[[result_user.id, 
+                                      result_user.attributes.firstName, 
+                                      result_user.attributes.lastName,
+                                      result_user.attributes.profilePicture]
+                                      ,...this.state.alumni_members
+                                      ]});
+    }, error=>{console.log("get user error")});
+  }
+
+
   handleJoin = event =>{
     const path = "/groups/"+this.props.classId;
     const method = "PATCH";
@@ -121,6 +136,8 @@ export default class PostForm extends React.Component {
       .then(
         result => {
           result.attributes.classmemberids.push(this.props.userid);
+          result.attributes.classalumnimemberids  = result.attributes.classalumnimemberids?result.attributes.classalumnimemberids:[]
+          result.attributes.classalumnimemberids = result.attributes.classalumnimemberids.filter((id)=>id == this.props.id);
           delete result.id;
           this.createFetch(path, method, result)
           .then((res) => res.json())
@@ -128,6 +145,7 @@ export default class PostForm extends React.Component {
             (result) => {
               this.setState({
                 responseMessage: result.Status,
+                alumni_members: this.state.alumni_members.filter((item)=>Number(item[0])!=Number(this.props.userid)),
                 join: true,
               });
               this.addUser(this.props.userid);
@@ -151,6 +169,10 @@ export default class PostForm extends React.Component {
       .then(
         result => {
           result.attributes.classmemberids = result.attributes.classmemberids.filter((id)=>{return id!=this.props.userid});
+          result.attributes.classalumnimemberids = result.attributes.classalumnimemberids?result.attributes.classalumnimemberids:[]
+          if(!(this.props.userid in result.attributes.classalumnimemberids)){
+            result.attributes.classalumnimemberids.push(this.props.userid);
+          }
           delete result.id;
           this.createFetch(path, method, result)
           .then((res) => res.json())
@@ -161,6 +183,7 @@ export default class PostForm extends React.Component {
                 join: false,
                 current_members: this.state.current_members.filter((item)=>item[0]!=this.props.userid)
               });
+              this.addUserAlumni(this.props.userid);
             },
             (error) => {
               alert(error);
@@ -182,6 +205,9 @@ export default class PostForm extends React.Component {
                       "about": result.attributes.about})
         const members = result.attributes.classmemberids;
         members.map(this.addUser);
+        
+        const alumni = result.attributes.classalumnimemberids?result.attributes.classalumnimemberids:[];
+        alumni.map(this.addUserAlumni);
       },
       error =>{alert("error in get (mount)")}
     );
@@ -208,7 +234,9 @@ export default class PostForm extends React.Component {
             <input className={style.classLeave} type='button' value='Leave' onClick={this.handleLeave}></input>
             }
           </div>
-          <div className={style.classSmallDiscription}>Applied Human Computer Interaction and Interface Design</div>
+          <div className={style.classSmallDiscription}>
+            Education is the most powerful weapon which you can use to change the world. 
+          </div>
         </div>
         <div className={style.aboutHeader}>
           <div className={style.aboutLine}>
@@ -261,84 +289,22 @@ export default class PostForm extends React.Component {
           </div>
           <hr className={style.horizontalLine}/>
           {this.state.Alumni && <>
-          <div className={style.allClasses}>
-            <div className={style.class}>
-              <div className={style.alumniClassLine}>
-                <div className={style.alumniClassName}>Fall 2021</div>
-                <div className={style.alumniClassArrow} onClick={()=>this.setState({Fall_2021:!this.state.Fall_2021})}>
-                  {this.state.Fall_2021?<>&#x2191;</>:<>&#x2193;</>}
-                </div>
-              </div>
-              {this.state.Fall_2021 &&
+            <div className={style.alumniClassStudent}>
+              {
+              this.state.alumni_members.map((member)=>(
               <>
-              <div className={style.alumniClassStudent}>
                 <div className={style.studentCard}>
-                  <img className={style.studentImage} src={yearLogo} alt="goal pic"></img>
+                  <img className={style.studentImage} src={"https://webdev.cse.buffalo.edu/"+member[3]} alt="student profile"></img>
                   <div className={style.studentName}>
-                    Swastik Naik
+                    {member[1]+" "+member[2][0]+"."}
                   </div>
                 </div>
-                <div className={style.studentCard}>
-                  <img className={style.studentImage} src={yearLogo} alt="goal pic"></img>
-                  <div className={style.studentName}>
-                    Swastik Naik
-                  </div>
-                </div>
-                <div className={style.studentCard}>
-                  <img className={style.studentImage} src={yearLogo} alt="goal pic"></img>
-                  <div className={style.studentName}>
-                    Swastik Naik
-                  </div>
-                </div>
-                <div className={style.studentCard}>
-                  <img className={style.studentImage} src={yearLogo} alt="goal pic"></img>
-                  <div className={style.studentName}>
-                    Swastik Naik
-                  </div>
-                </div>
-              </div></>}
-            </div>
-
-            <div className={style.class}>
-              <div className={style.alumniClassLine}>
-                <div className={style.alumniClassName}>Spring 2021</div>
-                <div className={style.alumniClassArrow} onClick={()=>this.setState({Spring_2021:!this.state.Spring_2021})}>
-                  {this.state.Spring_2021?<>&#x2191;</>:<>&#x2193;</>}
-                </div>
+              </>))
+              }
               </div>
-              {this.state.Spring_2021 &&
-              <>
-              <div className={style.alumniClassStudent}>
-                <div className={style.studentCard}>
-                  <img className={style.studentImage} src={yearLogo} alt="goal pic"></img>
-                  <div className={style.studentName}>
-                    Swastik Naik
-                  </div>
-                </div>
-                <div className={style.studentCard}>
-                  <img className={style.studentImage} src={yearLogo} alt="goal pic"></img>
-                  <div className={style.studentName}>
-                    Swastik Naik
-                  </div>
-                </div>
-                <div className={style.studentCard}>
-                  <img className={style.studentImage} src={yearLogo} alt="goal pic"></img>
-                  <div className={style.studentName}>
-                    Swastik Naik
-                  </div>
-                </div>
-                <div className={style.studentCard}>
-                  <img className={style.studentImage} src={yearLogo} alt="goal pic"></img>
-                  <div className={style.studentName}>
-                    Swastik Naik
-                  </div>
-                </div>
-              </div></>}
-            </div>
-            
-          </div>
-          </>}
+            </>}
         </div>
+        { this.state.join &&(<>
         <div className={style.postsHeader}>
           <div className={style.postsLine}>
             <div className={style.posts}>Posts</div>
@@ -362,6 +328,7 @@ export default class PostForm extends React.Component {
             <Groups classId= {this.props.classId} userid={this.props.userid}/>
             }
         </div>
+        </>)}
       </div>
     );
   }

@@ -24,6 +24,7 @@ export default class ClassPosts extends Component {
           "/hci/api/uploads/files/DOo1Ebbt8dYT4-plb6G6NP5jIc9_l_gNlaYwPW4SaBM.png",
         publicProfilePicture: [],
         privateProfilePicture: [],
+        classid: -1
       };
     }
 
@@ -49,8 +50,8 @@ export default class ClassPosts extends Component {
           continue
         }
         if(!result[0][i].attributes.isClass && result[0][i].attributes.id){
-          if(result[0][i].attributes.id == this.props.classId){
-            console.log("yesssir", result[0][i]);
+          console.log("yesssir", result[0][i]);
+          if(result[0][i].attributes.id == window.location.pathname.split("/").pop()){
             if(result[0][i].attributes.status == "public"){
               this.setState({
                 groupname: result[0][i].name,
@@ -193,14 +194,14 @@ export default class ClassPosts extends Component {
                 let privateGroup = result[0][i];
                 privateGroup.name = "Private Group"
                 holdergroup.push(privateGroup);
-                console.log(privateGroup);
+                console.log("private groups",privateGroup);
                 this.setState({
                   groups: holdergroup
                 });
               }
               if(this.state.membercount !== 0){
                 let holderPrivatePictures = [];
-                for(var a = 0; a < this.state.membercount; a++){
+                for(var c = 0; c < this.state.membercount; c++){
                   holderPrivatePictures.push("/hci/api/uploads/files/DOo1Ebbt8dYT4-plb6G6NP5jIc9_l_gNlaYwPW4SaBM.png");
                   this.setState({
                     privateProfilePicture: holderPrivatePictures
@@ -220,6 +221,7 @@ export default class ClassPosts extends Component {
 	}
 
   async removeHandler_Leave(id, name){
+    var newList = [];
     await fetch(process.env.REACT_APP_API_PATH+"/groups/"+id, {
       method: "GET",
       headers: {
@@ -230,41 +232,51 @@ export default class ClassPosts extends Component {
     })
     .then(response => response.json())
     .then(result => {
-      this.setState({members: result.attributes.members})
+      console.log("result1", result);
+      this.setState({
+        members: result.attributes.members,
+        isClass: false,
+        status: result.attributes.status,
+        postcounter: result.attributes.postcounter,
+        rating: result.attributes.rating,
+        classid: result.attributes.id
+      })
       console.log(this.state.members);
       this.forceUpdate();
-      const newList = this.state.members.filter(userid => userid !== Number(this.state.userid));
+      newList = this.state.members.filter(userid => userid !== Number(this.state.userid));
       console.log(newList);
-      fetch(process.env.REACT_APP_API_PATH+"/groups/" + id, {
-        method: 'PATCH',
-        headers: {
-          "accept": "*/*",
-          "Authorization": "Bearer "+sessionStorage.getItem("token"),
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-          id: id,
-          name: name,
-          attributes: {
-            isClass: false,
-            members: newList,
-            status: result.attributes.status,
-            postcounter: result.attributes.postcounter,
-            rating: result.attributes.rating,
-            id: result.attributes.id
-          }
-        })
-      })
-      .then(response => response.json())
-      .then(result => console.log(result))
-      .catch(error => console.log('error', error));
     })
+    .catch(error => console.log('error', error));
+    await fetch(process.env.REACT_APP_API_PATH+"/groups/" + id, {
+      method: 'PATCH',
+      headers: {
+        "accept": "*/*",
+        "Authorization": "Bearer "+sessionStorage.getItem("token"),
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        id: id,
+        name: name,
+        attributes: {
+          isClass: false,
+          members: newList,
+          status: this.state.status,
+          postcounter: this.state.postcounter,
+          rating: this.state.rating,
+          id: this.state.classid
+        }
+      })
+    })
+    .then(response => response.json())
+    .then(result => console.log(result))
     .catch(error => console.log('error', error));
     this.forceUpdate();
     window.location.reload();
   }
 
 	async removeHandler_Join(id, name){
+    var newList = [];
+    console.log(id, name);
     await fetch(process.env.REACT_APP_API_PATH+"/groups/"+id, {
       method: "GET",
       headers: {
@@ -275,37 +287,45 @@ export default class ClassPosts extends Component {
     })
     .then(response => response.json())
     .then(result => {
-      this.setState({members: result.attributes.members})
+      console.log(result);
+      this.setState({
+        groupname: result.name,
+        members: result.attributes.members,
+        isClass: false,
+        status: result.attributes.status,
+        postcounter: result.attributes.postcounter,
+        rating: result.attributes.rating,
+        classid: result.attributes.id
+      })
       console.log(this.state.members);
       this.forceUpdate();
-      const newList = this.state.members;
+      newList = this.state.members;
       newList.push(this.props.userid);
       console.log("updated list", newList);
-      console.log(newList);
-      fetch(process.env.REACT_APP_API_PATH+"/groups/" + id, {
-        method: 'PATCH',
-        headers: {
-          "accept": "*/*",
-          "Authorization": "Bearer "+sessionStorage.getItem("token"),
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-          id: id,
-          name: result.name,
-          attributes: {
-            isClass: false,
-            members: newList,
-            status: result.attributes.status,
-            postcounter: result.attributes.postcounter,
-            rating: result.attributes.rating,
-            id: result.attributes.id
-          }
-        })
-      })
-      .then(response => response.json())
-      .then(result => console.log(result))
-      .catch(error => console.log('error', error));
     })
+    .catch(error => console.log('error', error));
+    await fetch(process.env.REACT_APP_API_PATH+"/groups/" + id, {
+      method: 'PATCH',
+      headers: {
+        "accept": "*/*",
+        "Authorization": "Bearer "+sessionStorage.getItem("token"),
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        id: id,
+        name: this.state.groupname,
+        attributes: {
+          isClass: false,
+          members: newList,
+          status: this.state.status,
+          postcounter: this.state.postcounter,
+          rating: this.state.rating,
+          id: this.state.classid
+        }
+      })
+    })
+    .then(response => response.json())
+    .then(result => console.log(result))
     .catch(error => console.log('error', error));
     this.forceUpdate();
     window.location.reload();
@@ -327,7 +347,7 @@ export default class ClassPosts extends Component {
           status: this.state.createStatus,
 			    postcounter: this.state.postcounter,
           rating: this.state.rating,
-          id: this.state.classid,
+          id: Number(window.location.pathname.split("/").pop())
         }
       })
     })
@@ -337,7 +357,6 @@ export default class ClassPosts extends Component {
     this.forceUpdate();
     window.location.reload();
 	}
-
 
 	render () {
 		const {error, groups} = this.state;
@@ -386,6 +405,7 @@ export default class ClassPosts extends Component {
 						</div>
 					{groups.map(group => (
 						<>
+            {console.log(group.groupid)}
 						<div className= {styles.groupdiv}>
             <Link to={/groups/ + group.id} onClick={() => this.setState({name: group.name})}>
             <div className={styles.classgrouplist}>
@@ -397,35 +417,35 @@ export default class ClassPosts extends Component {
 						<div className={styles.container}>
 							<p className={styles.students}>Student(s)</p>
 								{group.attributes.status == "public" && group.attributes.members.length === 1 &&
-									<img className={styles.profilepicture} src={"https://webdev.cse.buffalo.edu"+ this.state.publicProfilePicture[0]} alt="user profile 1"/>
+									<img className={styles.profilepicture} src={"https://webdev.cse.buffalo.edu"+ this.state.publicProfilePicture[0]} alt=""/>
 								}
 								{group.attributes.status == "public" && group.attributes.members.length === 2 &&
 									<>
-										<img className={styles.profilepicture} src={"https://webdev.cse.buffalo.edu"+ this.state.publicProfilePicture[0]} alt="user profile 1"/>
-										<img className={styles.profilepicture} src={"https://webdev.cse.buffalo.edu"+ this.state.publicProfilePicture[1]} alt="user profile 2"/>
+										<img className={styles.profilepicture} src={"https://webdev.cse.buffalo.edu"+ this.state.publicProfilePicture[0]} alt=""/>
+										<img className={styles.profilepicture} src={"https://webdev.cse.buffalo.edu"+ this.state.publicProfilePicture[1]} alt=""/>
 									</>
 								}
 								{group.attributes.status == "public" && (group.attributes.members.length === 3 || group.attributes.members.length > 3) &&
 								<>
-									<img className={styles.profilepicture} src={"https://webdev.cse.buffalo.edu"+ this.state.publicProfilePicture[0]} alt="user profile 2"/>
-									<img className={styles.profilepicture} src={"https://webdev.cse.buffalo.edu"+ this.state.publicProfilePicture[1]} alt="user profile 2"/>
-									<img className={styles.profilepicture} src={"https://webdev.cse.buffalo.edu"+ this.state.publicProfilePicture[2]} alt="user profile 3"/>
+									<img className={styles.profilepicture} src={"https://webdev.cse.buffalo.edu"+ this.state.publicProfilePicture[0]} alt=""/>
+									<img className={styles.profilepicture} src={"https://webdev.cse.buffalo.edu"+ this.state.publicProfilePicture[1]} alt=""/>
+									<img className={styles.profilepicture} src={"https://webdev.cse.buffalo.edu"+ this.state.publicProfilePicture[2]} alt=""/>
 								</>
 								}
 								{group.attributes.status == "private" && group.attributes.members.length === 1 &&
-									<img className={styles.profilepicture} src={"https://webdev.cse.buffalo.edu"+ this.state.privateProfilePicture[0]} alt="user profile 1"/>
+									<img className={styles.profilepicture} src={"https://webdev.cse.buffalo.edu"+ this.state.privateProfilePicture[0]} alt=""/>
 								}
 								{group.attributes.status == "private" && group.attributes.members.length === 2 &&
 									<>
-										<img className={styles.profilepicture} src={"https://webdev.cse.buffalo.edu"+ this.state.privateProfilePicture[0]} alt="user profile 1"/>
-										<img className={styles.profilepicture} src={"https://webdev.cse.buffalo.edu"+ this.state.privateProfilePicture[1]} alt="user profile 2"/>
+										<img className={styles.profilepicture} src={"https://webdev.cse.buffalo.edu"+ this.state.privateProfilePicture[0]} alt=""/>
+										<img className={styles.profilepicture} src={"https://webdev.cse.buffalo.edu"+ this.state.privateProfilePicture[1]} alt=""/>
 									</>
 								}
 								{group.attributes.status == "private" && (group.attributes.members.length === 3 || group.attributes.members.length > 3) &&
 								<>
-									<img className={styles.profilepicture} src={"https://webdev.cse.buffalo.edu"+ this.state.privateProfilePicture[0]} alt="user profile 2"/>
-									<img className={styles.profilepicture} src={"https://webdev.cse.buffalo.edu"+ this.state.privateProfilePicture[1]} alt="user profile 2"/>
-									<img className={styles.profilepicture} src={"https://webdev.cse.buffalo.edu"+ this.state.privateProfilePicture[2]} alt="user profile 3"/>
+									<img className={styles.profilepicture} src={"https://webdev.cse.buffalo.edu"+ this.state.privateProfilePicture[0]} alt=""/>
+									<img className={styles.profilepicture} src={"https://webdev.cse.buffalo.edu"+ this.state.privateProfilePicture[1]} alt=""/>
+									<img className={styles.profilepicture} src={"https://webdev.cse.buffalo.edu"+ this.state.privateProfilePicture[2]} alt=""/>
 								</>
 								}
 						</div>

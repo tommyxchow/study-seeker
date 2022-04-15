@@ -8,6 +8,7 @@ export default class GroupList extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      nameexists: false,
       isLoaded: false,
       userid: props.userid,
       groups: [],
@@ -42,16 +43,19 @@ export default class GroupList extends React.Component {
       .then(
         result => {
           if (result) {
-            console.log(result);
             this.setState({
               isLoaded: true,
             });
             let holdergroup = [];
             for(var i = 0; i < result[0].length; i++) {
-              if(!result[0][i].attributes.isClass && result[0][i].attributes.id){
+              if(result[0][i].attributes == null){
+                continue
+              }
+              if(!result[0][i].attributes.isClass){
                 if(result[0][i].attributes.status == "private"){
                   for(var j = 0; j < result[0][i].attributes.members.length; j++){
-                    if(result[0][i].attributes.members[j] == this.state.userid){
+                    if(result[0][i].attributes.members[j] == this.props.userid){
+                      console.log(this.state.groupid);
                       this.setState({
                         groupname: result[0][i].name,
                         status: result[0][i].attributes.status,
@@ -75,7 +79,7 @@ export default class GroupList extends React.Component {
                            this.setState({
                              name: result.name
                            });
-                           console.log(this.state.name);
+                           console.log("privatename: ",this.state.name);
                           })
                       }
                       holdergroup.push(result[0][i]);
@@ -129,7 +133,6 @@ export default class GroupList extends React.Component {
                         rating: result[0][i].attributes.rating,
                       });
                       if(this.state.classid !== -1){
-                        console.log("asduonasdjnasdjklnadsjkads")
                         fetch(process.env.REACT_APP_API_PATH+"/groups/"+this.state.classid, {
                           method: "get",
                           headers: {
@@ -142,7 +145,7 @@ export default class GroupList extends React.Component {
                            this.setState({
                              name: result.name
                            });
-                           console.log(this.state.name);
+                           console.log("publicname: ",this.state.name);
                           })
                       }
                       holdergroup.push(result[0][i]);
@@ -176,7 +179,6 @@ export default class GroupList extends React.Component {
                             });
                             this.forceUpdate();
                           }
-                          console.log("public pics",holderPublicPictures);
                         })
                         .catch(error => console.log('error', error));
                       }
@@ -237,10 +239,13 @@ export default class GroupList extends React.Component {
       return (
         <div className="post">
         <div className={styles.mygroups}>My Groups</div>
+        {<p id={this.state.name} className={styles.groupname}>{this.state.name}</p>} 
+        {console.log(groups)}
+        <div className={styles.line}></div>
             {groups.map(group => (
               <>
-              <p className={styles.groupname}>{this.state.name}</p>
-              <div className={styles.line}></div>
+              {console.log("groupname", this.state.name)}
+              {console.log(document.getElementById(this.state.name) == null)}
               <div className= {styles.groupdiv}>
               <Link to={/groups/ + group.id} onClick={() => this.setState({name: group.name, groupid: group.id})}>
               <div className={styles.grouplist}>
@@ -251,35 +256,35 @@ export default class GroupList extends React.Component {
               <div className={styles.container}>
                 <p className={styles.students}>Student(s)</p>
                   {group.attributes.status === "public" && group.attributes.members.length === 1 &&
-                    <img className={styles.profilepicture} src={"https://webdev.cse.buffalo.edu"+ this.state.publicProfilePicture[0]} alt="user profile 1"/>
+                    <img className={styles.profilepicture} src={"https://webdev.cse.buffalo.edu"+ this.state.publicProfilePicture[0]} alt=""/>
                   }
                   {group.attributes.status === "public" && group.attributes.members.length === 2 &&
                     <>
-                      <img className={styles.profilepicture} src={"https://webdev.cse.buffalo.edu"+ this.state.publicProfilePicture[0]} alt="user profile 1"/>
-                      <img className={styles.profilepicture} src={"https://webdev.cse.buffalo.edu"+ this.state.publicProfilePicture[1]} alt="user profile 2"/>
+                      <img className={styles.profilepicture} src={"https://webdev.cse.buffalo.edu"+ this.state.publicProfilePicture[0]} alt=""/>
+                      <img className={styles.profilepicture} src={"https://webdev.cse.buffalo.edu"+ this.state.publicProfilePicture[1]} alt=""/>
                     </>
                   }
                   {group.attributes.status === "public" && (group.attributes.members.length === 3 || group.attributes.members.length > 3) &&
                   <>
-                    <img className={styles.profilepicture} src={"https://webdev.cse.buffalo.edu"+ this.state.publicProfilePicture[0]} alt="user profile 2"/>
-                    <img className={styles.profilepicture} src={"https://webdev.cse.buffalo.edu"+ this.state.publicProfilePicture[1]} alt="user profile 2"/>
-                    <img className={styles.profilepicture} src={"https://webdev.cse.buffalo.edu"+ this.state.publicProfilePicture[2]} alt="user profile 3"/>
+                    <img className={styles.profilepicture} src={"https://webdev.cse.buffalo.edu"+ this.state.publicProfilePicture[0]} alt=""/>
+                    <img className={styles.profilepicture} src={"https://webdev.cse.buffalo.edu"+ this.state.publicProfilePicture[1]} alt=""/>
+                    <img className={styles.profilepicture} src={"https://webdev.cse.buffalo.edu"+ this.state.publicProfilePicture[2]} alt=""/>
                   </>
                   }
                   {group.attributes.status === "private" && group.attributes.members.length === 1 &&
-                    <img className={styles.profilepicture} src={"https://webdev.cse.buffalo.edu"+ this.state.privateProfilePicture[0]} alt="user profile 1"/>
+                    <img className={styles.profilepicture} src={"https://webdev.cse.buffalo.edu"+ this.state.privateProfilePicture[0]} alt=""/>
                   }
                   {group.attributes.status === "private" && group.attributes.members.length === 2 &&
                     <>
-                      <img className={styles.profilepicture} src={"https://webdev.cse.buffalo.edu"+ this.state.privateProfilePicture[0]} alt="user profile 1"/>
-                      <img className={styles.profilepicture} src={"https://webdev.cse.buffalo.edu"+ this.state.privateProfilePicture[1]} alt="user profile 2"/>
+                      <img className={styles.profilepicture} src={"https://webdev.cse.buffalo.edu"+ this.state.privateProfilePicture[0]} alt=""/>
+                      <img className={styles.profilepicture} src={"https://webdev.cse.buffalo.edu"+ this.state.privateProfilePicture[1]} alt=""/>
                     </>
                   }
                   {group.attributes.status === "private" && (group.attributes.members.length === 3 || group.attributes.members.length > 3) &&
                   <>
-                    <img className={styles.profilepicture} src={"https://webdev.cse.buffalo.edu"+ this.state.privateProfilePicture[0]} alt="user profile 2"/>
-                    <img className={styles.profilepicture} src={"https://webdev.cse.buffalo.edu"+ this.state.privateProfilePicture[1]} alt="user profile 2"/>
-                    <img className={styles.profilepicture} src={"https://webdev.cse.buffalo.edu"+ this.state.privateProfilePicture[2]} alt="user profile 3"/>
+                    <img className={styles.profilepicture} src={"https://webdev.cse.buffalo.edu"+ this.state.privateProfilePicture[0]} alt=""/>
+                    <img className={styles.profilepicture} src={"https://webdev.cse.buffalo.edu"+ this.state.privateProfilePicture[1]} alt=""/>
+                    <img className={styles.profilepicture} src={"https://webdev.cse.buffalo.edu"+ this.state.privateProfilePicture[2]} alt=""/>
                   </>
                   }
               </div>
