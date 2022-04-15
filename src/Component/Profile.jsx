@@ -5,6 +5,7 @@ import emailLogo from "../assets/email.png";
 import settingsLogo from "../assets/gear.png";
 import yearLogo from "../assets/goal.png";
 import privacyLogo from "../assets/privacy.png";
+import Reviews from "./DisplayReviews";
 import styles from "./profile.module.css";
 
 // The Profile component shows data from the user table.  This is set up fairly generically to allow for you to customize
@@ -25,6 +26,7 @@ export default class Profile extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      user_exist: true,
       username: "",
       firstname: "",
       lastname: "",
@@ -71,7 +73,7 @@ export default class Profile extends React.Component {
         Authorization: "Bearer " + sessionStorage.getItem("token"),
       },
     };
-    if (body != null) {
+    if (body !== null) {
       supplyMethod.body = JSON.stringify(body);
     }
     return fetch(supplyPath, supplyMethod);
@@ -88,6 +90,7 @@ export default class Profile extends React.Component {
               this.setState({
                 // IMPORTANT!  You need to guard against any of these values being null.  If they are, it will
                 // try and make the form component uncontrolled, which plays havoc with react
+                user_exist:true,
                 username: result.attributes.username || "",
                 firstname: result.attributes.firstName || "First Name",
                 lastname: result.attributes.lastName || "Last Name",
@@ -108,10 +111,11 @@ export default class Profile extends React.Component {
           }
         },
         (error) => {
-          alert("error!");
+          this.setState({ user_exist: false });
+          // alert("Testing------------------");
         }
-      );
-    this.getConnection();
+      )
+      .then(this.getConnection);
   }
 
   // This is the function that will get called when the submit button is clicked, and it stores
@@ -184,7 +188,8 @@ export default class Profile extends React.Component {
             this.setState({
               connection_id: result[1] ? result[0][0].id : -1,
               connection_status: result[1]
-                ? result[0][0].attributes.additionalProp1.status
+                ? result[0][0].attributes.status ??
+                  result[0][0].attributes.additionalProp1.status
                 : "Not sent",
             });
           },
@@ -330,32 +335,17 @@ export default class Profile extends React.Component {
     );
   };
 
-    // This is the function that will get called when the delete account button is clicked
-    deleteAccountHandler = event => {
-        //keep the form from actually submitting, since we are handling the action ourselves via
-        //the fetch calls to the API
-      event.preventDefault();
-      
-      fetch(
-        process.env.REACT_APP_API_PATH +
-          "/users/" +
-          sessionStorage.getItem("user") + "?relatedObjectsAction=delete",
-        {
-          method: "DELETE",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: "Bearer " + sessionStorage.getItem("token"),
-          }
-        })
-        .then((res) => res.json())
-        .then(
-          result => {
-            //TODO there is an error with promise syntax, such that this is never reached
-            console.log(result)
-          }
-        );
-    };
-    
+  // This is the function that will get called when the delete account button is clicked
+  deleteAccountHandler = (event) => {
+    //keep the form from actually submitting, since we are handling the action ourselves via
+    //the fetch calls to the API
+    event.preventDefault();
+    this.createFetch('/users/'+this.props.userid+"?relatedObjectsAction=anonymize", 'delete', null)
+      .then((res) => res.text())
+      .then((result) => {
+        console.log(result);
+      }, (error) =>{alert(error)});
+  };
 
   // This is the function that draws the component to the screen.  It will get called every time the
   // state changes, automatically.  This is why you see the username and firstname change on the screen
@@ -383,7 +373,10 @@ export default class Profile extends React.Component {
     };
 
     return (
+
       <div className={styles.container}>
+        {this.state.user_exist? (<>
+          
         <div className={styles.backgroundOverlay}></div>
         <img
           src={"https://webdev.cse.buffalo.edu" + this.state.backgroundPicture}
@@ -428,20 +421,22 @@ export default class Profile extends React.Component {
             </>
           )}
           {this.state.edit && (
-            <button onClick= {(e) => {
-              if(window.confirm("Delete your account?")){
-                  this.deleteAccountHandler(e)
-                  alert("Your account has been deleted.")
+            <button
+              onClick={(e) => {
+                if (window.confirm("Delete your account?")) {
+                  this.deleteAccountHandler(e);
+                  alert("Your account has been deleted.");
                   sessionStorage.removeItem("token");
                   sessionStorage.removeItem("user");
-                  this.setState({sessiontoken: ""});
-                  window.location.replace(process.env.PUBLIC_URL +"/");
-                }else{
-                  alert("Your account is not deleted")
-                  }
-                } }
-                className={styles.deleteAccountButton}>
-                Delete Account
+                  this.setState({ sessiontoken: "" });
+                  window.location.replace(process.env.PUBLIC_URL + "/");
+                } else {
+                  alert("Your account is not deleted");
+                }
+              }}
+              className={styles.deleteAccountButton}
+            >
+              Delete Account
             </button>
           )}
           {!this.state.edit && (
@@ -474,7 +469,7 @@ export default class Profile extends React.Component {
                 className={styles.blockButton}
                 onClick={(event) => this.connectionHandler(event, "block")}
               >
-                {blockStatus[this.state.connection_status]}
+                Block
               </button>
             ) : (
               <button
@@ -552,6 +547,9 @@ export default class Profile extends React.Component {
             )}
           </div>
         </div>
+        <Reviews profileId={this.props.profileid} />
+        </>
+        ):<>User does not exist</>}
       </div>
     );
   }

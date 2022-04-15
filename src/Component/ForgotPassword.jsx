@@ -1,8 +1,17 @@
 import React, { Component } from "react";
+import { Link, Navigate } from "react-router-dom";
 import styles from "./auth.module.css";
 
 export class ForgotPassword extends Component {
-  requestReset(e) {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      reset: false,
+    };
+  }
+
+  requestReset = (e) => {
     e.preventDefault();
 
     fetch(process.env.REACT_APP_API_PATH + "/auth/request-reset", {
@@ -20,9 +29,9 @@ export class ForgotPassword extends Component {
         alert("Invalid Email.");
       }
     });
-  }
+  };
 
-  resetPassword(e) {
+  resetPassword = (e) => {
     e.preventDefault();
 
     fetch(process.env.REACT_APP_API_PATH + "/auth/reset-password", {
@@ -37,13 +46,16 @@ export class ForgotPassword extends Component {
     }).then((res) => {
       if (res.ok) {
         alert("Password Reset!");
+        this.setState({ reset: true });
       } else {
         alert("Invalid or Expired Token.");
       }
     });
-  }
+  };
 
   render() {
+    if (this.state.reset) return <Navigate to="/login" />;
+
     return (
       <div className={styles.container}>
         <div className={styles.background}>
@@ -85,9 +97,9 @@ export class ForgotPassword extends Component {
               />
               <input type="submit" value="Reset" className={styles.button} />
             </form>
-            <a className={styles.noAccount} href="./login">
+            <Link className={styles.noAccount} to="/login">
               go back to login
-            </a>
+            </Link>
           </div>
         </div>
       </div>

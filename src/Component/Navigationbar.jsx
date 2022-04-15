@@ -1,4 +1,5 @@
 import React from "react";
+import { NavLink } from "react-router-dom";
 import "../App.css";
 import styles from "./nav.module.css";
 
@@ -7,31 +8,35 @@ import styles from "./nav.module.css";
    passed in via props from a parent component */
 class Navigationbar extends React.Component {
   render() {
+    const navStyle = ({ isActive }) =>
+      isActive
+        ? { textDecoration: "underline", textDecorationColor: "white" }
+        : undefined;
+
     return (
       <div className={styles.sidenav}>
-        <a href="./" className={styles.home}>
-          Home
-        </a>
-        <a href="./" className={styles.search}>
-          Search
-        </a>
-        <a href="./profile" className={styles.profile}>
-          Profile
-        </a>
-        <a href="./" className={styles.groups}>
-          Groups
-        </a>
-        <a href="./connections" className={styles.connections}>
-          Connections
-        </a>
+        <NavLink to="/" style={navStyle}>
+          <div className={styles.navItem}>Home</div>
+        </NavLink>
+        <NavLink to="/search" style={navStyle}>
+          <div className={styles.navItem}>Search</div>
+        </NavLink>
+        <NavLink to="/profile" style={navStyle}>
+          <div className={styles.navItem}>Profile</div>
+        </NavLink>
+        <NavLink to="/groups" style={navStyle}>
+          <div className={styles.navItem}>Groups</div>
+        </NavLink>
+        <NavLink to="/connections" style={navStyle}>
+          <div className={styles.navItem}>Connections</div>
+        </NavLink>
         <div className={styles.spacer}></div>
-        <a
-          onClick={this.props.logout}
-          href="./login"
-          className={styles.logouttext}
-        >
+        <NavLink to="/styleguide" style={navStyle} className={styles.navItem}>
+          Style Guide
+        </NavLink>
+        <NavLink to="/" onClick={this.props.logout} className={styles.navItem}>
           Logout
-        </a>
+        </NavLink>
       </div>
     );
   }
