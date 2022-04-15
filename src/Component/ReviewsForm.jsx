@@ -69,41 +69,74 @@ export default class ReviewForm extends Component {
     event.preventDefault();
 
     console.log(event.target.review.value);
-
-    //make the api call to post
+    console.log(this.state.existingReview);
     fetch(
       process.env.REACT_APP_API_PATH +
-        (this.state.existingReview == null
-          ? "/posts"
-          : "/posts/" + this.state.existingReview.id),
+        "/posts?recipientUserID=" +
+        this.props.profileId +
+        "&authorID=" +
+        sessionStorage.getItem("user") +
+        "&attributes=" +
+        encodeURIComponent(
+          JSON.stringify({
+            path: "review",
+            equals: true,
+          })
+        ),
       {
-        method: this.state.existingReview == null ? "POST" : "PATCH",
+        method: "GET",
         headers: {
-          "Content-Type": "application/json",
           Authorization: "Bearer " + sessionStorage.getItem("token"),
         },
-        body: JSON.stringify({
-          authorID: sessionStorage.getItem("user"),
-          content: event.target.review.value,
-          recipientUserID: this.props.profileId,
-          attributes: {
-            review: true,
-            rating: this.state.rating,
-            upvoted:
-              this.state.existingReview == null
-                ? []
-                : [...this.state.existingReview.attributes.upvoted],
-            downvoted:
-              this.state.existingReview == null
-                ? []
-                : [...this.state.existingReview.attributes.upvoted],
-          },
-        }),
       }
     )
       .then((res) => res.json())
-      .then((result) => this.setState({ existingReview: result }))
-      .then(this.props.refreshPosts);
+      .then((result) => {
+        console.log(result);
+        if (result[1] > 0) {
+          this.setState({
+            existingReview: result[0][0],
+          });
+          console.log(this.state.existingReview);
+        }
+      })
+      .then(
+        //make the api call to post
+        () =>
+          fetch(
+            process.env.REACT_APP_API_PATH +
+              (this.state.existingReview == null
+                ? "/posts"
+                : "/posts/" + this.state.existingReview.id),
+            {
+              method: this.state.existingReview == null ? "POST" : "PATCH",
+              headers: {
+                "Content-Type": "application/json",
+                Authorization: "Bearer " + sessionStorage.getItem("token"),
+              },
+              body: JSON.stringify({
+                authorID: sessionStorage.getItem("user"),
+                content: event.target.review.value,
+                recipientUserID: this.props.profileId,
+                attributes: {
+                  review: true,
+                  rating: this.state.rating,
+                  upvoted:
+                    this.state.existingReview == null
+                      ? []
+                      : [...this.state.existingReview.attributes.upvoted],
+                  downvoted:
+                    this.state.existingReview == null
+                      ? []
+                      : [...this.state.existingReview.attributes.downvoted],
+                },
+              }),
+            }
+          )
+            .then((res) => res.json())
+            .then((result) => this.setState({ existingReview: result }))
+            .then(this.props.refreshPosts)
+      );
   };
 
   render() {
