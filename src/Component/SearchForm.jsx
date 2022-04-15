@@ -1,3 +1,4 @@
+import { element } from "prop-types";
 import React from "react";
 import { Link } from "react-router-dom";
 import "../App.css";
@@ -14,6 +15,7 @@ export default class SearchForm extends React.Component {
       friendid: "",
       responseMessage: "",
       users: [],
+      allclasses: [],
       people: [],
       userInput: "",
       nextUserInput: "",
@@ -89,6 +91,25 @@ export default class SearchForm extends React.Component {
           alert("error!");
         }
       );
+
+      this.createFetch("/groups","GET",null)
+      .then((res) => res.json())
+          .then(
+            (result) => {
+              let class_search = [];
+  
+              result[0].forEach(element => {if ("attributes" in element && element.attributes != null )
+                                              {if ( "isClass" in element.attributes && element.attributes.isClass && "name" in element && "classmemberids" in element.attributes)
+                                              { class_search.push(element)}}});
+              this.setState({
+                  allclasses:class_search
+                });
+              console.log(class_search);
+            },
+            (error) => {
+              alert(error);
+            }
+          );
 
 
   }
@@ -176,7 +197,7 @@ export default class SearchForm extends React.Component {
                 let class_search = [];
     
                 result[0].forEach(element => {if ("attributes" in element && element.attributes != null )
-                                                {if ( "isClass" in element.attributes && element.attributes.isClass && "name" in element)
+                                                {if ( "isClass" in element.attributes && element.attributes.isClass && "name" in element && "classmemberids" in element.attributes)
                                                 { 
                                                   if ( (element.name.toLowerCase().indexOf(this.state.userInput.toLowerCase())) > -1)
                                                     {class_search.push(element)}}}});
@@ -251,6 +272,14 @@ export default class SearchForm extends React.Component {
     return "/profile/"+dict.id
   }
 
+  gotoClass = dict =>{
+    return "/class/"+dict.id
+  }
+
+  gotoGroup = dict =>{
+    return "/groups/"+dict.id
+  }
+
   getProfilePic = dict =>{
     if("profilePicture" in dict.attributes && dict.attributes.profilePicture!=""){
       return "https://webdev.cse.buffalo.edu"+dict.attributes.profilePicture
@@ -258,6 +287,37 @@ export default class SearchForm extends React.Component {
     else{
       return "https://webdev.cse.buffalo.edu/hci/api/uploads/files/DOo1Ebbt8dYT4-plb6G6NP5jIc9_l_gNlaYwPW4SaBM.png"
     }
+  }
+
+  getProfilePic2 = ids =>{
+    let profilepic="https://webdev.cse.buffalo.edu/hci/api/uploads/files/DOo1Ebbt8dYT4-plb6G6NP5jIc9_l_gNlaYwPW4SaBM.png"
+    this.state.users.map((dict)=>{
+      if (dict.id==ids){
+        if ("profilePicture" in dict.attributes){
+          profilepic="https://webdev.cse.buffalo.edu"+dict.attributes.profilePicture
+        }
+        else{
+          profilepic="https://webdev.cse.buffalo.edu/hci/api/uploads/files/DOo1Ebbt8dYT4-plb6G6NP5jIc9_l_gNlaYwPW4SaBM.png"
+        }
+      }
+    });
+    return profilepic
+  }
+
+  getClassName = dict =>{
+    let name_class="s"
+    this.state.allclasses.map((element)=>{
+      console.log("hiiiiii")
+      console.log(element.id)
+      console.log(dict.attributes.id)
+      if(dict.attributes.id == element.id){
+        name_class=element.name
+        console.log("class")
+        console.log(name_class)
+      }
+
+    });
+    return (name_class + ": " + dict.name)
   }
 
 
@@ -393,8 +453,29 @@ export default class SearchForm extends React.Component {
                         </div>
                         
                         <div className={styles.outtercontent5}>
-                          {dict.attributes.classmemberids.length > 0 && (
-                            <img className={styles.picturecircle1} src={this.getProfilePic(dict)} alt={dict.attributes.firstName}/>
+                          {dict.attributes.classmemberids.length > 0 && dict.attributes.classmemberids.length==1 && (
+                            <img className={styles.picturecircle1} src={this.getProfilePic2(dict.attributes.classmemberids[0])} />
+                          )}
+                          {dict.attributes.classmemberids.length > 0 && dict.attributes.classmemberids.length==2 && (
+                            <div className={styles.innercontent5}>
+                            <img className={styles.picturecircle1} src={this.getProfilePic2(dict.attributes.classmemberids[0])} />
+                            <img className={styles.picturecircle1} src={this.getProfilePic2(dict.attributes.classmemberids[1])} />
+                            </div>
+                          )}
+                          {dict.attributes.classmemberids.length > 0 && dict.attributes.classmemberids.length==3 && (
+                            <div className={styles.innercontent5}>
+                            <img className={styles.picturecircle1} src={this.getProfilePic2(dict.attributes.classmemberids[0])} />
+                            <img className={styles.picturecircle1} src={this.getProfilePic2(dict.attributes.classmemberids[1])} />
+                            <img className={styles.picturecircle1} src={this.getProfilePic2(dict.attributes.classmemberids[2])} />
+                            </div>
+                          )}
+                          {dict.attributes.classmemberids.length > 0 && dict.attributes.classmemberids.length!=1 && dict.attributes.classmemberids.length!=2 && dict.attributes.classmemberids.length!=3 && (
+                            <div className={styles.innercontent5}>
+                            <img className={styles.picturecircle1} src={this.getProfilePic2(dict.attributes.classmemberids[0])} />
+                            <img className={styles.picturecircle1} src={this.getProfilePic2(dict.attributes.classmemberids[1])} />
+                            <img className={styles.picturecircle1} src={this.getProfilePic2(dict.attributes.classmemberids[dict.attributes.classmemberids.length-1])} />
+                            <div className={styles.background3}><p>{"+" + (dict.attributes.classmemberids.length-3)}</p></div>
+                            </div>
                           )}
                           {dict.attributes.classmemberids.length <= 0 && (
                             <p className={styles.size5}>no members yet!!</p>
@@ -405,7 +486,7 @@ export default class SearchForm extends React.Component {
                         
 
                         <div className={styles.outtercontent3}>
-                          <button className={styles.classbutton} type="button" value="profile">View Class</button>
+                        <Link to={this.gotoClass(dict)}><button className={styles.classbutton} type="button" value="profile">View Class</button></Link>
                           
                         </div>
                         
@@ -434,20 +515,46 @@ export default class SearchForm extends React.Component {
                           {/*<div>
                             <img className={styles.picturecircle} src={this.getProfilePic(dict)} alt={dict.attributes.firstName}/>
                           </div>*/}
-                            <p className={styles.size4}>{ dict.name}</p>
+                            <p className={styles.size6}>{this.getClassName(dict)}</p>
+                            <p className={styles.headersize}>University at Buffalo</p>
+                            <p className={styles.headersize}>{dict.attributes.members.length + " students"}</p>
                         </div>
-                        <div className={styles.innercontent4}>
-                        <img className={styles.picturecircle} src="https://webdev.cse.buffalo.edu/hci/api/uploads/files/DOo1Ebbt8dYT4-plb6G6NP5jIc9_l_gNlaYwPW4SaBM.png" />
-                        <p>member name</p>
-                        <div className={styles.stars}>
-                                  <img className={styles.star1}  src={starIcon} alt="star"/>
-                                  <img className={styles.star2}  src={starIcon} alt="star"/>
-                                  <img className={styles.star3}  src={starIcon} alt="star"/>
-                                  <img className={styles.star4}  src={starIcon} alt="star"/>
-                                  <img className={styles.star5}  src={starIcon} alt="star"/>
+                        <div className={styles.outtercontent5}>
+                          {dict.attributes.members.length > 0 && dict.attributes.members.length==1 && (
+                            <img className={styles.picturecircle1} src={this.getProfilePic2(dict.attributes.members[0])} />
+                          )}
+                          {dict.attributes.members.length > 0 && dict.attributes.members.length==2 && (
+                            <div className={styles.innercontent5}>
+                            <img className={styles.picturecircle1} src={this.getProfilePic2(dict.attributes.members[0])} />
+                            <img className={styles.picturecircle1} src={this.getProfilePic2(dict.attributes.members[1])} />
                             </div>
+                          )}
+                          {dict.attributes.members.length > 0 && dict.attributes.members.length==3 && (
+                            <div className={styles.innercontent5}>
+                            <img className={styles.picturecircle1} src={this.getProfilePic2(dict.attributes.members[0])} />
+                            <img className={styles.picturecircle1} src={this.getProfilePic2(dict.attributes.members[1])} />
+                            <img className={styles.picturecircle1} src={this.getProfilePic2(dict.attributes.members[2])} />
+                            </div>
+                          )}
+                          {dict.attributes.members.length > 0 && dict.attributes.members.length!=1 && dict.attributes.members.length!=2 && dict.attributes.members.length!=3 && (
+                            <div className={styles.innercontent5}>
+                            <img className={styles.picturecircle1} src={this.getProfilePic2(dict.attributes.members[0])} />
+                            <img className={styles.picturecircle1} src={this.getProfilePic2(dict.attributes.members[1])} />
+                            <img className={styles.picturecircle1} src={this.getProfilePic2(dict.attributes.members[dict.attributes.members.length-1])} />
+                            <div className={styles.background3}><p>{"+" + (dict.attributes.members.length-3)}</p></div>
+                            </div>
+                          )}
+                          {dict.attributes.members.length <= 0 && (
+                            <p className={styles.size5}>no members yet!!</p>
+                          )}
+                          
+                          
                         </div>
-                        
+
+                        <div className={styles.outtercontent3}>
+                        <Link to={this.gotoGroup(dict)}><button className={styles.groupbutton} type="button" value="profile">View Group</button></Link>
+                          
+                        </div>
                         
     
                       </div> 
