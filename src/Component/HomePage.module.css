@@ -1,0 +1,210 @@
+.container{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    /* border-style: dotted; */
+}
+.seekerContainer, .topClassContainer{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    /* border-style: dotted; */
+    width: 100%;
+}
+.header{
+    font-weight: 400;
+    font-size: 10vh;
+    /* border-style: dotted; */
+    align-self: center;
+}
+.outterBox{
+    /* border-style: dotted; */
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-self: center;
+    width: 80%;
+    margin: 1rem;
+    padding-left: 0.5vw;
+    padding-right: 0.5vw;
+    align-items: center;
+    background-color: #907671;
+    border-radius: 1vw;
+}
+
+.arrowContainer{
+    height: 3.5vw;
+    width: 3.5vw;
+}
+.leftArrowContainer, .rightArrowContainer{
+    background-color: #EDE5E5;
+    height: 3.5vw;
+    width: 3.5vw;
+    border-radius: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.leftArrow, .rightArrow{
+    border: solid black;
+    border-width: 0 0.25vw 0.25vw 0;
+    display: inline-block;
+    padding: 0.25vw;
+    transform: rotate(135deg);
+    -webkit-transform: rotate(135deg);
+}
+.rightArrow{
+    transform: rotate(-45deg);
+    -webkit-transform: rotate(-45deg);
+}
+.studentCard, .classCard{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    /* border-style: dotted; */
+    row-gap: 1vh;
+    height: 22vw;
+    width: 22vw;
+    background-color: #EDE5E5;
+    border-radius: 2vw;
+    margin: 1.8rem 1rem 1.8rem 1rem;
+}
+.imageContainer{
+    /* border-style: dotted; */
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+.profilePicture{
+    height: 7vw;
+    width: 7vw;
+    margin: 0rem 1rem 0rem 1rem;
+}
+.nameContainer{
+    flex-grow: 2;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+.name{
+    font-family: 'Exo';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 1.8vw;
+}
+.startContainer{
+    display: flex;
+    align-content:  center;
+}
+.stars{
+    height: 1.5vw;
+    width: 1.5vw;
+}
+.infoContainer{
+    /* border-style: dotted; */
+    display: flex;
+    flex-direction: column;
+    row-gap: 1.7vh;
+    padding: 0rem 1.5rem 0rem 1.5rem;
+}
+.schoolContainer, .majorContainer, .yearContainer{
+    /* border-style: dotted; */
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+.schoolLabel, .schoolName, .majorLabel, .majorName, .yearLabel, .yearName{
+    font-family: 'Exo';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 1.3vw;
+    color: rgba(0, 0, 0, 0.5);
+}
+.schoolName, .majorName, .yearName{
+    color: #000;
+    font-size: 1.1vw;
+}
+
+.buttonContainer{
+    /* border-style: dotted; */
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+.connect, .viewProfile{
+    background: #2ECC71;
+    color: #FFFFFF;
+    border: 0;
+    border-radius: 0.5vw;
+    height: 5vh;
+    width: 8vw;
+    font-family: 'Exo';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 1.1vw;
+}
+.viewProfile{
+    background: #3498DB;
+}
+
+
+.classCard{
+    height: 25vh;
+    width: 25vh;
+    row-gap: 0.7vh;
+    padding: 1.5vh 1.5vw 1.5vh 1.5vw;
+    justify-content: center;
+}
+.className{
+    font-family: 'Exo';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 1.7vw;
+}
+.universityName{
+    font-family: 'Exo';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 1.1vw;
+    color: rgba(0, 0, 0, 0.5)
+}
+.studentCount{
+    font-family: 'Exo';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 1.1vw;
+    color: rgba(0, 0, 0, 0.5)
+}
+.studentPictures{
+    display: flex;
+    flex-direction: row;
+    gap: 0.7vw; 
+}
+.classStudentPicture, .moreMemberPics{
+    border-radius: 100%;
+    height: 1.6vw;
+    width: 1.6vw;
+}
+.viewClass{
+    font-family: 'Exo';
+    font-style: normal;
+    font-size: 1.1vw;
+    height: 5vh;
+    width: 100%;
+    color: #FFFFFF;
+    background-color: #3498DB;
+    border: 0;
+    border-radius: 0.5vw;
+}
+
+.moreMemberPics{
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    background-color: lightgray;
+    font-size: 0.7vw;
+}
+
+.noMemberPics{
+    font-size: 1.1vw;
+}

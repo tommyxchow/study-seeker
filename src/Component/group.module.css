@@ -1,0 +1,293 @@
+.grouplist {
+  text-align: left;
+  background: #FFFFFF;
+  margin: 14px;
+  margin-left: 50px;
+  width: 420px;
+  height: 70px;
+  display: inline-flex;
+  border-style: solid;
+  flex-direction: row;
+  justify-content: space-between;
+  border-width: 2px;
+  text-decoration: none;
+  color: #000000;
+}
+
+.line {
+  width: 1015px;
+  height: 0px;
+  margin-left: 50px;
+
+  border: 1px solid #000000
+}
+
+.mygroups {
+  font-family: 'Exo';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 48px;
+  line-height: 64px;
+  margin-left: 50px;
+  margin-top: 29px;
+  margin-bottom: 41px;
+}
+
+.groupname {
+  height: 48px;
+
+  font-family: 'Exo';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 36px;
+  line-height: 48px;
+  margin-left: 50px;
+  margin-bottom: 3px;
+
+  color: #000000;
+}
+
+.name {
+  height: 20.74px;
+
+  font-family: 'Exo';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 24px;
+  margin-top: 11.23px;
+  margin-left: 12.49px;
+  margin-bottom: 5.52px;
+
+  color: #000000;
+}
+
+.students {
+  width: 71px;
+  height: 17px;
+  
+  font-family: 'Exo';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 19px;
+  margin-bottom: 6px;
+
+  color: #C4C4C4;
+}
+
+.rating {
+  width: 111.24px;
+  height: 16.42px;
+  margin-bottom: 0px;
+
+  font-family: 'Exo';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 19px;
+
+  color: #C4C4C4;
+}
+
+.membercount {
+  width: 85.69px;
+  height: 16.46px;
+
+  font-family: 'Exo';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 19px;
+  margin-left: 12.7px;
+  margin-top: 0px;
+
+  color: #C4C4C4;
+}
+
+.container {
+  flex-direction: row;
+}
+
+.container2 {
+  display: inline-flex;
+}
+
+.leavebutton{
+  background-color: #ff0000; /* Red */
+  width: 80px !important;
+  height: 30px !important;
+  border: none;
+  color: rgb(0, 0, 0);
+  text-align: center;
+  font-family: Exo;
+  font-weight: bold;
+  text-decoration: none;
+  font-size: 18px;
+  margin-left: 18px;
+  cursor: pointer;
+  border-radius: 25px;
+  display: inline-block;
+  align-self: center;
+}
+
+.star{
+  align-self: center;
+  width: 15px;
+  height: 14px;
+  margin-bottom: 10px;
+
+  box-sizing: border-box;
+}
+
+.stargroupdetails{
+  align-self: center;
+  width: 15px;
+  height: 15px;
+
+  box-sizing: border-box;
+}
+
+.stardiv {
+  margin-top: 6.58px;
+  margin-left: 17px;
+}
+
+.stardivgroupdetails {
+  margin-left: 38px;
+}
+
+.groupdetailname {
+  font-family: 'Exo';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 48px;
+  line-height: 64px;
+  margin-left: 38px;
+  margin-top: 29px;
+
+  color: #000000;
+}
+
+.text {
+  font-family: 'Exo';
+  font-style: italic;
+  font-weight: 400;
+  font-size: 24px;
+  line-height: 32px;
+  margin-left: 38px;
+  margin-top: 31px;
+  margin-bottom: 12px;
+
+  color: #000000;
+}
+
+.div1 {
+  flex-direction: row;
+  display: flex;
+}
+
+.div2 {
+  flex-direction: column;
+  display: flex;
+}
+
+.buttondiv {
+  font-family: 'Exo';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 19px;
+  margin-left: 38px;
+
+  color: #000000;
+}
+
+.profilepicture {
+  align-self: center;
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  margin-right: 5px;
+  margin-bottom: 6px;
+  display: inline-flex;
+}
+
+.profilepicturegroupdetails {
+  align-self: center;
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  margin-bottom: 5px;
+  display: inline-flex;
+
+  box-sizing: border-box;
+  filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+}
+
+.membersdiv {
+  flex-direction: column;
+  display: flex;
+  margin-left: 38px;
+}
+
+.membernames {
+  font-family: 'Exo';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 24px;
+  text-align: center;
+
+  margin-top: 5px;
+
+  color: #000000;
+}
+
+.memberstardiv {
+  align-self: center;
+  margin-top: -10px;
+}
+
+.groupdiv {
+  flex-direction: row;
+  display: flex;
+}
+
+.groupleavebutton{
+  background-color: #ff0000; /* Red */
+  width: 80px !important;
+  height: 30px !important;
+  border: none;
+  color: rgb(0, 0, 0);
+  text-align: center;
+  font-family: Exo;
+  font-weight: bold;
+  text-decoration: none;
+  font-size: 18px;
+  margin-left: 18px;
+  cursor: pointer;
+  border-radius: 25px;
+  display: inline-block;
+  align-self: center;
+  margin-top: 29px;
+}
+
+.groupjoinbutton{
+  background-color: #0CAF30; /* Green */
+  width: 80px !important;
+  height: 30px !important;
+  border: none;
+  color: rgb(0, 0, 0);
+  text-align: center;
+  font-family: Exo;
+  font-weight: bold;
+  text-decoration: none;
+  font-size: 18px;
+  margin-left: 18px;
+  cursor: pointer;
+  border-radius: 25px;
+  display: inline-block;
+  align-self: center;
+  margin-top: 29px;
+}

@@ -1,0 +1,34 @@
+.sidenav {
+  /* need to specify some position other than static, so height can apply.
+     Fixed works since it will stay fixed to the side - 0 from both left and top. */
+  display: flex;
+  flex-direction: column;
+  width: 250px;
+  line-height: 100%;
+  padding: 3rem;
+  position: sticky;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  z-index: 1;
+
+  background-color: rgb(144, 118, 113, 1);
+}
+
+.spacer {
+  flex-grow: 1;
+}
+
+.sidenav > a {
+  text-decoration: none;
+}
+
+.navItem {
+  margin-bottom: 15px;
+  font-family: Exo;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 36px;
+  line-height: 48px;
+  color: #ffffff;
+}

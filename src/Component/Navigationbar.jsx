@@ -1,30 +1,45 @@
 import React from "react";
+import { NavLink } from "react-router-dom";
 import "../App.css";
-import {
-   Link
-} from 'react-router-dom';
+import styles from "./nav.module.css";
 
-/* The Navbar class provides navigation through react router links.  Note the callback
-   to the parent app class in the last entry... this is an example of calling a function
+/* The Navbar class provides navigation through react router anks.  Note the callback
+   to the parent app class in the last entry... this is an example of calang a function
    passed in via props from a parent component */
 class Navigationbar extends React.Component {
-
   render() {
-    return (
-        <div className="sidenav">                      
-        <ul id="side-menu-items">
-            <li><h className="home">Home</h></li>
-            <li><h className="search">Search</h></li>
-            <li><h className="profile">Profile</h></li>
-            <li><h className="groups">Groups</h></li>
-            <li><h className="navconnections">Connections</h></li>
-            <li><h className="logout-text">Logout</h></li>
-            <li><h className="logout-arrow"></h></li>
-            <li><h className="logout-background"></h></li>
-        </ul>
-     </div>
-  );
-  }
+    const navStyle = ({ isActive }) =>
+      isActive
+        ? { textDecoration: "underline", textDecorationColor: "white" }
+        : undefined;
 
+    return (
+      <div className={styles.sidenav}>
+        <NavLink to="/" style={navStyle}>
+          <div className={styles.navItem}>Home</div>
+        </NavLink>
+        <NavLink to="/search" style={navStyle}>
+          <div className={styles.navItem}>Search</div>
+        </NavLink>
+        <NavLink to="/profile" style={navStyle}>
+          <div className={styles.navItem}>Profile</div>
+        </NavLink>
+        <NavLink to="/groups" style={navStyle}>
+          <div className={styles.navItem}>Groups</div>
+        </NavLink>
+        <NavLink to="/connections" style={navStyle}>
+          <div className={styles.navItem}>Connections</div>
+        </NavLink>
+        <div className={styles.spacer}></div>
+        <NavLink to="/styleguide" style={navStyle} className={styles.navItem}>
+          Style Guide
+        </NavLink>
+        <NavLink to="/" onClick={this.props.logout} className={styles.navItem}>
+          Logout
+        </NavLink>
+      </div>
+    );
+  }
 }
+
 export default Navigationbar;

@@ -1,0 +1,220 @@
+.line1{
+  width: 1015px;
+  height: 0px;
+  left: 373px;
+  top: 91px;
+  margin-left: 37px;
+  
+  border: 1px solid #000000;
+}
+  
+  
+  
+.line2{
+  width: 1015px;
+  height: 0px;
+  left: 373px;
+  top: 562px;
+  margin-left: 37px;
+  
+  border: 1px solid #000000;
+}
+
+
+.connections{
+  /* My Connections */
+  
+  width: 263px;
+  height: 48px;
+  left: 373px;
+  top: 514px;
+  margin-left: 37px;
+  
+  font-family: Exo;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 36px;
+  line-height: 48px;
+  
+  /* identical to box height */
+  
+  color: #000000;
+}
+  
+.requests{
+  /* Connection Requests */
+
+  width: 347px;
+  height: 48px;
+  left: 372px;
+  top: 42px;
+  margin-left: 37px;
+  margin-top: 42px;
+
+  font-family: Exo;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 36px;
+  line-height: 48px;
+
+  /* identical to box height */
+
+  color: #000000;
+}
+
+.container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  margin-top: 30px;
+  margin-left: 37px;
+  height: 100vh;
+  width: 100%;
+}
+
+.topcontainer {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  margin-top: 30px;
+  margin-left: 37px;
+}
+
+.topdiv {
+  align-self: flex-start;
+  display: flex;
+  flex-direction: column;
+  margin-right: 63px;
+  margin-bottom: 30px;
+}
+
+.picture{
+  align-self:flex-start;
+  width: 100px;
+  height: 100px;
+}
+
+.name{
+  align-self: center;
+  width: 65px;
+  height: 24px;
+
+  font-family: Exo;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 24px;
+  text-decoration: none;
+  /* identical to box height */
+
+  color: #000000;
+}
+.name:hover{
+  text-decoration: underline;
+}
+
+.star1{
+  align-self: center;
+  width: 15px;
+  height: 15px;
+
+  box-sizing: border-box;
+}
+
+.star2{
+  align-self: center;
+  width: 15px;
+  height: 15px;
+
+  box-sizing: border-box;
+}
+
+.star3{
+  align-self: center;
+  width: 15px;
+  height: 15px;
+
+  box-sizing: border-box;
+}
+
+.star4{
+  align-self: center;
+  width: 15px;
+  height: 15px;
+
+  box-sizing: border-box;
+}
+
+.star5{
+  align-self: center;
+  width: 15px;
+  height: 15px;
+
+  box-sizing: border-box;
+}
+  
+.div2 {
+  align-self: flex-start;
+  display: none;
+  flex-direction: column;
+  margin-right: 63px;
+}
+  
+.stars {
+  flex-direction: row;
+  display: flex;
+  align-self: center;
+}
+
+.div {
+  align-self: flex-start;
+  display: flex;
+  flex-direction: column;
+  margin-right: 63px;
+}
+
+.picturecircle {
+  align-self: auto;
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+}
+
+.rejectbutton{
+  background-color: #ff0000; /* Red */
+  width: 80px !important;
+  height: 30px !important;
+  border: none;
+  color: rgb(0, 0, 0);
+  text-align: center;
+  font-family: Exo;
+  font-weight: bold;
+  text-decoration: none;
+  font-size: 18px;
+  margin: 4px 2px;
+  cursor: pointer;
+  border-radius: 25px;
+  align-self: center;
+  display: inline-block;
+}
+
+.acceptbutton{
+  background-color: #56c73f; /* Green */
+  width: 80px !important;
+  height: 30px !important;
+  border: none;
+  color: rgb(0, 0, 0);
+  text-align: center;
+  font-family: Exo;
+  font-weight: bold;
+  text-decoration: none;
+  font-size: 18px;
+  margin: 4px 2px;
+  cursor: pointer;
+  border-radius: 25px;
+  align-self: center;
+  display: inline-block;
+  margin-top: 20px;
+}
