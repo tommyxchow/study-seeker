@@ -339,6 +339,7 @@ export default class PostForm extends React.Component {
           </div>
           </>}
         </div>
+        { this.state.join &&(<>
         <div className={style.postsHeader}>
           <div className={style.postsLine}>
             <div className={style.posts}>Posts</div>
@@ -362,6 +363,7 @@ export default class PostForm extends React.Component {
             <Groups classId= {this.props.classId} userid={this.props.userid}/>
             }
         </div>
+        </>)}
       </div>
     );
   }
