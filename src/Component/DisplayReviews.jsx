@@ -204,7 +204,7 @@ export default class Reviews extends Component {
       return (
         <div>
           <p className={styles.reviewtextalign}>Reviews</p>
-          {this.state.userid !== this.props.profileId && (
+          {this.props.showForm && (
             <ReviewForm
               profileId={this.props.profileId}
               refreshPosts={() => this.loadFriends()}

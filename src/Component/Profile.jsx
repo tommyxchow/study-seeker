@@ -569,7 +569,13 @@ export default class Profile extends React.Component {
                 )}
               </div>
             </div>
-            <Reviews profileId={this.props.profileid} />
+            <Reviews
+              profileId={this.props.profileid}
+              showForm={
+                sessionStorage.getItem("user") !== this.props.profileid &&
+                this.state.connection_status === "accepted"
+              }
+            />
           </>
         ) : (
           <>User does not exist</>
