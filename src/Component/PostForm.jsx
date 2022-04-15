@@ -4,6 +4,7 @@ import PostingList from "./PostingList.jsx";
 import style from "./postform.module.css";
 import yearLogo from "../assets/goal.png";
 import ClassPosts from "./ClassPosts";
+import Groups from "./ClassGroups";
 
 
 // The post form component holds both a form for posting, and also the list of current posts in your feed.  This is primarily to 
@@ -24,11 +25,11 @@ export default class PostForm extends React.Component {
       Spring_2021:false,
       post: false,
       join: false,
+      groups: false,
       current_members: []
     };
     this.postListing = React.createRef();
   }
-
 
   createFetch(path, method, body) {
     const supplyPath = process.env.REACT_APP_API_PATH + path;
@@ -242,7 +243,7 @@ export default class PostForm extends React.Component {
             this.state.current_members.map((member)=>(
             <>
               <div className={style.studentCard}>
-                <img className={style.studentImage} src={"https://webdev.cse.buffalo.edu/"+member[3]}></img>
+                <img className={style.studentImage} src={"https://webdev.cse.buffalo.edu/"+member[3]} alt="student profile"></img>
                 <div className={style.studentName}>
                   {member[1]+" "+member[2][0]+"."}
                 </div>
@@ -272,25 +273,25 @@ export default class PostForm extends React.Component {
               <>
               <div className={style.alumniClassStudent}>
                 <div className={style.studentCard}>
-                  <img className={style.studentImage} src={yearLogo}></img>
+                  <img className={style.studentImage} src={yearLogo} alt="goal pic"></img>
                   <div className={style.studentName}>
                     Swastik Naik
                   </div>
                 </div>
                 <div className={style.studentCard}>
-                  <img className={style.studentImage} src={yearLogo}></img>
+                  <img className={style.studentImage} src={yearLogo} alt="goal pic"></img>
                   <div className={style.studentName}>
                     Swastik Naik
                   </div>
                 </div>
                 <div className={style.studentCard}>
-                  <img className={style.studentImage} src={yearLogo}></img>
+                  <img className={style.studentImage} src={yearLogo} alt="goal pic"></img>
                   <div className={style.studentName}>
                     Swastik Naik
                   </div>
                 </div>
                 <div className={style.studentCard}>
-                  <img className={style.studentImage} src={yearLogo}></img>
+                  <img className={style.studentImage} src={yearLogo} alt="goal pic"></img>
                   <div className={style.studentName}>
                     Swastik Naik
                   </div>
@@ -309,25 +310,25 @@ export default class PostForm extends React.Component {
               <>
               <div className={style.alumniClassStudent}>
                 <div className={style.studentCard}>
-                  <img className={style.studentImage} src={yearLogo}></img>
+                  <img className={style.studentImage} src={yearLogo} alt="goal pic"></img>
                   <div className={style.studentName}>
                     Swastik Naik
                   </div>
                 </div>
                 <div className={style.studentCard}>
-                  <img className={style.studentImage} src={yearLogo}></img>
+                  <img className={style.studentImage} src={yearLogo} alt="goal pic"></img>
                   <div className={style.studentName}>
                     Swastik Naik
                   </div>
                 </div>
                 <div className={style.studentCard}>
-                  <img className={style.studentImage} src={yearLogo}></img>
+                  <img className={style.studentImage} src={yearLogo} alt="goal pic"></img>
                   <div className={style.studentName}>
                     Swastik Naik
                   </div>
                 </div>
                 <div className={style.studentCard}>
-                  <img className={style.studentImage} src={yearLogo}></img>
+                  <img className={style.studentImage} src={yearLogo} alt="goal pic"></img>
                   <div className={style.studentName}>
                     Swastik Naik
                   </div>
@@ -348,6 +349,18 @@ export default class PostForm extends React.Component {
           <hr className={style.horizontalLine}/>{this.state.post && 
             <ClassPosts classId={this.props.classId} userid={this.props.userid}/>
           }
+        </div>
+
+        <div className={style.groupsHeader}>
+          <div className={style.groupsLine}>
+            <div className={style.groups}>Groups</div>
+          <div className={style.arrow} onClick={()=>this.setState({groups:!this.state.groups})}>
+              {this.state.groups?<>&#x2191;</>:<>&#x2193;</>}
+            </div>
+          </div>
+          <hr className={style.horizontalLine}/>{this.state.groups &&
+            <Groups classId= {this.props.classId} userid={this.props.userid}/>
+            }
         </div>
       </div>
     );
