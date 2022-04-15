@@ -75,8 +75,16 @@ class Registration extends React.Component {
           email: this.state.email,
           password: this.state.password,
           attributes: {
+            username: this.state.firstName,
             firstName: this.state.firstName,
             lastName: this.state.lastName,
+            major: "",
+            year: "",
+            contact: "",
+            privacy: "Everyone",
+            profilePicture: "/hci/api/uploads/files/DOo1Ebbt8dYT4-plb6G6NP5jIc9_l_gNlaYwPW4SaBM.png",
+            backgroundPicture: "",
+            rating: 0
           },
         }),
       })
