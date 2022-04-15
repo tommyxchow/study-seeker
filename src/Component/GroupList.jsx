@@ -239,12 +239,13 @@ export default class GroupList extends React.Component {
       return (
         <div className="post">
         <div className={styles.mygroups}>My Groups</div>
+        {<p id={this.state.name} className={styles.groupname}>{this.state.name}</p>} 
+        {console.log(groups)}
+        <div className={styles.line}></div>
             {groups.map(group => (
               <>
-              {console.log(group.groupname)}
-              {console.log(!!document.getElementById(this.state.name))}
-              {!document.getElementById(this.state.name) && <p id={this.state.name} className={styles.groupname}>{this.state.name}</p>}
-              <div className={styles.line}></div>
+              {console.log("groupname", this.state.name)}
+              {console.log(document.getElementById(this.state.name) == null)}
               <div className= {styles.groupdiv}>
               <Link to={/groups/ + group.id} onClick={() => this.setState({name: group.name, groupid: group.id})}>
               <div className={styles.grouplist}>
