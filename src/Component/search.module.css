@@ -112,8 +112,20 @@
   max-width: 1000px;
   border-radius: 0px;
   border: 1px solid black;
+  border-radius: 25px;
   padding: 1rem;
   margin: 2%;
+}
+
+.background3 {
+  height: 30px;
+  width: 30px;
+  border-radius: 50%;
+  background-color: #C4C4C4;
+  font-size: small;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .checklistcontainer{
@@ -160,8 +172,9 @@
   height: 100%;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content:flex-start;
+  align-items: flex-start;
+  justify-content: center;
+  margin-left: 15px;
 }
 
 .outtercontent1{
@@ -217,6 +230,10 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+.innercontent5{
+  display: flex;
+  flex-direction: row;
 }
 
 .space{
@@ -307,8 +324,19 @@
   color:white;
   border: 0;
   border-radius: 10px;
-  height: 30px;
+  height: 40px;
   width: 220px;
+  background: #3498DB;
+  font-family: Exo;
+  font-size: small;
+}
+
+.groupbutton{
+  color:white;
+  border: 0;
+  border-radius: 10px;
+  height: 40px;
+  width: 260px;
   background: #3498DB;
   font-family: Exo;
   font-size: small;
@@ -359,6 +387,10 @@
 
 .size5{
   font-size:small;
+}
+
+.size6{
+  font-size:28px;
 }
 
 .stars {
