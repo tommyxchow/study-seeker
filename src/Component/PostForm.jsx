@@ -234,7 +234,9 @@ export default class PostForm extends React.Component {
             <input className={style.classLeave} type='button' value='Leave' onClick={this.handleLeave}></input>
             }
           </div>
-          <div className={style.classSmallDiscription}>Applied Human Computer Interaction and Interface Design</div>
+          <div className={style.classSmallDiscription}>
+            Education is the most powerful weapon which you can use to change the world. 
+          </div>
         </div>
         <div className={style.aboutHeader}>
           <div className={style.aboutLine}>

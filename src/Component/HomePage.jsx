@@ -143,11 +143,16 @@ export default class HomePage extends React.Component {
                             </div>
                             <div className={style.majorContainer}>
                                 <span className={style.majorLabel}>MAJOR</span>
-                                <span className={style.majorName}>{this.state.all_students[idx].attributes.major}</span>
+                                <span className={style.majorName}>{
+                                this.state.all_students[idx].attributes.major?
+                                this.state.all_students[idx].attributes.major:"NA"
+                                }</span>
                             </div>
                             <div className={style.yearContainer}>
                                 <span className={style.yearLabel}>YEAR</span>
-                                <span className={style.yearName}>{this.state.all_students[idx].attributes.year}</span>
+                                <span className={style.yearName}>{
+                                this.state.all_students[idx].attributes.year?
+                                this.state.all_students[idx].attributes.year:"NA"}</span>
                             </div>
                         </div>
                         <div className={style.buttonContainer}>
