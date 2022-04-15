@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Navigate } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 import styles from "./auth.module.css";
 
 export class ForgotPassword extends Component {
@@ -97,9 +97,9 @@ export class ForgotPassword extends Component {
               />
               <input type="submit" value="Reset" className={styles.button} />
             </form>
-            <a className={styles.noAccount} href="./login">
+            <Link className={styles.noAccount} to="/login">
               go back to login
-            </a>
+            </Link>
           </div>
         </div>
       </div>

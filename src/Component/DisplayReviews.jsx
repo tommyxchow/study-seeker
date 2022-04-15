@@ -45,7 +45,7 @@ export default class Reviews extends Component {
               posts: result[0],
             });
           }
-          console.log(this.state.posts);
+          console.log("all posts", result);
         },
         (error) => {
           this.setState({
@@ -183,6 +183,7 @@ export default class Reviews extends Component {
   render() {
     //this.loadPosts();
     const { error, isLoaded, posts } = this.state;
+    console.log(posts);
     if (error) {
       return <div> Error: {error.message} </div>;
     } else if (!isLoaded) {
@@ -396,7 +397,8 @@ export default class Reviews extends Component {
                         <img
                           src={
                             "https://webdev.cse.buffalo.edu" +
-                            post.author.attributes.profilePicture
+                            (post.author !== null ?post.author.attributes.profilePicture:
+                            "/hci/api/uploads/files/DOo1Ebbt8dYT4-plb6G6NP5jIc9_l_gNlaYwPW4SaBM.png")
                           }
                           className={styles.picturecircle}
                           alt="Reviewer Profile Pic"
@@ -404,8 +406,8 @@ export default class Reviews extends Component {
                       </div>
                       <div>
                         <p className={styles.textsize}>
-                          {post.author.attributes.firstName}{" "}
-                          {post.author.attributes.lastName}
+                          {post.author? post.author.attributes.firstName: "DELETED"}{" "}
+                          {post.author? post.author.attributes.lastName: ""}
                         </p>
                         <p className={styles.reviewsize}>
                           <i>{'"' + post.content + '"'}</i>

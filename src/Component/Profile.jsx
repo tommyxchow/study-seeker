@@ -26,6 +26,7 @@ export default class Profile extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      user_exist: true,
       username: "",
       firstname: "",
       lastname: "",
@@ -72,7 +73,7 @@ export default class Profile extends React.Component {
         Authorization: "Bearer " + sessionStorage.getItem("token"),
       },
     };
-    if (body != null) {
+    if (body !== null) {
       supplyMethod.body = JSON.stringify(body);
     }
     return fetch(supplyPath, supplyMethod);
@@ -89,6 +90,7 @@ export default class Profile extends React.Component {
               this.setState({
                 // IMPORTANT!  You need to guard against any of these values being null.  If they are, it will
                 // try and make the form component uncontrolled, which plays havoc with react
+                user_exist:true,
                 username: result.attributes.username || "",
                 firstname: result.attributes.firstName || "First Name",
                 lastname: result.attributes.lastName || "Last Name",
@@ -109,7 +111,8 @@ export default class Profile extends React.Component {
           }
         },
         (error) => {
-          alert("error!");
+          this.setState({ user_exist: false });
+          // alert("Testing------------------");
         }
       )
       .then(this.getConnection);
@@ -337,25 +340,11 @@ export default class Profile extends React.Component {
     //keep the form from actually submitting, since we are handling the action ourselves via
     //the fetch calls to the API
     event.preventDefault();
-
-    fetch(
-      process.env.REACT_APP_API_PATH +
-        "/users/" +
-        sessionStorage.getItem("user") +
-        "?relatedObjectsAction=delete",
-      {
-        method: "DELETE",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: "Bearer " + sessionStorage.getItem("token"),
-        },
-      }
-    )
-      .then((res) => res.json())
+    this.createFetch('/users/'+this.props.userid+"?relatedObjectsAction=anonymize", 'delete', null)
+      .then((res) => res.text())
       .then((result) => {
-        //TODO there is an error with promise syntax, such that this is never reached
         console.log(result);
-      });
+      }, (error) =>{alert(error)});
   };
 
   // This is the function that draws the component to the screen.  It will get called every time the
@@ -384,7 +373,10 @@ export default class Profile extends React.Component {
     };
 
     return (
+
       <div className={styles.container}>
+        {this.state.user_exist? (<>
+          
         <div className={styles.backgroundOverlay}></div>
         <img
           src={"https://webdev.cse.buffalo.edu" + this.state.backgroundPicture}
@@ -556,6 +548,8 @@ export default class Profile extends React.Component {
           </div>
         </div>
         <Reviews profileId={this.props.profileid} />
+        </>
+        ):<>User does not exist</>}
       </div>
     );
   }
