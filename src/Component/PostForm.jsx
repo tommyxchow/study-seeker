@@ -359,7 +359,7 @@ export default class PostForm extends React.Component {
             </div>
           </div>
           <hr className={style.horizontalLine}/>{this.state.groups &&
-            <Groups classId= {this.props.classId} userid={this.props.userid}/>
+            <Groups classId= {this.props.classId} userid={this.props.userid} groupid={this.props.groupid}/>
             }
         </div>
       </div>
