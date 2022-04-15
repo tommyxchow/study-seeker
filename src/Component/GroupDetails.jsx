@@ -3,6 +3,7 @@ import "../App.css";
 
 import groupcss from "./group.module.css";
 import starIcon from "../assets/unlitstar.svg";
+import { Link } from "react-router-dom";
 
 export default class GroupDetails extends React.Component {
   constructor(props) {
@@ -95,19 +96,18 @@ export default class GroupDetails extends React.Component {
         })
         .then(response => response.json())
         .then(result => {
-          console.log("results",result);
           if(result.attributes.profilePicture){
             if(result.id === Number(this.state.userid)){
               console.log("this is you");
               this.setState({username: result.attributes.firstName + " " + result.attributes.lastName + " (You)"})
               this.setState({profilePicture: result.attributes.profilePicture});
-              usernameList.push([result.attributes.firstName + " " + result.attributes.lastName + " (You)", result.attributes.profilePicture]);
+              usernameList.push([result.attributes.firstName + " " + result.attributes.lastName + " (You)", result.attributes.profilePicture, result.id]);
               //profilePictureList.push(result.attributes.profilePicture)
             }
             else {
               this.setState({username: result.attributes.firstName + " " + result.attributes.lastName})
               this.setState({profilePicture: result.attributes.profilePicture});
-              usernameList.push([result.attributes.firstName + " " + result.attributes.lastName, result.attributes.profilePicture]);
+              usernameList.push([result.attributes.firstName + " " + result.attributes.lastName, result.attributes.profilePicture, result.id]);
               //profilePictureList.push(result.attributes.profilePicture)
             }
           }
@@ -115,7 +115,7 @@ export default class GroupDetails extends React.Component {
             console.log("we got no pfp");
             this.setState({username: result.attributes.firstName + " " + result.attributes.lastName})
             this.setState({profilePicture: "/hci/api/uploads/files/DOo1Ebbt8dYT4-plb6G6NP5jIc9_l_gNlaYwPW4SaBM.png"});
-            usernameList.push([result.attributes.firstName + " " + result.attributes.lastName, "/hci/api/uploads/files/DOo1Ebbt8dYT4-plb6G6NP5jIc9_l_gNlaYwPW4SaBM.png"]);
+            usernameList.push([result.attributes.firstName + " " + result.attributes.lastName, "/hci/api/uploads/files/DOo1Ebbt8dYT4-plb6G6NP5jIc9_l_gNlaYwPW4SaBM.png", result.id]);
             // profilePictureList.push("/hci/api/uploads/files/DOo1Ebbt8dYT4-plb6G6NP5jIc9_l_gNlaYwPW4SaBM.png")
           }
           this.setState({usernameList: usernameList});
@@ -281,9 +281,12 @@ export default class GroupDetails extends React.Component {
             <div className={groupcss.text}>{"Members (" +groups.membercount + ")"}</div>
             <div className={groupcss.div1}>
             {this.state.usernameList.map(names => {
+              console.log(this.state.usernameList);
               return (
               <div className={groupcss.membersdiv}>
+              <Link to={/profile/ + names[2]}>
               <img className={groupcss.profilepicturegroupdetails} src={"https://webdev.cse.buffalo.edu" + names[1]} alt="profile pic"/>
+              </Link>
               <div className={groupcss.membernames}>{names[0]}</div>
               <div className={groupcss.memberstardiv}>
                   <img className={groupcss.stargroupdetails} src={starIcon} alt="star"/>

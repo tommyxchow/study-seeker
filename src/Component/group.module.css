@@ -3,7 +3,6 @@
   background: #FFFFFF;
   margin: 14px;
   margin-left: 50px;
-  margin-bottom: 68px;
   width: 420px;
   height: 70px;
   display: inline-flex;
@@ -49,7 +48,6 @@
 }
 
 .name {
-  width: 153.24px;
   height: 20.74px;
 
   font-family: 'Exo';
@@ -131,7 +129,6 @@
   border-radius: 25px;
   display: inline-block;
   align-self: center;
-  margin-bottom: 55px;
 }
 
 .star{
