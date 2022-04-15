@@ -53,8 +53,7 @@
 .inputs{
     display: block;
     border-radius: 10px !important;
-    width: 100%;
-    padding-right: 40vw;
+    width: 50vw;
   }
 
 .container {
