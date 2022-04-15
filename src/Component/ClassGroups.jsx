@@ -49,8 +49,8 @@ export default class ClassPosts extends Component {
           continue
         }
         if(!result[0][i].attributes.isClass && result[0][i].attributes.id){
-          if(result[0][i].attributes.id == this.props.classId){
-            console.log("yesssir", result[0][i]);
+          console.log("yesssir", result[0][i]);
+          if(result[0][i].attributes.id == window.location.pathname.split("/").pop()){
             if(result[0][i].attributes.status == "public"){
               this.setState({
                 groupname: result[0][i].name,
@@ -200,7 +200,7 @@ export default class ClassPosts extends Component {
               }
               if(this.state.membercount !== 0){
                 let holderPrivatePictures = [];
-                for(var a = 0; a < this.state.membercount; a++){
+                for(var c = 0; c < this.state.membercount; c++){
                   holderPrivatePictures.push("/hci/api/uploads/files/DOo1Ebbt8dYT4-plb6G6NP5jIc9_l_gNlaYwPW4SaBM.png");
                   this.setState({
                     privateProfilePicture: holderPrivatePictures
@@ -327,7 +327,7 @@ export default class ClassPosts extends Component {
           status: this.state.createStatus,
 			    postcounter: this.state.postcounter,
           rating: this.state.rating,
-          id: this.state.classid,
+          id: window.location.pathname.split("/").pop()
         }
       })
     })
@@ -386,6 +386,7 @@ export default class ClassPosts extends Component {
 						</div>
 					{groups.map(group => (
 						<>
+            {console.log(group.groupid)}
 						<div className= {styles.groupdiv}>
             <Link to={/groups/ + group.id} onClick={() => this.setState({name: group.name})}>
             <div className={styles.classgrouplist}>
@@ -397,35 +398,35 @@ export default class ClassPosts extends Component {
 						<div className={styles.container}>
 							<p className={styles.students}>Student(s)</p>
 								{group.attributes.status == "public" && group.attributes.members.length === 1 &&
-									<img className={styles.profilepicture} src={"https://webdev.cse.buffalo.edu"+ this.state.publicProfilePicture[0]} alt="user profile 1"/>
+									<img className={styles.profilepicture} src={"https://webdev.cse.buffalo.edu"+ this.state.publicProfilePicture[0]} alt=""/>
 								}
 								{group.attributes.status == "public" && group.attributes.members.length === 2 &&
 									<>
-										<img className={styles.profilepicture} src={"https://webdev.cse.buffalo.edu"+ this.state.publicProfilePicture[0]} alt="user profile 1"/>
-										<img className={styles.profilepicture} src={"https://webdev.cse.buffalo.edu"+ this.state.publicProfilePicture[1]} alt="user profile 2"/>
+										<img className={styles.profilepicture} src={"https://webdev.cse.buffalo.edu"+ this.state.publicProfilePicture[0]} alt=""/>
+										<img className={styles.profilepicture} src={"https://webdev.cse.buffalo.edu"+ this.state.publicProfilePicture[1]} alt=""/>
 									</>
 								}
 								{group.attributes.status == "public" && (group.attributes.members.length === 3 || group.attributes.members.length > 3) &&
 								<>
-									<img className={styles.profilepicture} src={"https://webdev.cse.buffalo.edu"+ this.state.publicProfilePicture[0]} alt="user profile 2"/>
-									<img className={styles.profilepicture} src={"https://webdev.cse.buffalo.edu"+ this.state.publicProfilePicture[1]} alt="user profile 2"/>
-									<img className={styles.profilepicture} src={"https://webdev.cse.buffalo.edu"+ this.state.publicProfilePicture[2]} alt="user profile 3"/>
+									<img className={styles.profilepicture} src={"https://webdev.cse.buffalo.edu"+ this.state.publicProfilePicture[0]} alt=""/>
+									<img className={styles.profilepicture} src={"https://webdev.cse.buffalo.edu"+ this.state.publicProfilePicture[1]} alt=""/>
+									<img className={styles.profilepicture} src={"https://webdev.cse.buffalo.edu"+ this.state.publicProfilePicture[2]} alt=""/>
 								</>
 								}
 								{group.attributes.status == "private" && group.attributes.members.length === 1 &&
-									<img className={styles.profilepicture} src={"https://webdev.cse.buffalo.edu"+ this.state.privateProfilePicture[0]} alt="user profile 1"/>
+									<img className={styles.profilepicture} src={"https://webdev.cse.buffalo.edu"+ this.state.privateProfilePicture[0]} alt=""/>
 								}
 								{group.attributes.status == "private" && group.attributes.members.length === 2 &&
 									<>
-										<img className={styles.profilepicture} src={"https://webdev.cse.buffalo.edu"+ this.state.privateProfilePicture[0]} alt="user profile 1"/>
-										<img className={styles.profilepicture} src={"https://webdev.cse.buffalo.edu"+ this.state.privateProfilePicture[1]} alt="user profile 2"/>
+										<img className={styles.profilepicture} src={"https://webdev.cse.buffalo.edu"+ this.state.privateProfilePicture[0]} alt=""/>
+										<img className={styles.profilepicture} src={"https://webdev.cse.buffalo.edu"+ this.state.privateProfilePicture[1]} alt=""/>
 									</>
 								}
 								{group.attributes.status == "private" && (group.attributes.members.length === 3 || group.attributes.members.length > 3) &&
 								<>
-									<img className={styles.profilepicture} src={"https://webdev.cse.buffalo.edu"+ this.state.privateProfilePicture[0]} alt="user profile 2"/>
-									<img className={styles.profilepicture} src={"https://webdev.cse.buffalo.edu"+ this.state.privateProfilePicture[1]} alt="user profile 2"/>
-									<img className={styles.profilepicture} src={"https://webdev.cse.buffalo.edu"+ this.state.privateProfilePicture[2]} alt="user profile 3"/>
+									<img className={styles.profilepicture} src={"https://webdev.cse.buffalo.edu"+ this.state.privateProfilePicture[0]} alt=""/>
+									<img className={styles.profilepicture} src={"https://webdev.cse.buffalo.edu"+ this.state.privateProfilePicture[1]} alt=""/>
+									<img className={styles.profilepicture} src={"https://webdev.cse.buffalo.edu"+ this.state.privateProfilePicture[2]} alt=""/>
 								</>
 								}
 						</div>
