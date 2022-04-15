@@ -175,10 +175,7 @@ export default class Profile extends React.Component {
   getConnection = () => {
     if (this.props.userid !== this.props.profileid) {
       this.createFetch(
-        "/connections?fromUserID=" +
-          this.props.userid +
-          "&toUserID=" +
-          this.props.profileid,
+        "/connections?anyUserID=" + this.props.userid,
         "GET",
         null
       )
@@ -191,13 +188,24 @@ export default class Profile extends React.Component {
               this.props.profileid,
               result
             );
-            this.setState({
-              connection_id: result[1] ? result[0][0].id : -1,
-              connection_status: result[1]
-                ? result[0][0].attributes.status ??
-                  result[0][0].attributes.additionalProp1.status
-                : "Not sent",
+
+            let connections = result[0].filter((connection) => {
+              console.log("TEST1", connection);
+              console.log(this.props.profileid);
+              return (
+                connection.fromUserID.toString() === this.props.profileid ||
+                connection.toUserID.toString() === this.props.profileid
+              );
             });
+
+            if (connections.length > 0) {
+              this.setState({
+                connection_id: connections[0].id,
+                connection_status: connections[0].attributes.status,
+              });
+            }
+
+            console.log("TEST", connections);
           },
           (error) => {
             alert("error! checkConnection");
@@ -213,9 +221,7 @@ export default class Profile extends React.Component {
         fromUserID: Number(this.props.userid),
         toUserID: Number(this.props.profileid),
         attributes: {
-          additionalProp1: {
-            status: status,
-          },
+          status: status,
         },
       };
       this.createFetch("/connections", "POST", body)
@@ -236,9 +242,7 @@ export default class Profile extends React.Component {
         fromUserID: Number(this.props.userid),
         toUserID: Number(this.props.profileid),
         attributes: {
-          additionalProp1: {
-            status: status,
-          },
+          status: status,
         },
       };
       this.createFetch(
@@ -269,6 +273,7 @@ export default class Profile extends React.Component {
           (result) => {
             this.setState({
               blocked: status !== "unblock",
+              connection_status: "Not sent",
             });
             this.getConnection();
           },
