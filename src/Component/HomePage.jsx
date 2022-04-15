@@ -123,7 +123,13 @@ export default class HomePage extends React.Component {
                             <img src={"https://webdev.cse.buffalo.edu/"+(this.state.all_students[idx].attributes.profilePicture?this.state.all_students[idx].attributes.profilePicture:"/hci/api/uploads/files/DOo1Ebbt8dYT4-plb6G6NP5jIc9_l_gNlaYwPW4SaBM.png")} alt="" className={style.profilePicture}/>
                             
                             <div className={style.nameContainer}>
-                                <span className={style.name}>{this.state.all_students[idx].attributes.firstName+" " + this.state.all_students[idx].attributes.lastName[0]+"."}</span>
+                                <span className={style.name}>{
+                                this.state.all_students[idx].attributes.firstName !== undefined?
+                                this.state.all_students[idx].attributes.firstName:
+                                "No Name"
+                                +" " + 
+                                this.state.all_students[idx].attributes.lastName !== undefined?
+                                this.state.all_students[idx].attributes.lastName+".":""}</span>
                                 <div className={style.startContainer}>
                                     {[...Array(Number(this.state.all_students[idx].attributes.rating))].map(()=><img className={style.stars} src={star}/>)}
                                     <div className={style.numberOfStar}>({this.state.all_students[idx].attributes.rating})</div>
