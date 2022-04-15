@@ -49,6 +49,12 @@ export default class Profile extends React.Component {
     this.fieldChangeHandler.bind(this);
   }
 
+  componentDidUpdate(prevProps) {
+    if (prevProps !== this.props) {
+      window.location.reload();
+    }
+  }
+
   // This is the function that will get called every time we change one of the fields tied to the user data source.
   // it keeps the state current so that when we submit the form, we can pull the value to update from the state.  Note that
   // we manage multiple fields with one function and no conditional logic, because we are passing in the name of the state
@@ -568,7 +574,13 @@ export default class Profile extends React.Component {
                 )}
               </div>
             </div>
-            <Reviews profileId={this.props.profileid} />
+            <Reviews
+              profileId={this.props.profileid}
+              showForm={
+                sessionStorage.getItem("user") !== this.props.profileid &&
+                this.state.connection_status === "accepted"
+              }
+            />
           </>
         ) : (
           <>User does not exist</>
