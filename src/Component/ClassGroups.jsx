@@ -194,7 +194,7 @@ export default class ClassPosts extends Component {
                 let privateGroup = result[0][i];
                 privateGroup.name = "Private Group"
                 holdergroup.push(privateGroup);
-                console.log(privateGroup);
+                console.log("private groups",privateGroup);
                 this.setState({
                   groups: holdergroup
                 });
@@ -276,6 +276,7 @@ export default class ClassPosts extends Component {
 
 	async removeHandler_Join(id, name){
     var newList = [];
+    console.log(id, name);
     await fetch(process.env.REACT_APP_API_PATH+"/groups/"+id, {
       method: "GET",
       headers: {
@@ -286,7 +287,9 @@ export default class ClassPosts extends Component {
     })
     .then(response => response.json())
     .then(result => {
+      console.log(result);
       this.setState({
+        groupname: result.name,
         members: result.attributes.members,
         isClass: false,
         status: result.attributes.status,
@@ -310,7 +313,7 @@ export default class ClassPosts extends Component {
       },
       body: JSON.stringify({
         id: id,
-        name: name,
+        name: this.state.groupname,
         attributes: {
           isClass: false,
           members: newList,
