@@ -24,6 +24,7 @@ export default class ClassPosts extends Component {
           "/hci/api/uploads/files/DOo1Ebbt8dYT4-plb6G6NP5jIc9_l_gNlaYwPW4SaBM.png",
         publicProfilePicture: [],
         privateProfilePicture: [],
+        classid: -1
       };
     }
 
@@ -220,6 +221,7 @@ export default class ClassPosts extends Component {
 	}
 
   async removeHandler_Leave(id, name){
+    var newList = [];
     await fetch(process.env.REACT_APP_API_PATH+"/groups/"+id, {
       method: "GET",
       headers: {
@@ -230,41 +232,50 @@ export default class ClassPosts extends Component {
     })
     .then(response => response.json())
     .then(result => {
-      this.setState({members: result.attributes.members})
+      console.log("result1", result);
+      this.setState({
+        members: result.attributes.members,
+        isClass: false,
+        status: result.attributes.status,
+        postcounter: result.attributes.postcounter,
+        rating: result.attributes.rating,
+        classid: result.attributes.id
+      })
       console.log(this.state.members);
       this.forceUpdate();
-      const newList = this.state.members.filter(userid => userid !== Number(this.state.userid));
+      newList = this.state.members.filter(userid => userid !== Number(this.state.userid));
       console.log(newList);
-      fetch(process.env.REACT_APP_API_PATH+"/groups/" + id, {
-        method: 'PATCH',
-        headers: {
-          "accept": "*/*",
-          "Authorization": "Bearer "+sessionStorage.getItem("token"),
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-          id: id,
-          name: name,
-          attributes: {
-            isClass: false,
-            members: newList,
-            status: result.attributes.status,
-            postcounter: result.attributes.postcounter,
-            rating: result.attributes.rating,
-            id: result.attributes.id
-          }
-        })
-      })
-      .then(response => response.json())
-      .then(result => console.log(result))
-      .catch(error => console.log('error', error));
     })
+    .catch(error => console.log('error', error));
+    await fetch(process.env.REACT_APP_API_PATH+"/groups/" + id, {
+      method: 'PATCH',
+      headers: {
+        "accept": "*/*",
+        "Authorization": "Bearer "+sessionStorage.getItem("token"),
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        id: id,
+        name: name,
+        attributes: {
+          isClass: false,
+          members: newList,
+          status: this.state.status,
+          postcounter: this.state.postcounter,
+          rating: this.state.rating,
+          id: this.state.classid
+        }
+      })
+    })
+    .then(response => response.json())
+    .then(result => console.log(result))
     .catch(error => console.log('error', error));
     this.forceUpdate();
     window.location.reload();
   }
 
 	async removeHandler_Join(id, name){
+    var newList = [];
     await fetch(process.env.REACT_APP_API_PATH+"/groups/"+id, {
       method: "GET",
       headers: {
@@ -275,37 +286,43 @@ export default class ClassPosts extends Component {
     })
     .then(response => response.json())
     .then(result => {
-      this.setState({members: result.attributes.members})
+      this.setState({
+        members: result.attributes.members,
+        isClass: false,
+        status: result.attributes.status,
+        postcounter: result.attributes.postcounter,
+        rating: result.attributes.rating,
+        classid: result.attributes.id
+      })
       console.log(this.state.members);
       this.forceUpdate();
-      const newList = this.state.members;
+      newList = this.state.members;
       newList.push(this.props.userid);
       console.log("updated list", newList);
-      console.log(newList);
-      fetch(process.env.REACT_APP_API_PATH+"/groups/" + id, {
-        method: 'PATCH',
-        headers: {
-          "accept": "*/*",
-          "Authorization": "Bearer "+sessionStorage.getItem("token"),
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-          id: id,
-          name: result.name,
-          attributes: {
-            isClass: false,
-            members: newList,
-            status: result.attributes.status,
-            postcounter: result.attributes.postcounter,
-            rating: result.attributes.rating,
-            id: result.attributes.id
-          }
-        })
-      })
-      .then(response => response.json())
-      .then(result => console.log(result))
-      .catch(error => console.log('error', error));
     })
+    .catch(error => console.log('error', error));
+    await fetch(process.env.REACT_APP_API_PATH+"/groups/" + id, {
+      method: 'PATCH',
+      headers: {
+        "accept": "*/*",
+        "Authorization": "Bearer "+sessionStorage.getItem("token"),
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        id: id,
+        name: name,
+        attributes: {
+          isClass: false,
+          members: newList,
+          status: this.state.status,
+          postcounter: this.state.postcounter,
+          rating: this.state.rating,
+          id: this.state.classid
+        }
+      })
+    })
+    .then(response => response.json())
+    .then(result => console.log(result))
     .catch(error => console.log('error', error));
     this.forceUpdate();
     window.location.reload();
@@ -327,7 +344,7 @@ export default class ClassPosts extends Component {
           status: this.state.createStatus,
 			    postcounter: this.state.postcounter,
           rating: this.state.rating,
-          id: window.location.pathname.split("/").pop()
+          id: Number(window.location.pathname.split("/").pop())
         }
       })
     })
@@ -337,7 +354,6 @@ export default class ClassPosts extends Component {
     this.forceUpdate();
     window.location.reload();
 	}
-
 
 	render () {
 		const {error, groups} = this.state;

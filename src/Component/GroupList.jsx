@@ -52,9 +52,6 @@ export default class GroupList extends React.Component {
                 continue
               }
               if(!result[0][i].attributes.isClass){
-                this.setState({
-                  name: ""
-                });
                 if(result[0][i].attributes.status == "private"){
                   for(var j = 0; j < result[0][i].attributes.members.length; j++){
                     if(result[0][i].attributes.members[j] == this.props.userid){
@@ -244,9 +241,9 @@ export default class GroupList extends React.Component {
         <div className={styles.mygroups}>My Groups</div>
             {groups.map(group => (
               <>
-              {/* {console.log(groups)}
-              {console.log(this.state)} */}
-              <p className={styles.groupname}>{this.state.name}</p>
+              {console.log(group.groupname)}
+              {console.log(!!document.getElementById(this.state.name))}
+              {!document.getElementById(this.state.name) && <p id={this.state.name} className={styles.groupname}>{this.state.name}</p>}
               <div className={styles.line}></div>
               <div className= {styles.groupdiv}>
               <Link to={/groups/ + group.id} onClick={() => this.setState({name: group.name, groupid: group.id})}>
