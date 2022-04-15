@@ -90,7 +90,7 @@ export default class Profile extends React.Component {
               this.setState({
                 // IMPORTANT!  You need to guard against any of these values being null.  If they are, it will
                 // try and make the form component uncontrolled, which plays havoc with react
-                user_exist:true,
+                user_exist: true,
                 username: result.attributes.username || "",
                 firstname: result.attributes.firstName || "First Name",
                 lastname: result.attributes.lastName || "Last Name",
@@ -169,10 +169,7 @@ export default class Profile extends React.Component {
   getConnection = () => {
     if (this.props.userid !== this.props.profileid) {
       this.createFetch(
-        "/connections?fromUserID=" +
-          this.props.userid +
-          "&toUserID=" +
-          this.props.profileid,
+        "/connections?anyUserID=" + this.props.userid,
         "GET",
         null
       )
@@ -185,13 +182,24 @@ export default class Profile extends React.Component {
               this.props.profileid,
               result
             );
-            this.setState({
-              connection_id: result[1] ? result[0][0].id : -1,
-              connection_status: result[1]
-                ? result[0][0].attributes.status ??
-                  result[0][0].attributes.status
-                : "Not sent",
+
+            let connections = result[0].filter((connection) => {
+              console.log("TEST1", connection);
+              console.log(this.props.profileid);
+              return (
+                connection.fromUserID.toString() === this.props.profileid ||
+                connection.toUserID.toString() === this.props.profileid
+              );
             });
+
+            if (connections.length > 0) {
+              this.setState({
+                connection_id: connections[0].id,
+                connection_status: connections[0].attributes.status,
+              });
+            }
+
+            console.log("TEST", connections);
           },
           (error) => {
             alert("error! checkConnection");
@@ -207,7 +215,7 @@ export default class Profile extends React.Component {
         fromUserID: Number(this.props.userid),
         toUserID: Number(this.props.profileid),
         attributes: {
-            status: status,
+          status: status,
         },
       };
       this.createFetch("/connections", "POST", body)
@@ -228,7 +236,7 @@ export default class Profile extends React.Component {
         fromUserID: Number(this.props.userid),
         toUserID: Number(this.props.profileid),
         attributes: {
-            status: status,
+          status: status,
         },
       };
       this.createFetch(
@@ -259,6 +267,7 @@ export default class Profile extends React.Component {
           (result) => {
             this.setState({
               blocked: status !== "unblock",
+              connection_status: "Not sent",
             });
             this.getConnection();
           },
@@ -336,11 +345,20 @@ export default class Profile extends React.Component {
     //keep the form from actually submitting, since we are handling the action ourselves via
     //the fetch calls to the API
     event.preventDefault();
-    this.createFetch('/users/'+this.props.userid+"?relatedObjectsAction=anonymize", 'delete', null)
+    this.createFetch(
+      "/users/" + this.props.userid + "?relatedObjectsAction=anonymize",
+      "delete",
+      null
+    )
       .then((res) => res.text())
-      .then((result) => {
-        console.log(result);
-      }, (error) =>{alert(error)});
+      .then(
+        (result) => {
+          console.log(result);
+        },
+        (error) => {
+          alert(error);
+        }
+      );
   };
 
   // This is the function that draws the component to the screen.  It will get called every time the
@@ -369,183 +387,192 @@ export default class Profile extends React.Component {
     };
 
     return (
-
       <div className={styles.container}>
-        {this.state.user_exist? (<>
-          
-        <div className={styles.backgroundOverlay}></div>
-        <img
-          src={"https://webdev.cse.buffalo.edu" + this.state.backgroundPicture}
-          className={styles.backgroundPicture}
-          alt="Cover"
-        />
-        {this.state.edit && (
+        {this.state.user_exist ? (
           <>
-            <label
-              className={styles.uploadButtonBackground}
-              htmlFor="backgroundPic"
-            >
-              Click to Change
-            </label>
-            <input
-              type="file"
-              id="backgroundPic"
-              accept="image/*"
-              onChange={(e) => this.handleUpload(e, true)}
-              style={{ display: "none" }}
+            <div className={styles.backgroundOverlay}></div>
+            <img
+              src={
+                "https://webdev.cse.buffalo.edu" + this.state.backgroundPicture
+              }
+              className={styles.backgroundPicture}
+              alt="Cover"
             />
-          </>
-        )}
-        <div className={styles.profileHeader}>
-          <img
-            src={"https://webdev.cse.buffalo.edu" + this.state.profilePicture}
-            className={styles.profilePicture}
-            alt="Profile Pic"
-          />
-          {this.state.edit && (
-            <>
-              <label className={styles.uploadButton} htmlFor="profilePic">
-                Click to Change
-              </label>
-              <input
-                type="file"
-                id="profilePic"
-                accept="image/*"
-                onChange={this.handleUpload}
-                style={{ display: "none" }}
-              />
-            </>
-          )}
-          {this.state.edit && (
-            <button
-              onClick={(e) => {
-                if (window.confirm("Delete your account?")) {
-                  this.deleteAccountHandler(e);
-                  alert("Your account has been deleted.");
-                  sessionStorage.removeItem("token");
-                  sessionStorage.removeItem("user");
-                  this.setState({ sessiontoken: "" });
-                  window.location.replace(process.env.PUBLIC_URL + "/");
-                } else {
-                  alert("Your account is not deleted");
-                }
-              }}
-              className={styles.deleteAccountButton}
-            >
-              Delete Account
-            </button>
-          )}
-          {!this.state.edit && (
-            <div className={styles.nameConnectButtonHeader}>
-              <h1 className={styles.profileName}>
-                {this.state.firstname} {this.state.lastname}
-              </h1>
-            </div>
-          )}
-          {!this.state.profile &&
-            this.state.connection_status !== "block" &&
-            (this.state.connection_status !== "Not sent" ? (
-              <button
-                className={styles.disconnectButton}
-                onClick={(event) => this.connectionHandler(event)}
-              >
-                {connectionStatus[this.state.connection_status]}
-              </button>
-            ) : (
-              <button
-                className={styles.connectButton}
-                onClick={(event) => this.connectionHandler(event, "pending")}
-              >
-                {connectionStatus[this.state.connection_status]}
-              </button>
-            ))}
-          {!this.state.profile &&
-            (this.state.connection_status !== "block" ? (
-              <button
-                className={styles.blockButton}
-                onClick={(event) => this.connectionHandler(event, "block")}
-              >
-                Block
-              </button>
-            ) : (
-              <button
-                className={styles.blockButton}
-                onClick={(event) => this.connectionHandler(event, "unblock")}
-              >
-                {blockStatus[this.state.connection_status]}
-              </button>
-            ))}
-        </div>
-
-        <div className={styles.body}>
-          <div className={styles.profileDetails}>
-            {this.state.edit ? (
+            {this.state.edit && (
               <>
-                <form
-                  className={styles.form}
-                  onSubmit={this.submitHandler}
-                  id="edit"
+                <label
+                  className={styles.uploadButtonBackground}
+                  htmlFor="backgroundPic"
                 >
-                  {profileFields.map((e, index) => (
-                    <label className={styles.formLabel}>
-                      <img
-                        src={profileDetailIcons[index]}
-                        alt={e}
-                        className={styles.profileDetailIcon}
-                      />
-                      <input
-                        type="text"
-                        defaultValue={this.state[e.toLowerCase()]}
-                        name={e.toLowerCase()}
-                        placeholder={e}
-                      />
-                    </label>
-                  ))}
-                </form>
-                <div className={styles.editButtons}>
-                  <input
-                    form="edit"
-                    className={styles.confirmButton}
-                    type="submit"
-                    value="Confirm"
-                  />
-                  <input
-                    className={styles.cancelButton}
-                    type="button"
-                    value="Cancel"
-                    onClick={() => this.setState({ edit: false })}
-                  />
-                </div>
-              </>
-            ) : (
-              <>
-                {profileDetails.map((e, index) => (
-                  <div className={styles.profileDetailItem}>
-                    <img
-                      src={profileDetailIcons[index]}
-                      alt={profileFields[index]}
-                      className={styles.profileDetailIcon}
-                    />
-                    {e}
-                  </div>
-                ))}
-                {this.state.profile && (
-                  <div className={styles.profileDetailItem}>
-                    <img
-                      src={settingsLogo}
-                      className={styles.profileDetailIcon}
-                      alt="Settings"
-                      onClick={() => this.setState({ edit: true })}
-                    />
-                  </div>
-                )}
+                  Click to Change
+                </label>
+                <input
+                  type="file"
+                  id="backgroundPic"
+                  accept="image/*"
+                  onChange={(e) => this.handleUpload(e, true)}
+                  style={{ display: "none" }}
+                />
               </>
             )}
-          </div>
-        </div>
-        <Reviews profileId={this.props.profileid} />
-        </>
-        ):<>User does not exist</>}
+            <div className={styles.profileHeader}>
+              <img
+                src={
+                  "https://webdev.cse.buffalo.edu" + this.state.profilePicture
+                }
+                className={styles.profilePicture}
+                alt="Profile Pic"
+              />
+              {this.state.edit && (
+                <>
+                  <label className={styles.uploadButton} htmlFor="profilePic">
+                    Click to Change
+                  </label>
+                  <input
+                    type="file"
+                    id="profilePic"
+                    accept="image/*"
+                    onChange={this.handleUpload}
+                    style={{ display: "none" }}
+                  />
+                </>
+              )}
+              {this.state.edit && (
+                <button
+                  onClick={(e) => {
+                    if (window.confirm("Delete your account?")) {
+                      this.deleteAccountHandler(e);
+                      alert("Your account has been deleted.");
+                      sessionStorage.removeItem("token");
+                      sessionStorage.removeItem("user");
+                      this.setState({ sessiontoken: "" });
+                      window.location.replace(process.env.PUBLIC_URL + "/");
+                    } else {
+                      alert("Your account is not deleted");
+                    }
+                  }}
+                  className={styles.deleteAccountButton}
+                >
+                  Delete Account
+                </button>
+              )}
+              {!this.state.edit && (
+                <div className={styles.nameConnectButtonHeader}>
+                  <h1 className={styles.profileName}>
+                    {this.state.firstname} {this.state.lastname}
+                  </h1>
+                </div>
+              )}
+              {!this.state.profile &&
+                this.state.connection_status !== "block" &&
+                (this.state.connection_status !== "Not sent" ? (
+                  <button
+                    className={styles.disconnectButton}
+                    onClick={(event) => this.connectionHandler(event)}
+                  >
+                    {connectionStatus[this.state.connection_status]}
+                  </button>
+                ) : (
+                  <button
+                    className={styles.connectButton}
+                    onClick={(event) =>
+                      this.connectionHandler(event, "pending")
+                    }
+                  >
+                    {connectionStatus[this.state.connection_status]}
+                  </button>
+                ))}
+              {!this.state.profile &&
+                (this.state.connection_status !== "block" ? (
+                  <button
+                    className={styles.blockButton}
+                    onClick={(event) => this.connectionHandler(event, "block")}
+                  >
+                    Block
+                  </button>
+                ) : (
+                  <button
+                    className={styles.blockButton}
+                    onClick={(event) =>
+                      this.connectionHandler(event, "unblock")
+                    }
+                  >
+                    {blockStatus[this.state.connection_status]}
+                  </button>
+                ))}
+            </div>
+
+            <div className={styles.body}>
+              <div className={styles.profileDetails}>
+                {this.state.edit ? (
+                  <>
+                    <form
+                      className={styles.form}
+                      onSubmit={this.submitHandler}
+                      id="edit"
+                    >
+                      {profileFields.map((e, index) => (
+                        <label className={styles.formLabel}>
+                          <img
+                            src={profileDetailIcons[index]}
+                            alt={e}
+                            className={styles.profileDetailIcon}
+                          />
+                          <input
+                            type="text"
+                            defaultValue={this.state[e.toLowerCase()]}
+                            name={e.toLowerCase()}
+                            placeholder={e}
+                          />
+                        </label>
+                      ))}
+                    </form>
+                    <div className={styles.editButtons}>
+                      <input
+                        form="edit"
+                        className={styles.confirmButton}
+                        type="submit"
+                        value="Confirm"
+                      />
+                      <input
+                        className={styles.cancelButton}
+                        type="button"
+                        value="Cancel"
+                        onClick={() => this.setState({ edit: false })}
+                      />
+                    </div>
+                  </>
+                ) : (
+                  <>
+                    {profileDetails.map((e, index) => (
+                      <div className={styles.profileDetailItem}>
+                        <img
+                          src={profileDetailIcons[index]}
+                          alt={profileFields[index]}
+                          className={styles.profileDetailIcon}
+                        />
+                        {e}
+                      </div>
+                    ))}
+                    {this.state.profile && (
+                      <div className={styles.profileDetailItem}>
+                        <img
+                          src={settingsLogo}
+                          className={styles.profileDetailIcon}
+                          alt="Settings"
+                          onClick={() => this.setState({ edit: true })}
+                        />
+                      </div>
+                    )}
+                  </>
+                )}
+              </div>
+            </div>
+            <Reviews profileId={this.props.profileid} />
+          </>
+        ) : (
+          <>User does not exist</>
+        )}
       </div>
     );
   }
