@@ -89,8 +89,14 @@ export default class ReviewForm extends Component {
           attributes: {
             review: true,
             rating: this.state.rating,
-            upvoted: [...this.state.existingReview.attributes.upvoted],
-            downvoted: [...this.state.existingReview.attributes.upvoted],
+            upvoted:
+              this.state.existingReview == null
+                ? []
+                : [...this.state.existingReview.attributes.upvoted],
+            downvoted:
+              this.state.existingReview == null
+                ? []
+                : [...this.state.existingReview.attributes.upvoted],
           },
         }),
       }
