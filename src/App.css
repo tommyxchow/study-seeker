@@ -1,10 +1,9 @@
 /* For gods sake, please replace this with styles that are less horrifying than these */
-@import url('https://fonts.googleapis.com/css2?family=Exo:ital,wght@0,400;0,700;1,400&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Sofia&display=swap');
-
+@import url("https://fonts.googleapis.com/css2?family=Exo:ital,wght@0,400;0,700;1,400&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Sofia&display=swap");
 
 .App {
-  text-align:start;
+  text-align: start;
 }
 
 .App-logo {
@@ -15,23 +14,22 @@
   background-color: #ffffff;
   min-height: 100vh;
   display: flex;
-  flex-direction:column;
+  flex-direction: column;
   align-items: flex-center;
   justify-content: start;
   font-size: calc(5px + 2vmin);
   color: rgb(0, 0, 0);
 }
 
-.deletePost{
-  width:100%;
-
+.deletePost {
+  width: 100%;
 }
-.deleteIcon{
-  float:right;
+.deleteIcon {
+  float: right;
 }
 
-.settings{
-  width:100%;
+.settings {
+  width: 100%;
 }
 
 .link-button {
@@ -41,28 +39,27 @@
   display: inline;
   margin: 0;
   padding: 0;
-  outline:none;
+  outline: none;
 }
 
 .link-button:hover,
 .link-button:focus,
 .link-button:active {
   text-decoration: none;
-  outline:none;
+  outline: none;
 }
 
 .no-suggestions {
   color: #999;
   padding: 0.5rem;
-
 }
 
 .autocomplete input {
-    width: calc(300px + 1rem);
+  width: calc(300px + 1rem);
 }
 
-.autocomplete{
-    min-height: 165px;
+.autocomplete {
+  min-height: 165px;
 }
 
 .suggestions {
@@ -75,9 +72,8 @@
   padding-left: 0;
   width: calc(300px + 1rem);
 
-  display:inline-block;
-  position:relative;
-
+  display: inline-block;
+  position: relative;
 }
 
 .suggestions li {
@@ -96,9 +92,8 @@
   border-bottom: 1px solid #999;
 }
 
-.profileform label{
-   display:block;
-
+.profileform label {
+  display: block;
 }
 
 .App-link {
@@ -109,122 +104,121 @@
   text-align: left;
   background: blue;
   border-radius: 20px;
-  padding:30px;
-  margin:10px;
+  padding: 30px;
+  margin: 10px;
 
-  width:60%;
+  width: 60%;
   display: inline-flex;
 }
 
 .userlist {
   text-align: left;
-  background: #FFFFFF;
+  background: #ffffff;
   border-radius: 20px;
-  padding:30px;
-  margin:10px;
-  width:60%;
+  padding: 30px;
+  margin: 10px;
+  width: 60%;
   display: inline-flex;
 }
 
-.comments{
-    background:white;
-    width:90%;
-    display:block;
-    border-radius: 20px;
-    padding:10px;
-    margin:10px;
-    color:black;
+.comments {
+  background: white;
+  width: 90%;
+  display: block;
+  border-radius: 20px;
+  padding: 10px;
+  margin: 10px;
+  color: black;
 }
 
 .commentlist {
   text-align: left;
   background: lightblue;
-  color:black;
+  color: black;
   border-radius: 20px;
-  padding:10px;
-  margin:10px;
+  padding: 10px;
+  margin: 10px;
   font-size: 12px;
-  width:90%;
-  display:block;
+  width: 90%;
+  display: block;
 }
 
-.hide{
-  display:none;
+.hide {
+  display: none;
 }
 
-
-.posts{
-    display:flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: flex-start;
+.posts {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
 }
 
-.postbody{
-  width:100%;
-  display:flex;
+.postbody {
+  width: 100%;
+  display: flex;
   flex-direction: column;
   align-items: flex-start;
   justify-content: center;
 }
 
-.comment-block{
-  width:100%;
-  display:flex;
+.comment-block {
+  width: 100%;
+  display: flex;
   flex-direction: column;
   align-items: flex-start;
   justify-content: center;
 }
 
-.tag-active{
-  border:red;
-  border-width:thick;
+.tag-active {
+  border: red;
+  border-width: thick;
   border-style: solid;
 }
 
-.sidenav ul{
-   list-style-type: none;
-   padding:10px;
-   margin:0px;
-   margin-top: 40px;
+.sidenav ul {
+  list-style-type: none;
+  padding: 10px;
+  margin: 0px;
+  margin-top: 40px;
 }
 
-.sidenav-icon{
-  width:40px;
-  height:40px;
+.sidenav-icon {
+  width: 40px;
+  height: 40px;
 
-  margin-bottom:15px;
+  margin-bottom: 15px;
 }
 
-.comment-indicator{
-  text-align:right;
-  width:100%;
-  display:block;
-  float:right;
+.comment-indicator {
+  text-align: right;
+  width: 100%;
+  display: block;
+  float: right;
   margin-top: 10px;
 }
 
-.comment-icon{
-  width:40px;
-  height:40px;
-  float:right;
+.comment-icon {
+  width: 40px;
+  height: 40px;
+  float: right;
 }
 
-.comment-indicator-text{
+.comment-indicator-text {
   background-color: lightblue;
   color: black;
   border-radius: 10px;
   font-size: 16px;
   font-weight: bold;
-  width:120px;
-  padding:5px;
-  float:right;
-  margin-left:10px;
+  width: 120px;
+  padding: 5px;
+  float: right;
+  margin-left: 10px;
   text-align: center;
 }
 
-.hide{
-  display:none;
+.hide {
+  display: none;
 }
 
 /* The Modal (background) */
@@ -237,8 +231,8 @@
   width: 100%; /* Full width */
   height: 100%; /* Full height */
   overflow: auto; /* Enable scroll if needed */
-  background-color: rgb(0,0,0); /* Fallback color */
-  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+  background-color: rgb(0, 0, 0); /* Fallback color */
+  background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
 }
 
 /* Modal Content/Box */
@@ -273,17 +267,15 @@
 }
 
 .background-image {
-  background-image: url("backgroundCoffee.png");
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-attachment: fixed;
-  position: absolute;
-  width: 100%;
-  height: 100%;
+  width: 100vw;
+  height: 100vh;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
+  background-image: url("backgroundCoffee.png");
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 
 .user-credentials-box {
@@ -291,7 +283,7 @@
   width: 551px;
   left: 443px;
   top: 257px;
-  background: #EDE5E5;
+  background: #ede5e5;
   border-radius: 50px;
   display: flex;
   flex-direction: column;
@@ -304,7 +296,7 @@
   left: 443px;
   top: 257px;
   justify-content: space-evenly;
-  background: #EDE5E5;
+  background: #ede5e5;
   border-radius: 50px;
   display: flex;
   flex-direction: column;
@@ -327,7 +319,7 @@
   text-align: center;
   margin: 0px;
 
-  color: #3D3E3F;
+  color: #3d3e3f;
 }
 
 .logo-subtext {
@@ -343,10 +335,11 @@
   line-height: 32px;
   text-align: center;
 
-  color: #3D3E3F;
+  color: #3d3e3f;
 }
 
-.buttonSubmitForm, signUpButton {
+.buttonSubmitForm,
+signUpButton {
   background-color: #907671;
   border: none;
   color: white;
@@ -367,153 +360,167 @@
   align-items: center;
 }
 
-.registrationForm{
+.registrationForm {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
 }
-.textBox, emailTextBox{
+.textBox,
+emailTextBox {
   width: 175px;
   height: 35px;
   border: none;
-  background: #D8C8C8;
+  background: #d8c8c8;
   border-radius: 30px;
   margin: 10px;
-  margin-right: 0px;
   text-align: center;
 }
-.emailTextbox{
+.emailTextbox {
   width: 375px;
   height: 35px;
   border: none;
-  background: #D8C8C8;
+  background: #d8c8c8;
   border-radius: 30px;
   margin: 10px;
-  margin-right: 0px;
   text-align: center;
 }
-.passwordRow{
+.passwordRow {
   display: flex;
   flex-direction: row;
   justify-content: center;
   align-items: center;
 }
 
-.formMargin{
+.formMargin {
   margin-bottom: 30px;
 }
 
-@media only screen and (max-width: 1300px) {
-  .landing-page-box, .user-credentials-box {
-      height: 474px;
-      width: 551px;
-      left: 343px;
-      top: 157px;
-      background: #EDE5E5;
-      border-radius: 50px;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-evenly;
-      align-items: center;
+@media only screen and (max-width: 768px) {
+  .landing-page-box,
+  .user-credentials-box {
+    height: 474px;
+    width: 80%;
+    left: 343px;
+    top: 157px;
+    background: #ede5e5;
+    border-radius: 50px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
   }
   .landing-page-box {
-      height: 315px;
-      width: 315px;
-      left: 343px;
-      top: 157px;
-      justify-content: space-evenly;
-      background: #EDE5E5;
-      border-radius: 50px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
+    height: 315px;
+    width: 315px;
+    left: 343px;
+    top: 157px;
+    justify-content: space-evenly;
+    background: #ede5e5;
+    border-radius: 50px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
   }
 
   .logo-text {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 
-      font-family: Sofia, cursive;
-      font-style: normal;
-      font-weight: normal;
-      font-size: 50px;
-      line-height: 84.9%;
-      /* or 82px */
+    font-family: Sofia, cursive;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 50px;
+    line-height: 84.9%;
+    /* or 82px */
 
-      text-align: center;
-      margin: 0px;
+    text-align: center;
 
-      color: #3D3E3F;
+    color: #3d3e3f;
   }
 
   .logo-subtext {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 
-      font-family: Exo, sans-serif;
-      font-style: normal;
-      font-weight: 800;
-      font-size: 13px;
-      line-height: 32px;
-      text-align: center;
+    font-family: Exo, sans-serif;
+    font-style: normal;
+    font-weight: 800;
+    font-size: 13px;
+    line-height: 32px;
+    text-align: center;
 
-      color: #3D3E3F;
+    color: #3d3e3f;
   }
 
-  .buttonSubmitForm, signUpButton {
-      background-color: #907671;
-      border: none;
-      color: white;
-      padding: 5px;
-      text-align: center;
-      text-decoration: none;
-      font-family: Exo, sans-serif;
-      font-size: 19px;
-      margin: 13px 2px;
-      cursor: pointer;
-      border-radius: 30px;
-      width: 110px;
-      height: 25px;
-      font-weight: bold;
+  .buttonSubmitForm,
+  .signUpButton {
+    background-color: #907671;
+    border: none;
+    color: white;
+    padding: 5px;
+    text-align: center;
+    text-decoration: none;
+    font-family: Exo, sans-serif;
+    font-size: 19px;
+    margin: 13px 2px;
+    cursor: pointer;
+    border-radius: 30px;
+    width: 110px;
+    height: 25px;
+    font-weight: bold;
 
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
   }
 
-  .registrationForm{
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
+  .registrationForm {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
   }
-  .textBox, emailTextBox{
-      width: 175px;
-      height: 35px;
-      border: none;
-      background: #D8C8C8;
-      border-radius: 30px;
-      margin: 10px;
-      margin-right: 0px;
-      text-align: center;
+
+  .nameBoxes {
+    display: flex;
+    flex-direction: row;
+  }
+
+  .textBox {
+    width: 95%;
+    height: 35px;
+    border: none;
+    background: #d8c8c8;
+    border-radius: 30px;
+    margin: 10px;
+    text-align: center;
+  }
+
+  .emailTextbox {
+    width: 95%;
+  }
+
+  .passwordRow {
+    flex-direction: column;
+    width: 100%;
   }
 }
 
 /*my code*/
 
-.text-font{
+.text-font {
   font-family: Exo;
 }
 
-.reject-button{
+.reject-button {
   background-color: #ff0000; /* Red */
-  width:80px !important;
+  width: 80px !important;
   height: 30px !important;
   border: none;
   color: rgb(0, 0, 0);
@@ -530,7 +537,7 @@
   display: inline-block;
 }
 
-.accept-button{
+.accept-button {
   background-color: #56c73f; /* Green */
   width: 80px !important;
   height: 30px !important;
@@ -550,48 +557,47 @@
   display: inline-block;
 }
 
-.same-line{
+.same-line {
   display: inline-block;
 }
 
-
-.table{
+.table {
   display: inline-block;
   list-style-type: none;
   line-height: 30px;
 }
 
-.list-table{
-  display:inline-block;
+.list-table {
+  display: inline-block;
   list-style-type: none;
   margin-top: 0px;
 }
 
-.person-image{
-  width:120px;
-  height:120px;
+.person-image {
+  width: 120px;
+  height: 120px;
   border-radius: 50%;
 }
 
-.star{
+.star {
   width: 10px;
   height: 10px;
 }
 
-.fixed{
+.fixed {
   margin-top: 70px;
 }
 
-.text-center{
+.text-center {
   text-align: center;
   position: absolute;
 }
 
-.center{
+.center {
   align-self: center;
 }
 
-table{
+table {
   border-start-end-radius: 0%;
   border: #000 1%;
 }
@@ -605,25 +611,25 @@ td {
   padding-bottom: 2%;
 }
 
-.profile-data-icon-element{
+.profile-data-icon-element {
   padding-left: 3%;
 }
-.profile-data-text-element{
+.profile-data-text-element {
   padding-left: 2%;
   vertical-align: top;
   width: 150px;
 }
 
-.profile-data-edit-icon{
+.profile-data-edit-icon {
   padding-left: 2%;
 }
 
-.profile-data-edit-input{
+.profile-data-edit-input {
   padding-left: 0%;
   vertical-align: top;
 }
 
-input{
+input {
   vertical-align: top;
   padding: 6px;
   padding-left: 10px;
@@ -634,60 +640,60 @@ input{
   font-size: 17px;
 }
 
-.passwordInput{
+.passwordInput {
   width: 40%;
   margin-left: 5%;
 }
 
-.profile-rating{
+.profile-rating {
   position: absolute;
-  width:25px;
-  height:25px;
+  width: 25px;
+  height: 25px;
   top: 45%;
-  left: 46%; 
+  left: 46%;
 }
 
-.profile-rating-1{
+.profile-rating-1 {
   position: absolute;
-  width:25px;
-  height:25px;
+  width: 25px;
+  height: 25px;
   top: 45%;
-  left: 46%; 
+  left: 46%;
 }
 
-.profile-rating-2{
+.profile-rating-2 {
   position: absolute;
-  width:25px;
-  height:25px;
+  width: 25px;
+  height: 25px;
   top: 45%;
-  left: 49%; 
+  left: 49%;
 }
 
-.profile-rating-3{
+.profile-rating-3 {
   position: absolute;
-  width:25px;
-  height:25px;
+  width: 25px;
+  height: 25px;
   top: 45%;
-  left: 52%; 
+  left: 52%;
 }
 
-.profile-rating-4{
+.profile-rating-4 {
   position: absolute;
-  width:25px;
-  height:25px;
+  width: 25px;
+  height: 25px;
   top: 45%;
-  left: 55%; 
+  left: 55%;
 }
 
-.profile-rating-5{
+.profile-rating-5 {
   position: absolute;
-  width:25px;
-  height:25px;
+  width: 25px;
+  height: 25px;
   top: 45%;
-  left: 58%; 
+  left: 58%;
 }
 
-body{
+body {
   font-family: Exo;
 }
 
@@ -703,7 +709,7 @@ body{
 }
 
 /*-------mel's code for review UI--------*/
-.reviewtextalign{
+.reviewtextalign {
   margin-left: 50px;
   font-size: xx-large;
 }
