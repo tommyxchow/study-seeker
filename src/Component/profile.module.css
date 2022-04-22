@@ -170,3 +170,26 @@
 .confirmButton:hover{
   opacity: 50%;
 }
+
+@media (max-width: 1024px) {
+  .backgroundOverlay, .backgroundPicture {
+    display: none;
+  }
+
+  .profilePicture {
+    object-fit: cover;
+    width: 100px;
+    height: 100px;
+    border: 0px solid #ffffff;
+    border-radius: 100%;
+  }
+
+  .profileHeader {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    align-items: stretch;
+    top: 14px;
+    left: 24px;
+  }
+}

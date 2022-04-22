@@ -115,12 +115,12 @@ class App extends React.Component {
         <div className="App">
           <header className="App-header">
             <div className="home">
-              {sessionStorage.getItem("token") && (
+              {/* {sessionStorage.getItem("token") && (
                 <Navbar
                   toggleModal={(e) => toggleModal(this)}
                   logout={this.logout}
                 />
-              )}
+              )} */}
 
               <div className="maincontent" id="mainContent">
                 <Routes>
