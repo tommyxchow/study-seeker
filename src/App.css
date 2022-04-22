@@ -702,6 +702,18 @@ body {
   flex-direction: row;
 }
 
+@media screen and (max-width: 1000px) {
+  .home{
+    flex-direction: column;
+  }
+}
+
+@media screen and (min-width: 1000px) {
+  .home{
+    flex-direction: row;
+  }
+}
+
 .maincontent {
   width: 100%;
   overflow-y: scroll;
