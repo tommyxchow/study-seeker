@@ -34,6 +34,8 @@ export default class HomePage extends React.Component {
         starting_classes:[],
         profile_pictures:{},
         screen_size: window.innerWidth,
+        mobile_classes_display:[],
+        mobile_student_display:[]
     };
     
     this.add_all_users();
@@ -43,7 +45,9 @@ export default class HomePage extends React.Component {
   
   set_current_window_size=()=>{
     this.setState({screen_size: window.innerWidth, 
-        display_students: window.innerWidth>=1000?this.state.starting_students:Array.from(Array(this.state.all_students.length).keys())});
+        display_students: window.innerWidth>=1000?this.state.starting_students:this.state.mobile_student_display,
+        display_classes: window.innerWidth>=1000?this.state.starting_classes:this.state.mobile_classes_display
+    });
   }
 
   add_all_users=()=>{
@@ -67,6 +71,7 @@ export default class HomePage extends React.Component {
         this.setState({
             display_students: window.innerWidth>=1000?display:Array.from(Array(result[0].length).keys()), 
             starting_students: display,
+            mobile_student_display: Array.from(Array(result[0].length).keys()),
             profile_pictures: current_pictures, 
             all_students: result[0]
         });
@@ -81,7 +86,7 @@ export default class HomePage extends React.Component {
     .then((result)=>{
         result[0] = result[0].filter((class_) => class_.attributes && class_.attributes.classpostcounter !== undefined && class_.attributes.isClass);
         result[0].sort((a,b)=>Number(b.attributes.classpostcounter)-Number(a.attributes.classpostcounter));
-        this.setState({all_classes: result[0]});
+        // this.setState({all_classes: result[0]});
         var display = [];
         if(result[0].length === 0){
             display = [];
@@ -92,7 +97,12 @@ export default class HomePage extends React.Component {
         }else{
             display  = [0, 1, 2];
         }
-        this.setState({display_classes: display});
+        this.setState({
+            all_classes: result[0],
+            starting_classes: display,
+            display_classes: window.innerWidth>=1000?display:Array.from(Array(result[0].length).keys()),
+            mobile_classes_display: Array.from(Array(result[0].length).keys())
+        });
     }, (error)=>{
         alert('get all classes failed');
     })
@@ -192,12 +202,15 @@ export default class HomePage extends React.Component {
                     Trending Classes
                 </div>
                 <div className={style.outterBox}>
+                {this.state.screen_size >= 1000 &&
                     <div className={style.arrowContainer}>
                     { 
                         this.state.display_classes.length >= 3 && this.state.display_classes[0] !== 0 &&
                         <div onClick={this.moveLeftClass} className={style.leftArrowContainer}><div className={style.leftArrow}></div></div>
                     }
                     </div>
+                }
+                <div className={style.allClassesBox}>
                     {this.state.display_classes.map((idx)=>(
                     <div className={style.classCard}>
                         <div className={style.className}>
@@ -233,11 +246,14 @@ export default class HomePage extends React.Component {
                         </Link>
                     </div>
                     ))}
+                </div>
+                {this.state.screen_size >= 1000 &&
                     <div className={style.arrowContainer}>
                     { this.state.display_classes.length >= 3 && this.state.display_classes[2] !== this.state.all_classes.length-1 &&
                         <div onClick={this.moveRightClass} className={style.rightArrowContainer}><div className={style.rightArrow}></div></div>
                     }
                     </div>
+                }
                 </div>
             </div>
 
