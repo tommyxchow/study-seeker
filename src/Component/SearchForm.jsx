@@ -260,11 +260,14 @@ export default class SearchForm extends React.Component {
       this.setState({
         filter:false
       });
+      
+      
     }
     else{
       this.setState({
         filter:true
       });
+      
     }
   }
 
@@ -362,6 +365,8 @@ export default class SearchForm extends React.Component {
       <form onSubmit={this.submitHandler2} className={styles.profileform}>
         <div className={styles.searchbar}>
           <div className={styles.fixseekers}>
+            <div className={styles.sameline}>
+            <div className={styles.mobilefilter}>
             <div className={styles.inputbar}>
               <label>
                 <input
@@ -373,8 +378,142 @@ export default class SearchForm extends React.Component {
                 <br/>
               </label>
             </div>
+
+            <div className={styles.buttons2}>
+                <div className={styles.filteralign}>
+                  <button className={styles.searchbutton} type="submit" value="submit">Search</button>
+                </div>
+                <div className={styles.filteralign}>
+                  <button className={styles.filterbutton} type="button" value="button" onClick={() => this.filterHandler() }>
+                    <div className={styles.middle}>Filter
+                      <img className={styles.filterimg} src={filterImg}></img>
+                    </div>
+                  </button>
+                </div>
+              </div>
+            {/**-------------filter or mobile ---------------------- */}
+            <div id="filtercontainer2" className={styles.filtercontainer2}>
+                {this.state.filter && (
+                
+                  <div className={styles.filtercontent2}>
+                    <div className={styles.outterfilter1}>
+                    <div>
+                      <p className={styles.size1}>Year</p>
+                    </div>
+                    <div className={styles.innerfilter1}>
+                      <div className={styles.size2}>
+                        <div className={styles.checklistcontainer}>
+                          <div className={styles.checklist2}></div>
+                          <div ><p>Freshman</p></div>
+                        </div>
+                      
+                        <div className={styles.checklistcontainer}>
+                          <div className={styles.checklist1}></div>
+                          <div><p>Sophomore</p></div>
+                        </div>
+
+                        <div className={styles.checklistcontainer}>
+                          <div className={styles.checklist2}></div>
+                          <div><p>Junior</p></div>
+                        </div>
+                      </div>
+                      <div className={styles.size2}>
+                        <div className={styles.checklistcontainer}>
+                          <div className={styles.checklist1}></div>
+                          <div><p>Senior</p></div>
+                        </div>
+
+                        <div className={styles.checklistcontainer}>
+                          <div className={styles.checklist1}></div>
+                          <div><p>Grad/Phd</p></div>
+                        </div>
+                      </div>
+                      </div>
+                      </div>
+                      <div className={styles.outterfilter2}>
+                        <div>
+                    <p className={styles.size1}>Stars</p>
+                    <div className={styles.stars}>
+                                  <img className={styles.star1}  src={starIcon} alt="star"/>
+                                  <img className={styles.star2}  src={starIcon} alt="star"/>
+                                  <img className={styles.star3}  src={starIcon} alt="star"/>
+                                  <img className={styles.star4}  src={starIcon} alt="star"/>
+                                  <img className={styles.star5}  src={starIcon} alt="star"/>
+                    </div>
+                    </div>
+                    <div>
+                    <p className={styles.size1}>Major</p>
+                    <input type="text" className={styles.majorinput} placeholder="e.g. Biology"/>
+                    </div>
+                    </div>
+                  </div>
+              
+                )}
+              </div>
+              {/**----------------------------------- */}
+              </div>
+
+            <div className={styles.fixlayout}>
+              <div className={styles.buttons}>
+                <div className={styles.filteralign}>
+                  <button className={styles.searchbutton} type="submit" value="submit">Search</button>
+                </div>
+                <div className={styles.filteralign}>
+                  <button className={styles.filterbutton} type="button" value="button" onClick={() => this.filterHandler() }>
+                    <div className={styles.middle}>Filter
+                      <img className={styles.filterimg} src={filterImg}></img>
+                    </div>
+                  </button>
+                </div>
+              </div>
+              {/**-------------filter or desktop ---------------------- */}
+              <div id="filtercontainer" className={styles.filtercontainer}>
+                {this.state.filter && (
+                
+                  <div className={styles.filtercontent}>
+                    <p className={styles.size1}>Year</p><br/>
+                    <div className={styles.size2}>
+                      <div className={styles.checklistcontainer}>
+                        <div className={styles.checklist2}></div>
+                        <div ><p>Freshman</p></div>
+                      </div>
+                      <div className={styles.checklistcontainer}>
+                        <div className={styles.checklist1}></div>
+                        <div><p>Sophomore</p></div>
+                      </div>
+                      <div className={styles.checklistcontainer}>
+                        <div className={styles.checklist2}></div>
+                        <div><p>Junior</p></div>
+                      </div>
+                      <div className={styles.checklistcontainer}>
+                        <div className={styles.checklist1}></div>
+                        <div><p>Senior</p></div>
+                      </div>
+                      <div className={styles.checklistcontainer}>
+                        <div className={styles.checklist1}></div>
+                        <div><p>Grad/Phd</p></div>
+                      </div>
+                    </div>
+                    <p className={styles.size1}>Stars</p>
+                    <div className={styles.stars}>
+                                  <img className={styles.star1}  src={starIcon} alt="star"/>
+                                  <img className={styles.star2}  src={starIcon} alt="star"/>
+                                  <img className={styles.star3}  src={starIcon} alt="star"/>
+                                  <img className={styles.star4}  src={starIcon} alt="star"/>
+                                  <img className={styles.star5}  src={starIcon} alt="star"/>
+                    </div><br/>
+                    <p className={styles.size1}>Major</p>
+                    <input type="text" className={styles.majorinput} placeholder="e.g. Biology"/>
+                  </div>
+              
+                )}
+              </div>
+              {/**----------------------------------- */}
+            </div>
+            </div>
+            
             <p className={styles.textsize}> Study Seekers</p>
-            <div className={styles.maincontainer}>
+            <div id="filter" className={styles.maincontainer}>
               {this.state.userFound && (
                 this.state.people.map((dict)=> {
                   return (
@@ -436,7 +575,7 @@ export default class SearchForm extends React.Component {
             </div>
             {/*---------------------------------------------------------- */}
             <p className={styles.textsize}>Classes</p>
-            <div className={styles.maincontainer}>
+            <div id="filter" className={styles.maincontainer}>
               {this.state.classFound && (
                 this.state.classes.map((dict)=> {
                   return (
@@ -504,7 +643,7 @@ export default class SearchForm extends React.Component {
             </div>
 
             <p className={styles.textsize}>Groups</p>
-            <div className={styles.maincontainer}>
+            <div id="filter" className={styles.maincontainer}>
               {this.state.groupFound && (
                 this.state.groups.map((dict)=> {
                   return (
@@ -570,61 +709,7 @@ export default class SearchForm extends React.Component {
 
           </div>
             
-            <div className={styles.fixlayout}>
-              <div className={styles.buttons}>
-                <div className={styles.filteralign}>
-                  <button className={styles.searchbutton} type="submit" value="submit">Search</button>
-                </div>
-                <div className={styles.filteralign}>
-                  <button className={styles.filterbutton} type="button" value="button" onClick={() => this.filterHandler() }>
-                    <div className={styles.middle}>Filter
-                      <img className={styles.filterimg} src={filterImg}></img>
-                    </div>
-                  </button>
-                </div>
-              </div>
-              <div className={styles.filtercontainer}>
-                {this.state.filter && (
-                
-                  <div className={styles.filtercontent}>
-                    <p className={styles.size1}>Year</p><br/>
-                    <div className={styles.size2}>
-                      <div className={styles.checklistcontainer}>
-                        <div className={styles.checklist2}></div>
-                        <div ><p>Freshman</p></div>
-                      </div>
-                      <div className={styles.checklistcontainer}>
-                        <div className={styles.checklist1}></div>
-                        <div><p>Sophomore</p></div>
-                      </div>
-                      <div className={styles.checklistcontainer}>
-                        <div className={styles.checklist2}></div>
-                        <div><p>Junior</p></div>
-                      </div>
-                      <div className={styles.checklistcontainer}>
-                        <div className={styles.checklist1}></div>
-                        <div><p>Senior</p></div>
-                      </div>
-                      <div className={styles.checklistcontainer}>
-                        <div className={styles.checklist1}></div>
-                        <div><p>Grad/Phd</p></div>
-                      </div>
-                    </div>
-                    <p className={styles.size1}>Stars</p>
-                    <div className={styles.stars}>
-                                  <img className={styles.star1}  src={starIcon} alt="star"/>
-                                  <img className={styles.star2}  src={starIcon} alt="star"/>
-                                  <img className={styles.star3}  src={starIcon} alt="star"/>
-                                  <img className={styles.star4}  src={starIcon} alt="star"/>
-                                  <img className={styles.star5}  src={starIcon} alt="star"/>
-                    </div><br/>
-                    <p className={styles.size1}>Major</p>
-                    <input type="text" className={styles.majorinput} placeholder="e.g. Biology"/>
-                  </div>
-              
-                )}
-              </div>
-            </div>
+          
 
           </div>
 
