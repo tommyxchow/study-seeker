@@ -32,3 +32,149 @@
   line-height: 48px;
   color: #ffffff;
 }
+
+.icon{
+  display: none;
+}
+
+.optionbutton{
+  background-color: transparent;
+  border: none;
+  margin-top: 8px;
+}
+
+.topnav{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.logotext {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  font-family: Sofia, cursive;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 25px;
+  line-height: 84.9%;
+  /* or 82px */
+
+  text-align: center;
+  margin-left: -20px;
+
+  color: #ffffff;
+}
+
+
+
+@media screen and (max-width: 1000px) {
+  .sidenav {
+    width:100%;
+    padding: 0px;
+    height: 60px;
+    align-items: flex-start;
+  }
+  .sidenav > a {
+    display: none;
+  }
+
+  .icon{
+    display: flex;
+    width: 40px;
+    height: 40px;
+    opacity: 80%;
+  }
+
+  .sidenav2 > a {
+    text-decoration: none;
+  }
+
+  .sidenav2  {
+    width:100%;
+    height: 100vh;
+    padding: 3rem;
+    padding-left: 1rem;
+    padding-top: 0;
+    position: fixed;
+    line-height: 100%;
+    display: flex;
+    flex-direction: column;
+    line-height: 100%;
+    top: 0;
+    left: 0;
+    z-index: 1;
+    
+  
+    background-color: rgb(144, 118, 113, 1);
+  }
+
+  .optionbutton{
+    margin-left: 0;
+    padding-bottom: 10px;
+  }
+
+  .navItem{
+    padding-left: 1rem;
+  }
+
+}
+
+@media screen and (min-width: 1000px) {
+  .sidenav {
+    display: flex;
+    flex-direction: column;
+    width: 250px;
+    line-height: 100%;
+    padding: 3rem;
+    position: sticky;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    z-index: 1;
+  
+    background-color: rgb(144, 118, 113, 1);
+  }
+
+  .sidenav > a {
+    text-decoration: none;
+  }
+  .sidenav2 > a {
+    text-decoration: none;
+  }
+
+  .icon{
+    display:none;
+  }
+
+  .sidenav2  {
+    display: flex;
+    flex-direction: column;
+    width: 250px;
+    line-height: 100%;
+    padding: 3rem;
+    position: sticky;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    z-index: 1;
+  
+    background-color: rgb(144, 118, 113, 1);
+  }
+
+  .sidenav2 button {
+    display: none;
+  }
+
+  .optionbutton{
+    display: none;
+  }
+
+  .topnav{
+    display:none;
+  }
+}
+
