@@ -196,7 +196,7 @@
   .profileDetails {
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: start;
     padding: 0px;
   }
 
@@ -205,4 +205,92 @@
     margin-top: 192px;
     margin-left: 21px;
   }
+
+  .profileName {
+    margin-left: 1rem;
+    display: inline;
+
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 30px;
+    line-height: 35px;
+
+    color: #000000;
+  }
+
+  .nameConnectButtonHeader {
+    display: flex;
+    align-items: center;
+    width: max-content;
+  }
+
+  .connectButton, .disconnectButton, .deleteAccountButton{
+    border: 0;
+    border-radius: 10px;
+    height: 35px;
+    width: 100px;
+    background: #2ecc71;
+    font-family: Exo;
+    align-self: center;
+    font-size: large;
+    margin-left: 2vw;
+
+    position: absolute;
+    left: 100px;
+    top: 80px;
+  }
+
+  .deleteAccountButton{
+    border: 0;
+    border-radius: 10px;
+    height: 35px;
+    width: auto;
+    background: #ff0000;
+    font-family: Exo;
+    align-self: center;
+    font-size: large;
+    margin-left: 2vw;
+
+    position: relative;
+    left: 40px;
+    top: 0px;
+  }
+
+
+  .disconnectButton{
+    background: #ff0000;
+  }
+
+  .blockButton{
+    border: 0;
+    border-radius: 10px;
+    height: 35px;
+    width: 100px;
+    font-family: Exo;
+    align-self: center;
+    font-size: large;
+    margin-left: 2vw;
+    background: #ff0000;
+
+    position: absolute;
+    left: 220px;
+    top: 80px;
+  }
+
+  .uploadButton {
+    position: absolute;
+    top: 50%;
+    left: 20%;
+    transform: translate(-50%, -50%);
+
+    color: #000000;
+    font-size: small;
+  }
+
+  .profileDetailItem {
+    margin-right: 100px;
+    margin-bottom: 23px;
+  }
+
 }
