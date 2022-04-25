@@ -35,3 +35,66 @@
   border-radius: 10px;
   margin-left: 1rem;
 }
+
+@media (max-width: 1024px) {
+
+  .form {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+
+  .input {
+    width: 50%;
+    height: 100px;
+    margin-left: 0px;
+    border-width: 3px;
+
+    border-radius: 25px;
+    order: 3;
+  }
+
+  .container {
+    padding: 0px;
+    display: flex;
+    flex-direction: column;
+    width: 90%;
+
+    margin-left: 28px;
+  }
+
+  .star {
+    margin-right: 17px;
+    margin-bottom: 20px;
+    align-self: center;
+
+    order: 2;
+  }
+
+  .profilePicture {
+    object-fit: cover;
+    width: 65px;
+    height: 65px;
+    border-radius: 100%;
+    margin-left: 0px;
+
+    margin-right: 17px;
+    margin-bottom: 14px;
+    order: 1;
+  }
+
+  .postButton {
+    border: none;
+    background: #3498DB;
+    color: white;
+    font-family: 'Exo';
+    font-weight: bold;
+    padding: 0.5rem 2rem 0.5rem 2rem;
+    border-radius: 10px;
+    margin-left: 1rem;
+
+    order: 4;
+  }
+
+}
