@@ -3,7 +3,9 @@ import React from "react";
 import { Link } from "react-router-dom";
 import "../App.css";
 import filterImg from "../assets/filter.png";
-import starIcon from "../assets/unlitstar.svg";
+//import starIcon from "../assets/unlitstar.svg";
+import starIconLit from "../assets/star-filled.png"
+import starIcon from "../assets/star-empty.png"
 import styles from "./search.module.css";
 
 
@@ -320,7 +322,7 @@ export default class SearchForm extends React.Component {
       }
 
     });
-    return (name_class + ": " + dict.name)
+    return (name_class)
   }
 
 
@@ -526,13 +528,76 @@ export default class SearchForm extends React.Component {
                           </div>
                           <div className={styles.innercontent1}>
                             <p className={styles.size3}>{ dict.attributes.firstName + " " +  dict.attributes.lastName}</p>
-                            <div className={styles.stars}>
-                                  <img className={styles.star1}  src={starIcon} alt="star"/>
-                                  <img className={styles.star2}  src={starIcon} alt="star"/>
-                                  <img className={styles.star3}  src={starIcon} alt="star"/>
-                                  <img className={styles.star4}  src={starIcon} alt="star"/>
-                                  <img className={styles.star5}  src={starIcon} alt="star"/>
-                            </div>
+                            {"rating" in dict.attributes && dict.attributes.rating==0 && (
+                              <div className={styles.stars}>
+                                <img className={styles.star1}  src={starIcon} alt="star"/>
+                                <img className={styles.star2}  src={starIcon} alt="star"/>
+                                <img className={styles.star3}  src={starIcon} alt="star"/>
+                                <img className={styles.star4}  src={starIcon} alt="star"/>
+                                <img className={styles.star5}  src={starIcon} alt="star"/>
+                                <p className={styles.size8}>({dict.attributes.rating})</p>
+                              </div>
+                            )}
+                            {"rating" in dict.attributes && dict.attributes.rating==1 && (
+                              <div className={styles.stars}>
+                                <img className={styles.star1}  src={starIconLit} alt="star"/>
+                                <img className={styles.star2}  src={starIcon} alt="star"/>
+                                <img className={styles.star3}  src={starIcon} alt="star"/>
+                                <img className={styles.star4}  src={starIcon} alt="star"/>
+                                <img className={styles.star5}  src={starIcon} alt="star"/>
+                                <p className={styles.size8}>({dict.attributes.rating})</p>
+                              </div>
+                            )}
+                            {"rating" in dict.attributes && dict.attributes.rating==2 && (
+                              <div className={styles.stars}>
+                                <img className={styles.star1}  src={starIconLit} alt="star"/>
+                                <img className={styles.star2}  src={starIconLit} alt="star"/>
+                                <img className={styles.star3}  src={starIcon} alt="star"/>
+                                <img className={styles.star4}  src={starIcon} alt="star"/>
+                                <img className={styles.star5}  src={starIcon} alt="star"/>
+                                <p className={styles.size8}>({dict.attributes.rating})</p>
+                              </div>
+                            )}
+                            {"rating" in dict.attributes && dict.attributes.rating==3 && (
+                              <div className={styles.stars}>
+                                <img className={styles.star1}  src={starIconLit} alt="star"/>
+                                <img className={styles.star2}  src={starIconLit} alt="star"/>
+                                <img className={styles.star3}  src={starIconLit} alt="star"/>
+                                <img className={styles.star4}  src={starIcon} alt="star"/>
+                                <img className={styles.star5}  src={starIcon} alt="star"/>
+                                <p className={styles.size8}>({dict.attributes.rating})</p>
+                              </div>
+                            )}
+                            {"rating" in dict.attributes && dict.attributes.rating==4 && (
+                              <div className={styles.stars}>
+                                <img className={styles.star1}  src={starIconLit} alt="star"/>
+                                <img className={styles.star2}  src={starIconLit} alt="star"/>
+                                <img className={styles.star3}  src={starIconLit} alt="star"/>
+                                <img className={styles.star4}  src={starIconLit} alt="star"/>
+                                <img className={styles.star5}  src={starIcon} alt="star"/>
+                                <p className={styles.size8}>({dict.attributes.rating})</p>
+                              </div>
+                            )}
+                            {"rating" in dict.attributes && dict.attributes.rating==5 && (
+                              <div className={styles.stars}>
+                                <img className={styles.star1}  src={starIconLit} alt="star"/>
+                                <img className={styles.star2}  src={starIconLit} alt="star"/>
+                                <img className={styles.star3}  src={starIconLit} alt="star"/>
+                                <img className={styles.star4}  src={starIconLit} alt="star"/>
+                                <img className={styles.star5}  src={starIconLit} alt="star"/>
+                                <p className={styles.size8}>({dict.attributes.rating})</p>
+                              </div>
+                            )}
+                            {!("rating" in dict.attributes) && (
+                              <div className={styles.stars}>
+                                <img className={styles.star1}  src={starIcon} alt="star"/>
+                                <img className={styles.star2}  src={starIcon} alt="star"/>
+                                <img className={styles.star3}  src={starIcon} alt="star"/>
+                                <img className={styles.star4}  src={starIcon} alt="star"/>
+                                <img className={styles.star5}  src={starIcon} alt="star"/>
+                                <p className={styles.size8}>(0)</p>
+                              </div>
+                            )}
                           </div>
                         </div>
                         
@@ -555,7 +620,9 @@ export default class SearchForm extends React.Component {
 
                         <div className={styles.outtercontent3}>
                           <div className={styles.innercontent3}>
+                            <div>
                           <button className={styles.connectbutton} type="button" value="connect">Connect</button>
+                          </div>
                           <div className={styles.space}>
                           <Link to={this.gotoProfile(dict)} className={styles.profile}><button className={styles.profilebutton} type="button" value="profile">View Profile</button></Link>
                           </div>
@@ -580,7 +647,7 @@ export default class SearchForm extends React.Component {
                 this.state.classes.map((dict)=> {
                   return (
               
-                    <div className={styles.background}>
+                    <div className={styles.background4}>
                       <div key={dict} className={styles.content2}>
                         <div className={styles.outtercontent4}>
                           {/*<div>
@@ -654,7 +721,7 @@ export default class SearchForm extends React.Component {
                           {/*<div>
                             <img className={styles.picturecircle} src={this.getProfilePic(dict)} alt={dict.attributes.firstName}/>
                           </div>*/}
-                            <p className={styles.size6}>{this.getClassName(dict)}</p>
+                            <p className={styles.size6}>{dict.name}<br/><div className={styles.size7}>{this.getClassName(dict)}</div></p>
                             <p className={styles.headersize}>University at Buffalo</p>
                             <p className={styles.headersize}>{dict.attributes.members.length + " students"}</p>
                         </div>
