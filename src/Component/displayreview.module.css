@@ -169,4 +169,11 @@
     margin-top: 0px;
   }
 
+  .innercontent2{
+    display: flex;
+    flex-direction: column;
+    align-items:center;
+    margin-right: 0px;
+}
+
 }
