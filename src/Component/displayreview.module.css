@@ -148,7 +148,7 @@
     padding-left:30px;
     padding-right:30px;
     margin:10px;
-    width:90%;
+    width:15rem;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -168,5 +168,12 @@
     font-size: xx-large;
     margin-top: 0px;
   }
+
+  .innercontent2{
+    display: flex;
+    flex-direction: column;
+    align-items:center;
+    margin-right: 0px;
+}
 
 }
