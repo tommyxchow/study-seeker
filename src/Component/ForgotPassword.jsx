@@ -58,7 +58,6 @@ export class ForgotPassword extends Component {
 
     return (
       <div className={styles.container}>
-        <div className={styles.background}>
           <div className={styles.content}>
             <strong className={styles.logoText}>
               Study
@@ -98,10 +97,9 @@ export class ForgotPassword extends Component {
               <input type="submit" value="Reset" className={styles.button} />
             </form>
             <Link className={styles.noAccount} to="/login">
-              go back to login
+              Back to login
             </Link>
           </div>
-        </div>
       </div>
     );
   }

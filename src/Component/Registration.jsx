@@ -82,9 +82,10 @@ class Registration extends React.Component {
             year: "",
             contact: "",
             privacy: "Everyone",
-            profilePicture: "/hci/api/uploads/files/DOo1Ebbt8dYT4-plb6G6NP5jIc9_l_gNlaYwPW4SaBM.png",
+            profilePicture:
+              "/hci/api/uploads/files/DOo1Ebbt8dYT4-plb6G6NP5jIc9_l_gNlaYwPW4SaBM.png",
             backgroundPicture: "",
-            rating: 0
+            rating: 0,
           },
         }),
       })
@@ -143,7 +144,7 @@ class Registration extends React.Component {
             <LogoText subtitle="SIGN UP TO FIND YOUR NEXT STUDY BUDDY" />
             <div className="formMargin">
               <form className="registrationForm" onSubmit={this.submitHandler}>
-                <div>
+                <div className="nameBoxes">
                   <input
                     className="textBox"
                     type="text"

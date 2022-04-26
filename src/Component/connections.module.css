@@ -69,7 +69,6 @@
   justify-content: flex-start;
   margin-top: 30px;
   margin-left: 37px;
-  height: 100vh;
   width: 100%;
 }
 
@@ -172,6 +171,7 @@
   display: flex;
   flex-direction: column;
   margin-right: 63px;
+  margin-bottom: 15px;
 }
 
 .picturecircle {

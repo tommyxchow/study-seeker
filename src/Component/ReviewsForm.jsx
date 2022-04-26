@@ -145,6 +145,7 @@ export default class ReviewForm extends Component {
         <form className={styles.form} onSubmit={this.submitHandler}>
           {[...Array(this.state.rating)].map((x, i) => (
             <img
+              className={styles.star}
               src={starFilled}
               alt="Filled Star"
               onClick={() => this.setState({ rating: i + 1 })}

@@ -3,7 +3,9 @@ import React from "react";
 import { Link } from "react-router-dom";
 import "../App.css";
 import filterImg from "../assets/filter.png";
-import starIcon from "../assets/unlitstar.svg";
+//import starIcon from "../assets/unlitstar.svg";
+import starIconLit from "../assets/star-filled.png"
+import starIcon from "../assets/star-empty.png"
 import styles from "./search.module.css";
 
 
@@ -260,11 +262,14 @@ export default class SearchForm extends React.Component {
       this.setState({
         filter:false
       });
+      
+      
     }
     else{
       this.setState({
         filter:true
       });
+      
     }
   }
 
@@ -317,7 +322,7 @@ export default class SearchForm extends React.Component {
       }
 
     });
-    return (name_class + ": " + dict.name)
+    return (name_class)
   }
 
 
@@ -362,6 +367,8 @@ export default class SearchForm extends React.Component {
       <form onSubmit={this.submitHandler2} className={styles.profileform}>
         <div className={styles.searchbar}>
           <div className={styles.fixseekers}>
+            <div className={styles.sameline}>
+            <div className={styles.mobilefilter}>
             <div className={styles.inputbar}>
               <label>
                 <input
@@ -373,8 +380,142 @@ export default class SearchForm extends React.Component {
                 <br/>
               </label>
             </div>
+
+            <div className={styles.buttons2}>
+                <div className={styles.filteralign}>
+                  <button className={styles.searchbutton} type="submit" value="submit">Search</button>
+                </div>
+                <div className={styles.filteralign}>
+                  <button className={styles.filterbutton} type="button" value="button" onClick={() => this.filterHandler() }>
+                    <div className={styles.middle}>Filter
+                      <img className={styles.filterimg} src={filterImg}></img>
+                    </div>
+                  </button>
+                </div>
+              </div>
+            {/**-------------filter or mobile ---------------------- */}
+            <div id="filtercontainer2" className={styles.filtercontainer2}>
+                {this.state.filter && (
+                
+                  <div className={styles.filtercontent2}>
+                    <div className={styles.outterfilter1}>
+                    <div>
+                      <p className={styles.size1}>Year</p>
+                    </div>
+                    <div className={styles.innerfilter1}>
+                      <div className={styles.size2}>
+                        <div className={styles.checklistcontainer}>
+                          <div className={styles.checklist2}></div>
+                          <div ><p>Freshman</p></div>
+                        </div>
+                      
+                        <div className={styles.checklistcontainer}>
+                          <div className={styles.checklist1}></div>
+                          <div><p>Sophomore</p></div>
+                        </div>
+
+                        <div className={styles.checklistcontainer}>
+                          <div className={styles.checklist2}></div>
+                          <div><p>Junior</p></div>
+                        </div>
+                      </div>
+                      <div className={styles.size2}>
+                        <div className={styles.checklistcontainer}>
+                          <div className={styles.checklist1}></div>
+                          <div><p>Senior</p></div>
+                        </div>
+
+                        <div className={styles.checklistcontainer}>
+                          <div className={styles.checklist1}></div>
+                          <div><p>Grad/Phd</p></div>
+                        </div>
+                      </div>
+                      </div>
+                      </div>
+                      <div className={styles.outterfilter2}>
+                        <div>
+                    <p className={styles.size1}>Stars</p>
+                    <div className={styles.stars}>
+                                  <img className={styles.star1}  src={starIcon} alt="star"/>
+                                  <img className={styles.star2}  src={starIcon} alt="star"/>
+                                  <img className={styles.star3}  src={starIcon} alt="star"/>
+                                  <img className={styles.star4}  src={starIcon} alt="star"/>
+                                  <img className={styles.star5}  src={starIcon} alt="star"/>
+                    </div>
+                    </div>
+                    <div>
+                    <p className={styles.size1}>Major</p>
+                    <input type="text" className={styles.majorinput} placeholder="e.g. Biology"/>
+                    </div>
+                    </div>
+                  </div>
+              
+                )}
+              </div>
+              {/**----------------------------------- */}
+              </div>
+
+            <div className={styles.fixlayout}>
+              <div className={styles.buttons}>
+                <div className={styles.filteralign}>
+                  <button className={styles.searchbutton} type="submit" value="submit">Search</button>
+                </div>
+                <div className={styles.filteralign}>
+                  <button className={styles.filterbutton} type="button" value="button" onClick={() => this.filterHandler() }>
+                    <div className={styles.middle}>Filter
+                      <img className={styles.filterimg} src={filterImg}></img>
+                    </div>
+                  </button>
+                </div>
+              </div>
+              {/**-------------filter or desktop ---------------------- */}
+              <div id="filtercontainer" className={styles.filtercontainer}>
+                {this.state.filter && (
+                
+                  <div className={styles.filtercontent}>
+                    <p className={styles.size1}>Year</p><br/>
+                    <div className={styles.size2}>
+                      <div className={styles.checklistcontainer}>
+                        <div className={styles.checklist2}></div>
+                        <div ><p>Freshman</p></div>
+                      </div>
+                      <div className={styles.checklistcontainer}>
+                        <div className={styles.checklist1}></div>
+                        <div><p>Sophomore</p></div>
+                      </div>
+                      <div className={styles.checklistcontainer}>
+                        <div className={styles.checklist2}></div>
+                        <div><p>Junior</p></div>
+                      </div>
+                      <div className={styles.checklistcontainer}>
+                        <div className={styles.checklist1}></div>
+                        <div><p>Senior</p></div>
+                      </div>
+                      <div className={styles.checklistcontainer}>
+                        <div className={styles.checklist1}></div>
+                        <div><p>Grad/Phd</p></div>
+                      </div>
+                    </div>
+                    <p className={styles.size1}>Stars</p>
+                    <div className={styles.stars}>
+                                  <img className={styles.star1}  src={starIcon} alt="star"/>
+                                  <img className={styles.star2}  src={starIcon} alt="star"/>
+                                  <img className={styles.star3}  src={starIcon} alt="star"/>
+                                  <img className={styles.star4}  src={starIcon} alt="star"/>
+                                  <img className={styles.star5}  src={starIcon} alt="star"/>
+                    </div><br/>
+                    <p className={styles.size1}>Major</p>
+                    <input type="text" className={styles.majorinput} placeholder="e.g. Biology"/>
+                  </div>
+              
+                )}
+              </div>
+              {/**----------------------------------- */}
+            </div>
+            </div>
+            
             <p className={styles.textsize}> Study Seekers</p>
-            <div className={styles.maincontainer}>
+            <div id="filter" className={styles.maincontainer}>
               {this.state.userFound && (
                 this.state.people.map((dict)=> {
                   return (
@@ -387,13 +528,76 @@ export default class SearchForm extends React.Component {
                           </div>
                           <div className={styles.innercontent1}>
                             <p className={styles.size3}>{ dict.attributes.firstName + " " +  dict.attributes.lastName}</p>
-                            <div className={styles.stars}>
-                                  <img className={styles.star1}  src={starIcon} alt="star"/>
-                                  <img className={styles.star2}  src={starIcon} alt="star"/>
-                                  <img className={styles.star3}  src={starIcon} alt="star"/>
-                                  <img className={styles.star4}  src={starIcon} alt="star"/>
-                                  <img className={styles.star5}  src={starIcon} alt="star"/>
-                            </div>
+                            {"rating" in dict.attributes && dict.attributes.rating==0 && (
+                              <div className={styles.stars}>
+                                <img className={styles.star1}  src={starIcon} alt="star"/>
+                                <img className={styles.star2}  src={starIcon} alt="star"/>
+                                <img className={styles.star3}  src={starIcon} alt="star"/>
+                                <img className={styles.star4}  src={starIcon} alt="star"/>
+                                <img className={styles.star5}  src={starIcon} alt="star"/>
+                                <p className={styles.size8}>({dict.attributes.rating})</p>
+                              </div>
+                            )}
+                            {"rating" in dict.attributes && dict.attributes.rating==1 && (
+                              <div className={styles.stars}>
+                                <img className={styles.star1}  src={starIconLit} alt="star"/>
+                                <img className={styles.star2}  src={starIcon} alt="star"/>
+                                <img className={styles.star3}  src={starIcon} alt="star"/>
+                                <img className={styles.star4}  src={starIcon} alt="star"/>
+                                <img className={styles.star5}  src={starIcon} alt="star"/>
+                                <p className={styles.size8}>({dict.attributes.rating})</p>
+                              </div>
+                            )}
+                            {"rating" in dict.attributes && dict.attributes.rating==2 && (
+                              <div className={styles.stars}>
+                                <img className={styles.star1}  src={starIconLit} alt="star"/>
+                                <img className={styles.star2}  src={starIconLit} alt="star"/>
+                                <img className={styles.star3}  src={starIcon} alt="star"/>
+                                <img className={styles.star4}  src={starIcon} alt="star"/>
+                                <img className={styles.star5}  src={starIcon} alt="star"/>
+                                <p className={styles.size8}>({dict.attributes.rating})</p>
+                              </div>
+                            )}
+                            {"rating" in dict.attributes && dict.attributes.rating==3 && (
+                              <div className={styles.stars}>
+                                <img className={styles.star1}  src={starIconLit} alt="star"/>
+                                <img className={styles.star2}  src={starIconLit} alt="star"/>
+                                <img className={styles.star3}  src={starIconLit} alt="star"/>
+                                <img className={styles.star4}  src={starIcon} alt="star"/>
+                                <img className={styles.star5}  src={starIcon} alt="star"/>
+                                <p className={styles.size8}>({dict.attributes.rating})</p>
+                              </div>
+                            )}
+                            {"rating" in dict.attributes && dict.attributes.rating==4 && (
+                              <div className={styles.stars}>
+                                <img className={styles.star1}  src={starIconLit} alt="star"/>
+                                <img className={styles.star2}  src={starIconLit} alt="star"/>
+                                <img className={styles.star3}  src={starIconLit} alt="star"/>
+                                <img className={styles.star4}  src={starIconLit} alt="star"/>
+                                <img className={styles.star5}  src={starIcon} alt="star"/>
+                                <p className={styles.size8}>({dict.attributes.rating})</p>
+                              </div>
+                            )}
+                            {"rating" in dict.attributes && dict.attributes.rating==5 && (
+                              <div className={styles.stars}>
+                                <img className={styles.star1}  src={starIconLit} alt="star"/>
+                                <img className={styles.star2}  src={starIconLit} alt="star"/>
+                                <img className={styles.star3}  src={starIconLit} alt="star"/>
+                                <img className={styles.star4}  src={starIconLit} alt="star"/>
+                                <img className={styles.star5}  src={starIconLit} alt="star"/>
+                                <p className={styles.size8}>({dict.attributes.rating})</p>
+                              </div>
+                            )}
+                            {!("rating" in dict.attributes) && (
+                              <div className={styles.stars}>
+                                <img className={styles.star1}  src={starIcon} alt="star"/>
+                                <img className={styles.star2}  src={starIcon} alt="star"/>
+                                <img className={styles.star3}  src={starIcon} alt="star"/>
+                                <img className={styles.star4}  src={starIcon} alt="star"/>
+                                <img className={styles.star5}  src={starIcon} alt="star"/>
+                                <p className={styles.size8}>(0)</p>
+                              </div>
+                            )}
                           </div>
                         </div>
                         
@@ -416,7 +620,9 @@ export default class SearchForm extends React.Component {
 
                         <div className={styles.outtercontent3}>
                           <div className={styles.innercontent3}>
+                            <div>
                           <button className={styles.connectbutton} type="button" value="connect">Connect</button>
+                          </div>
                           <div className={styles.space}>
                           <Link to={this.gotoProfile(dict)} className={styles.profile}><button className={styles.profilebutton} type="button" value="profile">View Profile</button></Link>
                           </div>
@@ -436,12 +642,12 @@ export default class SearchForm extends React.Component {
             </div>
             {/*---------------------------------------------------------- */}
             <p className={styles.textsize}>Classes</p>
-            <div className={styles.maincontainer}>
+            <div id="filter" className={styles.maincontainer}>
               {this.state.classFound && (
                 this.state.classes.map((dict)=> {
                   return (
               
-                    <div className={styles.background}>
+                    <div className={styles.background4}>
                       <div key={dict} className={styles.content2}>
                         <div className={styles.outtercontent4}>
                           {/*<div>
@@ -504,7 +710,7 @@ export default class SearchForm extends React.Component {
             </div>
 
             <p className={styles.textsize}>Groups</p>
-            <div className={styles.maincontainer}>
+            <div id="filter" className={styles.maincontainer}>
               {this.state.groupFound && (
                 this.state.groups.map((dict)=> {
                   return (
@@ -515,7 +721,7 @@ export default class SearchForm extends React.Component {
                           {/*<div>
                             <img className={styles.picturecircle} src={this.getProfilePic(dict)} alt={dict.attributes.firstName}/>
                           </div>*/}
-                            <p className={styles.size6}>{this.getClassName(dict)}</p>
+                            <p className={styles.size6}>{dict.name}<br/><div className={styles.size7}>{this.getClassName(dict)}</div></p>
                             <p className={styles.headersize}>University at Buffalo</p>
                             <p className={styles.headersize}>{dict.attributes.members.length + " students"}</p>
                         </div>
@@ -570,61 +776,7 @@ export default class SearchForm extends React.Component {
 
           </div>
             
-            <div className={styles.fixlayout}>
-              <div className={styles.buttons}>
-                <div className={styles.filteralign}>
-                  <button className={styles.searchbutton} type="submit" value="submit">Search</button>
-                </div>
-                <div className={styles.filteralign}>
-                  <button className={styles.filterbutton} type="button" value="button" onClick={() => this.filterHandler() }>
-                    <div className={styles.middle}>Filter
-                      <img className={styles.filterimg} src={filterImg}></img>
-                    </div>
-                  </button>
-                </div>
-              </div>
-              <div className={styles.filtercontainer}>
-                {this.state.filter && (
-                
-                  <div className={styles.filtercontent}>
-                    <p className={styles.size1}>Year</p><br/>
-                    <div className={styles.size2}>
-                      <div className={styles.checklistcontainer}>
-                        <div className={styles.checklist2}></div>
-                        <div ><p>Freshman</p></div>
-                      </div>
-                      <div className={styles.checklistcontainer}>
-                        <div className={styles.checklist1}></div>
-                        <div><p>Sophomore</p></div>
-                      </div>
-                      <div className={styles.checklistcontainer}>
-                        <div className={styles.checklist2}></div>
-                        <div><p>Junior</p></div>
-                      </div>
-                      <div className={styles.checklistcontainer}>
-                        <div className={styles.checklist1}></div>
-                        <div><p>Senior</p></div>
-                      </div>
-                      <div className={styles.checklistcontainer}>
-                        <div className={styles.checklist1}></div>
-                        <div><p>Grad/Phd</p></div>
-                      </div>
-                    </div>
-                    <p className={styles.size1}>Stars</p>
-                    <div className={styles.stars}>
-                                  <img className={styles.star1}  src={starIcon} alt="star"/>
-                                  <img className={styles.star2}  src={starIcon} alt="star"/>
-                                  <img className={styles.star3}  src={starIcon} alt="star"/>
-                                  <img className={styles.star4}  src={starIcon} alt="star"/>
-                                  <img className={styles.star5}  src={starIcon} alt="star"/>
-                    </div><br/>
-                    <p className={styles.size1}>Major</p>
-                    <input type="text" className={styles.majorinput} placeholder="e.g. Biology"/>
-                  </div>
-              
-                )}
-              </div>
-            </div>
+          
 
           </div>
 

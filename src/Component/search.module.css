@@ -46,7 +46,7 @@
 .profileform label{
     display:flex;
     margin-top: 20px;
-    margin-left: 5%;
+    margin-left: 30px;
   }
 
   
@@ -68,7 +68,7 @@
 .filtercontent {
   border: 1px solid black;
   background-color: white;
-  height: 800px;
+  height: 650px;
   width: 160px;
   border-radius: 50px;
   padding: 1rem;
@@ -77,44 +77,94 @@
   align-items:left;
 }
 
-.filtercontainer {
-  margin-top: 10%;
+.filtercontent2 {
+  border: 1px solid black;
+  background-color: white;
+  height: 300px;
+  width: 80%;
+  border-radius: 50px;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items:left;
+  margin-top: 20px;
+  margin-left: 35px;
 }
+
+.filtercontainer {
+  margin-top: 50px;
+  position: absolute;
+}
+
+.mobilefilter{
+  display: flex;
+  flex-direction: column;
+}
+
+.filtercontainer2 {
+  display: none;
+}
+
 
 .fixlayout{
   display:flex;
   flex-direction: column;
-  align-items: flex-end;
-  margin-top: 2%;
+  align-items: center;
+  margin-top: 20px;
+  margin-right:60px;
 }
 
-.fixseekers{
+.outterfilter1{
   display: flex;
-  flex-direction: column;
-  align-items: flex-start;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
+.outterfilter2{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
+.innerfilter1{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
+.buttons{
+  display:flex;
+  flex-direction: row;
+}
+
+.buttons2{
+  display:none;
+}
+
+.inputbar{
+  margin-right: 5%;
 }
 
 .background {
-  height: 250px;
   max-height: 900px;
-  width: 250px;
+  width: 300px;
   max-width: 1000px;
   background-color: #ede5e5;
   border-radius: 25px;
   padding: 1rem;
-  margin: 2%;
+  margin: 10px;
 }
 
 .background2 {
-  height: 250px;
+  height: 270px;
   max-height: 900px;
   width: 300px;
   max-width: 1000px;
-  border-radius: 0px;
-  border: 1px solid black;
+  background-color: #ede5e5;
   border-radius: 25px;
   padding: 1rem;
-  margin: 2%;
+  margin: 10px;
+  padding-top: 0;
 }
 
 .background3 {
@@ -128,11 +178,47 @@
   justify-content: center;
 }
 
+.background4 {
+  height: 240px;
+  max-height: 900px;
+  width: 240px;
+  max-width: 1000px;
+  background-color: #ede5e5;
+  border-radius: 25px;
+  padding: 0.5rem;
+  padding-top: 0;
+  margin: 10px;
+}
+
+.maincontainer {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content:flex-start;
+  height: 100%;
+  width: 80%;
+}
+
+.sameline{
+  display: flex;
+  flex-direction: row;
+}
+
+.fixseekers{
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
 .checklistcontainer{
   display: flex;
   flex-direction: row;
   align-items: center;
+  margin-left: 10px;
 }
+
+
 
 .checklist1 {
   height: 10px;
@@ -186,13 +272,12 @@
 .outtercontent2{
   display: flex;
   flex-direction: column;
-  line-height: 2%;
+  line-height: 80%;
 }
 
 .outtercontent3{
   display: flex;
   flex-direction: column;
-  margin-top: 10px;
 }
 
 .outtercontent4{
@@ -202,8 +287,9 @@
 .outtercontent5{
   display: flex;
   align-items: flex-start;
-  
+  margin-bottom: 10px;
 }
+
 
 .innercontent1{
   display: flex;
@@ -247,30 +333,14 @@
   margin-right: 63px;
 }
 
-.maincontainer {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  align-items: flex-start;
-  justify-content:flex-start;
-  margin-left: 3%;
-  height: 100%;
-  width: 100%;
-}
-
-
-
-
-
-
 .searchbar {
   display: inline-flex;
   align-items: flex-start;
+  flex-direction: row;
 }
 
-.inputbar{
-  margin-right: 8vw;
-}
+
+
 
 .majorinput{
   width: 100%;
@@ -281,7 +351,7 @@
     border: 0;
     border-radius: 10px;
     height: 35px;
-    width: 100px;
+    width: 110px;
     background: #2ecc71;
     font-family: Exo;
     font-size: x-large;
@@ -325,10 +395,11 @@
   border: 0;
   border-radius: 10px;
   height: 40px;
-  width: 220px;
+  width: 210px;
   background: #3498DB;
   font-family: Exo;
   font-size: small;
+  margin-right: 15px;
 }
 
 .groupbutton{
@@ -337,6 +408,7 @@
   border-radius: 10px;
   height: 40px;
   width: 260px;
+  margin-right: 10px;
   background: #3498DB;
   font-family: Exo;
   font-size: small;
@@ -348,18 +420,10 @@
   flex-direction: row-reverse;
 }
 
-
-
-.buttons{
-  display:flex;
-  flex-direction: row;
-}
-
-
-
 .textsize{
   font-size: xx-large;
-  margin-left: 5%;
+  margin-left: 7%;
+  margin-bottom: 5px;
 }
 
 .headersize{
@@ -379,6 +443,7 @@
 
 .size3{
   font-size:large;
+  line-height: 20px;
 }
 
 .size4{
@@ -387,10 +452,20 @@
 
 .size5{
   font-size:small;
+  line-height: 5px;
 }
 
 .size6{
-  font-size:28px;
+  font-size:xx-large;
+  line-height: 34px;
+}
+
+.size7{
+  font-size: 22px;
+}
+
+.size8{
+  font-size: medium;
 }
 
 .stars {
@@ -464,3 +539,252 @@
   align-items: center;
   justify-content: center;
 }
+
+@media screen and (min-width:1350px) {
+  .fixlayout{
+    align-items: center;
+  }
+}
+
+@media screen and (min-width:1000px) {
+  .maincontainer{
+    margin-left: 20px;
+  }
+
+  .textsize{
+    margin-left: 40px;
+  }
+}
+
+@media screen and (max-width:1000px) {
+  .filtercontainer{
+    display: none;
+  }
+  .filtercontainer2{
+    display: block;
+  }
+
+  .inputs{
+    width:75vw;
+  }
+
+  .maincontainer {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: flex-start;
+    justify-content:flex-start;
+    height: 100%;
+    width: 100vw;
+    white-space: nowrap;
+    overflow-x: scroll;
+    margin:2%;
+  }
+}
+
+@media screen and (max-width:850px) {
+  .filtercontainer{
+    display: none;
+  }
+  .filtercontainer2{
+    display: block;
+  }
+
+  .inputs{
+    width:70vw;
+  }
+}
+
+@media screen and (max-width:750px) {
+  .filtercontainer{
+    display: none;
+  }
+  .filtercontainer2{
+    display: block;
+  }
+
+  .inputs{
+    width:65vw;
+  }
+}
+
+@media screen and (max-width:650px) {
+  .filtercontainer{
+    display: none;
+  }
+  .filtercontainer2{
+    display: block;
+  }
+
+  .inputs{
+    width:60vw;
+  }
+
+  .outterfilter2{
+    flex-direction: column;
+    flex-grow: 1;
+  }
+
+  .filtercontent2{
+    height:500px;
+    width: 50vw;
+  }
+
+  .outterfilter1{
+    flex-direction: column;
+  }
+  
+}
+
+
+@media screen and (max-width:450px) {
+  .filtercontainer{
+    display: none;
+  }
+  .filtercontainer2{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .inputs{
+    width:90vw;
+  }
+  .inputbar{
+    margin-right: 0;
+  }
+
+  .profileform label{
+    justify-content: center;
+    margin-left: 10%;
+  }
+
+  .fixlayout{
+    display: none;
+  }
+
+  .outterfilter2{
+    flex-direction: column;
+    flex-grow: 1;
+  }
+
+  .filtercontent2{
+    height:500px;
+    width: 50vw;
+  }
+
+  .outterfilter1{
+    flex-direction: column;
+  }
+
+  .buttons{
+    display: none;
+  }
+  
+  .buttons2{
+    display: flex;
+    flex-direction: row;
+    margin-left: 30px;
+    justify-content: space-around;
+    margin-top: 20px;
+  }
+
+
+}
+
+@media screen and (max-width:400px) {
+  .filtercontainer{
+    display: none;
+  }
+
+  .inputs{
+    width:90vw;
+  }
+  .inputbar{
+    margin-right: 0;
+  }
+
+  .profileform label{
+    justify-content: center;
+    margin-left: 10%;
+  }
+
+  .fixlayout{
+    display: none;
+  }
+
+  .outterfilter2{
+    flex-direction: column;
+    flex-grow: 1;
+  }
+
+  .filtercontent2{
+    height:600px;
+    width: 50vw;
+  }
+
+  .outterfilter1{
+    flex-direction: column;
+  }
+
+  .buttons{
+    display: none;
+  }
+  
+  .buttons2{
+    display: flex;
+    flex-direction: row;
+    margin-left: 30px;
+    justify-content: space-around;
+    margin-top: 20px;
+  }
+
+  .innerfilter1{
+    flex-direction: column;
+  }
+
+
+}
+
+@media screen and (max-width:360px) {
+  .background{
+    width:80vw;
+  }
+  .background2{
+    width:80vw;
+  }
+
+  .groupbutton{
+    width:70vw;
+  }
+
+  .classbutton{
+    width:70vw;
+  }
+
+  .connectbutton{
+    width:35vw;
+  }
+
+  .profilebutton{
+    width: 35vw;
+  }
+  
+}
+
+@media screen and (max-width:1350px) {
+  .buttons{
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .filteralign{
+    margin-left:0;
+    margin-bottom: 10px;
+  }
+
+  .filtercontainer{
+    margin-top: 100px;
+  }
+}
+
