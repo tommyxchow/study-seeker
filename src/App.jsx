@@ -32,9 +32,10 @@ import StyleGuide from "./Component/StyleGuide.jsx";
 // toggleModal will both show and hide the modal dialog, depending on current state.  Note that the
 // contents of the modal dialog are set separately before calling toggle - this is just responsible
 // for showing and hiding the component
-function toggleModal(app) {
+function toggleModal(app, error) {
   app.setState({
     openModal: !app.state.openModal,
+    modalError: error,
   });
 }
 
@@ -46,6 +47,7 @@ class App extends React.Component {
     super(props);
     this.state = {
       openModal: false,
+      modalError: "",
       refreshPosts: false,
       logout: false,
       login: false,
@@ -162,10 +164,29 @@ class App extends React.Component {
                   />
                   <Route
                     path="/login"
-                    element={<LoginPage login={this.login} />}
+                    element={
+                      <LoginPage
+                        login={this.login}
+                        toggleModal={(error) => toggleModal(this, error)}
+                      />
+                    }
                   />
-                  <Route path="/register" element={<Register />} />
-                  <Route path="/reset-password" element={<ForgotPassword />} />
+                  <Route
+                    path="/register"
+                    element={
+                      <Registration
+                        toggleModal={(error) => toggleModal(this, error)}
+                      />
+                    }
+                  />
+                  <Route
+                    path="/reset-password"
+                    element={
+                      <ForgotPasswordPage
+                        toggleModal={(error) => toggleModal(this, error)}
+                      />
+                    }
+                  />
                   <Route
                     path="/connections"
                     element={<Connections login={this.login} />}
@@ -177,7 +198,7 @@ class App extends React.Component {
           </header>
 
           <Modal show={this.state.openModal} onClose={(e) => toggleModal(this)}>
-            This is a modal dialog!
+            <p>{this.state.modalError}</p>
           </Modal>
         </div>
       </Router>
@@ -188,11 +209,6 @@ class App extends React.Component {
 /*  BEGIN ROUTE ELEMENT DEFINITIONS */
 // with the latest version of react router, you need to define the contents of the route as an element.  The following define functional components
 // that will appear in the routes.
-
-const Register = (props) => {
-  // show the study seeker registration form
-  return <Registration />;
-};
 
 const ProfilePage = (props) => {
   // if the user is not logged in, show the login form.  Otherwise, show the settings page
@@ -344,10 +360,6 @@ const Home = (props) => {
   }
   return <HomePage classId={id} userid={user_id} />;
   //return <ConnectionRequest />;
-};
-
-const ForgotPassword = (props) => {
-  return <ForgotPasswordPage />;
 };
 
 /* END ROUTE ELEMENT DEFINITIONS */
