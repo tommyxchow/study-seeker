@@ -388,6 +388,7 @@ export default class PostForm extends React.Component {
                 <ClassPosts
                   classId={this.props.classId}
                   userid={this.props.userid}
+                  toggleModal={this.props.toggleModal}
                 />
               )}
             </div>

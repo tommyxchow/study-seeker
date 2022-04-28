@@ -65,6 +65,11 @@ export default class ClassPosts extends Component {
   submitHandler = (event) => {
     event.preventDefault();
 
+    if (event.target.post.value === "") {
+      this.props.toggleModal("Please enter text into the box before posting.");
+      return;
+    }
+
     //make the api call to post
     fetch(process.env.REACT_APP_API_PATH + "/posts", {
       method: "post",
