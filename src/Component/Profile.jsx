@@ -11,14 +11,6 @@ import styles from "./profile.module.css";
 // The Profile component shows data from the user table.  This is set up fairly generically to allow for you to customize
 // user data by adding it to the attributes for each user, which is just a set of name value pairs that you can add things to
 // in order to support your group specific functionality.  In this example, we store basic profile information for the user
-let deleteAccount = false;
-function confirmDeletePrompt() {
-  //deleteAccount = window.confirm("Delete your account?");
-  if (window.confirm("Delete your account?")) {
-    this.deleteAccountHandler();
-    alert("account deleted");
-  }
-}
 
 export default class Profile extends React.Component {
   // The constructor will hold the default values for the state.  This is also where any props that are passed
@@ -45,6 +37,7 @@ export default class Profile extends React.Component {
       connection_id: -1,
       profile: this.props.userid === this.props.profileid,
       connection_status: "",
+      block_list: []
     };
     this.fieldChangeHandler.bind(this);
   }
@@ -112,6 +105,7 @@ export default class Profile extends React.Component {
                 rating: result.attributes.rating || "0",
                 edit: false,
                 connection_status: "Not sent",
+                block_list: result.attributes.block_list
               });
             }
           }
@@ -152,6 +146,8 @@ export default class Profile extends React.Component {
         privacy: event.target.privacy.value,
         profilePicture: this.state.profilePicture,
         backgroundPicture: this.state.backgroundPicture,
+        rating: this.state.rating,
+        block_list: this.state.block_list
       },
     };
 
@@ -169,6 +165,33 @@ export default class Profile extends React.Component {
       );
   };
 
+  updateBlockList = (user_id_1, user_id_2, action='add') =>{
+    if (this.props.userid !== this.props.profileid && user_id_1 != user_id_2) {
+      this.createFetch(
+        "/users/" + user_id_1,
+        "GET",
+        null)
+      .then((res) => res.json())
+      .then((result) => {
+          result.attributes.block_list = result.attributes.block_list?result.attributes.block_list:[];
+          if(action === 'add'){
+            result.attributes.block_list.push(user_id_2)
+          }
+          else{
+            result.attributes.block_list = result.attributes.block_list.filter((id)=> (id != user_id_2))
+          }
+          console.log(action, result.attributes.block_list);
+
+          this.createFetch(
+            "/users/" + user_id_1,
+            "PATCH",
+            result);
+        }, 
+        (error)=>{
+          alert("Failed blocklist update")
+        });
+    }
+  };
   getConnection = () => {
     if (this.props.userid !== this.props.profileid) {
       this.createFetch(
@@ -212,6 +235,14 @@ export default class Profile extends React.Component {
 
   connectionHandler = (event, status = "pending") => {
     event.preventDefault();
+    if(status === 'block'){
+      console.log("blocking list", this.props.userid, this.props.profileid)
+      this.updateBlockList(this.props.userid, this.props.profileid, 'add');
+      this.updateBlockList(this.props.profileid, this.props.userid, 'add');
+    }else if(status === 'unblock'){
+      this.updateBlockList(this.props.userid, this.props.profileid, 'remove');
+      this.updateBlockList(this.props.profileid, this.props.userid, 'remove');
+    }
     if (this.state.connection_id === -1) {
       const body = {
         fromUserID: Number(this.props.userid),
@@ -571,6 +602,8 @@ export default class Profile extends React.Component {
             />
           </>
         ) : (
+          this.state.connection_status === "blocked"?
+          <>User has blocked you</>:
           <>User does not exist</>
         )}
       </div>
