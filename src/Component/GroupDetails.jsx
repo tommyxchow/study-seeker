@@ -348,27 +348,27 @@ export default class GroupDetails extends React.Component {
             <img
               className={groupcss.stargroupdetails}
               src={starIcon}
-              alt="star"
+              alt="star 1"
             />
             <img
               className={groupcss.stargroupdetails}
               src={starIcon}
-              alt="star"
+              alt="star 2"
             />
             <img
               className={groupcss.stargroupdetails}
               src={starIcon}
-              alt="star"
+              alt="star 3"
             />
             <img
               className={groupcss.stargroupdetails}
               src={starIcon}
-              alt="star"
+              alt="star 4"
             />
             <img
               className={groupcss.stargroupdetails}
               src={starIcon}
-              alt="star"
+              alt="star 5"
             />
           </div>
         </div>
@@ -397,7 +397,7 @@ export default class GroupDetails extends React.Component {
                   <img
                     className={groupcss.profilepicturegroupdetails}
                     src={"https://webdev.cse.buffalo.edu" + names[1]}
-                    alt="profile pic"
+                    alt={names[0] + "'s profile pic"}
                   />
                 </Link>
                 <div className={groupcss.membernames}>{names[0]}</div>
@@ -405,27 +405,27 @@ export default class GroupDetails extends React.Component {
                   <img
                     className={groupcss.stargroupdetails}
                     src={starIcon}
-                    alt="star"
+                    alt="star 1"
                   />
                   <img
                     className={groupcss.stargroupdetails}
                     src={starIcon}
-                    alt="star"
+                    alt="star 2"
                   />
                   <img
                     className={groupcss.stargroupdetails}
                     src={starIcon}
-                    alt="star"
+                    alt="star 3"
                   />
                   <img
                     className={groupcss.stargroupdetails}
                     src={starIcon}
-                    alt="star"
+                    alt="star 4"
                   />
                   <img
                     className={groupcss.stargroupdetails}
                     src={starIcon}
-                    alt="star"
+                    alt="star 5"
                   />
                 </div>
               </div>
