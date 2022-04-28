@@ -138,9 +138,6 @@ export default class Profile extends React.Component {
       privacy: event.target.privacy.value,
     });
 
-    console.log(this.state.profilePicture);
-    console.log(this.state.backgroundPicture);
-
     //make the api call to the user controller, and update the user fields (username, firstname, lastname)
     const body = {
       attributes: {
@@ -182,16 +179,7 @@ export default class Profile extends React.Component {
         .then((res) => res.json())
         .then(
           (result) => {
-            console.log(
-              "connection",
-              this.props.userid,
-              this.props.profileid,
-              result
-            );
-
             let connections = result[0].filter((connection) => {
-              console.log("TEST1", connection);
-              console.log(this.props.profileid);
               return (
                 connection.fromUserID.toString() === this.props.profileid ||
                 connection.toUserID.toString() === this.props.profileid
@@ -199,13 +187,21 @@ export default class Profile extends React.Component {
             });
 
             if (connections.length > 0) {
+              let status = "";
+              if(connections[0].attributes.status === "block" && 
+              connections[0].attributes.to == this.props.userid){
+                status = 'blocked';
+              }else if(connections[0].attributes.status === "pending" && 
+              connections[0].attributes.to == this.props.userid){
+                status = 'incomming';
+              }else{
+                status = connections[0].attributes.status;
+              }
               this.setState({
                 connection_id: connections[0].id,
-                connection_status: connections[0].attributes.status,
+                connection_status: status,
               });
             }
-
-            console.log("TEST", connections);
           },
           (error) => {
             alert("error! checkConnection");
@@ -222,6 +218,8 @@ export default class Profile extends React.Component {
         toUserID: Number(this.props.profileid),
         attributes: {
           status: status,
+          by: Number(this.props.userid),
+          to: Number(this.props.profileid)
         },
       };
       this.createFetch("/connections", "POST", body)
@@ -237,45 +235,34 @@ export default class Profile extends React.Component {
             alert("error");
           }
         );
-    } else if (status === "block") {
-      const body = {
-        fromUserID: Number(this.props.userid),
-        toUserID: Number(this.props.profileid),
-        attributes: {
-          status: status,
-        },
-      };
-      this.createFetch(
-        "/connections/" + this.state.connection_id,
-        "PATCH",
-        body
-      )
+    }else if(status === "block"){
+      this.createFetch("/connections/"+this.state.connection_id, "GET", null)
         .then((res) => res.json())
         .then(
           (result) => {
-            this.setState({
-              connection_status: status,
-            });
+            result.attributes.status = status;
+            result.attributes.by = this.props.userid;
+            result.attributes.to =  this.props.profileid;
+            this.createFetch("/connections/"+this.state.connection_id, "PATCH", result)
+            .then((res) => res.json())
+            .then((result) => {this.setState({connection_status:status})}, (error) => {alert("error");})
           },
           (error) => {
             alert("error");
           }
         );
-    } else {
-      console.log("/connections/" + this.state.connection_id);
+    }else{
       this.createFetch(
         "/connections/" + this.state.connection_id,
         "DELETE",
-        null
-      )
+        null)
         .then((res) => res.text)
         .then(
           (result) => {
             this.setState({
-              blocked: status !== "unblock",
               connection_status: "Not sent",
+              connection_id: -1
             });
-            this.getConnection();
           },
           (error) => {
             alert(error);
@@ -384,6 +371,7 @@ export default class Profile extends React.Component {
       "Not sent": "Connect",
       pending: "Pending",
       accepted: "Disconnect",
+      incomming: "Incomming"
     };
 
     const blockStatus = {
@@ -394,7 +382,7 @@ export default class Profile extends React.Component {
 
     return (
       <div className={styles.container}>
-        {this.state.user_exist ? (
+        {this.state.user_exist && this.state.connection_status !== "blocked" ? (
           <>
             <div className={styles.backgroundOverlay}></div>
             <img
@@ -474,7 +462,7 @@ export default class Profile extends React.Component {
                 (this.state.connection_status !== "Not sent" ? (
                   <button
                     className={styles.disconnectButton}
-                    onClick={(event) => this.connectionHandler(event)}
+                    onClick={(event) => this.connectionHandler(event, "disconnect")}
                   >
                     {connectionStatus[this.state.connection_status]}
                   </button>
@@ -482,7 +470,7 @@ export default class Profile extends React.Component {
                   <button
                     className={styles.connectButton}
                     onClick={(event) =>
-                      this.connectionHandler(event, "pending")
+                      this.connectionHandler(event)
                     }
                   >
                     {connectionStatus[this.state.connection_status]}
