@@ -127,24 +127,49 @@ class App extends React.Component {
                   <Route path="/styleguide" element={<StyleGuide />} />
                   <Route
                     path="/profile"
-                    element={<ProfilePage login={this.login} />}
+                    element={
+                      <ProfilePage
+                        login={this.login}
+                        toggleModal={(error) => toggleModal(this, error)}
+                      />
+                    }
                   />
                   <Route
                     path="/profile/:id"
-                    element={<ProfilePage login={this.login} />}
+                    element={
+                      <ProfilePage
+                        login={this.login}
+                        toggleModal={(error) => toggleModal(this, error)}
+                      />
+                    }
                   />
                   <Route
                     path="/search"
-                    element={<Search login={this.login} />}
+                    element={
+                      <Search
+                        login={this.login}
+                        toggleModal={(error) => toggleModal(this, error)}
+                      />
+                    }
                   />
                   <Route
                     path="/groups"
-                    element={<Groups login={this.login} />}
+                    element={
+                      <Groups
+                        login={this.login}
+                        toggleModal={(error) => toggleModal(this, error)}
+                      />
+                    }
                   />
 
                   <Route
                     path="/groups/:id"
-                    element={<GroupDetails login={this.login} />}
+                    element={
+                      <GroupDetails
+                        login={this.login}
+                        toggleModal={(error) => toggleModal(this, error)}
+                      />
+                    }
                   />
                   <Route
                     path="/class/:id"
@@ -153,6 +178,7 @@ class App extends React.Component {
                         doRefreshPosts={this.doRefreshPosts}
                         login={this.login}
                         apprefresh={this.state.refreshPosts}
+                        toggleModal={(error) => toggleModal(this, error)}
                       />
                     }
                   />
@@ -183,9 +209,22 @@ class App extends React.Component {
                   />
                   <Route
                     path="/connections"
-                    element={<Connections login={this.login} />}
+                    element={
+                      <Connections
+                        login={this.login}
+                        toggleModal={(error) => toggleModal(this, error)}
+                      />
+                    }
                   />
-                  <Route path="/" element={<Home login={this.login} />} />
+                  <Route
+                    path="/"
+                    element={
+                      <Home
+                        login={this.login}
+                        toggleModal={(error) => toggleModal(this, error)}
+                      />
+                    }
+                  />
                 </Routes>
               </div>
             </div>
@@ -220,7 +259,11 @@ const ProfilePage = (props) => {
   }
   return (
     <div className="Profile">
-      <Profile userid={user_id} profileid={id} />
+      <Profile
+        userid={user_id}
+        profileid={id}
+        toggleModal={props.toggleModal}
+      />
     </div>
   );
 };
@@ -237,7 +280,10 @@ const Search = (props) => {
   }
   return (
     <div>
-      <SearchForm userid={sessionStorage.getItem("user")} />
+      <SearchForm
+        userid={sessionStorage.getItem("user")}
+        toggleModal={props.toggleModal}
+      />
     </div>
   );
 };
@@ -254,7 +300,10 @@ const Groups = (props) => {
   }
   return (
     <div>
-      <GroupList userid={sessionStorage.getItem("user")} />
+      <GroupList
+        userid={sessionStorage.getItem("user")}
+        toggleModal={props.toggleModal}
+      />
     </div>
   );
 };
@@ -271,7 +320,10 @@ const GroupDetails = (props) => {
   }
   return (
     <div>
-      <GroupsDetails userid={sessionStorage.getItem("user")} />
+      <GroupsDetails
+        userid={sessionStorage.getItem("user")}
+        toggleModal={props.toggleModal}
+      />
     </div>
   );
 };
@@ -299,6 +351,7 @@ const Posts = (props) => {
           refresh={props.apprefresh}
           userid={Number(sessionStorage.getItem("user"))}
           classId={id}
+          toggleModal={props.toggleModal}
         />
       </div>
     );
@@ -318,7 +371,7 @@ const Connections = (props) => {
   }
   return (
     <>
-      <ConnectionRequest userid={user_id} />
+      <ConnectionRequest userid={user_id} toggleModal={props.toggleModal} />
     </>
   );
   //return <ConnectionRequest />;
@@ -333,7 +386,9 @@ const Home = (props) => {
     console.log("LOGGED OUT");
     return <LandingPage login={props.login} />;
   }
-  return <HomePage classId={id} userid={user_id} />;
+  return (
+    <HomePage classId={id} userid={user_id} toggleModal={props.toggleModal} />
+  );
   //return <ConnectionRequest />;
 };
 

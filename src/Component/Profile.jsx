@@ -16,7 +16,7 @@ function confirmDeletePrompt() {
   //deleteAccount = window.confirm("Delete your account?");
   if (window.confirm("Delete your account?")) {
     this.deleteAccountHandler();
-    alert("account deleted");
+    this.props.toggleModal("account deleted");
   }
 }
 
@@ -118,7 +118,7 @@ export default class Profile extends React.Component {
         },
         (error) => {
           this.setState({ user_exist: false });
-          // alert("Testing------------------");
+          // this.props.toggleModal("Testing------------------");
         }
       )
       .then(this.getConnection);
@@ -167,7 +167,7 @@ export default class Profile extends React.Component {
           });
         },
         (error) => {
-          alert("error!");
+          this.props.toggleModal("error!");
         }
       );
   };
@@ -208,7 +208,7 @@ export default class Profile extends React.Component {
             console.log("TEST", connections);
           },
           (error) => {
-            alert("error! checkConnection");
+            this.props.toggleModal("error! checkConnection");
           }
         );
     }
@@ -234,7 +234,7 @@ export default class Profile extends React.Component {
             });
           },
           (error) => {
-            alert("error");
+            this.props.toggleModal("error");
           }
         );
     } else if (status === "block") {
@@ -258,7 +258,7 @@ export default class Profile extends React.Component {
             });
           },
           (error) => {
-            alert("error");
+            this.props.toggleModal("error");
           }
         );
     } else {
@@ -278,7 +278,7 @@ export default class Profile extends React.Component {
             this.getConnection();
           },
           (error) => {
-            alert(error);
+            this.props.toggleModal(error);
           }
         );
     }
@@ -362,7 +362,7 @@ export default class Profile extends React.Component {
           console.log(result);
         },
         (error) => {
-          alert(error);
+          this.props.toggleModal(error);
         }
       );
   };
@@ -448,13 +448,13 @@ export default class Profile extends React.Component {
                   onClick={(e) => {
                     if (window.confirm("Delete your account?")) {
                       this.deleteAccountHandler(e);
-                      alert("Your account has been deleted.");
+                      this.props.toggleModal("Your account has been deleted.");
                       sessionStorage.removeItem("token");
                       sessionStorage.removeItem("user");
                       this.setState({ sessiontoken: "" });
                       window.location.replace(process.env.PUBLIC_URL + "/");
                     } else {
-                      alert("Your account is not deleted");
+                      this.props.toggleModal("Your account is not deleted");
                     }
                   }}
                   className={styles.deleteAccountButton}
