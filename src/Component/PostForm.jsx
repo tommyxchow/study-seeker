@@ -1,8 +1,6 @@
 import React from "react";
 import "../App.css";
-import PostingList from "./PostingList.jsx";
 import style from "./postform.module.css";
-import yearLogo from "../assets/goal.png";
 import ClassPosts from "./ClassPosts";
 import Groups from "./ClassGroups";
 

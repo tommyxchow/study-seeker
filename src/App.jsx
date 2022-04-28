@@ -14,8 +14,6 @@ import {
 } from "react-router-dom";
 import "./App.css";
 import ForgotPasswordPage from "./Component/ForgotPassword.jsx";
-import FriendForm from "./Component/FriendForm.jsx";
-import FriendList from "./Component/FriendList.jsx";
 import GroupsDetails from "./Component/GroupDetails.jsx";
 import GroupList from "./Component/GroupList.jsx";
 import HomePage from "./Component/HomePage.jsx";
@@ -136,10 +134,6 @@ class App extends React.Component {
                     element={<ProfilePage login={this.login} />}
                   />
                   <Route
-                    path="/friends"
-                    element={<Friends login={this.login} />}
-                  />
-                  <Route
                     path="/search"
                     element={<Search login={this.login} />}
                   />
@@ -227,25 +221,6 @@ const ProfilePage = (props) => {
   return (
     <div className="Profile">
       <Profile userid={user_id} profileid={id} />
-    </div>
-  );
-};
-
-const Friends = (props) => {
-  // if the user is not logged in, show the login form.  Otherwise, show the friends page
-  if (!sessionStorage.getItem("token")) {
-    console.log("LOGGED OUT");
-    return (
-      <div>
-        <LandingPage login={props.login} />
-      </div>
-    );
-  }
-  return (
-    <div>
-      <p>Friends</p>
-      <FriendForm userid={sessionStorage.getItem("user")} />
-      <FriendList userid={sessionStorage.getItem("user")} />
     </div>
   );
 };
