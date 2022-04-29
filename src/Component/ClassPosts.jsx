@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import styles from "./post.module.css";
 
-const createFetch=(path, method, body)=>{
+const createFetch = (path, method, body) => {
   const supplyPath = process.env.REACT_APP_API_PATH + path;
   const supplyMethod = {
     method: method,
@@ -57,7 +57,9 @@ export default class ClassPosts extends Component {
       .then((res) => res.json())
       .then((result) => {
         this.setState({
-          profilePicture: result.attributes.profilePicture?result.attributes.profilePicture:"/hci/api/uploads/files/DOo1Ebbt8dYT4-plb6G6NP5jIc9_l_gNlaYwPW4SaBM.png",
+          profilePicture: result.attributes.profilePicture
+            ? result.attributes.profilePicture
+            : "/hci/api/uploads/files/DOo1Ebbt8dYT4-plb6G6NP5jIc9_l_gNlaYwPW4SaBM.png",
           name: result.attributes.firstName + " " + result.attributes.lastName,
         });
       });
@@ -65,6 +67,11 @@ export default class ClassPosts extends Component {
 
   submitHandler = (event) => {
     event.preventDefault();
+
+    if (event.target.post.value === "") {
+      this.props.toggleModal("Please enter text into the box before posting.");
+      return;
+    }
 
     //make the api call to post
     fetch(process.env.REACT_APP_API_PATH + "/posts", {
@@ -80,18 +87,28 @@ export default class ClassPosts extends Component {
       }),
     })
       .then((res) => res.json())
-      .then((result) =>
-        {this.setState({ posts: [result, ...this.state.posts] })
-        createFetch('/groups/'+this.props.classId, "get", null)
-        .then((res) => res.json())
-        .then((result) =>{
-          delete result.id;
-          result.attributes.classpostcounter = this.state.posts.length;
-          console.log("class to patch", result);
-          createFetch('/groups/'+this.props.classId, "PATCH", result)
+      .then((result) => {
+        this.setState({ posts: [result, ...this.state.posts] });
+        createFetch("/groups/" + this.props.classId, "get", null)
           .then((res) => res.json())
-          .then((result) =>{}, (error)=>{alert(error)});
-        }, (error)=>{alert("error in post counter")})
+          .then(
+            (result) => {
+              delete result.id;
+              result.attributes.classpostcounter = this.state.posts.length;
+              console.log("class to patch", result);
+              createFetch("/groups/" + this.props.classId, "PATCH", result)
+                .then((res) => res.json())
+                .then(
+                  (result) => {},
+                  (error) => {
+                    this.props.toggleModal(error);
+                  }
+                );
+            },
+            (error) => {
+              this.props.toggleModal("error in post counter");
+            }
+          );
       });
 
     event.target.post.value = "";
@@ -135,8 +152,12 @@ export default class ClassPosts extends Component {
         {this.state.posts.map((postInfo) => (
           <Post
             id={postInfo.authorID}
-            name={`${postInfo.author?postInfo.author.attributes.firstName: "DELETED"} ${postInfo.author?postInfo.author.attributes.lastName: ""}`}
-            profilePicture={postInfo.author?postInfo.author.attributes.profilePicture:null}
+            name={`${
+              postInfo.author ? postInfo.author.attributes.firstName : "DELETED"
+            } ${postInfo.author ? postInfo.author.attributes.lastName : ""}`}
+            profilePicture={
+              postInfo.author ? postInfo.author.attributes.profilePicture : null
+            }
             content={postInfo.content}
           />
         ))}

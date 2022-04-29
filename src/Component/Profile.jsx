@@ -12,6 +12,15 @@ import styles from "./profile.module.css";
 // user data by adding it to the attributes for each user, which is just a set of name value pairs that you can add things to
 // in order to support your group specific functionality.  In this example, we store basic profile information for the user
 
+let deleteAccount = false;
+function confirmDeletePrompt() {
+  //deleteAccount = window.confirm("Delete your account?");
+  if (window.confirm("Delete your account?")) {
+    this.deleteAccountHandler();
+    this.props.toggleModal("account deleted");
+  }
+}
+
 export default class Profile extends React.Component {
   // The constructor will hold the default values for the state.  This is also where any props that are passed
   // in when the component is instantiated will be read and managed.
@@ -112,7 +121,7 @@ export default class Profile extends React.Component {
         },
         (error) => {
           this.setState({ user_exist: false });
-          // alert("Testing------------------");
+          // this.props.toggleModal("Testing------------------");
         }
       )
       .then(this.getConnection);
@@ -160,7 +169,7 @@ export default class Profile extends React.Component {
           });
         },
         (error) => {
-          alert("error!");
+          this.props.toggleModal("error!");
         }
       );
   };
@@ -227,7 +236,7 @@ export default class Profile extends React.Component {
             }
           },
           (error) => {
-            alert("error! checkConnection");
+            this.props.toggleModal("error! checkConnection");
           }
         );
     }
@@ -263,7 +272,7 @@ export default class Profile extends React.Component {
             });
           },
           (error) => {
-            alert("error");
+            this.props.toggleModal("error");
           }
         );
     }else if(status === "block"){
@@ -279,7 +288,7 @@ export default class Profile extends React.Component {
             .then((result) => {this.setState({connection_status:status})}, (error) => {alert("error");})
           },
           (error) => {
-            alert("error");
+            this.props.toggleModal("error");
           }
         );
     }else{
@@ -296,7 +305,7 @@ export default class Profile extends React.Component {
             });
           },
           (error) => {
-            alert(error);
+            this.props.toggleModal(error);
           }
         );
     }
@@ -380,7 +389,7 @@ export default class Profile extends React.Component {
           console.log(result);
         },
         (error) => {
-          alert(error);
+          this.props.toggleModal(error);
         }
       );
   };
@@ -467,13 +476,13 @@ export default class Profile extends React.Component {
                   onClick={(e) => {
                     if (window.confirm("Delete your account?")) {
                       this.deleteAccountHandler(e);
-                      alert("Your account has been deleted.");
+                      this.props.toggleModal("Your account has been deleted.");
                       sessionStorage.removeItem("token");
                       sessionStorage.removeItem("user");
                       this.setState({ sessiontoken: "" });
                       window.location.replace(process.env.PUBLIC_URL + "/");
                     } else {
-                      alert("Your account is not deleted");
+                      this.props.toggleModal("Your account is not deleted");
                     }
                   }}
                   className={styles.deleteAccountButton}

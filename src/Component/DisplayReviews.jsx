@@ -103,7 +103,7 @@ export default class Reviews extends Component {
           this.loadFriends();
         },
         (error) => {
-          alert("error!");
+          this.props.toggleModal("error!");
         }
       );
   }

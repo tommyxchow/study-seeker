@@ -153,6 +153,7 @@ export default class ReviewForm extends Component {
           ))}
           {[...Array(5 - this.state.rating)].map((x, i) => (
             <img
+              className={styles.star}
               src={starEmpty}
               alt="Empty Star"
               onClick={() =>

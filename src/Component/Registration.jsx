@@ -103,10 +103,10 @@ class Registration extends React.Component {
               sessiontoken: result.token,
               alanmessage: result.token,
             });
-            alert("You have registered successfully.");
+            this.props.toggleModal("You have registered successfully.");
             this.setState({ registered: true });
           } else {
-            alert("error!");
+            this.props.toggleModal("Please fill out the registration form!");
 
             // if the signup failed, remove any infomation from the session state
             sessionStorage.removeItem("token");
@@ -116,9 +116,12 @@ class Registration extends React.Component {
               alanmessage: result.message,
             });
           }
-        });
+        })
+        .catch((error) =>
+          this.props.toggleModal("Failed to register, user may already exist.")
+        );
     } else {
-      alert("Passwords do not match!");
+      this.props.toggleModal("Passwords do not match!");
     }
   };
 
