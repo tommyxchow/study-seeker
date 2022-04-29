@@ -86,6 +86,7 @@ class Registration extends React.Component {
               "/hci/api/uploads/files/DOo1Ebbt8dYT4-plb6G6NP5jIc9_l_gNlaYwPW4SaBM.png",
             backgroundPicture: "",
             rating: 0,
+            block_list:[]
           },
         }),
       })

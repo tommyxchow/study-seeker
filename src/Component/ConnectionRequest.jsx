@@ -110,7 +110,6 @@ export default class ConnectionRequest extends React.Component{
     fetch("https://webdev.cse.buffalo.edu/hci/api/api/commitment/connections/?toUserID=" + sessionStorage.getItem("user"), requestOptionsGet)
       .then(response => response.json())
       .then(result => {
-        console.log("fetch",result);
          for(var i = 0; i < result.length; i++){
            if(result[0][i] === undefined){
              break;
@@ -119,12 +118,13 @@ export default class ConnectionRequest extends React.Component{
             json.push(result[0][i]);
            }
          }
-        console.log(json.length);
         for (var a = 0; a < json.length; a++){
-          arrConnections.push(json[a].id);
-          arrUserID.push(json[a].fromUserID);
-          connectionToID.push([json[a].id,json[a].fromUserID]);
-          user_id_map[json[a].fromUser.attributes.firstName + " " + json[a].fromUser.attributes.lastName[0] + "."] = json[a].fromUserID;
+          if(json[a].attributes.status != 'block' && json[a].attributes.status != 'blocked'){
+            arrConnections.push(json[a].id);
+            arrUserID.push(json[a].fromUserID);
+            connectionToID.push([json[a].id,json[a].fromUserID]);
+            user_id_map[json[a].fromUser.attributes.firstName + " " + json[a].fromUser.attributes.lastName[0] + "."] = json[a].fromUserID;
+          }
         }
         for(var b = 0; b < arrConnections.length; b++){
           fetch("https://webdev.cse.buffalo.edu/hci/api/api/commitment/connections/" + arrConnections[b], requestOptionsGet)

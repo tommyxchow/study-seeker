@@ -11,6 +11,7 @@ import styles from "./profile.module.css";
 // The Profile component shows data from the user table.  This is set up fairly generically to allow for you to customize
 // user data by adding it to the attributes for each user, which is just a set of name value pairs that you can add things to
 // in order to support your group specific functionality.  In this example, we store basic profile information for the user
+
 let deleteAccount = false;
 function confirmDeletePrompt() {
   //deleteAccount = window.confirm("Delete your account?");
@@ -45,6 +46,7 @@ export default class Profile extends React.Component {
       connection_id: -1,
       profile: this.props.userid === this.props.profileid,
       connection_status: "",
+      block_list: []
     };
     this.fieldChangeHandler.bind(this);
   }
@@ -112,6 +114,7 @@ export default class Profile extends React.Component {
                 rating: result.attributes.rating || "0",
                 edit: false,
                 connection_status: "Not sent",
+                block_list: result.attributes.block_list
               });
             }
           }
@@ -138,9 +141,6 @@ export default class Profile extends React.Component {
       privacy: event.target.privacy.value,
     });
 
-    console.log(this.state.profilePicture);
-    console.log(this.state.backgroundPicture);
-
     //make the api call to the user controller, and update the user fields (username, firstname, lastname)
     const body = {
       attributes: {
@@ -155,6 +155,8 @@ export default class Profile extends React.Component {
         privacy: event.target.privacy.value,
         profilePicture: this.state.profilePicture,
         backgroundPicture: this.state.backgroundPicture,
+        rating: this.state.rating,
+        block_list: this.state.block_list
       },
     };
 
@@ -172,6 +174,33 @@ export default class Profile extends React.Component {
       );
   };
 
+  updateBlockList = (user_id_1, user_id_2, action='add') =>{
+    if (this.props.userid !== this.props.profileid && user_id_1 != user_id_2) {
+      this.createFetch(
+        "/users/" + user_id_1,
+        "GET",
+        null)
+      .then((res) => res.json())
+      .then((result) => {
+          result.attributes.block_list = result.attributes.block_list?result.attributes.block_list:[];
+          if(action === 'add'){
+            result.attributes.block_list.push(user_id_2)
+          }
+          else{
+            result.attributes.block_list = result.attributes.block_list.filter((id)=> (id != user_id_2))
+          }
+          console.log(action, result.attributes.block_list);
+
+          this.createFetch(
+            "/users/" + user_id_1,
+            "PATCH",
+            result);
+        }, 
+        (error)=>{
+          alert("Failed blocklist update")
+        });
+    }
+  };
   getConnection = () => {
     if (this.props.userid !== this.props.profileid) {
       this.createFetch(
@@ -182,16 +211,7 @@ export default class Profile extends React.Component {
         .then((res) => res.json())
         .then(
           (result) => {
-            console.log(
-              "connection",
-              this.props.userid,
-              this.props.profileid,
-              result
-            );
-
             let connections = result[0].filter((connection) => {
-              console.log("TEST1", connection);
-              console.log(this.props.profileid);
               return (
                 connection.fromUserID.toString() === this.props.profileid ||
                 connection.toUserID.toString() === this.props.profileid
@@ -199,13 +219,21 @@ export default class Profile extends React.Component {
             });
 
             if (connections.length > 0) {
+              let status = "";
+              if(connections[0].attributes.status === "block" && 
+              connections[0].attributes.to == this.props.userid){
+                status = 'blocked';
+              }else if(connections[0].attributes.status === "pending" && 
+              connections[0].attributes.to == this.props.userid){
+                status = 'incomming';
+              }else{
+                status = connections[0].attributes.status;
+              }
               this.setState({
                 connection_id: connections[0].id,
-                connection_status: connections[0].attributes.status,
+                connection_status: status,
               });
             }
-
-            console.log("TEST", connections);
           },
           (error) => {
             this.props.toggleModal("error! checkConnection");
@@ -216,12 +244,22 @@ export default class Profile extends React.Component {
 
   connectionHandler = (event, status = "pending") => {
     event.preventDefault();
+    if(status === 'block'){
+      console.log("blocking list", this.props.userid, this.props.profileid)
+      this.updateBlockList(this.props.userid, this.props.profileid, 'add');
+      this.updateBlockList(this.props.profileid, this.props.userid, 'add');
+    }else if(status === 'unblock'){
+      this.updateBlockList(this.props.userid, this.props.profileid, 'remove');
+      this.updateBlockList(this.props.profileid, this.props.userid, 'remove');
+    }
     if (this.state.connection_id === -1) {
       const body = {
         fromUserID: Number(this.props.userid),
         toUserID: Number(this.props.profileid),
         attributes: {
           status: status,
+          by: Number(this.props.userid),
+          to: Number(this.props.profileid)
         },
       };
       this.createFetch("/connections", "POST", body)
@@ -237,45 +275,34 @@ export default class Profile extends React.Component {
             this.props.toggleModal("error");
           }
         );
-    } else if (status === "block") {
-      const body = {
-        fromUserID: Number(this.props.userid),
-        toUserID: Number(this.props.profileid),
-        attributes: {
-          status: status,
-        },
-      };
-      this.createFetch(
-        "/connections/" + this.state.connection_id,
-        "PATCH",
-        body
-      )
+    }else if(status === "block"){
+      this.createFetch("/connections/"+this.state.connection_id, "GET", null)
         .then((res) => res.json())
         .then(
           (result) => {
-            this.setState({
-              connection_status: status,
-            });
+            result.attributes.status = status;
+            result.attributes.by = this.props.userid;
+            result.attributes.to =  this.props.profileid;
+            this.createFetch("/connections/"+this.state.connection_id, "PATCH", result)
+            .then((res) => res.json())
+            .then((result) => {this.setState({connection_status:status})}, (error) => {alert("error");})
           },
           (error) => {
             this.props.toggleModal("error");
           }
         );
-    } else {
-      console.log("/connections/" + this.state.connection_id);
+    }else{
       this.createFetch(
         "/connections/" + this.state.connection_id,
         "DELETE",
-        null
-      )
+        null)
         .then((res) => res.text)
         .then(
           (result) => {
             this.setState({
-              blocked: status !== "unblock",
               connection_status: "Not sent",
+              connection_id: -1
             });
-            this.getConnection();
           },
           (error) => {
             this.props.toggleModal(error);
@@ -384,6 +411,7 @@ export default class Profile extends React.Component {
       "Not sent": "Connect",
       pending: "Pending",
       accepted: "Disconnect",
+      incomming: "Incomming"
     };
 
     const blockStatus = {
@@ -394,7 +422,7 @@ export default class Profile extends React.Component {
 
     return (
       <div className={styles.container}>
-        {this.state.user_exist ? (
+        {this.state.user_exist && this.state.connection_status !== "blocked" ? (
           <>
             <div className={styles.backgroundOverlay}></div>
             <img
@@ -474,7 +502,7 @@ export default class Profile extends React.Component {
                 (this.state.connection_status !== "Not sent" ? (
                   <button
                     className={styles.disconnectButton}
-                    onClick={(event) => this.connectionHandler(event)}
+                    onClick={(event) => this.connectionHandler(event, "disconnect")}
                   >
                     {connectionStatus[this.state.connection_status]}
                   </button>
@@ -482,7 +510,7 @@ export default class Profile extends React.Component {
                   <button
                     className={styles.connectButton}
                     onClick={(event) =>
-                      this.connectionHandler(event, "pending")
+                      this.connectionHandler(event)
                     }
                   >
                     {connectionStatus[this.state.connection_status]}
@@ -583,6 +611,8 @@ export default class Profile extends React.Component {
             />
           </>
         ) : (
+          this.state.connection_status === "blocked"?
+          <>User has blocked you</>:
           <>User does not exist</>
         )}
       </div>
