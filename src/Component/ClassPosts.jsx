@@ -154,7 +154,7 @@ export default class ClassPosts extends Component {
             id={postInfo.authorID}
             name={`${
               postInfo.author ? postInfo.author.attributes.firstName : "DELETED"
-            } ${postInfo.author ? postInfo.author.attributes.lastName : ""}`}
+            }`}
             profilePicture={
               postInfo.author ? postInfo.author.attributes.profilePicture : null
             }
@@ -183,7 +183,10 @@ class Post extends Component {
             }
             alt="Profile Pic"
           ></img>
+          <div className={styles.profileName}>
           {this.props.name}
+          </div>
+          
         </Link>
         <div className={styles.postText}>{this.props.content}</div>
       </div>

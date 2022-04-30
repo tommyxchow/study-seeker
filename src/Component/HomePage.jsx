@@ -269,7 +269,6 @@ export default class HomePage extends React.Component {
                     </div>
                   </div>
                   <div className={style.buttonContainer}>
-                    <button className={style.connect}>Connect</button>
                     <Link to={"/profile/" + this.state.all_students[idx].id}>
                       <button className={style.viewProfile}>
                         View Profile
