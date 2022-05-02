@@ -210,7 +210,7 @@ export default class HomePage extends React.Component {
                               .profilePicture
                           : "/hci/api/uploads/files/DOo1Ebbt8dYT4-plb6G6NP5jIc9_l_gNlaYwPW4SaBM.png")
                       }
-                      alt=""
+                      alt="Profile Avatar"
                       className={style.profilePicture}
                     />
 

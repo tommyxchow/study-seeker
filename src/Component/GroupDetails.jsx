@@ -397,7 +397,7 @@ export default class GroupDetails extends React.Component {
                   <img
                     className={groupcss.profilepicturegroupdetails}
                     src={"https://webdev.cse.buffalo.edu" + names[1]}
-                    alt={names[0] + "'s profile pic"}
+                    alt={names[0] + "'s Profile Avatar"}
                   />
                 </Link>
                 <div className={groupcss.membernames}>{names[0]}</div>

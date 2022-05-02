@@ -3,7 +3,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Sofia&display=swap");
 
 .App {
-  text-align: start;
+  text-align: flex-start;
 }
 
 .App-logo {
@@ -15,8 +15,7 @@
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  align-items: flex-center;
-  justify-content: start;
+  justify-content: flex-start;
   font-size: calc(5px + 2vmin);
   color: rgb(0, 0, 0);
 }

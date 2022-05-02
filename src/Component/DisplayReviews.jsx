@@ -410,7 +410,7 @@ export default class Reviews extends Component {
                                 : "/hci/api/uploads/files/DOo1Ebbt8dYT4-plb6G6NP5jIc9_l_gNlaYwPW4SaBM.png")
                             }
                             className={styles.picturecircle}
-                            alt="Reviewer Profile Pic"
+                            alt="Reviewer Profile Avatar"
                           ></img>
                         </Link>
                       </div>
