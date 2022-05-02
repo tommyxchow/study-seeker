@@ -83,7 +83,7 @@ export default class LoginForm extends React.Component {
           }
         },
         (error) => {
-          alert("User does not exist or password is invalid.");
+          this.props.toggleModal("User does not exist or password is invalid.");
         }
       );
   };

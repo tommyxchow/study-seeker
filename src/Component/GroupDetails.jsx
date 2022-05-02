@@ -273,7 +273,7 @@ export default class GroupDetails extends React.Component {
       this.forceUpdate();
       window.location.reload();
     } else {
-      alert(
+      this.props.toggleModal(
         "You are not in the group! Please join before changing privacy settings."
       );
     }
@@ -307,7 +307,7 @@ export default class GroupDetails extends React.Component {
       this.forceUpdate();
       window.location.reload();
     } else {
-      alert(
+      this.props.toggleModal(
         "You are not in the group! Please join before changing privacy settings."
       );
     }

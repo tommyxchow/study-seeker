@@ -14,8 +14,6 @@ import {
 } from "react-router-dom";
 import "./App.css";
 import ForgotPasswordPage from "./Component/ForgotPassword.jsx";
-import FriendForm from "./Component/FriendForm.jsx";
-import FriendList from "./Component/FriendList.jsx";
 import GroupsDetails from "./Component/GroupDetails.jsx";
 import GroupList from "./Component/GroupList.jsx";
 import HomePage from "./Component/HomePage.jsx";
@@ -32,9 +30,10 @@ import StyleGuide from "./Component/StyleGuide.jsx";
 // toggleModal will both show and hide the modal dialog, depending on current state.  Note that the
 // contents of the modal dialog are set separately before calling toggle - this is just responsible
 // for showing and hiding the component
-function toggleModal(app) {
+function toggleModal(app, error) {
   app.setState({
     openModal: !app.state.openModal,
+    modalError: error,
   });
 }
 
@@ -46,6 +45,7 @@ class App extends React.Component {
     super(props);
     this.state = {
       openModal: false,
+      modalError: "",
       refreshPosts: false,
       logout: false,
       login: false,
@@ -127,28 +127,49 @@ class App extends React.Component {
                   <Route path="/styleguide" element={<StyleGuide />} />
                   <Route
                     path="/profile"
-                    element={<ProfilePage login={this.login} />}
+                    element={
+                      <ProfilePage
+                        login={this.login}
+                        toggleModal={(error) => toggleModal(this, error)}
+                      />
+                    }
                   />
                   <Route
                     path="/profile/:id"
-                    element={<ProfilePage login={this.login} />}
-                  />
-                  <Route
-                    path="/friends"
-                    element={<Friends login={this.login} />}
+                    element={
+                      <ProfilePage
+                        login={this.login}
+                        toggleModal={(error) => toggleModal(this, error)}
+                      />
+                    }
                   />
                   <Route
                     path="/search"
-                    element={<Search login={this.login} />}
+                    element={
+                      <Search
+                        login={this.login}
+                        toggleModal={(error) => toggleModal(this, error)}
+                      />
+                    }
                   />
                   <Route
                     path="/groups"
-                    element={<Groups login={this.login} />}
+                    element={
+                      <Groups
+                        login={this.login}
+                        toggleModal={(error) => toggleModal(this, error)}
+                      />
+                    }
                   />
 
                   <Route
                     path="/groups/:id"
-                    element={<GroupDetails login={this.login} />}
+                    element={
+                      <GroupDetails
+                        login={this.login}
+                        toggleModal={(error) => toggleModal(this, error)}
+                      />
+                    }
                   />
                   <Route
                     path="/class/:id"
@@ -157,27 +178,60 @@ class App extends React.Component {
                         doRefreshPosts={this.doRefreshPosts}
                         login={this.login}
                         apprefresh={this.state.refreshPosts}
+                        toggleModal={(error) => toggleModal(this, error)}
                       />
                     }
                   />
                   <Route
                     path="/login"
-                    element={<LoginPage login={this.login} />}
+                    element={
+                      <LoginPage
+                        login={this.login}
+                        toggleModal={(error) => toggleModal(this, error)}
+                      />
+                    }
                   />
-                  <Route path="/register" element={<Register />} />
-                  <Route path="/reset-password" element={<ForgotPassword />} />
+                  <Route
+                    path="/register"
+                    element={
+                      <Registration
+                        toggleModal={(error) => toggleModal(this, error)}
+                      />
+                    }
+                  />
+                  <Route
+                    path="/reset-password"
+                    element={
+                      <ForgotPasswordPage
+                        toggleModal={(error) => toggleModal(this, error)}
+                      />
+                    }
+                  />
                   <Route
                     path="/connections"
-                    element={<Connections login={this.login} />}
+                    element={
+                      <Connections
+                        login={this.login}
+                        toggleModal={(error) => toggleModal(this, error)}
+                      />
+                    }
                   />
-                  <Route path="/" element={<Home login={this.login} />} />
+                  <Route
+                    path="/"
+                    element={
+                      <Home
+                        login={this.login}
+                        toggleModal={(error) => toggleModal(this, error)}
+                      />
+                    }
+                  />
                 </Routes>
               </div>
             </div>
           </header>
 
           <Modal show={this.state.openModal} onClose={(e) => toggleModal(this)}>
-            This is a modal dialog!
+            <p>{this.state.modalError}</p>
           </Modal>
         </div>
       </Router>
@@ -188,11 +242,6 @@ class App extends React.Component {
 /*  BEGIN ROUTE ELEMENT DEFINITIONS */
 // with the latest version of react router, you need to define the contents of the route as an element.  The following define functional components
 // that will appear in the routes.
-
-const Register = (props) => {
-  // show the study seeker registration form
-  return <Registration />;
-};
 
 const ProfilePage = (props) => {
   // if the user is not logged in, show the login form.  Otherwise, show the settings page
@@ -210,26 +259,11 @@ const ProfilePage = (props) => {
   }
   return (
     <div className="Profile">
-      <Profile userid={user_id} profileid={id} />
-    </div>
-  );
-};
-
-const Friends = (props) => {
-  // if the user is not logged in, show the login form.  Otherwise, show the friends page
-  if (!sessionStorage.getItem("token")) {
-    console.log("LOGGED OUT");
-    return (
-      <div>
-        <LandingPage login={props.login} />
-      </div>
-    );
-  }
-  return (
-    <div>
-      <p>Friends</p>
-      <FriendForm userid={sessionStorage.getItem("user")} />
-      <FriendList userid={sessionStorage.getItem("user")} />
+      <Profile
+        userid={user_id}
+        profileid={id}
+        toggleModal={props.toggleModal}
+      />
     </div>
   );
 };
@@ -246,7 +280,10 @@ const Search = (props) => {
   }
   return (
     <div>
-      <SearchForm userid={sessionStorage.getItem("user")} />
+      <SearchForm
+        userid={sessionStorage.getItem("user")}
+        toggleModal={props.toggleModal}
+      />
     </div>
   );
 };
@@ -263,7 +300,10 @@ const Groups = (props) => {
   }
   return (
     <div>
-      <GroupList userid={sessionStorage.getItem("user")} />
+      <GroupList
+        userid={sessionStorage.getItem("user")}
+        toggleModal={props.toggleModal}
+      />
     </div>
   );
 };
@@ -280,7 +320,10 @@ const GroupDetails = (props) => {
   }
   return (
     <div>
-      <GroupsDetails userid={sessionStorage.getItem("user")} />
+      <GroupsDetails
+        userid={sessionStorage.getItem("user")}
+        toggleModal={props.toggleModal}
+      />
     </div>
   );
 };
@@ -308,6 +351,7 @@ const Posts = (props) => {
           refresh={props.apprefresh}
           userid={Number(sessionStorage.getItem("user"))}
           classId={id}
+          toggleModal={props.toggleModal}
         />
       </div>
     );
@@ -327,7 +371,7 @@ const Connections = (props) => {
   }
   return (
     <>
-      <ConnectionRequest userid={user_id} />
+      <ConnectionRequest userid={user_id} toggleModal={props.toggleModal} />
     </>
   );
   //return <ConnectionRequest />;
@@ -342,12 +386,10 @@ const Home = (props) => {
     console.log("LOGGED OUT");
     return <LandingPage login={props.login} />;
   }
-  return <HomePage classId={id} userid={user_id} />;
+  return (
+    <HomePage classId={id} userid={user_id} toggleModal={props.toggleModal} />
+  );
   //return <ConnectionRequest />;
-};
-
-const ForgotPassword = (props) => {
-  return <ForgotPasswordPage />;
 };
 
 /* END ROUTE ELEMENT DEFINITIONS */
