@@ -122,7 +122,6 @@ export default class ConnectionRequest extends React.Component {
     var arrConnections = [];
     var arrUserID = [];
     var connectionToID = [];
-<<<<<<< HEAD
     //fetch all requests sent to the user
     fetch(
       "https://webdev.cse.buffalo.edu/hci/api/api/commitment/connections/?toUserID=" +
@@ -139,7 +138,7 @@ export default class ConnectionRequest extends React.Component {
             json.push(result[0][i]);
           }
         }
-        console.log(json.length);
+        console.log("json length", json.length);
         for (var a = 0; a < json.length; a++) {
           console.log("JSONA", json[a]);
           arrConnections.push(json[a].id);
@@ -151,34 +150,18 @@ export default class ConnectionRequest extends React.Component {
               json[a].fromUser.attributes.lastName[0] +
               "."
           ] = json[a].fromUserID;
-          // user_image_map[
-          //   json[a].fromUser.attributes.firstName +
-          //     " " +
-          //     json[a].fromUser.attributes.lastName[0] +
-          //     "."
-          // ] = json[a].fromUserID.attributes.profilePicture;
-=======
-    fetch("https://webdev.cse.buffalo.edu/hci/api/api/commitment/connections/?toUserID=" + sessionStorage.getItem("user"), requestOptionsGet)
-      .then(response => response.json())
-      .then(result => {
-         for(var i = 0; i < result.length; i++){
-           if(result[0][i] === undefined){
-             break;
-           }
-           else{
-            json.push(result[0][i]);
-           }
-         }
-        for (var a = 0; a < json.length; a++){
-          if(json[a].attributes.status != 'block' && json[a].attributes.status != 'blocked'){
-            arrConnections.push(json[a].id);
-            arrUserID.push(json[a].fromUserID);
-            connectionToID.push([json[a].id,json[a].fromUserID]);
-            user_id_map[json[a].fromUser.attributes.firstName + " " + json[a].fromUser.attributes.lastName[0] + "."] = json[a].fromUserID;
-          }
->>>>>>> dev
+          user_image_map[
+            json[a].fromUser.attributes.firstName +
+              " " +
+              json[a].fromUser.attributes.lastName[0] +
+              "."
+          ] = json[a].fromUser.attributes.profilePicture;
         }
+        console.log("testing",user_image_map);
+        console.log("arrConnections", arrConnections);
+        if (arrConnections.length !== 0){
         for (var b = 0; b < arrConnections.length; b++) {
+        console.log("arrConnections", arrConnections);
           fetch(
             "https://webdev.cse.buffalo.edu/hci/api/api/commitment/connections/" +
               arrConnections[b],
@@ -230,6 +213,7 @@ export default class ConnectionRequest extends React.Component {
             })
             .catch((error) => console.log("error", error));
         }
+      }
       })
       .catch((error) => console.log("error", error));
     fetch(
@@ -241,6 +225,7 @@ export default class ConnectionRequest extends React.Component {
         for (var i = 0; i < result[0].length; i++) {
           let name = "";
           let id = -1;
+          let image = "";
           if (result[0][i].attributes.status == null) {
             continue;
           }
@@ -254,6 +239,7 @@ export default class ConnectionRequest extends React.Component {
               result[0][i].toUser.attributes.lastName[0] +
               ".";
             id = result[0][i].toUser.id;
+            image = result[0][i].toUser.attributes.profilePicture;
             this.setState({
               imageID: result[0][i].toUser.attributes.profilePicture,
             });
@@ -264,6 +250,8 @@ export default class ConnectionRequest extends React.Component {
               }));
             }
             user_id_map[name] = id;
+            user_image_map[name] = image;
+            this.forceUpdate();
           } else if (
             result[0][i].attributes.status == "accepted" &&
             result[0][i].toUserID == this.props.userid
@@ -274,6 +262,7 @@ export default class ConnectionRequest extends React.Component {
               result[0][i].fromUser.attributes.lastName[0] +
               ".";
             id = result[0][i].fromUser.id;
+            image = result[0][i].fromUser.attributes.profilePicture;
             this.setState({
               imageID: result[0][i].fromUser.attributes.profilePicture,
             });
@@ -283,6 +272,8 @@ export default class ConnectionRequest extends React.Component {
               }));
             }
             user_id_map[name] = id;
+            user_image_map[name] = image;
+            this.forceUpdate();
           }
         }
       })
@@ -291,10 +282,11 @@ export default class ConnectionRequest extends React.Component {
 
   render() {
     let accepted = Array.from(new Set(this.state.accepted_friends));
-    console.log("accepted", accepted);
+    // console.log("accepted", accepted);
 
-    console.log("useridmap", user_id_map);
-    console.log("STATE", this.state);
+    // console.log("useridmap", user_id_map);
+    // console.log("userimagemap", user_image_map);
+    // console.log("STATE", this.state);
     return (
       <div className="App">
         <div className={connections.requests}>Connection Requests</div>
@@ -304,9 +296,9 @@ export default class ConnectionRequest extends React.Component {
             return (
               <div key={name} className={connections.testdiv}>
                 <div className={connections.topdiv}>
-                  <img
+]                  <img
                     className={connections.picturecircle}
-                    src={"https://webdev.cse.buffalo.edu/" + this.state.imageID}
+                    src={"https://webdev.cse.buffalo.edu/" + user_image_map[name]}
                     alt={name + "'s profile picture"}
                   />
                   <Link
@@ -367,9 +359,11 @@ export default class ConnectionRequest extends React.Component {
             return (
               <div key={name}>
                 <div className={connections.div}>
+                  {console.log("yoyo why it not work", name)}
+                  {console.log("yoyo why it not work", user_image_map[name])}
                   <img
                     className={connections.picturecircle}
-                    src={"https://webdev.cse.buffalo.edu/"}
+                    src={"https://webdev.cse.buffalo.edu/" + user_image_map[name]}
                     alt={name + "'s profile picture"}
                   />
                   <Link
