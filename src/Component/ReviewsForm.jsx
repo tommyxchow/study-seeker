@@ -164,7 +164,7 @@ export default class ReviewForm extends Component {
           <img
             className={styles.profilePicture}
             src={"https://webdev.cse.buffalo.edu" + this.state.profilePicture}
-            alt="Profile Pic"
+            alt="Profile Avatar"
           />
           <input
             className={styles.input}

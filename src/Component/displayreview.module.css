@@ -56,6 +56,17 @@
     color: #6C6C6C;
 }
 
+.deleteIcon{
+  width:40px;
+  height:40px;
+}
+
+.alignDelete{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .stars {
     flex-direction: row;
     display: flex;
@@ -120,6 +131,10 @@
     align-items: center;
 
     margin-top: 5px;
+  }
+  
+  .alignDelete{
+    margin-bottom: 10px;
   }
 
   .stars {

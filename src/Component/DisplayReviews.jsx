@@ -8,6 +8,7 @@ import unblockIcon from "../assets/thumbsup.png";
 import starIcon from "../assets/unlitstar.svg";
 import styles from "./displayreview.module.css";
 import ReviewForm from "./ReviewsForm";
+import deleteIcon from "../assets/delete.png";
 
 export default class Reviews extends Component {
   constructor(props) {
@@ -179,6 +180,18 @@ export default class Reviews extends Component {
         }),
       }).then(() => this.loadFriends());
     }
+  }
+
+  handleDeletePost(post) {
+    
+      fetch(process.env.REACT_APP_API_PATH + "/posts/" + post.id, {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + sessionStorage.getItem("token"),
+        },
+      }).then(() => this.loadFriends()).then(()=> window.location.reload());
+    
   }
 
   render() {
@@ -410,7 +423,7 @@ export default class Reviews extends Component {
                                 : "/hci/api/uploads/files/DOo1Ebbt8dYT4-plb6G6NP5jIc9_l_gNlaYwPW4SaBM.png")
                             }
                             className={styles.picturecircle}
-                            alt="Reviewer Profile Pic"
+                            alt="Reviewer Profile Avatar"
                           ></img>
                         </Link>
                       </div>
@@ -446,6 +459,16 @@ export default class Reviews extends Component {
                         />
                       </div>
                     </div>
+                    {post.authorID === parseInt(sessionStorage.getItem("user")) && (
+                      <div className={styles.alignDelete}>
+                        <img 
+                          className={styles.deleteIcon}
+                          src={deleteIcon} 
+                          alt="delete posts"
+                          onClick={() => this.handleDeletePost(post)}
+                          />
+                    </div>
+                    )}
                   </>
                 )}
               </div>

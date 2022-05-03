@@ -393,14 +393,14 @@ export default class GroupDetails extends React.Component {
             console.log(this.state.usernameList);
             return (
               <div className={groupcss.membersdiv}>
-                <Link to={/profile/ + names[2]}>
+                <Link to={/profile/ + names[2]} className={groupcss.link}>
                   <img
                     className={groupcss.profilepicturegroupdetails}
                     src={"https://webdev.cse.buffalo.edu" + names[1]}
-                    alt={names[0] + "'s profile pic"}
+                    alt={names[0] + "'s Profile Avatar"}
                   />
+                  <div className={groupcss.membernames}>{names[0]}</div>
                 </Link>
-                <div className={groupcss.membernames}>{names[0]}</div>
                 <div className={groupcss.memberstardiv}>
                   <img
                     className={groupcss.stargroupdetails}
