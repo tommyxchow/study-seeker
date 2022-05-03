@@ -1,13 +1,11 @@
 .grouplist {
   text-align: left;
-  background: #FFFFFF;
-  margin-top: 15px;
-  margin-left: 50px;
+  background: #ffffff;
   width: 420px;
   height: 70px;
-  display: inline-flex;
-  border-style: solid;
+  display: flex;
   flex-direction: row;
+  border-style: solid;
   justify-content: space-between;
   border-width: 2px;
   text-decoration: none;
@@ -19,7 +17,7 @@
   height: 0px;
   margin-left: 50px;
 
-  border: 1px solid #000000
+  border: 1px solid #000000;
 }
 
 .mygroups {
@@ -65,7 +63,7 @@
 .students {
   width: 71px;
   height: 17px;
-  
+
   font-family: 'Exo';
   font-style: normal;
   font-weight: 500;
@@ -73,7 +71,7 @@
   line-height: 19px;
   margin-bottom: 6px;
 
-  color: #C4C4C4;
+  color: #c4c4c4;
 }
 
 .rating {
@@ -87,7 +85,7 @@
   font-size: 14px;
   line-height: 19px;
 
-  color: #C4C4C4;
+  color: #c4c4c4;
 }
 
 .membercount {
@@ -102,10 +100,14 @@
   margin-left: 12.7px;
   margin-top: 0px;
 
-  color: #C4C4C4;
+  color: #c4c4c4;
 }
 
 .container {
+  flex-direction: row;
+}
+
+.studentsContainer {
   flex-direction: row;
 }
 
@@ -113,7 +115,7 @@
   display: inline-flex;
 }
 
-.leavebutton{
+.leavebutton {
   background-color: #ff0000; /* Red */
   width: 80px !important;
   height: 30px !important;
@@ -131,7 +133,7 @@
   align-self: center;
 }
 
-.star{
+.star {
   align-self: center;
   width: 15px;
   height: 14px;
@@ -140,7 +142,7 @@
   box-sizing: border-box;
 }
 
-.stargroupdetails{
+.stargroupdetails {
   align-self: center;
   width: 15px;
   height: 15px;
@@ -229,6 +231,7 @@
   flex-direction: column;
   display: flex;
   margin-left: 38px;
+  align-items: center;
 }
 
 .membernames {
@@ -238,6 +241,7 @@
   font-size: 18px;
   line-height: 24px;
   text-align: center;
+  text-decoration: none;
 
   margin-top: 5px;
 
@@ -252,9 +256,11 @@
 .groupdiv {
   flex-direction: row;
   display: flex;
+  margin-top: 15px;
+  margin-left: 50px;
 }
 
-.groupleavebutton{
+.groupleavebutton {
   background-color: #ff0000; /* Red */
   width: 80px !important;
   height: 30px !important;
@@ -273,8 +279,8 @@
   margin-top: 29px;
 }
 
-.groupjoinbutton{
-  background-color: #0CAF30; /* Green */
+.groupjoinbutton {
+  background-color: #0caf30; /* Green */
   width: 80px !important;
   height: 30px !important;
   border: none;
@@ -290,4 +296,122 @@
   display: inline-block;
   align-self: center;
   margin-top: 29px;
+}
+
+.link {
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  text-decoration: none;
+}
+
+.link:hover {
+  text-decoration: underline;
+}
+
+@media only screen and (max-width: 1000px) {
+  .mygroups,
+  .groupname,
+  .line,
+  .groupdiv {
+    margin-left: 10px;
+  }
+
+  .grouplist {
+    width: 100%;
+  }
+
+  .name {
+    margin-right: 1rem;
+    white-space: nowrap;
+  }
+
+  .leavebutton {
+    margin-right: 1rem;
+    font-size: 0.8rem;
+  }
+
+  .div1 {
+  flex-direction: row;
+  display: flex;
+  flex-wrap: wrap;
+  }
+
+  .memberstardiv {
+    align-self: center;
+    margin-top: 0px;
+  }
+
+  .membersdiv {
+    flex-direction: column;
+    display: flex;
+    margin-left: 38px;
+    align-items: center;
+    width: 9rem;
+  }
+
+  .groupdetailname {
+    font-family: 'Exo';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 36px;
+    line-height: 48px;
+    margin-left: 13px;
+    margin-top: 15px;
+  
+    color: #000000;
+  }
+
+  .text {
+    font-family: 'Exo';
+    font-style: italic;
+    font-weight: 400;
+    font-size: 24px;
+    line-height: 32px;
+    margin-left: 13px;
+    margin-top: 31px;
+    margin-bottom: 12px;
+  
+    color: #000000;
+  }
+
+  .stardivgroupdetails {
+    margin-left: 13px;
+  }
+
+  .buttondiv {
+    font-family: 'Exo';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 19px;
+    margin-left: 13px;
+  
+    color: #000000;
+  }
+
+  .groupleavebutton {
+    background-color: #ff0000; /* Red */
+    width: 80px !important;
+    height: 30px !important;
+    border: none;
+    color: rgb(0, 0, 0);
+    text-align: center;
+    font-family: Exo;
+    font-weight: bold;
+    text-decoration: none;
+    font-size: 18px;
+    margin-left: 18px;
+    cursor: pointer;
+    border-radius: 25px;
+    display: inline-block;
+    align-self: center;
+    margin-top: 15px;
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  .studentsContainer {
+    display: none;
+  }
 }

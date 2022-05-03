@@ -24,9 +24,9 @@ export class ForgotPassword extends Component {
       }),
     }).then((res) => {
       if (res.ok) {
-        alert("Reset Token Sent to Email!");
+        this.props.toggleModal("Reset Token Sent to Email!");
       } else {
-        alert("Invalid Email.");
+        this.props.toggleModal("Invalid Email.");
       }
     });
   };
@@ -45,10 +45,10 @@ export class ForgotPassword extends Component {
       }),
     }).then((res) => {
       if (res.ok) {
-        alert("Password Reset!");
+        this.props.toggleModal("Password Reset!");
         this.setState({ reset: true });
       } else {
-        alert("Invalid or Expired Token.");
+        this.props.toggleModal("Invalid or Expired Token.");
       }
     });
   };
@@ -58,48 +58,44 @@ export class ForgotPassword extends Component {
 
     return (
       <div className={styles.container}>
-          <div className={styles.content}>
-            <strong className={styles.logoText}>
-              Study
-              <br />
-              Seeker
-            </strong>
-            <b className={styles.subtitle}>RESET YOUR PASSWORD</b>
-            <form className={styles.form} onSubmit={this.requestReset}>
-              <input
-                className={styles.input}
-                type="email"
-                name="email"
-                placeholder="Email"
-                required
-              />
-              <input
-                type="submit"
-                value="Send Email"
-                className={styles.button}
-              />
-            </form>
-            <form className={styles.form} onSubmit={this.resetPassword}>
-              <input
-                className={styles.input}
-                type="text"
-                name="token"
-                placeholder="Token"
-                required
-              />
-              <input
-                className={styles.input}
-                type="password"
-                name="newPassword"
-                placeholder="New Password"
-                required
-              />
-              <input type="submit" value="Reset" className={styles.button} />
-            </form>
-            <Link className={styles.noAccount} to="/login">
-              Back to login
-            </Link>
-          </div>
+        <div className={styles.content}>
+          <strong className={styles.logoText}>
+            Study
+            <br />
+            Seeker
+          </strong>
+          <b className={styles.subtitle}>RESET YOUR PASSWORD</b>
+          <form className={styles.form} onSubmit={this.requestReset}>
+            <input
+              className={styles.input}
+              type="email"
+              name="email"
+              placeholder="Email"
+              required
+            />
+            <input type="submit" value="Send Email" className={styles.button} />
+          </form>
+          <form className={styles.form} onSubmit={this.resetPassword}>
+            <input
+              className={styles.input}
+              type="text"
+              name="token"
+              placeholder="Token"
+              required
+            />
+            <input
+              className={styles.input}
+              type="password"
+              name="newPassword"
+              placeholder="New Password"
+              required
+            />
+            <input type="submit" value="Reset" className={styles.button} />
+          </form>
+          <Link className={styles.noAccount} to="/login">
+            Back to login
+          </Link>
+        </div>
       </div>
     );
   }

@@ -15,7 +15,7 @@
 .className{
     font-style: normal;
     font-weight: 500;
-    font-size: 72px;
+    font-size: 7vw;
     line-height: 96px;
 }
 .classJoin, .classLeave{
@@ -49,25 +49,29 @@
 .about, .student, .alumni, .posts, .groups{
     font-style: normal;
     font-weight: 400;
-    font-size: 36px;
+    font-size: 5vh;
 }
 .arrow{
     font-weight: 1000;
     cursor: pointer;
 }
 .horizontalLine{
-    width: 75vw;
+    width: 90vw;
 }
 .instructorLine{
     display: flex;
     padding-bottom: 2vh;
 }
-.instructor{}
+.instructor{
+    font-size: 3vh;
+}
 
 .instructorName{
+    font-size: 3vh;
     margin-left: 2vh;
 }
 .classDiscription{
+    font-size: 3vh;
     margin-bottom: 5vh;
 }
 
@@ -83,14 +87,14 @@
     align-items: center;
 }
 .studentImage{
-    height: 30px;
-    width: 30px;
+    height: 5vh;
+    width: 5vh;
     border-radius: 100%;
 }
 .studentName{
     font-style: normal;
     font-weight: 500;
-    font-size: 18px;
+    font-size: 3vh;
 }
 .allClasses{
     display: flex;
@@ -121,3 +125,17 @@
     padding-bottom: 5px;
 }
 
+@media only screen and (max-width: 1000px) {
+    .className{
+        font-style: normal;
+        font-weight: 500;
+        font-size: 6.5vh;
+        line-height: 96px;
+    }
+}
+
+@media screen and (max-width: 430px){
+    .container{
+        padding: 1vh;
+    }
+}
