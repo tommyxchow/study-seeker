@@ -273,14 +273,16 @@ export default class ConnectionRequest extends React.Component {
               <div key={name} className={connections.testdiv}>
                 <div className={connections.topdiv}>
                   <Link
-                    to={"/profile/" + user_id_map[name]} className={connections.link}>
-                  <img
-                    className={connections.picturecircle}
-                    src={
-                      "https://webdev.cse.buffalo.edu/" + user_image_map[name]
-                    }
-                    alt={name + "'s profile picture"}
-                  />
+                    to={"/profile/" + user_id_map[name]}
+                    className={connections.link}
+                  >
+                    <img
+                      className={connections.picturecircle}
+                      src={
+                        "https://webdev.cse.buffalo.edu/" + user_image_map[name]
+                      }
+                      alt={name + "'s profile picture"}
+                    />
                     <div className={connections.name}>{name}</div>
                   </Link>
                   <div className={connections.stars}>
@@ -334,7 +336,10 @@ export default class ConnectionRequest extends React.Component {
             return (
               <div key={name}>
                 <div className={connections.div}>
-                  <Link to={"/profile/" + user_id_map[name]} className={connections.link}>
+                  <Link
+                    to={"/profile/" + user_id_map[name]}
+                    className={connections.link}
+                  >
                     <img
                       className={connections.picturecircle}
                       src={

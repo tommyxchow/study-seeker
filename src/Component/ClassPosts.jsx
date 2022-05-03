@@ -122,7 +122,7 @@ export default class ClassPosts extends Component {
             <img
               className={styles.profilePicture}
               src={"https://webdev.cse.buffalo.edu" + this.state.profilePicture}
-              alt="Profile Pic"
+              alt="Profile Avatar"
             ></img>
             {this.state.name}
           </div>
@@ -181,7 +181,7 @@ class Post extends Component {
               (this.props.profilePicture ??
                 "/hci/api/uploads/files/DOo1Ebbt8dYT4-plb6G6NP5jIc9_l_gNlaYwPW4SaBM.png")
             }
-            alt="Profile Pic"
+            alt="Profile Avatar"
           ></img>
           <div className={styles.profileName}>
           {this.props.name}

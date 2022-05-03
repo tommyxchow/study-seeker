@@ -455,7 +455,7 @@ export default class Profile extends React.Component {
                   "https://webdev.cse.buffalo.edu" + this.state.profilePicture
                 }
                 className={styles.profilePicture}
-                alt="Profile Pic"
+                alt="Profile Avatar"
               />
               {this.state.edit && (
                 <>
