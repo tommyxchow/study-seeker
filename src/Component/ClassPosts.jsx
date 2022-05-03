@@ -29,7 +29,6 @@ export default class ClassPosts extends Component {
   }
 
   componentDidMount() {
-    console.log(this.props.classId);
     fetch(
       process.env.REACT_APP_API_PATH +
         "/posts?recipientGroupID=" +
@@ -40,6 +39,10 @@ export default class ClassPosts extends Component {
     )
       .then((res) => res.json())
       .then((result) => {
+        result[0].forEach(post => {
+          console.log(((post.author !== null && post.author.attributes.block_list !== undefined)?post.author.attributes.block_list:[]).includes(sessionStorage.getItem("user")));
+        });
+        result[0] = result[0].filter((post)=>(!((post.author !== null && post.author.attributes.block_list !== undefined)?post.author.attributes.block_list:[]).includes(sessionStorage.getItem("user"))));
         this.setState({ posts: result[0] });
       });
 
@@ -151,7 +154,7 @@ export default class ClassPosts extends Component {
             id={postInfo.authorID}
             name={`${
               postInfo.author ? postInfo.author.attributes.firstName : "DELETED"
-            } ${postInfo.author ? postInfo.author.attributes.lastName : ""}`}
+            }`}
             profilePicture={
               postInfo.author ? postInfo.author.attributes.profilePicture : null
             }
@@ -180,7 +183,10 @@ class Post extends Component {
             }
             alt="Profile Avatar"
           ></img>
+          <div className={styles.profileName}>
           {this.props.name}
+          </div>
+          
         </Link>
         <div className={styles.postText}>{this.props.content}</div>
       </div>
