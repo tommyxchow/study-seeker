@@ -231,6 +231,7 @@
   flex-direction: column;
   display: flex;
   margin-left: 38px;
+  align-items: center;
 }
 
 .membernames {
@@ -240,6 +241,7 @@
   font-size: 18px;
   line-height: 24px;
   text-align: center;
+  text-decoration: none;
 
   margin-top: 5px;
 
@@ -294,6 +296,17 @@
   display: inline-block;
   align-self: center;
   margin-top: 29px;
+}
+
+.link {
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  text-decoration: none;
+}
+
+.link:hover {
+  text-decoration: underline;
 }
 
 @media only screen and (max-width: 1000px) {

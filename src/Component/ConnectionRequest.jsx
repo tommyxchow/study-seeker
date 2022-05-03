@@ -46,16 +46,12 @@ export default class ConnectionRequest extends React.Component {
   }
 
   fieldChangeHandler(field, e) {
-    console.log("field change");
     this.setState({
       [field]: e.target.value,
     });
   }
 
   removeHandler_Accept(givenName) {
-    console.log("this is: ", givenName);
-    console.log("userid: ", this.state.fromUserID);
-    console.log("connectionid: ", this.state.connection_id);
     const newList = this.state.names.filter((name) => name !== givenName);
     const newConnectionList = this.state.connection_id_list.filter(
       (id) => id !== this.state.connection_id
@@ -93,9 +89,6 @@ export default class ConnectionRequest extends React.Component {
   }
 
   removeHandler_Reject(givenName) {
-    console.log("this is: ", givenName);
-    console.log("userid: ", this.state.fromUserID);
-    console.log("connectionid: ", this.state.connection_id);
     const newList = this.state.names.filter((name) => name !== givenName);
     const newConnectionList = this.state.connection_id_list.filter(
       (id) => id !== this.state.connection_id
@@ -130,7 +123,6 @@ export default class ConnectionRequest extends React.Component {
     )
       .then((response) => response.json())
       .then((result) => {
-        console.log("fetch", result);
         for (var i = 0; i < result.length; i++) {
           if (result[0][i] === undefined) {
             break;
@@ -138,9 +130,7 @@ export default class ConnectionRequest extends React.Component {
             json.push(result[0][i]);
           }
         }
-        console.log("json length", json.length);
         for (var a = 0; a < json.length; a++) {
-          console.log("JSONA", json[a]);
           arrConnections.push(json[a].id);
           arrUserID.push(json[a].fromUserID);
           connectionToID.push([json[a].id, json[a].fromUserID]);
@@ -157,63 +147,55 @@ export default class ConnectionRequest extends React.Component {
               "."
           ] = json[a].fromUser.attributes.profilePicture;
         }
-        console.log("testing",user_image_map);
-        console.log("arrConnections", arrConnections);
-        if (arrConnections.length !== 0){
-        for (var b = 0; b < arrConnections.length; b++) {
-        console.log("arrConnections", arrConnections);
-          fetch(
-            "https://webdev.cse.buffalo.edu/hci/api/api/commitment/connections/" +
-              arrConnections[b],
-            requestOptionsGet
-          )
-            .then((response) => response.json())
-            .then((result) => {
-              console.log("result__", result);
-              console.log("result.attributes.status", result.attributes.status);
-              if (result.attributes.status === "accepted") {
-                this.setState((prevState) => ({
-                  accepted_friends: [
-                    result.fromUser.attributes.firstName +
-                      " " +
-                      result.fromUser.attributes.lastName[0] +
-                      ".",
-                    ...prevState.accepted_friends,
-                  ],
-                }));
-              } else {
-                this.setState({
-                  names: this.state.names.concat(
-                    result.fromUser.attributes.firstName +
-                      " " +
-                      result.fromUser.attributes.lastName[0] +
-                      "."
-                  ),
-                });
-                this.setState({
-                  connection_id_list: this.state.connection_id_list.concat(
-                    result.id
-                  ),
-                });
-                this.setState({
-                  userID_list: this.state.userID_list.concat(result.fromUserID),
-                });
-                this.setState({ connection_id: result.id });
-                this.setState({ fromUserID: result.fromUserID });
-                this.setState({
-                  imageID: result.fromUser.attributes.profilePicture,
-                });
-                console.log("names", this.state.names);
-                console.log(
-                  "connection_id_list",
-                  this.state.connection_id_list
-                );
-                console.log("fromUserID list", this.state.userID_list);
-              }
-            })
-            .catch((error) => console.log("error", error));
+
+        if (arrConnections.length !== 0) {
+          for (var b = 0; b < arrConnections.length; b++) {
+            fetch(
+              "https://webdev.cse.buffalo.edu/hci/api/api/commitment/connections/" +
+                arrConnections[b],
+              requestOptionsGet
+            )
+              .then((response) => response.json())
+              .then((result) => {
+                if (result.attributes.status === "accepted") {
+                  this.setState((prevState) => ({
+                    accepted_friends: [
+                      result.fromUser.attributes.firstName +
+                        " " +
+                        result.fromUser.attributes.lastName[0] +
+                        ".",
+                      ...prevState.accepted_friends,
+                    ],
+                  }));
+                } else {
+                  this.setState({
+                    names: this.state.names.concat(
+                      result.fromUser.attributes.firstName +
+                        " " +
+                        result.fromUser.attributes.lastName[0] +
+                        "."
+                    ),
+                  });
+                  this.setState({
+                    connection_id_list: this.state.connection_id_list.concat(
+                      result.id
+                    ),
+                  });
+                  this.setState({
+                    userID_list: this.state.userID_list.concat(
+                      result.fromUserID
+                    ),
+                  });
+                  this.setState({ connection_id: result.id });
+                  this.setState({ fromUserID: result.fromUserID });
+                  this.setState({
+                    imageID: result.fromUser.attributes.profilePicture,
+                  });
+                }
+              })
+              .catch((error) => console.log("error", error));
+          }
         }
-      }
       })
       .catch((error) => console.log("error", error));
     fetch(
@@ -244,7 +226,6 @@ export default class ConnectionRequest extends React.Component {
               imageID: result[0][i].toUser.attributes.profilePicture,
             });
             if (!this.state.accepted_friends.includes(name)) {
-              console.log(this.state.accepted_friends.includes(name));
               this.setState((prevState) => ({
                 accepted_friends: [name, ...prevState.accepted_friends],
               }));
@@ -282,11 +263,6 @@ export default class ConnectionRequest extends React.Component {
 
   render() {
     let accepted = Array.from(new Set(this.state.accepted_friends));
-    // console.log("accepted", accepted);
-
-    // console.log("useridmap", user_id_map);
-    // console.log("userimagemap", user_image_map);
-    // console.log("STATE", this.state);
     return (
       <div className="App">
         <div className={connections.requests}>Connection Requests</div>
@@ -296,16 +272,16 @@ export default class ConnectionRequest extends React.Component {
             return (
               <div key={name} className={connections.testdiv}>
                 <div className={connections.topdiv}>
-]                  <img
+                  <Link
+                    to={"/profile/" + user_id_map[name]} className={connections.link}>
+                  <img
                     className={connections.picturecircle}
-                    src={"https://webdev.cse.buffalo.edu/" + user_image_map[name]}
+                    src={
+                      "https://webdev.cse.buffalo.edu/" + user_image_map[name]
+                    }
                     alt={name + "'s profile picture"}
                   />
-                  <Link
-                    to={"/profile/" + user_id_map[name]}
-                    className={connections.name}
-                  >
-                    {name}
+                    <div className={connections.name}>{name}</div>
                   </Link>
                   <div className={connections.stars}>
                     <img
@@ -351,7 +327,6 @@ export default class ConnectionRequest extends React.Component {
             );
           })}
         </div>
-        {/* {console.log("testing",this.state.accepted_friends)} */}
         <div className={connections.connections}>Connections</div>
         <div className={connections.line2}> </div>
         <div className={connections.container}>
@@ -359,18 +334,15 @@ export default class ConnectionRequest extends React.Component {
             return (
               <div key={name}>
                 <div className={connections.div}>
-                  {console.log("yoyo why it not work", name)}
-                  {console.log("yoyo why it not work", user_image_map[name])}
-                  <img
-                    className={connections.picturecircle}
-                    src={"https://webdev.cse.buffalo.edu/" + user_image_map[name]}
-                    alt={name + "'s profile picture"}
-                  />
-                  <Link
-                    to={"/profile/" + user_id_map[name]}
-                    className={connections.name}
-                  >
-                    {name}
+                  <Link to={"/profile/" + user_id_map[name]} className={connections.link}>
+                    <img
+                      className={connections.picturecircle}
+                      src={
+                        "https://webdev.cse.buffalo.edu/" + user_image_map[name]
+                      }
+                      alt={name + "'s profile picture"}
+                    />
+                    <div className={connections.name}>{name}</div>
                   </Link>
                   <div className={connections.stars}>
                     <img
