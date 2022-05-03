@@ -603,6 +603,7 @@ export default class Profile extends React.Component {
               </div>
             </div>
             <Reviews
+              userId={this.props.userid}
               profileId={this.props.profileid}
               showForm={
                 sessionStorage.getItem("user") !== this.props.profileid &&
