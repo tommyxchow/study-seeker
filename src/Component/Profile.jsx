@@ -197,7 +197,7 @@ export default class Profile extends React.Component {
             result);
         }, 
         (error)=>{
-          alert("Failed blocklist update")
+          this.props.toggleModal("Could not block the user, try again please");
         });
     }
   };
@@ -285,7 +285,7 @@ export default class Profile extends React.Component {
             result.attributes.to =  this.props.profileid;
             this.createFetch("/connections/"+this.state.connection_id, "PATCH", result)
             .then((res) => res.json())
-            .then((result) => {this.setState({connection_status:status})}, (error) => {alert("error");})
+            .then((result) => {this.setState({connection_status:status})}, (error) => {this.props.toggleModal("Blocking failed please try again");})
           },
           (error) => {
             this.props.toggleModal("error");
