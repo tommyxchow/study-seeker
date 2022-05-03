@@ -45,7 +45,8 @@
   text-align: left;
   background: #FFFFFF;
   margin-bottom: 15px;
-  width: 420px;
+  width: 70vw;
+  max-width: 500px;
   height: 70px;
   display: inline-flex;
   border-style: solid;
@@ -56,8 +57,22 @@
   color: #000000;
 }
 
-.container {
+.students_circle_pfp{
+  display: flex;
   flex-direction: row;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  margin-right: 20px;
+}
+
+.container1 {
+  display: flex;
+  flex-direction: column;
+  margin-right: 20px;
+  align-items: center;
 }
 
 .container2 {
@@ -92,6 +107,10 @@
   margin-top: 0px;
 
   color: #C4C4C4;
+}
+
+.num_students {
+  display: none;
 }
 
 .students {
@@ -173,4 +192,36 @@
   margin-right: 5px;
   margin-bottom: 6px;
   display: inline-flex;
+}
+
+@media screen and (max-width: 620px){
+  .num_students {
+    display: flex;
+    height: 17px;
+    font-family: 'Exo';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+    margin-bottom: 6px;
+    color: #C4C4C4;
+    width: 90px;
+  }
+
+  .students{
+    display: none;
+  }
+
+  .membercount{
+    display: none;
+  }
+}
+
+@media screen and (max-width: 430px){
+  
+
+  .name{
+    font-size: 15px;
+    line-height: 18px;
+  }
+
 }

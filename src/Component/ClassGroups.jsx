@@ -423,223 +423,112 @@ export default class ClassPosts extends Component {
       .catch((error) => console.log("error", error));
     this.forceUpdate();
     window.location.reload();
-  }
+	}
 
-  render() {
-    const { error, groups } = this.state;
-    const handleChange = (event) => {
-      this.setState({ createStatus: event.target.value });
-    };
-    const handleSubmit = (event) => {
-      event.preventDefault();
-      this.setState({ createGroupName: event.target.value });
-    };
-    return (
-      <div className="post">
-        <div className={styles.groupdiv}>
-          <div id="creategroup" className={styles.classgrouplist}>
-            <div className={styles.container}>
-              <form onSubmit={handleSubmit}>
-                <input
-                  value={this.state.createGroupName}
-                  className={styles.createName}
-                  onChange={(e) =>
-                    this.setState({ createGroupName: e.target.value })
-                  }
-                />
-              </form>
-              <p className={styles.membercount}>0 Student(s)</p>
-            </div>
-            <div className={styles.container}>
-              <form onSubmit={handleChange}>
-                <select
-                  value={this.state.createStatus}
-                  onChange={handleChange}
-                  className={styles.createStatus}
-                >
-                  <option value="public">Public</option>
-                  <option value="private">Private</option>
-                </select>
-              </form>
-            </div>
-            <div className={styles.container}>
-              <p className={styles.rating}>Average Rating</p>
-              <div className={styles.stardiv}>
-                <img className={styles.star} src={starIcon} alt="star" />
-                <img className={styles.star} src={starIcon} alt="star" />
-                <img className={styles.star} src={starIcon} alt="star" />
-                <img className={styles.star} src={starIcon} alt="star" />
-                <img className={styles.star} src={starIcon} alt="star" />
-              </div>
-            </div>
-          </div>
-          <button
-            className={styles.createbutton}
-            onClick={() => this.createGroup(this.props.userid)}
-          >
-            Create
-          </button>
+	render () {
+		const {error, groups} = this.state;
+		const handleChange = (event) => {
+			this.setState({createStatus: event.target.value});
+		}
+		const handleSubmit = (event) => {
+			event.preventDefault();
+			this.setState({createGroupName: event.target.value});
+		}
+		return( 
+			<div className="post">
+						<div className= {styles.groupdiv}>
+						<div id="creategroup" className={styles.classgrouplist}>
+						<div className={styles.container}>
+							<form onSubmit={handleSubmit}>
+									<input
+										value={this.state.createGroupName}
+										className={styles.createName}
+										onChange={(e) => this.setState({createGroupName: e.target.value})}
+									/>
+								</form>
+							<p className={styles.membercount}>0 Student(s)</p>
+						</div>
+						<div className={styles.container}>
+							<form onSubmit={handleChange}>
+								<select value={this.state.createStatus} onChange={handleChange} className={styles.createStatus}>
+									<option value="public">Public</option>
+									<option value="private">Private</option>
+								</select>
+							</form>
+						</div>
+						{/*<div className={styles.container}>
+							<p className={styles.rating}>Average Rating</p>
+							<div className={styles.stardiv}>
+								<img className={styles.star} src={starIcon} alt="star"/>
+								<img className={styles.star} src={starIcon} alt="star"/>
+								<img className={styles.star} src={starIcon} alt="star"/>
+								<img className={styles.star} src={starIcon} alt="star"/>
+								<img className={styles.star} src={starIcon} alt="star"/>
+							</div>
+            </div>*/}
+						</div>
+						<button className={styles.createbutton} onClick={() => this.createGroup(this.props.userid)}>Create</button>
         </div>
         {groups.map((group) => (
           <>
             {console.log(group.groupid)}
-            <div className={styles.groupdiv}>
-              <Link
-                to={/groups/ + group.id}
-                onClick={() => this.setState({ name: group.name })}
-              >
-                <div className={styles.classgrouplist}>
-                  <div className={styles.container}>
-                    {group.name !== "Private Group" && (
-                      <p className={styles.name}>
-                        {this.state.name + ": " + group.name}
-                      </p>
-                    )}
-                    {group.name == "Private Group" && (
-                      <p className={styles.name}>{group.name}</p>
-                    )}
-                    <p className={styles.membercount}>
-                      {group.attributes.members.length} Student(s)
-                    </p>
-                  </div>
-                  <div className={styles.container}>
-                    <p className={styles.students}>Student(s)</p>
-                    {group.attributes.status == "public" &&
-                      group.attributes.members.length === 1 && (
-                        <img
-                          className={styles.profilepicture}
-                          src={
-                            "https://webdev.cse.buffalo.edu" +
-                            this.state.publicProfilePicture[0]
-                          }
-                          alt="Profile Avatar"
-                        />
-                      )}
-                    {group.attributes.status == "public" &&
-                      group.attributes.members.length === 2 && (
-                        <>
-                          <img
-                            className={styles.profilepicture}
-                            src={
-                              "https://webdev.cse.buffalo.edu" +
-                              this.state.publicProfilePicture[0]
-                            }
-                            alt="Profile Avatar"
-                          />
-                          <img
-                            className={styles.profilepicture}
-                            src={
-                              "https://webdev.cse.buffalo.edu" +
-                              this.state.publicProfilePicture[1]
-                            }
-                            alt="Profile Avatar"
-                          />
-                        </>
-                      )}
-                    {group.attributes.status == "public" &&
-                      (group.attributes.members.length === 3 ||
-                        group.attributes.members.length > 3) && (
-                        <>
-                          <img
-                            className={styles.profilepicture}
-                            src={
-                              "https://webdev.cse.buffalo.edu" +
-                              this.state.publicProfilePicture[0]
-                            }
-                            alt="Profile Avatar"
-                          />
-                          <img
-                            className={styles.profilepicture}
-                            src={
-                              "https://webdev.cse.buffalo.edu" +
-                              this.state.publicProfilePicture[1]
-                            }
-                            alt="Profile Avatar"
-                          />
-                          <img
-                            className={styles.profilepicture}
-                            src={
-                              "https://webdev.cse.buffalo.edu" +
-                              this.state.publicProfilePicture[2]
-                            }
-                            alt="Profile Avatar"
-                          />
-                        </>
-                      )}
-                    {group.attributes.status == "private" &&
-                      group.attributes.members.length === 1 && (
-                        <img
-                          className={styles.profilepicture}
-                          src={
-                            "https://webdev.cse.buffalo.edu" +
-                            this.state.privateProfilePicture[0]
-                          }
-                          alt="Profile Avatar"
-                        />
-                      )}
-                    {group.attributes.status == "private" &&
-                      group.attributes.members.length === 2 && (
-                        <>
-                          <img
-                            className={styles.profilepicture}
-                            src={
-                              "https://webdev.cse.buffalo.edu" +
-                              this.state.privateProfilePicture[0]
-                            }
-                            alt="Profile Avatar"
-                          />
-                          <img
-                            className={styles.profilepicture}
-                            src={
-                              "https://webdev.cse.buffalo.edu" +
-                              this.state.privateProfilePicture[1]
-                            }
-                            alt="Profile Avatar"
-                          />
-                        </>
-                      )}
-                    {group.attributes.status == "private" &&
-                      (group.attributes.members.length === 3 ||
-                        group.attributes.members.length > 3) && (
-                        <>
-                          <img
-                            className={styles.profilepicture}
-                            src={
-                              "https://webdev.cse.buffalo.edu" +
-                              this.state.privateProfilePicture[0]
-                            }
-                            alt="Profile Avatar"
-                          />
-                          <img
-                            className={styles.profilepicture}
-                            src={
-                              "https://webdev.cse.buffalo.edu" +
-                              this.state.privateProfilePicture[1]
-                            }
-                            alt="Profile Avatar"
-                          />
-                          <img
-                            className={styles.profilepicture}
-                            src={
-                              "https://webdev.cse.buffalo.edu" +
-                              this.state.privateProfilePicture[2]
-                            }
-                            alt="Profile Avatar"
-                          />
-                        </>
-                      )}
-                  </div>
-                  <div className={styles.container}>
-                    <p className={styles.rating}>Average Rating</p>
-                    <div className={styles.stardiv}>
-                      <img className={styles.star} src={starIcon} alt="star" />
-                      <img className={styles.star} src={starIcon} alt="star" />
-                      <img className={styles.star} src={starIcon} alt="star" />
-                      <img className={styles.star} src={starIcon} alt="star" />
-                      <img className={styles.star} src={starIcon} alt="star" />
-                    </div>
-                  </div>
-                </div>
+						<div className= {styles.groupdiv}>
+            <Link to={/groups/ + group.id} onClick={() => this.setState({name: group.name})}>
+            <div className={styles.classgrouplist}>
+						<div className={styles.container}>
+							{group.name !== "Private Group" && <p className={styles.name}>{this.state.name+ ": " + group.name}</p>}
+              {group.name == "Private Group" && <p className={styles.name}>{group.name}</p>}
+							<p className={styles.membercount}>{group.attributes.members.length} Student(s)</p>
+						</div>
+						<div className={styles.container1}>
+              <p className={styles.num_students}>{group.attributes.members.length} Student(s)</p>
+							<p className={styles.students}>Student(s)</p>
+              <div className={styles.students_circle_pfp}>
+								{group.attributes.status == "public" && group.attributes.members.length === 1 &&
+									<img className={styles.profilepicture} src={"https://webdev.cse.buffalo.edu"+ this.state.publicProfilePicture[0]} alt=""/>
+								}
+								{group.attributes.status == "public" && group.attributes.members.length === 2 &&
+									<>
+										<img className={styles.profilepicture} src={"https://webdev.cse.buffalo.edu"+ this.state.publicProfilePicture[0]} alt=""/>
+										<img className={styles.profilepicture} src={"https://webdev.cse.buffalo.edu"+ this.state.publicProfilePicture[1]} alt=""/>
+									</>
+								}
+								{group.attributes.status == "public" && (group.attributes.members.length === 3 || group.attributes.members.length > 3) &&
+								<>
+									<img className={styles.profilepicture} src={"https://webdev.cse.buffalo.edu"+ this.state.publicProfilePicture[0]} alt=""/>
+									<img className={styles.profilepicture} src={"https://webdev.cse.buffalo.edu"+ this.state.publicProfilePicture[1]} alt=""/>
+									<img className={styles.profilepicture} src={"https://webdev.cse.buffalo.edu"+ this.state.publicProfilePicture[2]} alt=""/>
+								</>
+								}
+								{group.attributes.status == "private" && group.attributes.members.length === 1 &&
+									<img className={styles.profilepicture} src={"https://webdev.cse.buffalo.edu"+ this.state.privateProfilePicture[0]} alt=""/>
+								}
+								{group.attributes.status == "private" && group.attributes.members.length === 2 &&
+									<>
+										<img className={styles.profilepicture} src={"https://webdev.cse.buffalo.edu"+ this.state.privateProfilePicture[0]} alt=""/>
+										<img className={styles.profilepicture} src={"https://webdev.cse.buffalo.edu"+ this.state.privateProfilePicture[1]} alt=""/>
+									</>
+								}
+								{group.attributes.status == "private" && (group.attributes.members.length === 3 || group.attributes.members.length > 3) &&
+								<>
+									<img className={styles.profilepicture} src={"https://webdev.cse.buffalo.edu"+ this.state.privateProfilePicture[0]} alt=""/>
+									<img className={styles.profilepicture} src={"https://webdev.cse.buffalo.edu"+ this.state.privateProfilePicture[1]} alt=""/>
+									<img className={styles.profilepicture} src={"https://webdev.cse.buffalo.edu"+ this.state.privateProfilePicture[2]} alt=""/>
+								</>
+								}
+              </div>
+						</div>
+						{/*<div className={styles.container}>
+							<p className={styles.rating}>Average Rating</p>
+							<div className={styles.stardiv}>
+								<img className={styles.star} src={starIcon} alt="star"/>
+								<img className={styles.star} src={starIcon} alt="star"/>
+								<img className={styles.star} src={starIcon} alt="star"/>
+								<img className={styles.star} src={starIcon} alt="star"/>
+								<img className={styles.star} src={starIcon} alt="star"/>
+							</div>
+            </div>*/}
+              </div>
               </Link>
               {group.attributes.members.includes(Number(this.props.userid)) && (
                 <button

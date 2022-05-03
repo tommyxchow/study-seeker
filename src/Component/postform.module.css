@@ -133,3 +133,9 @@
         line-height: 96px;
     }
 }
+
+@media screen and (max-width: 430px){
+    .container{
+        padding: 1vh;
+    }
+}
