@@ -389,7 +389,7 @@ export default class ClassPosts extends Component {
 								</select>
 							</form>
 						</div>
-						<div className={styles.container}>
+						{/*<div className={styles.container}>
 							<p className={styles.rating}>Average Rating</p>
 							<div className={styles.stardiv}>
 								<img className={styles.star} src={starIcon} alt="star"/>
@@ -398,7 +398,7 @@ export default class ClassPosts extends Component {
 								<img className={styles.star} src={starIcon} alt="star"/>
 								<img className={styles.star} src={starIcon} alt="star"/>
 							</div>
-						</div>
+            </div>*/}
 						</div>
 						<button className={styles.createbutton} onClick={() => this.createGroup(this.props.userid)}>Create</button>
 
@@ -414,8 +414,10 @@ export default class ClassPosts extends Component {
               {group.name == "Private Group" && <p className={styles.name}>{group.name}</p>}
 							<p className={styles.membercount}>{group.attributes.members.length} Student(s)</p>
 						</div>
-						<div className={styles.container}>
+						<div className={styles.container1}>
+              <p className={styles.num_students}>{group.attributes.members.length} Student(s)</p>
 							<p className={styles.students}>Student(s)</p>
+              <div className={styles.students_circle_pfp}>
 								{group.attributes.status == "public" && group.attributes.members.length === 1 &&
 									<img className={styles.profilepicture} src={"https://webdev.cse.buffalo.edu"+ this.state.publicProfilePicture[0]} alt=""/>
 								}
@@ -448,8 +450,9 @@ export default class ClassPosts extends Component {
 									<img className={styles.profilepicture} src={"https://webdev.cse.buffalo.edu"+ this.state.privateProfilePicture[2]} alt=""/>
 								</>
 								}
+              </div>
 						</div>
-						<div className={styles.container}>
+						{/*<div className={styles.container}>
 							<p className={styles.rating}>Average Rating</p>
 							<div className={styles.stardiv}>
 								<img className={styles.star} src={starIcon} alt="star"/>
@@ -458,7 +461,7 @@ export default class ClassPosts extends Component {
 								<img className={styles.star} src={starIcon} alt="star"/>
 								<img className={styles.star} src={starIcon} alt="star"/>
 							</div>
-						</div>
+            </div>*/}
             </div>
             </Link>
 						{group.attributes.members.includes(Number(this.props.userid)) && <button className={styles.leavebutton} onClick={() => this.removeHandler_Leave(group.id, group.name)}>Leave</button>}

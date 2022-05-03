@@ -342,7 +342,7 @@ export default class GroupDetails extends React.Component {
             </button>
           )}
         </div>
-        <div className={groupcss.div2}>
+        {/*<div className={groupcss.div2}>
           <div className={groupcss.text}>Average Rating</div>
           <div className={groupcss.stardivgroupdetails}>
             <img
@@ -371,7 +371,7 @@ export default class GroupDetails extends React.Component {
               alt="star 5"
             />
           </div>
-        </div>
+            </div>*/}
         <div className={groupcss.text}>Status: {groups.status}</div>
         <button
           className={groupcss.buttondiv}
