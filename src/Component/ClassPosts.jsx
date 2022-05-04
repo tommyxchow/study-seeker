@@ -320,7 +320,7 @@ class Reply extends Component {
               className={styles.profilePicture}
               src={
                 "https://webdev.cse.buffalo.edu" +
-                (this.props.profilePicture ??
+                (this.state.replierInfo.attributes.profilePicture ??
                   "/hci/api/uploads/files/DOo1Ebbt8dYT4-plb6G6NP5jIc9_l_gNlaYwPW4SaBM.png")
               }
               alt="Profile Avatar"
