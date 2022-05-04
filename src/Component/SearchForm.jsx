@@ -904,15 +904,14 @@ export default class SearchForm extends React.Component {
                         <div className={styles.outtercontent3}>
                           <div className={styles.innercontent3}>
                             <div>
-                              <button
+                              {/* <button
                                 className={styles.connectbutton}
                                 type="button"
                                 value="connect"
                               >
                                 Connect
-                              </button>
+                              </button> */}
                             </div>
-                            <div className={styles.space}>
                               <Link
                                 to={this.gotoProfile(dict)}
                                 className={styles.profile}
@@ -925,7 +924,6 @@ export default class SearchForm extends React.Component {
                                   View Profile
                                 </button>
                               </Link>
-                            </div>
                           </div>
                         </div>
                       </div>
