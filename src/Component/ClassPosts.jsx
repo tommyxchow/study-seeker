@@ -243,39 +243,45 @@ class Post extends Component {
           </Link>
           <div className={styles.postText}>{this.props.content}</div>
           <button
+            className={
+              this.state.showReply ? styles.cancelButton : styles.replyButton
+            }
             onClick={() => this.setState({ showReply: !this.state.showReply })}
           >
             {this.state.showReply ? "Cancel" : "Reply"}
           </button>
         </div>
-        {this.state.showReply && <h2>Replies</h2>}
         {this.state.showReply && (
           <div className={styles.replies}>
+            <h2>Replies</h2>
             {this.state.replies.map((replyInfo) => (
               <Reply postId={this.props.postId} {...replyInfo} />
             ))}
-            <form
-              id="replyForm"
-              className={styles.replyForm}
-              onSubmit={this.submitHandlerReply}
-            >
-              <textarea
-                name="reply"
+
+            <div className={styles.containerRow}>
+              <form
+                id="replyForm"
+                className={styles.replyForm}
+                onSubmit={this.submitHandlerReply}
+              >
+                <textarea
+                  name="reply"
+                  form="replyForm"
+                  className={styles.postInput}
+                  placeholder="Reply"
+                  rows={5}
+                  cols={70}
+                />
+              </form>
+              <button
                 form="replyForm"
-                className={styles.postInput}
-                placeholder="Reply"
-                rows={5}
-                cols={70}
-              />
-            </form>
-            <button
-              form="replyForm"
-              type="submit"
-              value="submit"
-              className={styles.postButton}
-            >
-              Reply
-            </button>
+                type="submit"
+                value="submit"
+                className={styles.replyButton}
+              >
+                Post Reply
+              </button>
+            </div>
           </div>
         )}
       </div>
