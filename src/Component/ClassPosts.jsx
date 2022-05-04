@@ -165,6 +165,7 @@ export default class ClassPosts extends Component {
         </div>
         {this.state.posts.map((postInfo) => (
           <Post
+            toggleModal={this.props.toggleModal}
             postId={postInfo.id}
             authorId={postInfo.authorID}
             name={`${
