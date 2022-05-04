@@ -291,6 +291,24 @@ export default class Profile extends React.Component {
             this.props.toggleModal("error");
           }
         );
+    }else if(status === "incomming"){
+
+      this.createFetch("/connections/"+this.state.connection_id, "GET", null)
+        .then((res) => res.json())
+        .then(
+          (result) => {
+            result.attributes.status = 'accepted';
+            result.attributes.by = this.props.userid;
+            result.attributes.to =  this.props.profileid;
+            this.createFetch("/connections/"+this.state.connection_id, "PATCH", result)
+            .then((res) => res.json())
+            .then((result) => {this.setState({connection_status:'accepted'})}, (error) => {this.props.toggleModal("Accepting the incomming request failed please try again");})
+          },
+          (error) => {
+            this.props.toggleModal("error");
+          }
+        );
+
     }else{
       this.createFetch(
         "/connections/" + this.state.connection_id,
@@ -500,12 +518,21 @@ export default class Profile extends React.Component {
               {!this.state.profile &&
                 this.state.connection_status !== "block" &&
                 (this.state.connection_status !== "Not sent" ? (
-                  <button
-                    className={styles.disconnectButton}
-                    onClick={(event) => this.connectionHandler(event, "disconnect")}
-                  >
-                    {connectionStatus[this.state.connection_status]}
-                  </button>
+
+                  this.state.connection_status === 'incomming' ? (
+                    <button
+                      className={styles.connectButton}
+                      onClick={(event) =>
+                        this.connectionHandler(event, 'incomming')
+                      }>
+                      {connectionStatus[this.state.connection_status]}
+                    </button>):(
+                      <button
+                      className={styles.disconnectButton}
+                      onClick={(event) => this.connectionHandler(event, "disconnect")}>
+                      {connectionStatus[this.state.connection_status]}
+                    </button>
+                    )
                 ) : (
                   <button
                     className={styles.connectButton}
