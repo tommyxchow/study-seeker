@@ -8,11 +8,15 @@
   align-items: center;
   font-size: large;
   margin-top: 3vw;
-  margin-bottom: 5re3vw;
 }
 
 .replies {
-  margin-top: 5rem;
+  margin-left: 10rem;
+}
+
+.replyForm {
+  margin-top: 3rem;
+  margin-right: 3rem;
 }
 
 .profileContainer {

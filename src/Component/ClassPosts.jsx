@@ -187,8 +187,40 @@ class Post extends Component {
     super(props);
     this.state = {
       showReply: false,
+      replies: props.replies,
     };
   }
+
+  submitHandlerReply = (event) => {
+    event.preventDefault();
+
+    console.log(event.target.reply.value);
+
+    if (event.target.reply.value === "") {
+      this.props.toggleModal("Please enter text into the box before posting.");
+      return;
+    }
+
+    //make the api call to post
+    fetch(process.env.REACT_APP_API_PATH + "/post-reactions", {
+      method: "post",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + sessionStorage.getItem("token"),
+      },
+      body: JSON.stringify({
+        postID: this.props.postId,
+        reactorID: sessionStorage.getItem("user"),
+        name: event.target.reply.value,
+      }),
+    })
+      .then((res) => res.json())
+      .then((result) =>
+        this.setState({ replies: [...this.state.replies, result] })
+      );
+
+    event.target.reply.value = "";
+  };
 
   render() {
     return (
@@ -216,21 +248,34 @@ class Post extends Component {
             {this.state.showReply ? "Cancel" : "Reply"}
           </button>
         </div>
+        {this.state.showReply && <h2>Replies</h2>}
         {this.state.showReply && (
           <div className={styles.replies}>
-            {this.props.replies.map((replyInfo) => (
-              <h1>{replyInfo.name}</h1>
+            {this.state.replies.map((replyInfo) => (
+              <Reply postId={this.props.postId} {...replyInfo} />
             ))}
-            <form id="postForm" className={styles.replyForm}>
+            <form
+              id="replyForm"
+              className={styles.replyForm}
+              onSubmit={this.submitHandlerReply}
+            >
               <textarea
-                name="post"
-                form="postForm"
+                name="reply"
+                form="replyForm"
                 className={styles.postInput}
                 placeholder="Reply"
                 rows={5}
                 cols={70}
               />
             </form>
+            <button
+              form="replyForm"
+              type="submit"
+              value="submit"
+              className={styles.postButton}
+            >
+              Reply
+            </button>
           </div>
         )}
       </div>
@@ -247,7 +292,7 @@ class Reply extends Component {
   }
 
   componentDidMount() {
-    fetch(process.env.REACT_APP_API_PATH + "/users/" + this.props.replierId, {
+    fetch(process.env.REACT_APP_API_PATH + "/users/" + this.props.reactorID, {
       method: "GET",
     })
       .then((res) => res.json())
@@ -255,11 +300,14 @@ class Reply extends Component {
   }
 
   render() {
+    if (this.state.replierInfo == null) {
+      return null;
+    }
     return (
       <div className={styles.containerCol}>
         <div className={styles.containerRow}>
           <Link
-            to={"/profile/" + this.props.authorId}
+            to={"/profile/" + this.state.replierInfo.id}
             className={styles.profileContainer}
           >
             <img
@@ -271,32 +319,12 @@ class Reply extends Component {
               }
               alt="Profile Avatar"
             ></img>
-            <div className={styles.profileName}>{this.props.name}</div>
+            <div className={styles.profileName}>
+              {this.state.replierInfo.attributes.firstName}
+            </div>
           </Link>
-          <div className={styles.postText}>{this.props.content}</div>
-          <button
-            onClick={() => this.setState({ showReply: !this.state.showReply })}
-          >
-            {this.state.showReply ? "Cancel" : "Reply"}
-          </button>
+          <div className={styles.postText}>{this.props.name}</div>
         </div>
-        {this.state.showReply && (
-          <div className={styles.replies}>
-            {this.props.replies.map((replyInfo) => (
-              <h1>{replyInfo.name}</h1>
-            ))}
-            <form id="postForm" className={styles.replyForm}>
-              <textarea
-                name="post"
-                form="postForm"
-                className={styles.postInput}
-                placeholder="Reply"
-                rows={5}
-                cols={70}
-              />
-            </form>
-          </div>
-        )}
       </div>
     );
   }
