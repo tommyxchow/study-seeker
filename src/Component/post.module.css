@@ -1,9 +1,18 @@
-.container {
+.containerCol {
+  display: flex;
+  flex-direction: column;
+}
+
+.containerRow {
   display: flex;
   align-items: center;
   font-size: large;
   margin-top: 3vw;
   margin-bottom: 5re3vw;
+}
+
+.replies {
+  margin-top: 5rem;
 }
 
 .profileContainer {
@@ -29,6 +38,7 @@
   word-break: break-word;
   padding-top: 1vw;
   width: 100%;
+  margin-right: 1rem;
 }
 
 .postInput {

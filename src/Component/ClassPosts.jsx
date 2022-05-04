@@ -39,10 +39,24 @@ export default class ClassPosts extends Component {
     )
       .then((res) => res.json())
       .then((result) => {
-        result[0].forEach(post => {
-          console.log(((post.author !== null && post.author.attributes.block_list !== undefined)?post.author.attributes.block_list:[]).includes(sessionStorage.getItem("user")));
+        result[0].forEach((post) => {
+          console.log(
+            (post.author !== null &&
+            post.author.attributes.block_list !== undefined
+              ? post.author.attributes.block_list
+              : []
+            ).includes(sessionStorage.getItem("user"))
+          );
         });
-        result[0] = result[0].filter((post)=>(!((post.author !== null && post.author.attributes.block_list !== undefined)?post.author.attributes.block_list:[]).includes(sessionStorage.getItem("user"))));
+        result[0] = result[0].filter(
+          (post) =>
+            !(
+              post.author !== null &&
+              post.author.attributes.block_list !== undefined
+                ? post.author.attributes.block_list
+                : []
+            ).includes(sessionStorage.getItem("user"))
+        );
         this.setState({ posts: result[0] });
       });
 
@@ -117,7 +131,7 @@ export default class ClassPosts extends Component {
   render() {
     return (
       <>
-        <div className={styles.container}>
+        <div className={styles.containerRow}>
           <div className={styles.profileContainer}>
             <img
               className={styles.profilePicture}
@@ -151,7 +165,8 @@ export default class ClassPosts extends Component {
         </div>
         {this.state.posts.map((postInfo) => (
           <Post
-            id={postInfo.authorID}
+            postId={postInfo.id}
+            authorId={postInfo.authorID}
             name={`${
               postInfo.author ? postInfo.author.attributes.firstName : "DELETED"
             }`}
@@ -159,6 +174,7 @@ export default class ClassPosts extends Component {
               postInfo.author ? postInfo.author.attributes.profilePicture : null
             }
             content={postInfo.content}
+            replies={postInfo.reactions}
           />
         ))}
       </>
@@ -167,28 +183,120 @@ export default class ClassPosts extends Component {
 }
 
 class Post extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      showReply: false,
+    };
+  }
+
   render() {
     return (
-      <div className={styles.container}>
-        <Link
-          to={"/profile/" + this.props.id}
-          className={styles.profileContainer}
-        >
-          <img
-            className={styles.profilePicture}
-            src={
-              "https://webdev.cse.buffalo.edu" +
-              (this.props.profilePicture ??
-                "/hci/api/uploads/files/DOo1Ebbt8dYT4-plb6G6NP5jIc9_l_gNlaYwPW4SaBM.png")
-            }
-            alt="Profile Avatar"
-          ></img>
-          <div className={styles.profileName}>
-          {this.props.name}
+      <div className={styles.containerCol}>
+        <div className={styles.containerRow}>
+          <Link
+            to={"/profile/" + this.props.authorId}
+            className={styles.profileContainer}
+          >
+            <img
+              className={styles.profilePicture}
+              src={
+                "https://webdev.cse.buffalo.edu" +
+                (this.props.profilePicture ??
+                  "/hci/api/uploads/files/DOo1Ebbt8dYT4-plb6G6NP5jIc9_l_gNlaYwPW4SaBM.png")
+              }
+              alt="Profile Avatar"
+            ></img>
+            <div className={styles.profileName}>{this.props.name}</div>
+          </Link>
+          <div className={styles.postText}>{this.props.content}</div>
+          <button
+            onClick={() => this.setState({ showReply: !this.state.showReply })}
+          >
+            {this.state.showReply ? "Cancel" : "Reply"}
+          </button>
+        </div>
+        {this.state.showReply && (
+          <div className={styles.replies}>
+            {this.props.replies.map((replyInfo) => (
+              <h1>{replyInfo.name}</h1>
+            ))}
+            <form id="postForm" className={styles.replyForm}>
+              <textarea
+                name="post"
+                form="postForm"
+                className={styles.postInput}
+                placeholder="Reply"
+                rows={5}
+                cols={70}
+              />
+            </form>
           </div>
-          
-        </Link>
-        <div className={styles.postText}>{this.props.content}</div>
+        )}
+      </div>
+    );
+  }
+}
+
+class Reply extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      replierInfo: null,
+    };
+  }
+
+  componentDidMount() {
+    fetch(process.env.REACT_APP_API_PATH + "/users/" + this.props.replierId, {
+      method: "GET",
+    })
+      .then((res) => res.json())
+      .then((result) => this.setState({ replierInfo: result }));
+  }
+
+  render() {
+    return (
+      <div className={styles.containerCol}>
+        <div className={styles.containerRow}>
+          <Link
+            to={"/profile/" + this.props.authorId}
+            className={styles.profileContainer}
+          >
+            <img
+              className={styles.profilePicture}
+              src={
+                "https://webdev.cse.buffalo.edu" +
+                (this.props.profilePicture ??
+                  "/hci/api/uploads/files/DOo1Ebbt8dYT4-plb6G6NP5jIc9_l_gNlaYwPW4SaBM.png")
+              }
+              alt="Profile Avatar"
+            ></img>
+            <div className={styles.profileName}>{this.props.name}</div>
+          </Link>
+          <div className={styles.postText}>{this.props.content}</div>
+          <button
+            onClick={() => this.setState({ showReply: !this.state.showReply })}
+          >
+            {this.state.showReply ? "Cancel" : "Reply"}
+          </button>
+        </div>
+        {this.state.showReply && (
+          <div className={styles.replies}>
+            {this.props.replies.map((replyInfo) => (
+              <h1>{replyInfo.name}</h1>
+            ))}
+            <form id="postForm" className={styles.replyForm}>
+              <textarea
+                name="post"
+                form="postForm"
+                className={styles.postInput}
+                placeholder="Reply"
+                rows={5}
+                cols={70}
+              />
+            </form>
+          </div>
+        )}
       </div>
     );
   }
