@@ -24,11 +24,10 @@
   font-family: 'Exo';
   font-style: normal;
   font-weight: 500;
-  font-size: 48px;
+  font-size: 36px;
   line-height: 64px;
   margin-left: 50px;
   margin-top: 29px;
-  margin-bottom: 41px;
 }
 
 .groupname {
@@ -58,6 +57,11 @@
   margin-bottom: 5.52px;
 
   color: #000000;
+
+  text-overflow:ellipsis;
+  overflow:hidden;
+  white-space: nowrap;
+  max-width: 200px;
 }
 
 .students {

@@ -120,6 +120,7 @@
 
 .profileDetailItem {
   margin-right: 100px;
+  cursor: pointer;
 }
 
 .profileDetailIcon {
@@ -144,6 +145,10 @@
   align-items: center;
   margin-right: 50px;
   font-family: Exo;
+}
+
+.confirmButton, .cancelButton  {
+  cursor: pointer;
 }
 
 .editButtons {

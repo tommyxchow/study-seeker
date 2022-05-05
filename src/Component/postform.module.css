@@ -27,7 +27,7 @@
     font-size: 18px;
     background: #2ECC71;
     border-radius: 25px;
-    color: #FFFFFF;
+    cursor: pointer;
 }
 .classLeave{
     background: #FF0000;
