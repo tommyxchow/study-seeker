@@ -79,6 +79,7 @@
     height: 7vw;
     width: 7vw;
     margin: 0rem 1rem 0rem 1rem;
+    border-radius: 100%;
 }
 .nameContainer{
     flex-grow: 2;

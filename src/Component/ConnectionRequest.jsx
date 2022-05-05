@@ -123,7 +123,7 @@ export default class ConnectionRequest extends React.Component {
     )
       .then((response) => response.json())
       .then((result) => {
-        for (var i = 0; i < result.length; i++) {
+        for (var i = 0; i < result[1]; i++) {
           if (result[0][i] === undefined) {
             break;
           } else if (result[0][i].attributes.status === "pending") {
