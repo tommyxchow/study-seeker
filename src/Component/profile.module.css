@@ -80,6 +80,7 @@
   align-self: center;
   font-size: large;
   margin-left: 2vw;
+  color: #FFFFFF;
 }
 
 .deleteAccountButton {
@@ -97,6 +98,7 @@
 
 .disconnectButton, .blockButton, .deleteAccountButton{
   background: #ff0000;
+  color: #FFFFFF;
 }
 
 .blockButton{
@@ -239,6 +241,7 @@
     position: absolute;
     left: 100px;
     top: 80px;
+    color: #FFFFFF;
   }
 
   .deleteAccountButton{
@@ -260,6 +263,7 @@
 
   .disconnectButton{
     background: #ff0000;
+    color: #FFFFFF;
   }
 
   .blockButton{

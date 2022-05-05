@@ -338,7 +338,7 @@
 }
 
 .buttonSubmitForm,
-signUpButton {
+.signUpButton {
   background-color: #907671;
   border: none;
   color: white;
@@ -522,7 +522,7 @@ emailTextBox {
   width: 80px !important;
   height: 30px !important;
   border: none;
-  color: rgb(0, 0, 0);
+  color: #FFFFFF;
   text-align: center;
   font-family: Exo;
   font-weight: bold;
@@ -541,7 +541,7 @@ emailTextBox {
   width: 80px !important;
   height: 30px !important;
   border: none;
-  color: rgb(0, 0, 0);
+  color: #FFFFFF;
   text-align: center;
   font-family: Exo;
   font-weight: bold;

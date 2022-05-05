@@ -27,9 +27,11 @@
     font-size: 18px;
     background: #2ECC71;
     border-radius: 25px;
+    color: #FFFFFF;
 }
 .classLeave{
     background: #FF0000;
+    color: #FFFFFF;
 }
 .classSmallDiscription{
     color: rgba(0, 0, 0, 0.5);

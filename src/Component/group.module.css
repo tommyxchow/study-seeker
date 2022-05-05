@@ -120,7 +120,7 @@
   width: 80px !important;
   height: 30px !important;
   border: none;
-  color: rgb(0, 0, 0);
+  color: #FFFFFF;
   text-align: center;
   font-family: Exo;
   font-weight: bold;
@@ -265,7 +265,7 @@
   width: 80px !important;
   height: 30px !important;
   border: none;
-  color: rgb(0, 0, 0);
+  color: #FFFFFF;
   text-align: center;
   font-family: Exo;
   font-weight: bold;
@@ -284,7 +284,7 @@
   width: 80px !important;
   height: 30px !important;
   border: none;
-  color: rgb(0, 0, 0);
+  color: #FFFFFF;
   text-align: center;
   font-family: Exo;
   font-weight: bold;
@@ -329,6 +329,7 @@
   .leavebutton {
     margin-right: 1rem;
     font-size: 0.8rem;
+    color: #FFFFFF;
   }
 
   .div1 {
@@ -387,7 +388,7 @@
     line-height: 19px;
     margin-left: 13px;
   
-    color: #000000;
+    color: #FFFFFF;
   }
 
   .groupleavebutton {
@@ -395,7 +396,7 @@
     width: 80px !important;
     height: 30px !important;
     border: none;
-    color: rgb(0, 0, 0);
+    color: #FFFFFF;
     text-align: center;
     font-family: Exo;
     font-weight: bold;
