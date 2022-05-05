@@ -438,7 +438,7 @@ export default class ClassPosts extends Component {
                 </select>
               </form>
             </div>
-            <div className={styles.container}>
+            <div className={styles.ratecontainer}>
               <p className={styles.rating}>Average Rating</p>
               <div className={styles.stardiv}>
                 <img className={styles.star} src={starIcon} alt="star" />
