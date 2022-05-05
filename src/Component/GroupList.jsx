@@ -16,6 +16,7 @@ export default class GroupList extends React.Component {
       groups: [],
       name: "",
       groupname: "",
+      classname: "",
       members: [],
       rating: 0,
       membercount: 0,
@@ -61,7 +62,7 @@ export default class GroupList extends React.Component {
                     if (
                       result[0][i].attributes.members[j] == this.props.userid
                     ) {
-                      console.log(this.state.groupid);
+                      console.log("groupid",this.state.groupid);
                       this.setState({
                         groupname: result[0][i].name,
                         status: result[0][i].attributes.status,
@@ -100,7 +101,6 @@ export default class GroupList extends React.Component {
                       });
                     }
                     if (this.state.membercount !== 0) {
-                      let holderPrivatePictures = [];
                       for (var a = 0; a < this.state.membercount; a++) {
                         fetch(
                           process.env.REACT_APP_API_PATH +
@@ -117,9 +117,7 @@ export default class GroupList extends React.Component {
                         )
                           .then((response) => response.json())
                           .then((result) => {
-                            console.log(result);
                             user_image_map[result.id] = result.attributes.profilePicture;
-                            console.log(user_image_map);
                           })
                           .catch((error) => console.log("error", error));
                       }
@@ -188,9 +186,7 @@ export default class GroupList extends React.Component {
                         )
                           .then((response) => response.json())
                           .then((result) => {
-                            console.log(result);
                             user_image_map[result.id] = result.attributes.profilePicture;
-                            console.log(user_image_map);
                           })
                           .catch((error) => console.log("error", error));
                       }
@@ -252,12 +248,6 @@ export default class GroupList extends React.Component {
       return (
         <div className="post">
           <div className={styles.mygroups}>My Groups</div>
-          {
-            <p id={this.state.name} className={styles.groupname}>
-              {this.state.name}
-            </p>
-          }
-          {/* {console.log("groups",groups)} */}
           <div className={styles.line}></div>
           {groups.map((group) => (
             <>
@@ -289,7 +279,7 @@ export default class GroupList extends React.Component {
                               "https://webdev.cse.buffalo.edu" +
                               user_image_map[group.attributes.members[0]]
                             }
-                            alt="Student profile avatar"
+                            alt={group.attributes.members[0]+"'s Profile Avatar"}
                           />
                         )}
                       {group.attributes.status === "public" &&
@@ -301,7 +291,7 @@ export default class GroupList extends React.Component {
                                 "https://webdev.cse.buffalo.edu" +
                                 user_image_map[group.attributes.members[0]]
                               }
-                              alt="Student profile avatar"
+                              alt={group.attributes.members[0]+"'s Profile Avatar"}
                             />
                             <img
                               className={styles.profilepicture}
@@ -309,7 +299,7 @@ export default class GroupList extends React.Component {
                                 "https://webdev.cse.buffalo.edu" +
                                 user_image_map[group.attributes.members[1]]
                               }
-                              alt="Student profile avatar"
+                              alt={group.attributes.members[1]+"'s Profile Avatar"}
                             />
                           </>
                         )}
@@ -323,7 +313,7 @@ export default class GroupList extends React.Component {
                                 "https://webdev.cse.buffalo.edu" +
                                 user_image_map[group.attributes.members[0]]
                               }
-                              alt="Student profile avatar"
+                              alt={group.attributes.members[0]+"'s Profile Avatar"}
                             />
                             <img
                               className={styles.profilepicture}
@@ -331,7 +321,7 @@ export default class GroupList extends React.Component {
                                 "https://webdev.cse.buffalo.edu" +
                                 user_image_map[group.attributes.members[1]]
                               }
-                              alt="Student profile avatar"
+                              alt={group.attributes.members[1]+"'s Profile Avatar"}
                             />
                             <img
                               className={styles.profilepicture}
@@ -339,7 +329,7 @@ export default class GroupList extends React.Component {
                                 "https://webdev.cse.buffalo.edu" +
                                 user_image_map[group.attributes.members[2]]
                               }
-                              alt="Student profile avatar"
+                              alt={group.attributes.members[2]+"'s Profile Avatar"}
                             />
                           </>
                         )}
@@ -351,7 +341,7 @@ export default class GroupList extends React.Component {
                               "https://webdev.cse.buffalo.edu" +
                               user_image_map[group.attributes.members[0]]
                             }
-                            alt="Student profile avatar"
+                            alt={group.attributes.members[0]+"'s Profile Avatar"}
                           />
                         )}
                       {group.attributes.status === "private" &&
@@ -363,7 +353,7 @@ export default class GroupList extends React.Component {
                                 "https://webdev.cse.buffalo.edu" +
                                 user_image_map[group.attributes.members[0]]
                               }
-                              alt="Student profile avatar"
+                              alt={group.attributes.members[0]+"'s Profile Avatar"}
                             />
                             <img
                               className={styles.profilepicture}
@@ -371,7 +361,7 @@ export default class GroupList extends React.Component {
                                 "https://webdev.cse.buffalo.edu" +
                                 user_image_map[group.attributes.members[1]]
                               }
-                              alt="Student profile avatar"
+                              alt={group.attributes.members[1]+"'s Profile Avatar"}
                             />
                           </>
                         )}
@@ -385,7 +375,7 @@ export default class GroupList extends React.Component {
                                 "https://webdev.cse.buffalo.edu" +
                                 user_image_map[group.attributes.members[0]]
                               }
-                              alt="Student profile avatar"
+                              alt={group.attributes.members[0]+"'s Profile Avatar"}
                             />
                             <img
                               className={styles.profilepicture}
@@ -393,7 +383,7 @@ export default class GroupList extends React.Component {
                                 "https://webdev.cse.buffalo.edu" +
                                 user_image_map[group.attributes.members[1]]
                               }
-                              alt="Student profile avatar"
+                              alt={group.attributes.members[1]+"'s Profile Avatar"}
                             />
                             <img
                               className={styles.profilepicture}
@@ -401,7 +391,7 @@ export default class GroupList extends React.Component {
                                 "https://webdev.cse.buffalo.edu" +
                                 user_image_map[group.attributes.members[2]]
                               }
-                              alt="Student profile avatar"
+                              alt={group.attributes.members[2]+"'s Profile Avatar"}
                             />
                           </>
                         )}
