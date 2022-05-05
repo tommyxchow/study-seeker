@@ -336,7 +336,8 @@ export default class HomePage extends React.Component {
                           <>
                             <img
                               className={style.classStudentPicture}
-                              src={this.state.profile_pictures[class_member]}
+                              src={this.state.profile_pictures[class_member]??
+                                "https://webdev.cse.buffalo.edu/hci/api/uploads/files/DOo1Ebbt8dYT4-plb6G6NP5jIc9_l_gNlaYwPW4SaBM.png"}
                               alt='Profile Avatar'
                             />
                           </>
