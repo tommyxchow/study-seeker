@@ -41,7 +41,7 @@ class Navigationbar extends React.Component {
         <button className={styles.optionbutton}></button>
         </div>
         <NavLink to="/" style={navStyle}>
-          <div className={styles.navItem} onClick={this.optionHandler}>Home</div>
+          <div className={styles.topfixnavItem} onClick={this.optionHandler}>Home</div>
         </NavLink>
         <NavLink to="/search" style={navStyle}>
           <div className={styles.navItem} onClick={this.optionHandler}>Search</div>
@@ -59,7 +59,7 @@ class Navigationbar extends React.Component {
         <NavLink to="/styleguide" style={navStyle} className={styles.navItem} onClick={this.optionHandler}>
           Style Guide
         </NavLink>
-        <NavLink to="/" onClick={this.props.logout} className={styles.navItem}>
+        <NavLink to="/" onClick={this.props.logout} className={styles.fixnavItem}>
           Logout
         </NavLink>
         

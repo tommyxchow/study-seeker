@@ -33,6 +33,26 @@
   color: #ffffff;
 }
 
+.fixnavItem {
+  margin-bottom: 15px;
+  font-family: Exo;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 36px;
+  line-height: 48px;
+  color: #ffffff;
+}
+
+.topfixnavItem {
+  margin-bottom: 15px;
+  font-family: Exo;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 36px;
+  line-height: 48px;
+  color: #ffffff;
+}
+
 .icon{
   display: none;
 }
@@ -96,8 +116,6 @@
   .sidenav2  {
     width:100%;
     height: 100vh;
-    padding: 3rem;
-    padding-left: 1rem;
     padding-top: 0;
     position: fixed;
     line-height: 100%;
@@ -119,6 +137,16 @@
 
   .navItem{
     padding-left: 1rem;
+  }
+
+  .fixnavItem{
+    padding-left: 1rem;
+    margin-bottom: 10vh;
+  }
+
+  .topfixnavItem{
+    padding-left: 1rem;
+    margin-top: 5vh;
   }
 
 }
