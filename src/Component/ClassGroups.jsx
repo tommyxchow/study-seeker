@@ -473,7 +473,7 @@ export default class ClassPosts extends Component {
           <>
             {console.log(group.groupid)}
 						<div className= {styles.groupdiv}>
-            <Link to={/groups/ + group.id} onClick={() => this.setState({name: group.name})}>
+            <Link to={'/groups/' + group.id} onClick={() => this.setState({name: group.name})}>
             <div className={styles.classgrouplist}>
 						<div className={styles.container}>
 							{group.name !== "Private Group" && <p className={styles.name}>{this.state.name+ ": " + group.name}</p>}
@@ -485,35 +485,35 @@ export default class ClassPosts extends Component {
 							<p className={styles.students}>Student(s)</p>
               <div className={styles.students_circle_pfp}>
 								{group.attributes.status == "public" && group.attributes.members.length === 1 &&
-									<img className={styles.profilepicture} src={"https://webdev.cse.buffalo.edu"+ this.state.publicProfilePicture[0]} alt=""/>
+									<img className={styles.profilepicture} src={"https://webdev.cse.buffalo.edu"+ this.state.publicProfilePicture[0]} alt="Profile Avatar"/>
 								}
 								{group.attributes.status == "public" && group.attributes.members.length === 2 &&
 									<>
-										<img className={styles.profilepicture} src={"https://webdev.cse.buffalo.edu"+ this.state.publicProfilePicture[0]} alt=""/>
-										<img className={styles.profilepicture} src={"https://webdev.cse.buffalo.edu"+ this.state.publicProfilePicture[1]} alt=""/>
+										<img className={styles.profilepicture} src={"https://webdev.cse.buffalo.edu"+ this.state.publicProfilePicture[0]} alt="Profile Avatar"/>
+										<img className={styles.profilepicture} src={"https://webdev.cse.buffalo.edu"+ this.state.publicProfilePicture[1]} alt="Profile Avatar"/>
 									</>
 								}
 								{group.attributes.status == "public" && (group.attributes.members.length === 3 || group.attributes.members.length > 3) &&
 								<>
-									<img className={styles.profilepicture} src={"https://webdev.cse.buffalo.edu"+ this.state.publicProfilePicture[0]} alt=""/>
-									<img className={styles.profilepicture} src={"https://webdev.cse.buffalo.edu"+ this.state.publicProfilePicture[1]} alt=""/>
-									<img className={styles.profilepicture} src={"https://webdev.cse.buffalo.edu"+ this.state.publicProfilePicture[2]} alt=""/>
+									<img className={styles.profilepicture} src={"https://webdev.cse.buffalo.edu"+ this.state.publicProfilePicture[0]} alt="Profile Avatar"/>
+									<img className={styles.profilepicture} src={"https://webdev.cse.buffalo.edu"+ this.state.publicProfilePicture[1]} alt="Profile Avatar"/>
+									<img className={styles.profilepicture} src={"https://webdev.cse.buffalo.edu"+ this.state.publicProfilePicture[2]} alt="Profile Avatar"/>
 								</>
 								}
 								{group.attributes.status == "private" && group.attributes.members.length === 1 &&
-									<img className={styles.profilepicture} src={"https://webdev.cse.buffalo.edu"+ this.state.privateProfilePicture[0]} alt=""/>
+									<img className={styles.profilepicture} src={"https://webdev.cse.buffalo.edu"+ this.state.privateProfilePicture[0]} alt="Profile Avatar"/>
 								}
 								{group.attributes.status == "private" && group.attributes.members.length === 2 &&
 									<>
-										<img className={styles.profilepicture} src={"https://webdev.cse.buffalo.edu"+ this.state.privateProfilePicture[0]} alt=""/>
-										<img className={styles.profilepicture} src={"https://webdev.cse.buffalo.edu"+ this.state.privateProfilePicture[1]} alt=""/>
+										<img className={styles.profilepicture} src={"https://webdev.cse.buffalo.edu"+ this.state.privateProfilePicture[0]} alt="Profile Avatar"/>
+										<img className={styles.profilepicture} src={"https://webdev.cse.buffalo.edu"+ this.state.privateProfilePicture[1]} alt="Profile Avatar"/>
 									</>
 								}
 								{group.attributes.status == "private" && (group.attributes.members.length === 3 || group.attributes.members.length > 3) &&
 								<>
-									<img className={styles.profilepicture} src={"https://webdev.cse.buffalo.edu"+ this.state.privateProfilePicture[0]} alt=""/>
-									<img className={styles.profilepicture} src={"https://webdev.cse.buffalo.edu"+ this.state.privateProfilePicture[1]} alt=""/>
-									<img className={styles.profilepicture} src={"https://webdev.cse.buffalo.edu"+ this.state.privateProfilePicture[2]} alt=""/>
+									<img className={styles.profilepicture} src={"https://webdev.cse.buffalo.edu"+ this.state.privateProfilePicture[0]} alt="Profile Avatar"/>
+									<img className={styles.profilepicture} src={"https://webdev.cse.buffalo.edu"+ this.state.privateProfilePicture[1]} alt="Profile Avatar"/>
+									<img className={styles.profilepicture} src={"https://webdev.cse.buffalo.edu"+ this.state.privateProfilePicture[2]} alt="Profile Avatar"/>
 								</>
 								}
               </div>

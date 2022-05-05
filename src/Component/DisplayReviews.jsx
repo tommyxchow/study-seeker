@@ -454,7 +454,7 @@ export default class Reviews extends Component {
                         <img
                           className={styles.uparrow}
                           src={downarrow}
-                          alt="downarrow"
+                          alt="down arrow"
                           onClick={() => this.downvote(post)}
                         />
                       </div>

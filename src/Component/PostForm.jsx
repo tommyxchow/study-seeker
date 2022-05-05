@@ -328,7 +328,7 @@ export default class PostForm extends React.Component {
                     <img
                       className={style.studentImage}
                       src={"https://webdev.cse.buffalo.edu/" + member[3]}
-                      alt="student profile"
+                      alt="Profile Avatar"
                     ></img>
                     <div className={style.studentName}>
                       {member[1] + " " + member[2][0] + "."}
@@ -359,7 +359,7 @@ export default class PostForm extends React.Component {
                       <img
                         className={style.studentImage}
                         src={"https://webdev.cse.buffalo.edu/" + member[3]}
-                        alt="student profile"
+                        alt="Profile Avatar"
                       ></img>
                       <div className={style.studentName}>
                         {member[1] + " " + member[2][0] + "."}

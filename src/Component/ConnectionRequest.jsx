@@ -281,7 +281,7 @@ export default class ConnectionRequest extends React.Component {
                       src={
                         "https://webdev.cse.buffalo.edu/" + user_image_map[name]
                       }
-                      alt={name + "'s profile picture"}
+                      alt={name + "'s Profile Avatar"}
                     />
                     <div className={connections.name}>{name}</div>
                   </Link>
@@ -345,7 +345,7 @@ export default class ConnectionRequest extends React.Component {
                       src={
                         "https://webdev.cse.buffalo.edu/" + user_image_map[name]
                       }
-                      alt={name + "'s profile picture"}
+                      alt={name + "'s Profile Avatar"}
                     />
                     <div className={connections.name}>{name}</div>
                   </Link>

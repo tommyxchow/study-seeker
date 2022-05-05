@@ -29,7 +29,9 @@ class Navigationbar extends React.Component {
       
       <div id="myNav" className={styles.sidenav}>
         <div className={styles.topnav}>
-        <button className={styles.optionbutton} onClick={this.optionHandler}><img src={optionIcon} className={styles.icon} ></img></button>
+        <button className={styles.optionbutton} onClick={this.optionHandler}>
+          <img src={optionIcon} className={styles.icon} alt='Navigation Bar Hamburger Icon'></img>
+        </button>
         <span className={styles.logotext}>
         Study
         <br />
