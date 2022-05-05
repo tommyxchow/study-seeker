@@ -422,7 +422,7 @@ export default class SearchForm extends React.Component {
                     >
                       <div className={styles.middle}>
                         Filter
-                        <img className={styles.filterimg} src={filterImg}></img>
+                        <img className={styles.filterimg} src={filterImg} alt='Filter'></img>
                       </div>
                     </button>
                   </div>
@@ -541,7 +541,7 @@ export default class SearchForm extends React.Component {
                     >
                       <div className={styles.middle}>
                         Filter
-                        <img className={styles.filterimg} src={filterImg}></img>
+                        <img className={styles.filterimg} src={filterImg} alt='Filter'></img>
                       </div>
                     </button>
                   </div>
@@ -638,7 +638,7 @@ export default class SearchForm extends React.Component {
                             <img
                               className={styles.picturecircle}
                               src={this.getProfilePic(dict)}
-                              alt={dict.attributes.firstName}
+                              alt={dict.attributes.firstName + ' Profile Avatar'}
                             />
                           </div>
                           <div className={styles.innercontent1}>
@@ -968,6 +968,7 @@ export default class SearchForm extends React.Component {
                                 src={this.getProfilePic2(
                                   dict.attributes.classmemberids[0]
                                 )}
+                                alt='Profile Avatar'
                               />
                             )}
                           {dict.attributes.classmemberids.length > 0 &&
@@ -978,12 +979,14 @@ export default class SearchForm extends React.Component {
                                   src={this.getProfilePic2(
                                     dict.attributes.classmemberids[0]
                                   )}
+                                  alt='Profile Avatar'
                                 />
                                 <img
                                   className={styles.picturecircle1}
                                   src={this.getProfilePic2(
                                     dict.attributes.classmemberids[1]
                                   )}
+                                  alt='Profile Avatar'
                                 />
                               </div>
                             )}
@@ -995,18 +998,21 @@ export default class SearchForm extends React.Component {
                                   src={this.getProfilePic2(
                                     dict.attributes.classmemberids[0]
                                   )}
+                                  alt='Profile Avatar'
                                 />
                                 <img
                                   className={styles.picturecircle1}
                                   src={this.getProfilePic2(
                                     dict.attributes.classmemberids[1]
                                   )}
+                                  alt='Profile Avatar'
                                 />
                                 <img
                                   className={styles.picturecircle1}
                                   src={this.getProfilePic2(
                                     dict.attributes.classmemberids[2]
                                   )}
+                                  alt='Profile Avatar'
                                 />
                               </div>
                             )}
@@ -1020,12 +1026,14 @@ export default class SearchForm extends React.Component {
                                   src={this.getProfilePic2(
                                     dict.attributes.classmemberids[0]
                                   )}
+                                  alt='Profile Avatar'
                                 />
                                 <img
                                   className={styles.picturecircle1}
                                   src={this.getProfilePic2(
                                     dict.attributes.classmemberids[1]
                                   )}
+                                  alt='Profile Avatar'
                                 />
                                 <img
                                   className={styles.picturecircle1}
@@ -1034,6 +1042,7 @@ export default class SearchForm extends React.Component {
                                       dict.attributes.classmemberids.length - 1
                                     ]
                                   )}
+                                  alt='Profile Avatar'
                                 />
                                 <div className={styles.background3}>
                                   <p>
@@ -1106,6 +1115,7 @@ export default class SearchForm extends React.Component {
                                 src={this.getProfilePic2(
                                   dict.attributes.members[0]
                                 )}
+                                alt='Profile Avatar'
                               />
                             )}
                           {dict.attributes.members.length > 0 &&
@@ -1116,12 +1126,14 @@ export default class SearchForm extends React.Component {
                                   src={this.getProfilePic2(
                                     dict.attributes.members[0]
                                   )}
+                                  alt='Profile Avatar'
                                 />
                                 <img
                                   className={styles.picturecircle1}
                                   src={this.getProfilePic2(
                                     dict.attributes.members[1]
                                   )}
+                                  alt='Profile Avatar'
                                 />
                               </div>
                             )}
@@ -1133,18 +1145,21 @@ export default class SearchForm extends React.Component {
                                   src={this.getProfilePic2(
                                     dict.attributes.members[0]
                                   )}
+                                  alt='Profile Avatar'
                                 />
                                 <img
                                   className={styles.picturecircle1}
                                   src={this.getProfilePic2(
                                     dict.attributes.members[1]
                                   )}
+                                  alt='Profile Avatar'
                                 />
                                 <img
                                   className={styles.picturecircle1}
                                   src={this.getProfilePic2(
                                     dict.attributes.members[2]
                                   )}
+                                  alt='Profile Avatar'
                                 />
                               </div>
                             )}
@@ -1158,12 +1173,14 @@ export default class SearchForm extends React.Component {
                                   src={this.getProfilePic2(
                                     dict.attributes.members[0]
                                   )}
+                                  alt='Profile Avatar'
                                 />
                                 <img
                                   className={styles.picturecircle1}
                                   src={this.getProfilePic2(
                                     dict.attributes.members[1]
                                   )}
+                                  alt='Profile Avatar'
                                 />
                                 <img
                                   className={styles.picturecircle1}
@@ -1172,6 +1189,7 @@ export default class SearchForm extends React.Component {
                                       dict.attributes.members.length - 1
                                     ]
                                   )}
+                                  alt='Profile Avatar'
                                 />
                                 <div className={styles.background3}>
                                   <p>

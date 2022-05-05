@@ -79,6 +79,7 @@
     height: 7vw;
     width: 7vw;
     margin: 0rem 1rem 0rem 1rem;
+    border-radius: 100%;
 }
 .nameContainer{
     flex-grow: 2;
@@ -136,7 +137,7 @@
     color: #FFFFFF;
     border: 0;
     border-radius: 0.5vw;
-    height: 5vh;
+    height: 2.3vw;
     width: 12vw;
     font-family: 'Exo';
     font-style: normal;
@@ -149,8 +150,8 @@
 
 
 .classCard{
-    height: 25vh;
-    width: 25vh;
+    height: 12vw;
+    width: 12vw;
     row-gap: 0.7vh;
     padding: 1.5vh 1.5vw 1.5vh 1.5vw;
     justify-content: center;
@@ -189,7 +190,7 @@
     font-family: 'Exo';
     font-style: normal;
     font-size: 1.1vw;
-    height: 5vh;
+    height: 2.3vw;
     width: 100%;
     color: #FFFFFF;
     background-color: #3498DB;
@@ -355,6 +356,7 @@
         display: flex;
         flex-direction: row;
         justify-content: space-around;
+        
     }
     .connect, .viewProfile{
         background: #2ECC71;

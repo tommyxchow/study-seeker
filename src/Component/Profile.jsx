@@ -111,7 +111,7 @@ export default class Profile extends React.Component {
                   result.attributes.profilePicture ||
                   "/hci/api/uploads/files/DOo1Ebbt8dYT4-plb6G6NP5jIc9_l_gNlaYwPW4SaBM.png",
                 backgroundPicture: result.attributes.backgroundPicture || "",
-                rating: result.attributes.rating || "0",
+                rating: result.attributes.rating || 0,
                 edit: false,
                 connection_status: "Not sent",
                 block_list: result.attributes.block_list
@@ -429,7 +429,7 @@ export default class Profile extends React.Component {
       "Not sent": "Connect",
       pending: "Pending",
       accepted: "Disconnect",
-      incomming: "Incomming"
+      incomming: "Incoming"
     };
 
     const blockStatus = {
@@ -448,7 +448,7 @@ export default class Profile extends React.Component {
                 "https://webdev.cse.buffalo.edu" + this.state.backgroundPicture
               }
               className={styles.backgroundPicture}
-              alt="Cover"
+              alt="Background"
             />
             {this.state.edit && (
               <>

@@ -567,15 +567,15 @@ export default class ClassPosts extends Component {
 								}
 								{group.attributes.status == "private" && group.attributes.members.length === 2 &&
 									<>
-										<img className={styles.profilepicture} src={"https://webdev.cse.buffalo.edu"+ this.state.privateProfilePicture[0]} alt=""/>
-										<img className={styles.profilepicture} src={"https://webdev.cse.buffalo.edu"+ this.state.privateProfilePicture[1]} alt=""/>
+										<img className={styles.profilepicture} src={"https://webdev.cse.buffalo.edu"+ this.state.privateProfilePicture[0]} alt="Profile Avatar"/>
+										<img className={styles.profilepicture} src={"https://webdev.cse.buffalo.edu"+ this.state.privateProfilePicture[1]} alt="Profile Avatar"/>
 									</>
 								}
 								{group.attributes.status == "private" && (group.attributes.members.length === 3 || group.attributes.members.length > 3) &&
 								<>
-									<img className={styles.profilepicture} src={"https://webdev.cse.buffalo.edu"+ this.state.privateProfilePicture[0]} alt=""/>
-									<img className={styles.profilepicture} src={"https://webdev.cse.buffalo.edu"+ this.state.privateProfilePicture[1]} alt=""/>
-									<img className={styles.profilepicture} src={"https://webdev.cse.buffalo.edu"+ this.state.privateProfilePicture[2]} alt=""/>
+									<img className={styles.profilepicture} src={"https://webdev.cse.buffalo.edu"+ this.state.privateProfilePicture[0]} alt="Profile Avatar"/>
+									<img className={styles.profilepicture} src={"https://webdev.cse.buffalo.edu"+ this.state.privateProfilePicture[1]} alt="Profile Avatar"/>
+									<img className={styles.profilepicture} src={"https://webdev.cse.buffalo.edu"+ this.state.privateProfilePicture[2]} alt="Profile Avatar"/>
 								</>
 								} */}
                     </div>
