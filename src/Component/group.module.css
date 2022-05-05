@@ -75,7 +75,7 @@
   line-height: 19px;
   margin-bottom: 6px;
 
-  color: #c4c4c4;
+  color: #000000;
 }
 
 .rating {
@@ -89,7 +89,7 @@
   font-size: 14px;
   line-height: 19px;
 
-  color: #c4c4c4;
+  color: #000000;
 }
 
 .membercount {
@@ -103,8 +103,7 @@
   line-height: 19px;
   margin-left: 12.7px;
   margin-top: 0px;
-
-  color: #c4c4c4;
+  color: rgb(0, 0, 0);
 }
 
 .container {
