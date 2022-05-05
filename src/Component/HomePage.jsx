@@ -236,7 +236,7 @@ export default class HomePage extends React.Component {
                             )
                           ),
                         ].map(() => (
-                          <img className={style.stars} src={star} />
+                          <img className={style.stars} src={star} alt='star'/>
                         ))}
                         <div className={style.numberOfStar}>
                           ({this.state.all_students[idx].attributes.rating})
@@ -337,6 +337,7 @@ export default class HomePage extends React.Component {
                             <img
                               className={style.classStudentPicture}
                               src={this.state.profile_pictures[class_member]}
+                              alt='Profile Avatar'
                             />
                           </>
                         ))
