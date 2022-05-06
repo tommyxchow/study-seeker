@@ -1,9 +1,9 @@
 .leavebutton{
   background-color: #ff0000; /* Red */
+  color: #FFFFFF;
   width: 80px !important;
   height: 30px !important;
   border: none;
-  color: rgb(0, 0, 0);
   text-align: center;
   font-family: Exo;
   font-weight: bold;
@@ -19,10 +19,10 @@
 
 .joinbutton, .createbutton {
   background-color: #0CAF30; /* Green */
+  color: #FFFFFF;
   width: 80px !important;
   height: 30px !important;
   border: none;
-  color: rgb(0, 0, 0);
   text-align: center;
   font-family: Exo;
   font-weight: bold;
@@ -45,7 +45,8 @@
   text-align: left;
   background: #FFFFFF;
   margin-bottom: 15px;
-  width: 420px;
+  width: 70vw;
+  max-width: 500px;
   height: 70px;
   display: inline-flex;
   border-style: solid;
@@ -56,8 +57,28 @@
   color: #000000;
 }
 
-.container {
+.students_circle_pfp{
+  display: flex;
   flex-direction: row;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  margin-right: 20px;
+}
+
+.ratecontainer {
+  display: none;
+  flex-direction: column;
+  margin-right: 20px;
+}
+
+.container1 {
+  display: flex;
+  flex-direction: column;
+  margin-right: 20px;
+  align-items: center;
 }
 
 .container2 {
@@ -91,7 +112,11 @@
   margin-left: 12.7px;
   margin-top: 0px;
 
-  color: #C4C4C4;
+  color: #000000;
+}
+
+.num_students {
+  display: none;
 }
 
 .students {
@@ -105,7 +130,7 @@
   line-height: 19px;
   margin-bottom: 6px;
 
-  color: #C4C4C4;
+  color: #000000;
 }
 
 .rating {
@@ -119,7 +144,7 @@
   font-size: 14px;
   line-height: 19px;
 
-  color: #C4C4C4;
+  color: #000000;
 }
 
 .stardiv {
@@ -173,4 +198,43 @@
   margin-right: 5px;
   margin-bottom: 6px;
   display: inline-flex;
+}
+
+@media screen and (max-width: 620px){
+  .num_students {
+    display: flex;
+    height: 17px;
+    font-family: 'Exo';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+    margin-bottom: 6px;
+    color: #000000;
+    width: 90px;
+  }
+
+  .students{
+    display: none;
+  }
+
+  .membercount{
+    display: none;
+  }
+}
+
+@media screen and (max-width: 550px){
+  .container1{
+    display: none;
+  }
+}
+
+
+@media screen and (max-width: 430px){
+  
+
+  .name{
+    font-size: 15px;
+    line-height: 18px;
+  }
+
 }

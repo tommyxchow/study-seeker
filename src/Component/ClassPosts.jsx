@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import styles from "./post.module.css";
 
-const createFetch=(path, method, body)=>{
+const createFetch = (path, method, body) => {
   const supplyPath = process.env.REACT_APP_API_PATH + path;
   const supplyMethod = {
     method: method,
@@ -29,7 +29,6 @@ export default class ClassPosts extends Component {
   }
 
   componentDidMount() {
-    console.log(this.props.classId);
     fetch(
       process.env.REACT_APP_API_PATH +
         "/posts?recipientGroupID=" +
@@ -40,6 +39,24 @@ export default class ClassPosts extends Component {
     )
       .then((res) => res.json())
       .then((result) => {
+        result[0].forEach((post) => {
+          console.log(
+            (post.author !== null &&
+            post.author.attributes.block_list !== undefined
+              ? post.author.attributes.block_list
+              : []
+            ).includes(sessionStorage.getItem("user"))
+          );
+        });
+        result[0] = result[0].filter(
+          (post) =>
+            !(
+              post.author !== null &&
+              post.author.attributes.block_list !== undefined
+                ? post.author.attributes.block_list
+                : []
+            ).includes(sessionStorage.getItem("user"))
+        );
         this.setState({ posts: result[0] });
       });
 
@@ -54,7 +71,9 @@ export default class ClassPosts extends Component {
       .then((res) => res.json())
       .then((result) => {
         this.setState({
-          profilePicture: result.attributes.profilePicture?result.attributes.profilePicture:"/hci/api/uploads/files/DOo1Ebbt8dYT4-plb6G6NP5jIc9_l_gNlaYwPW4SaBM.png",
+          profilePicture: result.attributes.profilePicture
+            ? result.attributes.profilePicture
+            : "/hci/api/uploads/files/DOo1Ebbt8dYT4-plb6G6NP5jIc9_l_gNlaYwPW4SaBM.png",
           name: result.attributes.firstName + " " + result.attributes.lastName,
         });
       });
@@ -62,6 +81,11 @@ export default class ClassPosts extends Component {
 
   submitHandler = (event) => {
     event.preventDefault();
+
+    if (event.target.post.value === "") {
+      this.props.toggleModal("Please enter text into the box before posting.");
+      return;
+    }
 
     //make the api call to post
     fetch(process.env.REACT_APP_API_PATH + "/posts", {
@@ -77,18 +101,28 @@ export default class ClassPosts extends Component {
       }),
     })
       .then((res) => res.json())
-      .then((result) =>
-        {this.setState({ posts: [result, ...this.state.posts] })
-        createFetch('/groups/'+this.props.classId, "get", null)
-        .then((res) => res.json())
-        .then((result) =>{
-          delete result.id;
-          result.attributes.classpostcounter = this.state.posts.length;
-          console.log("class to patch", result);
-          createFetch('/groups/'+this.props.classId, "PATCH", result)
+      .then((result) => {
+        this.setState({ posts: [result, ...this.state.posts] });
+        createFetch("/groups/" + this.props.classId, "get", null)
           .then((res) => res.json())
-          .then((result) =>{}, (error)=>{alert(error)});
-        }, (error)=>{alert("error in post counter")})
+          .then(
+            (result) => {
+              delete result.id;
+              result.attributes.classpostcounter = this.state.posts.length;
+              console.log("class to patch", result);
+              createFetch("/groups/" + this.props.classId, "PATCH", result)
+                .then((res) => res.json())
+                .then(
+                  (result) => {},
+                  (error) => {
+                    this.props.toggleModal(error);
+                  }
+                );
+            },
+            (error) => {
+              this.props.toggleModal("error in post counter");
+            }
+          );
       });
 
     event.target.post.value = "";
@@ -97,12 +131,12 @@ export default class ClassPosts extends Component {
   render() {
     return (
       <>
-        <div className={styles.container}>
+        <div className={styles.containerRow}>
           <div className={styles.profileContainer}>
             <img
               className={styles.profilePicture}
               src={"https://webdev.cse.buffalo.edu" + this.state.profilePicture}
-              alt="Profile Pic"
+              alt="Profile Avatar"
             ></img>
             {this.state.name}
           </div>
@@ -131,10 +165,17 @@ export default class ClassPosts extends Component {
         </div>
         {this.state.posts.map((postInfo) => (
           <Post
-            id={postInfo.authorID}
-            name={`${postInfo.author?postInfo.author.attributes.firstName: "DELETED"} ${postInfo.author?postInfo.author.attributes.lastName: ""}`}
-            profilePicture={postInfo.author?postInfo.author.attributes.profilePicture:null}
+            toggleModal={this.props.toggleModal}
+            postId={postInfo.id}
+            authorId={postInfo.authorID}
+            name={`${
+              postInfo.author ? postInfo.author.attributes.firstName : "DELETED"
+            }`}
+            profilePicture={
+              postInfo.author ? postInfo.author.attributes.profilePicture : null
+            }
             content={postInfo.content}
+            replies={postInfo.reactions}
           />
         ))}
       </>
@@ -143,25 +184,154 @@ export default class ClassPosts extends Component {
 }
 
 class Post extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      showReply: false,
+      replies: props.replies,
+    };
+  }
+
+  submitHandlerReply = (event) => {
+    event.preventDefault();
+
+    console.log(event.target.reply.value);
+
+    if (event.target.reply.value === "") {
+      this.props.toggleModal("Please enter text into the box before posting.");
+      return;
+    }
+
+    //make the api call to post
+    fetch(process.env.REACT_APP_API_PATH + "/post-reactions", {
+      method: "post",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + sessionStorage.getItem("token"),
+      },
+      body: JSON.stringify({
+        postID: this.props.postId,
+        reactorID: sessionStorage.getItem("user"),
+        name: event.target.reply.value,
+      }),
+    })
+      .then((res) => res.json())
+      .then((result) =>
+        this.setState({ replies: [...this.state.replies, result] })
+      );
+
+    event.target.reply.value = "";
+  };
+
   render() {
     return (
-      <div className={styles.container}>
-        <Link
-          to={"/profile/" + this.props.id}
-          className={styles.profileContainer}
-        >
-          <img
-            className={styles.profilePicture}
-            src={
-              "https://webdev.cse.buffalo.edu" +
-              (this.props.profilePicture ??
-                "/hci/api/uploads/files/DOo1Ebbt8dYT4-plb6G6NP5jIc9_l_gNlaYwPW4SaBM.png")
+      <div className={styles.containerCol}>
+        <div className={styles.containerRow}>
+          <Link
+            to={"/profile/" + this.props.authorId}
+            className={styles.profileContainer}
+          >
+            <img
+              className={styles.profilePicture}
+              src={
+                "https://webdev.cse.buffalo.edu" +
+                (this.props.profilePicture ??
+                  "/hci/api/uploads/files/DOo1Ebbt8dYT4-plb6G6NP5jIc9_l_gNlaYwPW4SaBM.png")
+              }
+              alt="Profile Avatar"
+            ></img>
+            <div className={styles.profileName}>{this.props.name}</div>
+          </Link>
+          <div className={styles.postText}>{this.props.content}</div>
+          <button
+            className={
+              this.state.showReply ? styles.cancelButton : styles.replyButton
             }
-            alt="Profile Pic"
-          ></img>
-          {this.props.name}
-        </Link>
-        <div className={styles.postText}>{this.props.content}</div>
+            onClick={() => this.setState({ showReply: !this.state.showReply })}
+          >
+            {this.state.showReply ? "Cancel" : "Reply"}
+          </button>
+        </div>
+        {this.state.showReply && (
+          <div className={styles.replies}>
+            <h2>Replies</h2>
+            {this.state.replies.map((replyInfo) => (
+              <Reply postId={this.props.postId} {...replyInfo} />
+            ))}
+
+            <div className={styles.containerRow}>
+              <form
+                id="replyForm"
+                className={styles.replyForm}
+                onSubmit={this.submitHandlerReply}
+              >
+                <textarea
+                  name="reply"
+                  form="replyForm"
+                  className={styles.postInput}
+                  placeholder="Reply"
+                  rows={5}
+                  cols={70}
+                />
+              </form>
+              <button
+                form="replyForm"
+                type="submit"
+                value="submit"
+                className={styles.replyButton}
+              >
+                Post Reply
+              </button>
+            </div>
+          </div>
+        )}
+      </div>
+    );
+  }
+}
+
+class Reply extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      replierInfo: null,
+    };
+  }
+
+  componentDidMount() {
+    fetch(process.env.REACT_APP_API_PATH + "/users/" + this.props.reactorID, {
+      method: "GET",
+    })
+      .then((res) => res.json())
+      .then((result) => this.setState({ replierInfo: result }));
+  }
+
+  render() {
+    if (this.state.replierInfo == null) {
+      return null;
+    }
+    return (
+      <div className={styles.containerCol}>
+        <div className={styles.containerRow}>
+          <Link
+            to={"/profile/" + this.state.replierInfo.id}
+            className={styles.profileContainer}
+          >
+            <img
+              className={styles.profilePicture}
+              src={
+                "https://webdev.cse.buffalo.edu" +
+                (this.state.replierInfo.attributes.profilePicture ??
+                  "/hci/api/uploads/files/DOo1Ebbt8dYT4-plb6G6NP5jIc9_l_gNlaYwPW4SaBM.png")
+              }
+              alt="Profile Avatar"
+            ></img>
+            <div className={styles.profileName}>
+              {this.state.replierInfo.attributes.firstName}
+            </div>
+          </Link>
+          <div className={styles.postText}>{this.props.name}</div>
+        </div>
       </div>
     );
   }

@@ -384,7 +384,7 @@
   border: 0;
   border-radius: 10px;
   height: 30px;
-  width: 100px;
+  width: 150px;
   background: #3498DB;
   font-family: Exo;
   font-size: small;
@@ -764,6 +764,7 @@
 
   .connectbutton{
     width:35vw;
+    color: #FFFFFF;
   }
 
   .profilebutton{

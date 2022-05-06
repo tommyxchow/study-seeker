@@ -1,33 +1,29 @@
 import React from "react";
 import "../App.css";
-import PostingList from "./PostingList.jsx";
 import style from "./postform.module.css";
-import yearLogo from "../assets/goal.png";
 import ClassPosts from "./ClassPosts";
 import Groups from "./ClassGroups";
 
-
-// The post form component holds both a form for posting, and also the list of current posts in your feed.  This is primarily to 
+// The post form component holds both a form for posting, and also the list of current posts in your feed.  This is primarily to
 // make updating the list simpler.  If the post form was contained entirely in a separate component, you would have to do a lot of calling around
-// in order to have the list update.  Communication between components in react is ... fun. 
+// in order to have the list update.  Communication between components in react is ... fun.
 export default class PostForm extends React.Component {
-
   constructor(props) {
     super(props);
     this.state = {
       name: "",
       instructor: "",
       about: "",
-      about_bool:false,
-      students:false,
-      Alumni:false,
-      Fall_2021:false,
-      Spring_2021:false,
+      about_bool: false,
+      students: false,
+      Alumni: false,
+      Fall_2021: false,
+      Spring_2021: false,
       post: false,
       join: false,
       groups: false,
       current_members: [],
-      alumni_members: []
+      alumni_members: [],
     };
     this.postListing = React.createRef();
   }
@@ -52,283 +48,371 @@ export default class PostForm extends React.Component {
   // in the attributes field.  Posts also does double duty as a message; if you want in-app messaging
   // you would add a recipientUserID for a direct message, or a recipientGroupID for a group chat message.
   // if the post is a comment on another post (or comment) you would pass in a parentID of the thing
-  // being commented on.  Attributes is an open ended name/value segment that you can use to add 
+  // being commented on.  Attributes is an open ended name/value segment that you can use to add
   // whatever custom tuning you need, like category, type, rating, etc.
-  submitHandler = event => {
-
+  submitHandler = (event) => {
     //keep the form from actually submitting via HTML - we want to handle it in react
     event.preventDefault();
 
     //make the api call to post
-    fetch(process.env.REACT_APP_API_PATH+"/posts", {
+    fetch(process.env.REACT_APP_API_PATH + "/posts", {
       method: "post",
       headers: {
-        'Content-Type': 'application/json',
-        'Authorization': 'Bearer '+sessionStorage.getItem("token")
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + sessionStorage.getItem("token"),
       },
       body: JSON.stringify({
         authorID: this.props.userid,
-        content: this.state.post_text
-      })
+        content: this.state.post_text,
+      }),
     })
-      .then(res => res.json())
+      .then((res) => res.json())
       .then(
-        result => {
+        (result) => {
           this.setState({
-            postmessage: result.Status
+            postmessage: result.Status,
           });
-          alert("Post was successful");
+          this.props.toggleModal("Post was successful");
           // once a post is complete, reload the feed
           this.postListing.current.loadPosts();
         },
-        error => {
-          alert("error!");
+        (error) => {
+          this.props.toggleModal("error!");
         }
       );
   };
 
   // this method will keep the current post up to date as you type it,
   // so that the submit handler can read the information from the state.
-  myChangeHandler = event => {
+  myChangeHandler = (event) => {
     this.setState({
-      post_text: event.target.value
+      post_text: event.target.value,
     });
   };
 
   // the login check here is redundant, since the top level routing also is checking,
   // but this could catch tokens that were removed while still on this page, perhaps due to a timeout?
 
-  addUser =(id)=>{
-    this.createFetch('/users/'+id, 'get', null)
-    .then((res) => res.json())
-    .then(result_user=>{
-      this.setState({current_members:[[result_user.id, 
-                                      result_user.attributes.firstName, 
-                                      result_user.attributes.lastName,
-                                      result_user.attributes.profilePicture]
-                                      ,...this.state.current_members
-                                      ]});
-      if(this.props.userid === result_user.id){
-        this.setState({join:true});
-      }
-    }, error=>{console.log("get user error")});
-  }
-
-  addUserAlumni = (id) =>{
-    this.createFetch('/users/'+id, 'get', null)
-    .then((res) => res.json())
-    .then(result_user=>{
-      this.setState({alumni_members:[[result_user.id, 
-                                      result_user.attributes.firstName, 
-                                      result_user.attributes.lastName,
-                                      result_user.attributes.profilePicture]
-                                      ,...this.state.alumni_members
-                                      ]});
-    }, error=>{console.log("get user error")});
-  }
-
-
-  handleJoin = event =>{
-    const path = "/groups/"+this.props.classId;
-    const method = "PATCH";
-      this.createFetch(path, "get", null)
-      .then(res => res.json())
+  addUser = (id) => {
+    this.createFetch("/users/" + id, "get", null)
+      .then((res) => res.json())
       .then(
-        result => {
-          result.attributes.classmemberids.push(this.props.userid);
-          result.attributes.classalumnimemberids  = result.attributes.classalumnimemberids?result.attributes.classalumnimemberids:[]
-          result.attributes.classalumnimemberids = result.attributes.classalumnimemberids.filter((id)=>id == this.props.id);
-          delete result.id;
-          this.createFetch(path, method, result)
-          .then((res) => res.json())
-          .then(
-            (result) => {
-              this.setState({
-                responseMessage: result.Status,
-                alumni_members: this.state.alumni_members.filter((item)=>Number(item[0])!=Number(this.props.userid)),
-                join: true,
-              });
-              this.addUser(this.props.userid);
-            },
-            (error) => {
-              alert(error);
-            }
-          );
+        (result_user) => {
+          this.setState({
+            current_members: [
+              [
+                result_user.id,
+                result_user.attributes.firstName,
+                result_user.attributes.lastName,
+                result_user.attributes.profilePicture,
+              ],
+              ...this.state.current_members,
+            ],
+          });
+          if (this.props.userid === result_user.id) {
+            this.setState({ join: true });
+          }
         },
-        error => {
-          alert("error in get");
+        (error) => {
+          console.log("get user error");
         }
       );
-  }
+  };
 
-  handleLeave = event =>{
-    const path = "/groups/"+this.props.classId;
-    const method = "PATCH";
-      this.createFetch(path, "get", null)
-      .then(res => res.json())
+  addUserAlumni = (id) => {
+    this.createFetch("/users/" + id, "get", null)
+      .then((res) => res.json())
       .then(
-        result => {
-          result.attributes.classmemberids = result.attributes.classmemberids.filter((id)=>{return id!=this.props.userid});
-          result.attributes.classalumnimemberids = result.attributes.classalumnimemberids?result.attributes.classalumnimemberids:[]
-          if(!(this.props.userid in result.attributes.classalumnimemberids)){
+        (result_user) => {
+          this.setState({
+            alumni_members: [
+              [
+                result_user.id,
+                result_user.attributes.firstName,
+                result_user.attributes.lastName,
+                result_user.attributes.profilePicture,
+              ],
+              ...this.state.alumni_members,
+            ],
+          });
+        },
+        (error) => {
+          console.log("get user error");
+        }
+      );
+  };
+
+  handleJoin = (event) => {
+    const path = "/groups/" + this.props.classId;
+    const method = "PATCH";
+    this.createFetch(path, "get", null)
+      .then((res) => res.json())
+      .then(
+        (result) => {
+          result.attributes.classmemberids.push(this.props.userid);
+          result.attributes.classalumnimemberids = result.attributes
+            .classalumnimemberids
+            ? result.attributes.classalumnimemberids
+            : [];
+          result.attributes.classalumnimemberids =
+            result.attributes.classalumnimemberids.filter(
+              (id) => id == this.props.id
+            );
+          delete result.id;
+          this.createFetch(path, method, result)
+            .then((res) => res.json())
+            .then(
+              (result) => {
+                this.setState({
+                  responseMessage: result.Status,
+                  alumni_members: this.state.alumni_members.filter(
+                    (item) => Number(item[0]) != Number(this.props.userid)
+                  ),
+                  join: true,
+                });
+                this.addUser(this.props.userid);
+              },
+              (error) => {
+                this.props.toggleModal(error);
+              }
+            );
+        },
+        (error) => {
+          this.props.toggleModal("error in get");
+        }
+      );
+  };
+
+  handleLeave = (event) => {
+    const path = "/groups/" + this.props.classId;
+    const method = "PATCH";
+    this.createFetch(path, "get", null)
+      .then((res) => res.json())
+      .then(
+        (result) => {
+          result.attributes.classmemberids =
+            result.attributes.classmemberids.filter((id) => {
+              return id != this.props.userid;
+            });
+          result.attributes.classalumnimemberids = result.attributes
+            .classalumnimemberids
+            ? result.attributes.classalumnimemberids
+            : [];
+          if (!(this.props.userid in result.attributes.classalumnimemberids)) {
             result.attributes.classalumnimemberids.push(this.props.userid);
           }
           delete result.id;
           this.createFetch(path, method, result)
-          .then((res) => res.json())
-          .then(
-            (result) => {
-              this.setState({
-                responseMessage: result.Status,
-                join: false,
-                current_members: this.state.current_members.filter((item)=>item[0]!=this.props.userid)
-              });
-              this.addUserAlumni(this.props.userid);
-            },
-            (error) => {
-              alert(error);
-            }
-          );
+            .then((res) => res.json())
+            .then(
+              (result) => {
+                this.setState({
+                  responseMessage: result.Status,
+                  join: false,
+                  current_members: this.state.current_members.filter(
+                    (item) => item[0] != this.props.userid
+                  ),
+                });
+                this.addUserAlumni(this.props.userid);
+              },
+              (error) => {
+                this.props.toggleModal(error);
+              }
+            );
         },
-        error => {
-          alert("error in remove get");
+        (error) => {
+          this.props.toggleModal("error in remove get");
         }
       );
-  }
+  };
 
-  componentDidMount(){
-    this.createFetch('/groups/'+this.props.classId, 'get', null)
-    .then(res => res.json())
-    .then(
-      (result) => {
-        this.setState({"name":result.name, "instructor": result.attributes.instructor,
-                      "about": result.attributes.about})
-        const members = result.attributes.classmemberids;
-        members.map(this.addUser);
-        
-        const alumni = result.attributes.classalumnimemberids?result.attributes.classalumnimemberids:[];
-        alumni.map(this.addUserAlumni);
-      },
-      error =>{alert("error in get (mount)")}
-    );
+  componentDidMount() {
+    this.createFetch("/groups/" + this.props.classId, "get", null)
+      .then((res) => res.json())
+      .then(
+        (result) => {
+          this.setState({
+            name: result.name,
+            instructor: result.attributes.instructor,
+            about: result.attributes.about,
+          });
+          const members = result.attributes.classmemberids;
+          members.map(this.addUser);
+
+          const alumni = result.attributes.classalumnimemberids
+            ? result.attributes.classalumnimemberids
+            : [];
+          alumni.map(this.addUserAlumni);
+        },
+        (error) => {
+          this.props.toggleModal("error in get (mount)");
+        }
+      );
   }
 
   render() {
     if (!sessionStorage.getItem("token")) {
       console.log("NO TOKEN");
-      return ("Please log in to make and view posts");
-
-    }else{
-      console.log("Rendering postings ",this.props.refresh);
+      return "Please log in to make and view posts";
+    } else {
+      console.log("Rendering postings ", this.props.refresh);
     }
     return (
       <div className={style.container}>
-  
         <div className={style.classHeader}>
           <div className={style.classNameLine}>
-            <div className={style.className}>
-              {this.state.name}
-            </div>{!this.state.join?
-            <input className={style.classJoin} type='button' value='Join' onClick={this.handleJoin}></input>
-            :
-            <input className={style.classLeave} type='button' value='Leave' onClick={this.handleLeave}></input>
-            }
+            <div className={style.className}>{this.state.name}</div>
+            {!this.state.join ? (
+              <input
+                className={style.classJoin}
+                type="button"
+                value="Join"
+                onClick={this.handleJoin}
+              ></input>
+            ) : (
+              <input
+                className={style.classLeave}
+                type="button"
+                value="Leave"
+                onClick={this.handleLeave}
+              ></input>
+            )}
           </div>
           <div className={style.classSmallDiscription}>
-            Education is the most powerful weapon which you can use to change the world. 
+            Education is the most powerful weapon which you can use to change
+            the world.
           </div>
         </div>
         <div className={style.aboutHeader}>
           <div className={style.aboutLine}>
             <div className={style.about}>About</div>
-            <div className={style.arrow} onClick={()=>this.setState({about_bool:!this.state.about_bool})}>
-              {this.state.about_bool?<>&#x2191;</>:<>&#x2193;</>}
+            <div
+              className={style.arrow}
+              onClick={() =>
+                this.setState({ about_bool: !this.state.about_bool })
+              }
+            >
+              {this.state.about_bool ? <>&#x2191;</> : <>&#x2193;</>}
             </div>
           </div>
-          <hr className={style.horizontalLine}/>
-          {this.state.about_bool && <>
-            <div className={style.instructorLine}>
-              <div className={style.instructor}>Instructor:</div>
-              <div className={style.instructorName}>{this.state.instructor}</div>
-            </div>
-            <div className={style.classDiscription}>
-              {this.state.about}
-            </div>
-          </>
-          }
+          <hr className={style.horizontalLine} />
+          {this.state.about_bool && (
+            <>
+              <div className={style.instructorLine}>
+                <div className={style.instructor}>Instructor:</div>
+                <div className={style.instructorName}>
+                  {this.state.instructor}
+                </div>
+              </div>
+              <div className={style.classDiscription}>{this.state.about}</div>
+            </>
+          )}
         </div>
 
         <div className={style.studentHeader}>
           <div className={style.studentLine}>
             <div className={style.student}>Students</div>
-            <div className={style.arrow} onClick={()=>this.setState({students:!this.state.students})}>
-              {this.state.students?<>&#x2191;</>:<>&#x2193;</>}
+            <div
+              className={style.arrow}
+              onClick={() => this.setState({ students: !this.state.students })}
+            >
+              {this.state.students ? <>&#x2191;</> : <>&#x2193;</>}
             </div>
           </div>
-          <hr className={style.horizontalLine}/>
-            {this.state.students && 
-            <div className={style.allStudents}>{
-            this.state.current_members.map((member)=>(
-            <>
-              <div className={style.studentCard}>
-                <img className={style.studentImage} src={"https://webdev.cse.buffalo.edu/"+member[3]} alt="student profile"></img>
-                <div className={style.studentName}>
-                  {member[1]+" "+member[2][0]+"."}
-                </div>
-              </div>
-            </>
-          ))}
-          </div>}
+          <hr className={style.horizontalLine} />
+          {this.state.students && (
+            <div className={style.allStudents}>
+              {this.state.current_members.map((member) => (
+                <>
+                  <div className={style.studentCard}>
+                    <img
+                      className={style.studentImage}
+                      src={"https://webdev.cse.buffalo.edu/" + member[3]}
+                      alt="Profile Avatar"
+                    ></img>
+                    <div className={style.studentName}>
+                      {member[1] + " " + member[2][0] + "."}
+                    </div>
+                  </div>
+                </>
+              ))}
+            </div>
+          )}
         </div>
         <div className={style.alumniHeader}>
           <div className={style.alumniLine}>
             <div className={style.alumni}>Alumni</div>
-            <div className={style.arrow} onClick={()=>this.setState({Alumni:!this.state.Alumni})}>
-              {this.state.Alumni?<>&#x2191;</>:<>&#x2193;</>}
+            <div
+              className={style.arrow}
+              onClick={() => this.setState({ Alumni: !this.state.Alumni })}
+            >
+              {this.state.Alumni ? <>&#x2191;</> : <>&#x2193;</>}
             </div>
           </div>
-          <hr className={style.horizontalLine}/>
-          {this.state.Alumni && <>
-            <div className={style.alumniClassStudent}>
-              {
-              this.state.alumni_members.map((member)=>(
-              <>
-                <div className={style.studentCard}>
-                  <img className={style.studentImage} src={"https://webdev.cse.buffalo.edu/"+member[3]} alt="student profile"></img>
-                  <div className={style.studentName}>
-                    {member[1]+" "+member[2][0]+"."}
-                  </div>
-                </div>
-              </>))
-              }
+          <hr className={style.horizontalLine} />
+          {this.state.Alumni && (
+            <>
+              <div className={style.alumniClassStudent}>
+                {this.state.alumni_members.map((member) => (
+                  <>
+                    <div className={style.studentCard}>
+                      <img
+                        className={style.studentImage}
+                        src={"https://webdev.cse.buffalo.edu/" + member[3]}
+                        alt="Profile Avatar"
+                      ></img>
+                      <div className={style.studentName}>
+                        {member[1] + " " + member[2][0] + "."}
+                      </div>
+                    </div>
+                  </>
+                ))}
               </div>
-            </>}
+            </>
+          )}
         </div>
-        { this.state.join &&(<>
-        <div className={style.postsHeader}>
-          <div className={style.postsLine}>
-            <div className={style.posts}>Posts</div>
-            <div className={style.arrow} onClick={()=>this.setState({post:!this.state.post})}>
-              {this.state.post?<>&#x2191;</>:<>&#x2193;</>}
+        {this.state.join && (
+          <>
+            <div className={style.postsHeader}>
+              <div className={style.postsLine}>
+                <div className={style.posts}>Posts</div>
+                <div
+                  className={style.arrow}
+                  onClick={() => this.setState({ post: !this.state.post })}
+                >
+                  {this.state.post ? <>&#x2191;</> : <>&#x2193;</>}
+                </div>
+              </div>
+              <hr className={style.horizontalLine} />
+              {this.state.post && (
+                <ClassPosts
+                  classId={this.props.classId}
+                  userid={this.props.userid}
+                  toggleModal={this.props.toggleModal}
+                />
+              )}
             </div>
-          </div>
-          <hr className={style.horizontalLine}/>{this.state.post && 
-            <ClassPosts classId={this.props.classId} userid={this.props.userid}/>
-          }
-        </div>
 
-        <div className={style.groupsHeader}>
-          <div className={style.groupsLine}>
-            <div className={style.groups}>Groups</div>
-          <div className={style.arrow} onClick={()=>this.setState({groups:!this.state.groups})}>
-              {this.state.groups?<>&#x2191;</>:<>&#x2193;</>}
+            <div className={style.groupsHeader}>
+              <div className={style.groupsLine}>
+                <div className={style.groups}>Groups</div>
+                <div
+                  className={style.arrow}
+                  onClick={() => this.setState({ groups: !this.state.groups })}
+                >
+                  {this.state.groups ? <>&#x2191;</> : <>&#x2193;</>}
+                </div>
+              </div>
+              <hr className={style.horizontalLine} />
+              {this.state.groups && (
+                <Groups
+                  classId={this.props.classId}
+                  userid={this.props.userid}
+                />
+              )}
             </div>
-          </div>
-          <hr className={style.horizontalLine}/>{this.state.groups &&
-            <Groups classId= {this.props.classId} userid={this.props.userid}/>
-            }
-        </div>
-        </>)}
+          </>
+        )}
       </div>
     );
   }
