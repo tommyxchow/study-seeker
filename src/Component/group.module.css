@@ -320,8 +320,12 @@
     margin-left: 10px;
   }
 
+  .name {
+    max-width: 150px;
+  }
+
   .grouplist {
-    width: 100%;
+    width: 280px;
   }
 
   .name {
@@ -412,9 +416,7 @@
     align-self: center;
     margin-top: 15px;
   }
-}
 
-@media only screen and (max-width: 600px) {
   .studentsContainer {
     display: none;
   }
