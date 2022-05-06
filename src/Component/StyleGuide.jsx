@@ -86,15 +86,15 @@ class StyleGuide extends React.Component {
                 <h3 className="text">Buttons</h3>
                         <button className="connectButton">Button 1</button><p className="size10"> Connect / Submit </p>
                     
-                        <button className="disconnectButton">Button 2</button><p className="size10"> Disconnect / Block / Diactivate Account</p>
+                        <button className="disconnectButton">Button 2</button><p className="size10"> Disconnect / Block / Deactivate Account</p>
 
                         <button className="submitButton">Button 3</button><p className="size10"> Submit / Login / Reset / Signup</p>
 
-                        <button className="filterButton">Button 3</button><p className="size10"> Filter </p>
+                        <button className="filterButton">Button 3</button><p className="size10"> Filter / Private / Public </p>
                     
             </div>
             <div className="box4" >
-                <img src={logo} className="logo"></img>
+                <img src={logo} className="logo" alt="Study Seeker Logo"></img>
             </div>
             </div>
             
@@ -114,15 +114,15 @@ class StyleGuide extends React.Component {
                 <h3 className="center">Layouts</h3>
                   <div className="fixlayout">
                     <div className="center">
-                        <img src={landing} className="layout"></img>
+                        <img src={landing} className="layout" alt="Study Seeker Landing"></img>
                         <p >Landing page layout in desktop and mobile</p>
                     </div>
                     <div className="center">
-                        <img src={layout} className="layout"></img>
+                        <img src={layout} className="layout" alt="Study Seeker Layout"></img>
                         <p >general destop layout</p>
                     </div>
                     <div  className="center">
-                        <img src={mobile} className="mobile"></img>
+                        <img src={mobile} className="mobile" alt="Study Seeker Mobile"></img>
                         <p >general mobile layout</p>
                     </div>
                     </div>
