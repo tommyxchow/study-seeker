@@ -24,11 +24,10 @@
   font-family: 'Exo';
   font-style: normal;
   font-weight: 500;
-  font-size: 48px;
+  font-size: 36px;
   line-height: 64px;
   margin-left: 50px;
   margin-top: 29px;
-  margin-bottom: 41px;
 }
 
 .groupname {
@@ -58,6 +57,11 @@
   margin-bottom: 5.52px;
 
   color: #000000;
+
+  text-overflow:ellipsis;
+  overflow:hidden;
+  white-space: nowrap;
+  max-width: 200px;
 }
 
 .students {
@@ -71,7 +75,7 @@
   line-height: 19px;
   margin-bottom: 6px;
 
-  color: #c4c4c4;
+  color: #000000;
 }
 
 .rating {
@@ -85,7 +89,7 @@
   font-size: 14px;
   line-height: 19px;
 
-  color: #c4c4c4;
+  color: #000000;
 }
 
 .membercount {
@@ -99,8 +103,7 @@
   line-height: 19px;
   margin-left: 12.7px;
   margin-top: 0px;
-
-  color: #c4c4c4;
+  color: rgb(0, 0, 0);
 }
 
 .container {
@@ -120,7 +123,7 @@
   width: 80px !important;
   height: 30px !important;
   border: none;
-  color: rgb(0, 0, 0);
+  color: #FFFFFF;
   text-align: center;
   font-family: Exo;
   font-weight: bold;
@@ -265,7 +268,7 @@
   width: 80px !important;
   height: 30px !important;
   border: none;
-  color: rgb(0, 0, 0);
+  color: #FFFFFF;
   text-align: center;
   font-family: Exo;
   font-weight: bold;
@@ -284,7 +287,7 @@
   width: 80px !important;
   height: 30px !important;
   border: none;
-  color: rgb(0, 0, 0);
+  color: #FFFFFF;
   text-align: center;
   font-family: Exo;
   font-weight: bold;
@@ -317,8 +320,12 @@
     margin-left: 10px;
   }
 
+  .name {
+    max-width: 150px;
+  }
+
   .grouplist {
-    width: 100%;
+    width: 280px;
   }
 
   .name {
@@ -328,7 +335,8 @@
 
   .leavebutton {
     margin-right: 1rem;
-    font-size: 0.8rem;
+    font-size: 18px;
+    color: #FFFFFF;
   }
 
   .div1 {
@@ -386,8 +394,13 @@
     font-size: 14px;
     line-height: 19px;
     margin-left: 13px;
+    border-radius: 10px;
+    background: #737373;
+    border: 0;
+    width: 55px;
+    height: 25px;
   
-    color: #000000;
+    color: #FFFFFF;
   }
 
   .groupleavebutton {
@@ -395,7 +408,7 @@
     width: 80px !important;
     height: 30px !important;
     border: none;
-    color: rgb(0, 0, 0);
+    color: #FFFFFF;
     text-align: center;
     font-family: Exo;
     font-weight: bold;
@@ -408,9 +421,7 @@
     align-self: center;
     margin-top: 15px;
   }
-}
 
-@media only screen and (max-width: 600px) {
   .studentsContainer {
     display: none;
   }

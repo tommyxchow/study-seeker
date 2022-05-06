@@ -1,9 +1,9 @@
 .leavebutton{
   background-color: #ff0000; /* Red */
+  color: #FFFFFF;
   width: 80px !important;
   height: 30px !important;
   border: none;
-  color: rgb(0, 0, 0);
   text-align: center;
   font-family: Exo;
   font-weight: bold;
@@ -19,10 +19,10 @@
 
 .joinbutton, .createbutton {
   background-color: #0CAF30; /* Green */
+  color: #FFFFFF;
   width: 80px !important;
   height: 30px !important;
   border: none;
-  color: rgb(0, 0, 0);
   text-align: center;
   font-family: Exo;
   font-weight: bold;
@@ -68,6 +68,12 @@
   margin-right: 20px;
 }
 
+.ratecontainer {
+  display: none;
+  flex-direction: column;
+  margin-right: 20px;
+}
+
 .container1 {
   display: flex;
   flex-direction: column;
@@ -106,7 +112,7 @@
   margin-left: 12.7px;
   margin-top: 0px;
 
-  color: #C4C4C4;
+  color: #000000;
 }
 
 .num_students {
@@ -124,7 +130,7 @@
   line-height: 19px;
   margin-bottom: 6px;
 
-  color: #C4C4C4;
+  color: #000000;
 }
 
 .rating {
@@ -138,7 +144,7 @@
   font-size: 14px;
   line-height: 19px;
 
-  color: #C4C4C4;
+  color: #000000;
 }
 
 .stardiv {
@@ -203,7 +209,7 @@
     font-weight: 500;
     font-size: 14px;
     margin-bottom: 6px;
-    color: #C4C4C4;
+    color: #000000;
     width: 90px;
   }
 
@@ -216,12 +222,20 @@
   }
 }
 
+@media screen and (max-width: 550px){
+  .container1{
+    display: none;
+  }
+}
+
+
 @media screen and (max-width: 430px){
   
 
   .name{
-    font-size: 15px;
+    font-size: 18px;
     line-height: 18px;
+    width: 113.783px;
   }
 
 }

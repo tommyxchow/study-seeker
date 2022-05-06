@@ -80,6 +80,7 @@
   align-self: center;
   font-size: large;
   margin-left: 2vw;
+  color: #FFFFFF;
 }
 
 .deleteAccountButton {
@@ -97,6 +98,7 @@
 
 .disconnectButton, .blockButton, .deleteAccountButton{
   background: #ff0000;
+  color: #FFFFFF;
 }
 
 .blockButton{
@@ -118,6 +120,7 @@
 
 .profileDetailItem {
   margin-right: 100px;
+  cursor: pointer;
 }
 
 .profileDetailIcon {
@@ -142,6 +145,10 @@
   align-items: center;
   margin-right: 50px;
   font-family: Exo;
+}
+
+.confirmButton, .cancelButton  {
+  cursor: pointer;
 }
 
 .editButtons {
@@ -239,6 +246,7 @@
     position: absolute;
     left: 100px;
     top: 80px;
+    color: #FFFFFF;
   }
 
   .deleteAccountButton{
@@ -260,6 +268,7 @@
 
   .disconnectButton{
     background: #ff0000;
+    color: #FFFFFF;
   }
 
   .blockButton{

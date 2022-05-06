@@ -26,7 +26,7 @@ class Navbar extends React.Component {
               src={postIcon}
               className="sidenav-icon"
               alt="Posts"
-              title="Posts"
+              title="Posts Tab"
             />
           </Link>
         </li>
@@ -35,7 +35,7 @@ class Navbar extends React.Component {
             <img
               src={friendIcon}
               className="sidenav-icon"
-              alt="Friends"
+              alt="Friends Tab"  
               title="Friends"
             />
           </Link>
@@ -45,7 +45,7 @@ class Navbar extends React.Component {
             <img
               src={settingIcon}
               className="sidenav-icon"
-              alt="Settings"
+              alt="Settings Tab"
               title="Settings"
             />
           </Link>
@@ -58,7 +58,7 @@ class Navbar extends React.Component {
             <img
               src={helpIcon}
               className="sidenav-icon"
-              alt="Settings"
+              alt="Settings Tab"
               title="Settings"
             />
           </button>
@@ -71,8 +71,8 @@ class Navbar extends React.Component {
             <img
               src={exitIcon}
               className="sidenav-icon"
-              alt="Settings"
-              title="Settings"
+              alt="Exit Icon"
+              title="Exit"
             />
           </button>
         </li>
@@ -81,7 +81,7 @@ class Navbar extends React.Component {
             <img
               src={groupIcon}
               className="sidenav-icon"
-              alt="groups"
+              alt="groups Tab"
               title="groups"
             />
           </Link>
