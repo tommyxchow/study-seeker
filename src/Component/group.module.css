@@ -335,7 +335,7 @@
 
   .leavebutton {
     margin-right: 1rem;
-    font-size: 0.8rem;
+    font-size: 18px;
     color: #FFFFFF;
   }
 
@@ -394,6 +394,11 @@
     font-size: 14px;
     line-height: 19px;
     margin-left: 13px;
+    border-radius: 10px;
+    background: #737373;
+    border: 0;
+    width: 55px;
+    height: 25px;
   
     color: #FFFFFF;
   }
