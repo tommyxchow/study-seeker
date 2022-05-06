@@ -1,7 +1,8 @@
 @import url('https://fonts.googleapis.com/css2?family=Exo:ital,wght@0,400;0,700;1,400&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Sofia&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
 
-.connectButton, .disconnectButton, .blockButton, .deleteAccountButton{
+.connectButton, .disconnectButton, .blockButton, .deleteAccountButton, .filterButton{
     border: 0;
     border-radius: 10px;
     height: 35px;
@@ -11,6 +12,7 @@
     align-self: center;
     font-size: large;
     margin-left: 28vw;
+    color:white;
   }
 
   .sidenavi {
@@ -26,7 +28,7 @@
     background-color: rgb(144, 118, 113, 1);
   }
 
-  .connectButton, .disconnectButton, .blockButton, .deleteAccountButton{
+  .connectButton, .disconnectButton, .blockButton, .deleteAccountButton, .filterButton{
     border: 0;
     border-radius: 10px;
     height: 35px;
@@ -52,9 +54,14 @@
     font-family: Exo;
     font-size: large;
     margin: 20px;
+    color: white;
   }
 
-  .colorbox1, .colorbox2, .colorbox3, .colorbox4, .colorbox5, .colorbox6{
+  .filterButton{
+    background: #737373;
+  }
+
+  .colorbox1, .colorbox2, .colorbox3, .colorbox4, .colorbox5, .colorbox6, .colorbox7{
     border: 2px solid #907671;
     border-radius: 50%;
     height: 100px;
@@ -81,6 +88,9 @@
   .colorbox6{
     background-color: #2ecc71;
   }
+  .colorbox7{
+    background-color: #737373;
+  }
 
   .box{
     background-color: #ede5e5;
@@ -89,22 +99,23 @@
     margin: 20px;
     padding: 10px;
     border-radius: 25px;
-    margin-left:75px;
-    height: 940px;
     padding-bottom: 50px;
   }
   
   .box1{
     background-color: #ede5e5;
-    width:fit-content;
+    width:70vw;
     margin: 20px;
     padding: 10px;
     border-radius: 25px;
     margin: 25px;
   }
 
+  .box1text{
+    font-size: 18px;
+  }
+
   .box4{
-    width:fit-content;
     margin: 20px;
     padding: 10px;
     border-radius: 25px;
@@ -115,7 +126,6 @@
 
   .box2{
     background-color: #ede5e5;
-    width:100%;
     text-align:center;
     padding: 10px;
     border-radius: 25px;
@@ -131,7 +141,7 @@
   
   .box5{
     background-color: #ede5e5;
-    width:fit-content;
+    width:20vw;
     margin: 20px;
     padding: 10px;
     padding-left: 25px;
@@ -154,7 +164,7 @@
     background-color: #ffffff;
     font-family: Exo;
     font-size: large;
-    margin: 20px;
+    margin-top: 20px;
 
     display:grid;
     justify-content: center;
@@ -178,19 +188,45 @@
     align-items: center;
   }
 
+  .roboto{
+    border: 1px solid #907671;
+    border-radius: 10px;
+    height: 100px;
+    width: 120px;
+    background-color: #ffffff;
+    font-family: Roboto;
+    align-self: center;
+    font-size: large;
+
+    display:grid;
+    justify-content: center;
+    align-items: center;
+  }
+
   .logo{
-    width: 440px;
-    height: 360px;
+    width: 22vw;
+    height: 20vw;
+  }
+
+  .with_logo{
+    display: flex;
+    flex-direction: column;
+  }
+
+  .fixlayout{
+    width: 70vw;
+    display: flex;
+    flex-direction: row;
   }
 
   .table{
     display: flex;
   }
   .td{
-    width: 500px;
+    width: 100%;
   }
   .td1{
-    width: 500px;
+    width: 100%;
     
   }
 
@@ -268,4 +304,102 @@
 
   .margin{
     margin-top: 15px;
+    display: flex;
+    flex-direction: row;
+  }
+
+  .outtercontent1{
+    display: flex;
+    flex-direction: row;
+  }
+
+  @media screen and (max-width: 1600px) {
+    .outtercontent1{
+      flex-direction: column;
+    }
+
+    .with_logo{
+      flex-direction: row;
+    }
+
+    .logo{
+      width:30vw;
+      height: 25vw;
+    }
+
+    .box5{
+      width: 30vw;
+    }
+  }
+
+  @media screen and (max-width: 1150px) {
+    .margin{
+      flex-direction: column;
+    }
+
+    .with_logo{
+      flex-direction: column;
+    }
+
+    .logo{
+      width:30vw;
+      height: 25vw;
+    }
+
+    .box5{
+      width: 30vw;
+    }
+  }
+
+  @media screen and (max-width: 1000px) {
+    .styleguide{
+      display: flex;
+      align-items: center;
+      flex-direction: column;
+    }
+
+    .box5{
+      width: 70vw;
+    }
+
+    .box4{
+      margin-top: 0;
+    }
+
+    .logo{
+      width: 70vw;
+      height: 58vw;
+    }
+
+    .box1text{
+      font-size: 14px;
+    }
+
+    .margin{
+      display: flex;
+      align-items: center;
+    }
+
+    .with_logo{
+      display: flex;
+      align-items: center;
+    }
+  }
+
+  @media screen and (max-width: 700px) {
+    .fixlayout {
+      display: flex;
+      justify-content: center;
+      flex-direction: column;
+      align-items: center;
+  }
+  }
+
+  @media screen and (max-width: 450px) {
+    .box3 {
+      display: flex;
+      justify-content: center;
+      flex-direction: column;
+      align-items: center;
+  }
   }
