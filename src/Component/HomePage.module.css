@@ -44,6 +44,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    cursor: pointer;
 }
 .leftArrow, .rightArrow{
     border: solid black;
@@ -52,6 +53,7 @@
     padding: 0.25vw;
     transform: rotate(135deg);
     -webkit-transform: rotate(135deg);
+    cursor: pointer;
 }
 .rightArrow{
     transform: rotate(-45deg);

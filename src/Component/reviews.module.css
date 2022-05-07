@@ -24,7 +24,9 @@
   margin-left: 1rem;
   border-width: 3px;
 }
-
+.star{
+  cursor: pointer;
+}
 .postButton {
   border: none;
   background: #3498DB;
@@ -68,7 +70,7 @@
     margin-right: 17px;
     margin-bottom: 20px;
     align-self: center;
-
+    cursor: pointer;
     order: 2;
   }
 
