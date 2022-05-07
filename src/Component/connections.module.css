@@ -152,7 +152,7 @@
   align-self: center;
   width: 15px;
   height: 15px;
-
+  cursor: pointer;
   box-sizing: border-box;
 }
   
@@ -167,6 +167,7 @@
   flex-direction: row;
   display: flex;
   align-self: center;
+  
 }
 
 .div {
