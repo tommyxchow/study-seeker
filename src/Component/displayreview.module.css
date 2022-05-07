@@ -59,6 +59,7 @@
 .deleteIcon{
   width:40px;
   height:40px;
+  cursor: pointer;
 }
 
 .alignDelete{
@@ -71,6 +72,7 @@
     flex-direction: row;
     display: flex;
     align-self: left;
+    
   }
   
   .star1{
@@ -79,6 +81,7 @@
     height: 30px;
     margin-right:10px;
     box-sizing: border-box;
+    
   }
   
   .star2{
@@ -87,6 +90,7 @@
     height: 30px;
     margin-right:10px;
     box-sizing: border-box;
+
   }
   
   .star3{
@@ -116,6 +120,7 @@
   .uparrow{
     width: 30px;
     height: 20px;
+    cursor: pointer;
   }
   
   .reviewtextalign{
