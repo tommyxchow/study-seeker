@@ -1,6 +1,6 @@
 # [Study Seeker](https://webdev.cse.buffalo.edu/hci/teams/commitment)
 
-A web app dedicated to helping students find the best match for a potential study partner.
+A responsive web app dedicated to helping students find the best match for a potential study partner.
 
 ## Pitch
 
@@ -14,11 +14,11 @@ Our target user for StudySeeker are college students taking any course from any 
 
 Study Seeker was a semester-long group project completed as part of [CSE 370](https://catalog.buffalo.edu/courses/index.php?abbr=CSE&num=370) at the [University at Buffalo (UB)](https://www.buffalo.edu/). During CSE 370 we covered an applied a variety of topics regarding frontend development including responsive design, typography, style guides, usability testing, A/B testing, globalization and localization, design patterns, and much more.
 
-One of the main requirements for the project was to only use pure React and pure CSS for the frontend. Additionally, the backend and continuous deployment is already provided for us. As a result, the tech stack is React, CSS Modules, and Swagger API for the backend.
+One of the main requirements for the project was to only use pure React and pure CSS for the frontend. Additionally, the backend and continuous deployment was already provided for us. As a result, the tech stack is React, CSS Modules, and Swagger API for the backend.
 
-We also completed the project using common Agile and Scrum practices including writing and verifying user acceptance tests and tasks, organization them on Kanban boards, and bi-weekly standup meetings.
+We also completed the project using common Agile and Scrum practices including writing and verifying user acceptance tests and tasks, organizing them on Kanban boards, and bi-weekly standup meetings.
 
-Despite having one team member drop in the middle of the semester, as an Agile team of 5 we were able to successfully complete the project and achieve the good ol' A. Not all features are implemented and we definitely could've improved in many areas of React and styling, but given the circumstances and timeframe I'm proud of what we achieved.
+Despite having one team member drop in the middle of the semester, we were able to successfully complete the project and achieve the good ol' A. Not all planned features were implemented and we definitely could've improved in many areas of React and styling, but given the circumstances and timeframe I'm proud of what we achieved.
 
 ## Links
 
@@ -30,6 +30,7 @@ Despite having one team member drop in the middle of the semester, as an Agile t
 
 ![webdev cse buffalo edu_hci_teams_commitment(Desktop HD) (2)](https://user-images.githubusercontent.com/54859075/178924144-a9b40c71-5b25-4b8d-aab9-26f58aaf396b.png)
 ![webdev cse buffalo edu_hci_teams_commitment(Desktop HD)](https://user-images.githubusercontent.com/54859075/178924182-05874867-d9d0-4155-a6ef-5dc6dafec7b1.png)
+![webdev cse buffalo edu_hci_teams_commitment(Desktop HD) (3)](https://user-images.githubusercontent.com/54859075/178935727-c38d5fed-c471-45eb-a318-8bdd81fc86f6.png)
 ![webdev cse buffalo edu_hci_teams_commitment_(Desktop HD) (1)](https://user-images.githubusercontent.com/54859075/178924200-09b79e74-ebcd-4118-8395-f4cdc67e1476.png)
 ![webdev cse buffalo edu_hci_teams_commitment_(Desktop HD) (2)](https://user-images.githubusercontent.com/54859075/178924208-1f0b0c50-3897-4725-9dc1-a1ebd9b1d6f5.png)
 ![webdev cse buffalo edu_hci_teams_commitment_class_1(Desktop HD)](https://user-images.githubusercontent.com/54859075/178924228-c3dc2cd7-cf48-4c81-91f1-c56053b09fb2.png)
